@@ -14,7 +14,9 @@ abstract class BaseActivity<T : ViewDataBinding, R : BaseViewModel> : AppCompatA
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // 초기화된 layoutResId로 databinding 객체 생성
         viewDataBinding = DataBindingUtil.setContentView(this, layoutResID)
+        // live data를 사용하기 위해 해줘야함
         viewDataBinding.lifecycleOwner = this@BaseActivity
     }
 }
