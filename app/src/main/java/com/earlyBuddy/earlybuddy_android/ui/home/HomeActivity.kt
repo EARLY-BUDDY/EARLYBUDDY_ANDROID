@@ -10,6 +10,15 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-
+        var random =( Math.random()*2).toInt()
+        if(random ==1) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.act_home_fl_home_fragment, BeforeDayFragment())
+                .commit()
+        }else{
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.act_home_fl_home_fragment, NoPlanFragment())
+                .commit()
+        }
     }
 }
