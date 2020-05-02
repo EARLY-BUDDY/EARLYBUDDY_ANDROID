@@ -9,7 +9,6 @@ import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityMainBinding
-import com.earlyBuddy.earlybuddy_android.databinding.ItemMainBinding
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceSearch
 
 class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
@@ -24,7 +23,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         super.onCreate(savedInstanceState)
 
         viewDataBinding.vm = viewModel
-        setRv()
     }
 
     val onClickListener
@@ -35,29 +33,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         }
 
 
-    }
-
-    fun setRv() {
-        viewDataBinding.actMainRv.apply {
-            adapter =
-                object : BaseRecyclerViewAdapter<PlaceSearch, ItemMainBinding>() {
-                    override val layoutResID: Int
-                        get() = R.layout.item_main
-                    override val bindingVariableId: Int
-                        get() = BR.placeRes
-                    override val listener: OnItemClickListener?
-                        get() = onClickListener
-
-                }
-            layoutManager = LinearLayoutManager(this@MainActivity)
-        }
-
-        viewModel.placeList.observe(this, Observer {
-            (viewDataBinding.actMainRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemMainBinding>)
-                .replaceAll(it)
-            (viewDataBinding.actMainRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemMainBinding>)
-                .notifyDataSetChanged()
-        })
     }
 
 }
