@@ -1,4 +1,5 @@
-package com.example.android_study_favorite.datasource.remote.retrofit
+package com.earlyBuddy.earlybuddy_android.data.datasource.remote.retrofit
+
 
 import com.earlyBuddy.earlybuddy_android.CookiesIntercepter
 import okhttp3.OkHttpClient

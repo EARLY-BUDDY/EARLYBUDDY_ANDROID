@@ -1,4 +1,4 @@
-package com.example.android_study_favorite.datasource.remote
+package com.earlyBuddy.earlybuddy_android.data.datasource.remote
 
 import io.reactivex.Observable
 
