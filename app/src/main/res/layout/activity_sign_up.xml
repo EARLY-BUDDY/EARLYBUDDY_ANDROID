@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.signUp.SignUpActivity">
+
+        <TextView
+            android:id="@+id/act_sign_up_tv_guide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="26dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="56dp"
+            android:layout_marginStart="41dp"
+            android:text="회원가입 후 \n얼리버디와 함께해요!"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/act_sign_up_cl_id_ment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/act_sign_up_tv_guide"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="51dp"
+            android:layout_marginRight="46dp">
+
+            <TextView
+                android:id="@+id/act_sign_up_tv_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="@color/gray"
+                android:lineSpacingExtra="-2sp"
+                android:text="아이디"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/act_sign_up_tv_id_warning"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:textColor="#ff6e6e"
+                android:gravity="end"
+                android:text="중복된 아이디입니다."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <EditText
+            android:id="@+id/act_sign_up_et_id"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:textSize="14dp"
+            android:background="@drawable/selector_sign_up_round_rect"
+            app:layout_constraintTop_toBottomOf="@id/act_sign_up_cl_id_ment"
+            android:hint="아이디를 입력해주세요"
+            android:paddingLeft="19dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/act_sign_up_cl_pw_ment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/act_sign_up_et_id"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="51dp"
+            android:layout_marginRight="46dp">
+
+            <TextView
+                android:id="@+id/act_sign_up_tv_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="@color/gray"
+                android:lineSpacingExtra="-2sp"
+                android:text="비밀번호"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/act_sign_up_tv_pw_warning"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:textColor="#ff6e6e"
+                android:gravity="end"
+                android:text="유효하지 않은 비밀번호입니다."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <EditText
+            android:id="@+id/act_sign_up_et_pw"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:textSize="14dp"
+            android:background="@drawable/selector_sign_up_round_rect"
+            app:layout_constraintTop_toBottomOf="@id/act_sign_up_cl_pw_ment"
+            android:hint="영어+숫자 6자 이상 입력해주세요."
+            android:paddingLeft="19dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/act_sign_up_cl_pw_check_ment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/act_sign_up_et_pw"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="51dp"
+            android:layout_marginRight="46dp">
+
+            <TextView
+                android:id="@+id/act_sign_up_tv_pw_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/gray"
+                android:lineSpacingExtra="-2sp"
+                android:text="비밀번호 확인"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/act_sign_up_tv_pw_check_warning"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#ff6e6e"
+                android:gravity="end"
+                android:text="비밀번호가 다릅니다."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <EditText
+            android:id="@+id/act_sign_up_et_pw_check"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:textSize="14dp"
+            android:background="@drawable/selector_sign_up_round_rect"
+            app:layout_constraintTop_toBottomOf="@id/act_sign_up_cl_pw_check_ment"
+            android:hint="비밀번호를 한번 더 입력해주세요."
+            android:paddingLeft="19dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/act_sign_up_tv_regist"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="가입하기"
+            android:onClick="@{()-> signUpActivity.postUserData()}"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:textColor="#ffffff"
+            android:background="@drawable/round_rect_grey_full"
+            app:layout_constraintTop_toBottomOf="@id/act_sign_up_et_pw_check"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="63dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

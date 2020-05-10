@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.signUp.SignInActivity">
+
+        <LinearLayout
+            android:id="@+id/act_sign_in_ll_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="326dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/gray"
+                android:layout_marginLeft="19dp"
+                android:lineSpacingExtra="-2sp"
+                android:text="아이디" />
+
+            <EditText
+                android:id="@+id/act_sign_in_et_id"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp"
+                android:hint="아이디를 입력해주세요."
+                android:paddingLeft="18dp"
+                android:background="@drawable/act_sign_up_round_rect_grey" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/gray"
+                android:layout_marginTop="13dp"
+                android:layout_marginLeft="19dp"
+                android:lineSpacingExtra="-2sp"
+                android:text="비밀번호" />
+
+            <EditText
+                android:id="@+id/act_sign_in_et_pw"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp"
+                android:inputType="textPassword"
+                android:hint="비밀번호를 입력해주세요."
+                android:paddingLeft="18dp"
+                android:background="@drawable/act_sign_up_round_rect_grey" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_login_activated"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="3dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray"
+                    android:letterSpacing="-0.03"
+                    android:lineSpacingExtra="21sp"
+                    android:text="자동 로그인"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginLeft="2dp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
