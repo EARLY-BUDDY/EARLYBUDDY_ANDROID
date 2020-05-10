@@ -57,7 +57,7 @@
             android:id="@+id/act_place_search_cl_search"
             android:layout_width="match_parent"
             android:layout_height="73dp"
-            android:background="@drawable/round_rect_blue_full_left_side"
+            android:background="@drawable/bg_25_3092ff_left_under"
             app:layout_constraintTop_toBottomOf="@id/act_pace_search_cl_title"
             app:layout_constraintStart_toStartOf="@id/act_pace_search_cl_title"
             app:layout_constraintEnd_toEndOf="@id/act_pace_search_cl_title">
@@ -65,7 +65,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/round_rect_white_full"
+                android:background="@drawable/bg_25_ffffff"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="17dp"
