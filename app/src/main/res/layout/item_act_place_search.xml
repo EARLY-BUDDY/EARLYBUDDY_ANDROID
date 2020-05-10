@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="placeRes"
+            type="com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceSearch" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_act_place_search_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/item_act_place_search_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:textColor="#000000"
+            android:text="@{placeRes.placeName}"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="18dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/item_act_place_search_tv_roadName_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:background="@drawable/round_rect_grey"
+            android:textColor="#707070"
+            android:lineSpacingExtra="15sp"
+            android:text="도로명"
+            android:layout_marginTop="7dp"
+            android:paddingLeft="11dp"
+            android:paddingRight="11dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            app:layout_constraintTop_toBottomOf="@id/item_act_place_search_tv_name"
+            app:layout_constraintStart_toStartOf="@id/item_act_place_search_tv_name" />
+
+        <TextView
+            android:id="@+id/item_act_place_search_tv_roadName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="@{placeRes.roadAddressName}"
+            android:layout_marginLeft="6dp"
+            app:layout_constraintStart_toEndOf="@id/item_act_place_search_tv_roadName_text"
+            app:layout_constraintTop_toTopOf="@id/item_act_place_search_tv_roadName_text"
+            app:layout_constraintBottom_toBottomOf="@id/item_act_place_search_tv_roadName_text" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="#707070"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintTop_toBottomOf="@id/item_act_place_search_tv_roadName_text"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
