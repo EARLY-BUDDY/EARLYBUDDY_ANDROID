@@ -13,7 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.home.HomeActivity"/>
+        <activity android:name=".ui.signUp.SignInActivity"></activity>
+        <activity android:name=".ui.signUp.SignUpActivity" />
+        <activity android:name=".ui.home.HomeActivity" />
         <activity android:name=".ui.placeSearch.PlaceSeachActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
