@@ -68,6 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:textSize="14dp"
+            android:maxLines="1"
             android:background="@drawable/selector_sign_up_round_rect"
             app:layout_constraintTop_toBottomOf="@id/act_sign_up_cl_id_ment"
             android:hint="아이디를 입력해주세요"
@@ -121,6 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:textSize="14dp"
+            android:maxLines="1"
             android:background="@drawable/selector_sign_up_round_rect"
             app:layout_constraintTop_toBottomOf="@id/act_sign_up_cl_pw_ment"
             android:hint="영어+숫자 6자 이상 입력해주세요."
@@ -174,6 +176,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:textSize="14dp"
+            android:maxLines="1"
             android:background="@drawable/selector_sign_up_round_rect"
             app:layout_constraintTop_toBottomOf="@id/act_sign_up_cl_pw_check_ment"
             android:hint="비밀번호를 한번 더 입력해주세요."
@@ -197,6 +200,15 @@
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
             android:layout_marginTop="63dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/img_signupbackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -25,6 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.signUp.SignUpActivity" />
+        <activity android:name=".ui.schedule.write.ScheduleActivity"></activity>
+        <activity android:name=".ui.home.HomeActivity"/>
+        <activity android:name=".ui.placeSearch.PlaceSearchActivity">
+        </activity>
     </application>
 
 </manifest>
