@@ -13,8 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <activity android:name=".ui.schedule.write.ScheduleActivity"></activity>
+
         <activity android:name=".ui.home.HomeActivity"/>
-        <activity android:name=".ui.placeSearch.PlaceSeachActivity">
+        <activity android:name=".ui.placeSearch.PlaceSearchActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
