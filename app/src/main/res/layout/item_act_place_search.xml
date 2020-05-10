@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="10sp"
-            android:background="@drawable/bolder_25_c3c3c3"
+            android:background="@drawable/border_25_c3c3c3"
             android:textColor="#707070"
             android:lineSpacingExtra="15sp"
             android:text="도로명"
