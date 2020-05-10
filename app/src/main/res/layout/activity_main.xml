@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <Button
+        android:layout_marginTop="100dp"
+        android:id="@+id/act_main_btn_calendar"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="캘린더" />
+
+    <Button
+        android:id="@+id/act_main_btn_home"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="홈" />
+
+    <Button
+        android:id="@+id/act_main_btn_schedule_write"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="일정 등록" />
+
+    <Button
+        android:id="@+id/act_main_btn_placeSearch"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="장소 검색" />
+
+</LinearLayout>
