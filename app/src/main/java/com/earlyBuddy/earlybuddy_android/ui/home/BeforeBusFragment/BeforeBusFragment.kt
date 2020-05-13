@@ -3,6 +3,7 @@ package com.earlyBuddy.earlybuddy_android.ui.home.BeforeBusFragment
 import android.os.Bundle
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseFragment
+import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentHomeBeforeBusBinding
 
 class BeforeBusFragment : BaseFragment<FragmentHomeBeforeBusBinding, BeforeBusViewModel>() {
@@ -11,9 +12,13 @@ class BeforeBusFragment : BaseFragment<FragmentHomeBeforeBusBinding, BeforeBusVi
     override val viewModel: BeforeBusViewModel
         get() = BeforeBusViewModel()
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewDataBinding.fragHomeBeforeBusClContainer.setBackgroundResource(R.drawable.img_bg_threebus)
+    val homeResponse: HomeResponse =
+        this.arguments!!.getSerializable("homeResponse") as HomeResponse
+
+        viewDataBinding.homeResponse = homeResponse
     }
 }
