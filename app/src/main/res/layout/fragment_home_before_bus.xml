@@ -86,7 +86,7 @@
                 android:layout_width="39dp"
                 android:layout_height="17dp"
                 android:layout_marginBottom="16.5dp"
-                android:background="@drawable/round_rect_blue_full"
+                android:background="@drawable/bg_25_3092ff"
                 app:layout_constraintBottom_toTopOf="@id/frag_home_before_bus__view_center"
                 app:layout_constraintStart_toStartOf="@id/frag_home_before_bus__view_center">
 

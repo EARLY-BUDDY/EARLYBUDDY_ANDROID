@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.earlyBuddy.earlybuddy_android">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,8 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.placeSearch.PlaceSeachActivity"/>
-        <activity android:name=".ui.home.HomeActivity">
+        <activity android:name=".ui.signUp.SignInActivity"></activity>
+        <activity android:name=".ui.signUp.SignUpActivity" />
+        <activity android:name=".ui.schedule.write.ScheduleWriteActivity"></activity>
+        <activity android:name=".ui.home.HomeActivity"/>
+        <activity android:name=".ui.placeSearch.PlaceSearchActivity"/>
+        <activity android:name=".ui.calendar.CalendarActivity"/>
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
