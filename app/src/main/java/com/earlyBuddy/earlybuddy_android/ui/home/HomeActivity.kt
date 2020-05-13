@@ -23,7 +23,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
 
         val homeResponse: HomeResponse =
             HomeResponse(
-                success = true,
+                status = 200,
                 message = "홈 화면에 보여줄 일정이 없습니다",
                 data = HomeSchedule(
                     ready = true,
