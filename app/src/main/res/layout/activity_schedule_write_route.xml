@@ -108,7 +108,7 @@
                     android:id="@+id/act_schedule_route_iv_method_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/img_line_five"/>
+                    android:background="@drawable/img_five_line"/>
                 <TextView
                     android:id="@+id/act_schedule_route_tv_method_1"
                     android:layout_width="wrap_content"
@@ -141,7 +141,7 @@
                     android:id="@+id/act_schedule_route_iv_method_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/img_line_everline"/>
+                    android:background="@drawable/img_everline_line"/>
                 <TextView
                     android:id="@+id/act_schedule_route_tv_method_2"
                     android:layout_width="wrap_content"
@@ -174,7 +174,7 @@
                     android:id="@+id/act_schedule_route_iv_method_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/img_line_bundang"/>
+                    android:background="@drawable/img_bundang_line"/>
                 <TextView
                     android:id="@+id/act_schedule_route_tv_method_3"
                     android:layout_width="wrap_content"
