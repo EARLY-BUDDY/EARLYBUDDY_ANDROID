@@ -30,19 +30,19 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
 
         act_sign_in_et_id.setOnFocusChangeListener { view, isFocused ->
             if(isFocused){
-                act_sign_in_et_id.setBackgroundResource(R.drawable.bolder_25_3092ff)
+                act_sign_in_et_id.setBackgroundResource(R.drawable.border_25_3092ff)
                 confirmSignIn()
             }else if(!isFocused && act_sign_in_et_id.text.isEmpty()) {
-                act_sign_in_et_id.setBackgroundResource(R.drawable.bolder_25_c3c3c3)
+                act_sign_in_et_id.setBackgroundResource(R.drawable.border_25_c3c3c3)
                 confirmSignIn()
             }
         }
         act_sign_in_et_pw.setOnFocusChangeListener{ view, isFocused ->
             if(isFocused){
-                act_sign_in_et_pw.setBackgroundResource(R.drawable.bolder_25_3092ff)
+                act_sign_in_et_pw.setBackgroundResource(R.drawable.border_25_3092ff)
                 confirmSignIn()
             }else if(!isFocused && act_sign_in_et_pw.text.isEmpty()){
-                act_sign_in_et_pw.setBackgroundResource(R.drawable.bolder_25_c3c3c3)
+                act_sign_in_et_pw.setBackgroundResource(R.drawable.border_25_c3c3c3)
                 confirmSignIn()
             }
         }
