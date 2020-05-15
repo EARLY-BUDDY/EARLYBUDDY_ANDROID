@@ -1,4 +1,4 @@
-package com.earlyBuddy.earlybuddy_android.ui.home.BeforeDayFragment
+package com.earlyBuddy.earlybuddy_android.ui.home.beforeDay
 
 import android.os.Bundle
 import com.earlyBuddy.earlybuddy_android.R
