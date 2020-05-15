@@ -6,6 +6,10 @@
     <variable
         name="homeResponse"
         type="com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse" />
+
+        <variable
+            name="vm"
+            type="com.earlyBuddy.earlybuddy_android.ui.home.beforeBus.BeforeBusViewModel" />
     </data>
 
     <FrameLayout
@@ -74,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="38dp"
-                android:text="@{homeResponse.data.firstTrans.detailIdx}"
+                android:text="@{String.valueOf(vm.homeResponse.data.firstTrans.detailIdx)}"
                 android:textColor="@color/black"
                 android:textSize="85dp"
                 android:layout_marginBottom="7.5dp"
@@ -111,7 +115,7 @@
                 android:layout_marginStart="5dp"
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="6dp"
-                android:text="@{homeResponse.data.firstTrans.detailStartAddress}"
+                android:text="@{vm.homeResponse.data.firstTrans.detailStartAddress}"
                 android:textColor="@color/gray"
                 android:textSize="12dp"
                 app:layout_constraintBottom_toBottomOf="@id/frag_home_before_bus__cl_number"
@@ -171,7 +175,7 @@
                 android:layout_marginTop="16.4dp"
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="8dp"
-                android:text="@{homeResponse.data.scheduleSummaryData.scheduleName}"
+                android:text="@{vm.homeResponse.data.scheduleSummaryData.scheduleName}"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="@id/frag_home_before_bus__view_center"
@@ -215,7 +219,7 @@
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.03"
                 android:lineSpacingExtra="6dp"
-                android:text="@{homeResponse.data.scheduleSummaryData.endAddress}"
+                android:text="@{vm.homeResponse.data.scheduleSummaryData.endAddress}"
                 android:textColor="@color/black"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="@id/frag_home_before_bus__iv_location"
