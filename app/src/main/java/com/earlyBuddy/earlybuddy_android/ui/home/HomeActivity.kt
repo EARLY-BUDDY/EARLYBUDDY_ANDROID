@@ -8,7 +8,9 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeSchedule
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.ScheduleSummaryData
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityHomeBinding
-import com.earlyBuddy.earlybuddy_android.ui.home.BeforeBusFragment.BeforeBusFragment
+import com.earlyBuddy.earlybuddy_android.ui.home.beforeBus.BeforeBusFragment
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
 
@@ -76,3 +78,12 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
 //        }
     }
 }
+
+fun main() {
+
+        val date = Date()
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        print(format.format(date))
+    }
+
+
