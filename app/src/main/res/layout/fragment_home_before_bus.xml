@@ -3,9 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-    <variable
-        name="homeResponse"
-        type="com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse" />
 
         <variable
             name="vm"
@@ -54,7 +51,7 @@
                 android:layout_marginBottom="9dp"
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="11dp"
-                android:text="다음 일정까지"
+                android:text="버스 도착까지"
                 android:textColor="@color/black"
                 android:textSize="23dp"
                 app:layout_constraintBottom_toTopOf="@+id/frag_home_before_bus__cl_number"
@@ -66,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="11dp"
-                android:text="일전"
+                android:text="분 전"
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 app:layout_constraintBottom_toBottomOf="@id/frag_home_before_bus_tv_next"
@@ -197,7 +194,7 @@
                 android:layout_marginStart="5.5dp"
                 android:letterSpacing="-0.03"
                 android:lineSpacingExtra="6dp"
-                android:text="오후 12:20"
+                android:text="@{vm.startTime}"
                 android:textColor="@color/black"
                 android:textSize="14dp"
                 app:layout_constraintBottom_toBottomOf="@id/frag_home_before_bus__iv_time"
