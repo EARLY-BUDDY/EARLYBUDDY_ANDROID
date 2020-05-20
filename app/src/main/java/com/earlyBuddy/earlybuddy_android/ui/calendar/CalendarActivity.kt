@@ -18,5 +18,11 @@ class CalendarActivity : BaseActivity<ActivityCalendarBinding, CalendarVIewModel
         viewDataBinding.vm = viewModel
 
 
+        setCalendarRv()
+
+    }
+
+    private fun setCalendarRv(){
+
     }
 }
