@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.signUp.SignInActivity"></activity>
         <activity android:name=".ui.signUp.SignUpActivity" />
-        <activity android:name=".ui.schedule.write.ScheduleActivity"></activity>
+        <activity android:name=".ui.schedule.write.ScheduleWriteActivity"></activity>
         <activity android:name=".ui.home.HomeActivity"/>
         <activity android:name=".ui.placeSearch.PlaceSearchActivity"/>
         <activity android:name=".ui.calendar.CalendarActivity"/>

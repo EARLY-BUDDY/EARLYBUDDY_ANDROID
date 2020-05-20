@@ -13,8 +13,18 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="@drawable/img_bg_none"
             android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/frag_home_no_iv_none"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/img_bg_none"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
 
             <ImageView
                 android:id="@+id/frag_home_no_iv_text"

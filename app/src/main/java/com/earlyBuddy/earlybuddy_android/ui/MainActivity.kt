@@ -7,7 +7,7 @@ import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.ui.calendar.CalendarActivity
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.PlaceSearchActivity
-import com.earlyBuddy.earlybuddy_android.ui.schedule.write.ScheduleActivity
+import com.earlyBuddy.earlybuddy_android.ui.schedule.write.ScheduleWriteActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(){
         }
 
         act_main_btn_schedule_write.setOnClickListener {
-            val intent = Intent(this, ScheduleActivity::class.java)
+            val intent = Intent(this, ScheduleWriteActivity::class.java)
             startActivity(intent)
         }
 
