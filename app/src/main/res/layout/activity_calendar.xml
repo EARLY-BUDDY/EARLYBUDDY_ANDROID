@@ -4,7 +4,7 @@
     <data>
         <variable
             name="vm"
-            type="com.earlyBuddy.earlybuddy_android.ui.calendar.CalendarVIewModel" />
+            type="com.earlyBuddy.earlybuddy_android.ui.calendar.CalendarViewModel" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
