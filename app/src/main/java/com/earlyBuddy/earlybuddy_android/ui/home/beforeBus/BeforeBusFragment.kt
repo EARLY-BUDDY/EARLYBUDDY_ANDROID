@@ -1,7 +1,6 @@
 package com.earlyBuddy.earlybuddy_android.ui.home.beforeBus
 
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseFragment
@@ -21,6 +20,19 @@ class BeforeBusFragment : BaseFragment<FragmentHomeBeforeBusBinding, BeforeBusVi
 
         viewDataBinding.vm = viewModel
 
+        addObservedData()
     }
 
+    fun addObservedData() {
+        viewModel.lastCount.observe(this, Observer {
+            when (it) {
+                1 -> {
+                    viewDataBinding.fragHomeBeforeBusIvBack.setImageResource(R.drawable.img_late_bg)
+                }
+                2 -> {
+                    viewDataBinding.fragHomeBeforeBusIvBack.setImageResource(R.drawable.img_twobus)
+                }
+            }
+        })
+    }
 }
