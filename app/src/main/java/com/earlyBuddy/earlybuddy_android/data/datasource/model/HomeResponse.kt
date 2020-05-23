@@ -9,6 +9,7 @@ data class HomeResponse (
 ) : Serializable
 
 data class HomeSchedule(
+    val scheduleCheck:Int,
     val ready :Boolean,
     val lastTransCount:Int,
     val arriveTime:String,
