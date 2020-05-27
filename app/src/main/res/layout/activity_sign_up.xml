@@ -5,6 +5,14 @@
 
     <data>
 
+        <variable
+            name="act"
+            type="com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpActivity" />
+
+        <variable
+            name="vm"
+            type="com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

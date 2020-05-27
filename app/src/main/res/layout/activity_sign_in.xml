@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="act"
+            type="com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity" />
+
+        <variable
             name="vm"
             type="com.earlyBuddy.earlybuddy_android.ui.signUp.SignInViewModel" />
 
