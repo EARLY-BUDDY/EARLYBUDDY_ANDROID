@@ -5,6 +5,14 @@
 
     <data>
 
+        <variable
+            name="act"
+            type="com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpActivity" />
+
+        <variable
+            name="vm"
+            type="com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -69,6 +77,7 @@
             android:layout_height="45dp"
             android:textSize="14dp"
             android:maxLines="1"
+            android:inputType="text"
             android:background="@drawable/selector_sign_up_round_rect"
             app:layout_constraintTop_toBottomOf="@id/act_sign_up_cl_id_ment"
             android:hint="아이디를 입력해주세요"

@@ -8,6 +8,8 @@ import com.earlyBuddy.earlybuddy_android.ui.calendar.CalendarActivity
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.PlaceSearchActivity
 import com.earlyBuddy.earlybuddy_android.ui.schedule.write.ScheduleWriteActivity
+import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
+import com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
@@ -37,6 +39,15 @@ class MainActivity : AppCompatActivity(){
             startActivity(intent)
         }
 
+        act_main_btn_signIn.setOnClickListener {
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+        }
+
+        act_main_btn_signUp.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }
