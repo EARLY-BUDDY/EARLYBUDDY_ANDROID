@@ -41,6 +41,7 @@ class SignInViewModel(private val repository: SignInRepository) : BaseViewModel(
 
                 // onFailure
                 Log.e("통신 실패 error : ", it.message!!)
+                _signInCheck.postValue(false)
             })
     }
 }

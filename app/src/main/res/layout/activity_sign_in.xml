@@ -54,8 +54,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="8dp"
-                android:maxLines="1"
+                android:maxLength="20"
                 android:textSize="14sp"
+                android:maxLines="1"
+                android:inputType="text"
                 android:hint="아이디를 입력해주세요."
                 android:paddingLeft="18dp"
                 android:background="@drawable/selector_sign_up_round_rect" />
@@ -67,7 +69,6 @@
                 android:textColor="@color/gray"
                 android:layout_marginTop="13dp"
                 android:layout_marginLeft="19dp"
-                android:lineSpacingExtra="-2sp"
                 android:text="비밀번호" />
 
             <EditText
@@ -90,6 +91,7 @@
                     android:id="@+id/act_sign_in_iv_auto_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:src="@drawable/selector_sign_up_auto_login"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="3dp" />

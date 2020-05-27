@@ -13,8 +13,8 @@ class SignUpViewModel(private val repository : SignUpRepository) : BaseViewModel
     private var _netWork = MutableLiveData<Unit>()
     val netWork : LiveData<Unit> get() = _netWork
 
-    private var _idCheck = MutableLiveData<Boolean>()
-    val idCheck : LiveData<Boolean> get() = _idCheck
+    private var _signUpCheck = MutableLiveData<Boolean>()
+    val signUpCheck : LiveData<Boolean> get() = _signUpCheck
 
     fun postSignUp(body:JsonObject){
         addDisposable(disposable = repository.signUp(body)
@@ -30,15 +30,19 @@ class SignUpViewModel(private val repository : SignUpRepository) : BaseViewModel
 
                 // onResponse
                 Log.e("postUserData 응답 성공 : ", it.message)
-                _idCheck.postValue(true)
+                if(it.status==200)
+                    _signUpCheck.postValue(true)
+//                else if(it.status==400)
+//                    _signUpCheck.postValue(false)
             }){
                 // 에러 블록
                 // 네트워크 오류나 데이터 처리 오류 등
                 // 작업이 정상적으로 완료되지 않았을 때 호출
 
                 // onFailure
-                Log.e("통신 실패 error : ", it.message!!)
-                _netWork.value = Unit
+//                Log.e("통신 실패 error : ", it.message!!)
+//                _netWork.value = Unit
+                _signUpCheck.postValue(false)
             })
     }
 }
