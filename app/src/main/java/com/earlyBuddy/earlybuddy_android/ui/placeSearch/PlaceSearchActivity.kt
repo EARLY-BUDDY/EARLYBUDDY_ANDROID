@@ -21,7 +21,6 @@ class PlaceSearchActivity : BaseActivity<ActivityPlaceSearchOneSearchBarBinding,
 
     var repository = PlaceSearchRepository()
 
-
     override val layoutResID: Int
         get() = R.layout.activity_place_search_one_search_bar
     override val viewModel: PlaceSearchViewModel = PlaceSearchViewModel(repository = PlaceSearchRepository())
@@ -48,19 +47,6 @@ class PlaceSearchActivity : BaseActivity<ActivityPlaceSearchOneSearchBarBinding,
     }
 
     fun setRv() {
-//        viewDataBinding.actPlaceSearchRv.apply {
-//            adapter =
-//                object : BaseRecyclerViewAdapter<PlaceSearch, ItemRecentPlaceBinding>() {
-//                    override val layoutResID: Int
-//                        get() = R.layout.item_act_place_search
-//                    override val bindingVariableId: Int
-//                        get() = BR.placeRes
-//                    override val listener: OnItemClickListener?
-//                        get() = onClickListener
-//
-//                }
-//            layoutManager = LinearLayoutManager(this@PlaceSearchActivity)
-//        }
         viewDataBinding.actPlaceSearchRv.apply {
             adapter =
                 object : BaseRecyclerViewAdapter<PlaceSearch, ItemRecentPlaceBinding>() {
