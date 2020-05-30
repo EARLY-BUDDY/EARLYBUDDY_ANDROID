@@ -13,19 +13,17 @@ import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceSearch
 import com.earlyBuddy.earlybuddy_android.data.repository.PlaceSearchRepository
-import com.earlyBuddy.earlybuddy_android.databinding.ActivityPlaceSearchBinding
-import com.earlyBuddy.earlybuddy_android.databinding.ItemActPlaceSearchBinding
-import com.earlyBuddy.earlybuddy_android.util.SchedulerProvider
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_place_search.*
+import com.earlyBuddy.earlybuddy_android.databinding.ActivityPlaceSearchOneSearchBarBinding
+import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPlaceBinding
+import kotlinx.android.synthetic.main.activity_place_search_one_search_bar.*
 
-class PlaceSearchActivity : BaseActivity<ActivityPlaceSearchBinding, PlaceSearchViewModel>() {
+class PlaceSearchActivity : BaseActivity<ActivityPlaceSearchOneSearchBarBinding, PlaceSearchViewModel>() {
 
     var repository = PlaceSearchRepository()
 
+
     override val layoutResID: Int
-        get() = R.layout.activity_place_search
+        get() = R.layout.activity_place_search_one_search_bar
     override val viewModel: PlaceSearchViewModel = PlaceSearchViewModel(repository = PlaceSearchRepository())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,11 +48,24 @@ class PlaceSearchActivity : BaseActivity<ActivityPlaceSearchBinding, PlaceSearch
     }
 
     fun setRv() {
+//        viewDataBinding.actPlaceSearchRv.apply {
+//            adapter =
+//                object : BaseRecyclerViewAdapter<PlaceSearch, ItemRecentPlaceBinding>() {
+//                    override val layoutResID: Int
+//                        get() = R.layout.item_act_place_search
+//                    override val bindingVariableId: Int
+//                        get() = BR.placeRes
+//                    override val listener: OnItemClickListener?
+//                        get() = onClickListener
+//
+//                }
+//            layoutManager = LinearLayoutManager(this@PlaceSearchActivity)
+//        }
         viewDataBinding.actPlaceSearchRv.apply {
             adapter =
-                object : BaseRecyclerViewAdapter<PlaceSearch, ItemActPlaceSearchBinding>() {
+                object : BaseRecyclerViewAdapter<PlaceSearch, ItemRecentPlaceBinding>() {
                     override val layoutResID: Int
-                        get() = R.layout.item_act_place_search
+                        get() = R.layout.item_recent_place
                     override val bindingVariableId: Int
                         get() = BR.placeRes
                     override val listener: OnItemClickListener?
@@ -64,13 +75,11 @@ class PlaceSearchActivity : BaseActivity<ActivityPlaceSearchBinding, PlaceSearch
             layoutManager = LinearLayoutManager(this@PlaceSearchActivity)
         }
 
-        Log.e("setRv 실행", "실행햇다")
-
         viewModel.placeList.observe(this, Observer {
             Log.e("observe 실행", "실행햇다")
-            (viewDataBinding.actPlaceSearchRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemActPlaceSearchBinding>)
+            (viewDataBinding.actPlaceSearchRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemRecentPlaceBinding>)
                 .replaceAll(it)
-            (viewDataBinding.actPlaceSearchRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemActPlaceSearchBinding>)
+            (viewDataBinding.actPlaceSearchRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemRecentPlaceBinding>)
                 .notifyDataSetChanged()
         })
     }

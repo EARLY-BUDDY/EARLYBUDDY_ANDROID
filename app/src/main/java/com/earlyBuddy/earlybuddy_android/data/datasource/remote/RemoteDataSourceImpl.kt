@@ -10,9 +10,10 @@ import io.reactivex.Observable
 
 class RemoteDataSourceImpl : RemoteDataSource {
     val api = NetworkServiceImpl.SERVICE
+    val api2 = NetworkServiceImpl.SERVICE2
 
     override fun searchPlace(query: String): Observable<PlaceResponse> =
-        api.getPlaceData(query)
+        api2.getPlaceData(query)
             .map {
                 it }
 
