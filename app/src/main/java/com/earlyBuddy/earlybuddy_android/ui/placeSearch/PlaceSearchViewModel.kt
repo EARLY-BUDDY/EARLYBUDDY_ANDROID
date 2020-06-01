@@ -3,11 +3,17 @@ package com.earlyBuddy.earlybuddy_android.ui.placeSearch
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
+import com.earlyBuddy.earlybuddy_android.data.datasource.local.database.RecentPlaceDB
+import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceSearch
 import com.earlyBuddy.earlybuddy_android.data.repository.PlaceSearchRepository
 import com.earlyBuddy.earlybuddy_android.util.SchedulerProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PlaceSearchViewModel (
     private val repository: PlaceSearchRepository
@@ -17,6 +23,12 @@ class PlaceSearchViewModel (
     private var _placeList = MutableLiveData<List<PlaceSearch>>()
     val placeList : LiveData<List<PlaceSearch>> get() = _placeList
 
+//    private val context = EarlyBuddyApplication.getGlobalApplicationContext()
+//    val recentPlaceDao = RecentPlaceDB.getDatabase(context, viewModelScope).recentPlaceDao()
+//
+//    fun insert(recentPlace : RecentPlaceEntity) = viewModelScope.launch(Dispatchers.IO) {
+//        repository.insert(recentPlace)
+//    }
 
     fun getPlaceSearchData(query: String){
         addDisposable(repository.searchPlace(query)
