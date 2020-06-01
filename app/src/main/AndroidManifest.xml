@@ -8,7 +8,7 @@
     <application
         android:name=".EarlyBuddyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_app"
         android:label="얼리버디"
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@drawable/ic_app"

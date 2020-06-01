@@ -42,11 +42,9 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
             ).commit()
         recentPlaceFragment.arguments = bundle
 
-
         viewDataBinding.vm = viewModel
-//        setRv()
-        getPlaceData()
-//        textWatch()
+//        setFrag()
+        textWatch()
 //        insertDB()
         act_start_place_search_iv_cancel.setOnClickListener {
             val query = act_start_place_search_et_search.text.toString()
@@ -66,40 +64,29 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
         })
     }
 
-    val onClickListener
-            = object : BaseRecyclerViewAdapter.OnItemClickListener {
-        override fun onItemClicked(item: Any?, position: Int?) {
-            val name = (item as PlaceSearch).placeName
-            Toast.makeText(this@StartPlaceSearchActivity, "$name 에 가시나요?", Toast.LENGTH_SHORT).show()
+    fun setFrag(){
+        if(act_start_place_search_et_search.text.isEmpty()){
+            val recentPlaceFragment = RecentPlaceFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.act_start_place_search_container,
+                    recentPlaceFragment
+                ).commit()
+            recentPlaceFragment.arguments = bundle
+
+        } else if(act_start_place_search_et_search.text.isNotEmpty()){
+            val placeListFragment = PlaceListFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.act_start_place_search_container,
+                    placeListFragment
+                ).commit()
+            placeListFragment.arguments = bundle
         }
     }
 
-//    fun setRv() {
-//        viewDataBinding.actStartPlaceSearchRv.apply {
-//            adapter =
-//                object : BaseRecyclerViewAdapter<PlaceSearch, ItemRecentPlaceBinding>() {
-//                    override val layoutResID: Int
-//                        get() = R.layout.item_recent_place
-//                    override val bindingVariableId: Int
-//                        get() = BR.placeRes
-//                    override val listener: OnItemClickListener?
-//                        get() = onClickListener
-//
-//                }
-//            layoutManager = LinearLayoutManager(this@StartPlaceSearchActivity)
-//        }
-//
-//        viewModel.placeList.observe(this, Observer {
-//            Log.e("observe 실행", "실행햇다")
-//            (viewDataBinding.actStartPlaceSearchRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemRecentPlaceBinding>)
-//                .replaceAll(it)
-//            (viewDataBinding.actStartPlaceSearchRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemRecentPlaceBinding>)
-//                .notifyDataSetChanged()
-//        })
-//    }
-
     fun getPlaceData(){
-        Log.e("getPlaceData 실행", "실행햇다")
+//        Log.e("getPlaceData 실행", "실행햇다")
         val query = act_start_place_search_et_search.text.toString()
         viewModel.getPlaceSearchData(query)
     }
@@ -109,6 +96,7 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
             override fun afterTextChanged(p0: Editable?) { }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                setFrag()
                 getPlaceData()
             }
         })

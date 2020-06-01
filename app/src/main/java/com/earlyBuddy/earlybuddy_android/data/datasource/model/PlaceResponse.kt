@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class PlaceResponse(
     @SerializedName("status")
     val status: String,
-    @SerializedName("message")
+    @SerializedName("data")
     val data: List<PlaceSearch>
 )
 
