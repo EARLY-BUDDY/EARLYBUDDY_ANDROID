@@ -3,33 +3,20 @@ package com.earlyBuddy.earlybuddy_android.ui.placeSearch
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
-import com.earlyBuddy.earlybuddy_android.data.datasource.local.database.RecentPlaceDB
-import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceSearch
+import com.earlyBuddy.earlybuddy_android.data.repository.PlaceListRepository
 import com.earlyBuddy.earlybuddy_android.data.repository.PlaceSearchRepository
-import com.earlyBuddy.earlybuddy_android.util.SchedulerProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-class PlaceSearchViewModel ( private val repository: PlaceSearchRepository): BaseViewModel() {
+class PlaceListViewModel (private val repository: PlaceListRepository): BaseViewModel(){
 
     private var _placeList = MutableLiveData<List<PlaceSearch>>()
     val placeList : LiveData<List<PlaceSearch>> get() = _placeList
 
-//    private val context = EarlyBuddyApplication.getGlobalApplicationContext()
-//    val recentPlaceDao = RecentPlaceDB.getDatabase(context, viewModelScope).recentPlaceDao()
-//
-//    fun insert(recentPlace : RecentPlaceEntity) = viewModelScope.launch(Dispatchers.IO) {
-//        repository.insert(recentPlace)
-//    }
-
-//    init {
-//        getDummyPlaceList()
-//    }
+    init{
+        getDummyPlaceList()
+    }
     fun getPlaceSearchData(query: String){
         addDisposable(repository.searchPlace(query)
             .observeOn(AndroidSchedulers.mainThread())
@@ -43,9 +30,8 @@ class PlaceSearchViewModel ( private val repository: PlaceSearchRepository): Bas
                 // 작업 중 오류가 발생하면 이 블록은 호출되지 x
 
                 // onResponse
-//                Log.e("getPlaceRes 응답 성공 : ", it.data.toString())
+                Log.e("getPlaceRes 응답 성공 : ", it.data.toString())
                 _placeList.value = it.data
-                Log.e("getPlaceRes 응답 성공 : ", placeList.value.toString())
             }){
                 // 에러 블록
                 // 네트워크 오류나 데이터 처리 오류 등
@@ -73,6 +59,7 @@ class PlaceSearchViewModel ( private val repository: PlaceSearchRepository): Bas
                 "도로명이름3"
             )
         )
+
         _placeList.postValue(dummy)
     }
 }
