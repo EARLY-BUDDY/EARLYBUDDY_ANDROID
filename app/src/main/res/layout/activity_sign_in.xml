@@ -6,6 +6,10 @@
     <data>
 
         <variable
+            name="act"
+            type="com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity" />
+
+        <variable
             name="vm"
             type="com.earlyBuddy.earlybuddy_android.ui.signUp.SignInViewModel" />
 
@@ -39,7 +43,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 android:textColor="@color/gray"
                 android:layout_marginLeft="19dp"
                 android:lineSpacingExtra="-2sp"
@@ -50,8 +54,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="8dp"
+                android:maxLength="20"
+                android:textSize="14dp"
                 android:maxLines="1"
-                android:textSize="14sp"
+                android:inputType="text"
                 android:hint="아이디를 입력해주세요."
                 android:paddingLeft="18dp"
                 android:background="@drawable/selector_sign_up_round_rect" />
@@ -59,11 +65,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 android:textColor="@color/gray"
                 android:layout_marginTop="13dp"
                 android:layout_marginLeft="19dp"
-                android:lineSpacingExtra="-2sp"
                 android:text="비밀번호" />
 
             <EditText
@@ -71,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="8dp"
-                android:textSize="14sp"
+                android:textSize="14dp"
                 android:maxLines="1"
                 android:inputType="textPassword"
                 android:hint="비밀번호를 입력해주세요."
@@ -86,6 +91,7 @@
                     android:id="@+id/act_sign_in_iv_auto_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:src="@drawable/selector_sign_up_auto_login"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="3dp" />
@@ -93,7 +99,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:textSize="14dp"
                     android:textColor="@color/gray"
                     android:letterSpacing="-0.03"
                     android:lineSpacingExtra="21sp"
@@ -108,7 +114,7 @@
             android:id="@+id/act_sign_in_tv_login"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:textSize="15sp"
+            android:textSize="15dp"
             android:textColor="#ffffff"
             android:lineSpacingExtra="-3sp"
             android:gravity="center"
