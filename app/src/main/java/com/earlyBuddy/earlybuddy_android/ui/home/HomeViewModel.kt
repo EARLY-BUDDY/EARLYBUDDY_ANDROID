@@ -28,25 +28,25 @@ class HomeViewModel:BaseViewModel(){
                 status = 200,
                 message = "홈 화면에 보여줄 일정이 없습니다",
                 data = HomeSchedule(
-                    scheduleCheck = 3,
+                    scheduleCheck = 2,
                     ready = true,
                     scheduleSummaryData = ScheduleSummaryData(
                         scheduleIdx = 3,
                         scheduleName = "소풍가기",
-                        scheduleStartTime = "2020-05-23 19:20:00",
+                        scheduleStartTime = "2020-05-24 01:20:00",
                         endAddress = "서울 송파구 양재대로 1218"
                     ),
                     lastTransCount = 1,
-                    arriveTime = "2020-05-23 18:40:00",
+                    arriveTime = "2020-05-24 00:20:00",
                     firstTrans = FirstTrans(
                         detailIdx = 2,
                         trafficType = 1, // 1 -> 지하철 2 -> 버스
                         subwayLane = 2,
                         busNo = null,
                         busType = null,
-                        detailStartAddress = "화랑대화랑대화랑대화랑대화랑대"
+                        detailStartAddress = "홍대입구역"
                     ),
-                    nextTransArriveTime = "2020-05-23 19:50:00"
+                    nextTransArriveTime = "2020-05-24 00:50:00"
                 )
             )
 

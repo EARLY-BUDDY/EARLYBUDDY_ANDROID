@@ -17,6 +17,7 @@ class BeforeBusViewModel : BaseViewModel() {
     var lastTransCount: String = ""
     val lastsSentence = MutableLiveData<String>()
     var trafficNumber = ""
+    val lastCount = MutableLiveData<Int>()
 
     fun getData(tempHomeResponse: HomeResponse) {
 
@@ -24,6 +25,7 @@ class BeforeBusViewModel : BaseViewModel() {
 
 
         lastTransCount = tempHomeResponse.data!!.lastTransCount.toString()
+        lastCount.value = tempHomeResponse.data.lastTransCount
         if (lastTransCount == "2") {
             lastsSentence.value = "이제 나갈 준비를 해주세요!"
         } else {
