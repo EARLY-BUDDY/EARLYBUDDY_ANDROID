@@ -1,4 +1,4 @@
-package com.earlyBuddy.earlybuddy_android.ui.home.NoScheduleFragment
+package com.earlyBuddy.earlybuddy_android.ui.home.noSchedule
 
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 

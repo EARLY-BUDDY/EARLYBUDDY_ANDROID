@@ -3,12 +3,13 @@ package com.earlyBuddy.earlybuddy_android.data.datasource.model
 import java.io.Serializable
 
 data class HomeResponse (
-    val success : Boolean,
+    val status : Int,
     val message :String,
     val data : HomeSchedule?
 ) : Serializable
 
 data class HomeSchedule(
+    val scheduleCheck:Int,
     val ready :Boolean,
     val lastTransCount:Int,
     val arriveTime:String,
