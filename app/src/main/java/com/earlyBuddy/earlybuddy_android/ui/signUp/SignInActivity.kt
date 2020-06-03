@@ -19,14 +19,12 @@ import org.json.JSONObject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
-
     lateinit var id : String
     lateinit var pw : String
 
     override val layoutResID: Int
         get() = R.layout.activity_sign_in
     override val viewModel: SignInViewModel by viewModel()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,5 +112,4 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
                 Toast.makeText(this, "아이디 또는 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show()
         })
     }
-
 }
