@@ -16,15 +16,14 @@ import com.earlyBuddy.earlybuddy_android.data.repository.RecentPlaceRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RecentPlaceViewModel : BaseViewModel() {
+class RecentPlaceViewModel(private val repository: RecentPlaceRepository) : BaseViewModel() {
 
-    val repository: RecentPlaceRepository
+
     private var _recentPlaceList = MutableLiveData<LiveData<List<RecentPlaceEntity>>>()
     val recentPlaceList : LiveData<LiveData<List<RecentPlaceEntity>>> get() = _recentPlaceList
     private val context = EarlyBuddyApplication.getGlobalApplicationContext()
 
     init {
-        repository = RecentPlaceRepository()
         _recentPlaceList.value = repository.loadRecentPlace()
         Log.e("repository에서 recentPlace확인", repository.loadRecentPlace()?.value.toString())
     }

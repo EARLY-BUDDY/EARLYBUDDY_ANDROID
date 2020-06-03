@@ -10,14 +10,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
-import com.earlyBuddy.earlybuddy_android.data.repository.SignInRepository
+import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivitySignInBinding
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_sign_in.*
-import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.json.JSONObject
-import com.earlyBuddy.earlybuddy_android.base.BaseActivity as BaseActivity
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
 
@@ -26,7 +25,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
 
     override val layoutResID: Int
         get() = R.layout.activity_sign_in
-    override val viewModel: SignInViewModel = SignInViewModel(repository = SignInRepository())
+    override val viewModel: SignInViewModel by viewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
