@@ -27,7 +27,6 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
         get() = R.layout.activity_sign_in
     override val viewModel: SignInViewModel by viewModel()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
