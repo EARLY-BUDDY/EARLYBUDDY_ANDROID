@@ -8,15 +8,15 @@ import com.earlyBuddy.earlybuddy_android.data.repository.SignUpRepository
 import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class SignUpViewModel(private val repository : SignUpRepository) : BaseViewModel(){
+class SignUpViewModel(private val repository : SignUpRepository) : BaseViewModel() {
 
     private var _netWork = MutableLiveData<Unit>()
-    val netWork : LiveData<Unit> get() = _netWork
+    val netWork: LiveData<Unit> get() = _netWork
 
     private var _signUpCheck = MutableLiveData<Boolean>()
-    val signUpCheck : LiveData<Boolean> get() = _signUpCheck
+    val signUpCheck: LiveData<Boolean> get() = _signUpCheck
 
-    fun postSignUp(body:JsonObject){
+    fun postSignUp(body: JsonObject) {
         addDisposable(disposable = repository.signUp(body)
             .observeOn(AndroidSchedulers.mainThread())
             // 구독할 때 수행할 작업을 구현
@@ -30,11 +30,11 @@ class SignUpViewModel(private val repository : SignUpRepository) : BaseViewModel
 
                 // onResponse
                 Log.e("postUserData 응답 성공 : ", it.message)
-                if(it.status==200)
+                if (it.status == 200)
                     _signUpCheck.postValue(true)
 //                else if(it.status==400)
 //                    _signUpCheck.postValue(false)
-            }){
+            }) {
                 // 에러 블록
                 // 네트워크 오류나 데이터 처리 오류 등
                 // 작업이 정상적으로 완료되지 않았을 때 호출
