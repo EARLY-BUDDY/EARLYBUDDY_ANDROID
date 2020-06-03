@@ -7,17 +7,15 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
-import com.earlyBuddy.earlybuddy_android.data.repository.PlaceSearchRepository
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityEndPlaceSearchBinding
 import kotlinx.android.synthetic.main.activity_end_place_search.*
-import kotlinx.android.synthetic.main.activity_sign_up.*
-import kotlinx.android.synthetic.main.activity_start_place_search.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, PlaceSearchViewModel>() {
 
     override val layoutResID: Int
         get() = R.layout.activity_end_place_search
-    override val viewModel: PlaceSearchViewModel = PlaceSearchViewModel(repository = PlaceSearchRepository())
+    override val viewModel: PlaceSearchViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

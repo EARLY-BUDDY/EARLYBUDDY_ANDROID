@@ -19,10 +19,10 @@ class HomeViewModel:BaseViewModel(){
     val homeResponse = MutableLiveData<HomeResponse>()
 
     init {
-        getData()
+//        getData()
     }
 
-    private fun getData() {
+     fun getData() {
         val tempHomeResponse: HomeResponse =
             HomeResponse(
                 status = 200,

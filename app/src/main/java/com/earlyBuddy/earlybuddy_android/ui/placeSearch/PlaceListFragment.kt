@@ -23,12 +23,13 @@ import com.earlyBuddy.earlybuddy_android.databinding.FragmentPlaceListBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPlaceListBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPlaceBinding
 import kotlinx.android.synthetic.main.fragment_place_list.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchViewModel>() {
 
     override val layoutResID: Int
         get() = R.layout.fragment_place_list
-    override val viewModel: PlaceSearchViewModel = PlaceSearchViewModel(repository = PlaceSearchRepository())
+    override val viewModel: PlaceSearchViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -36,7 +37,7 @@ class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchView
         setRv()
 
         viewModel.placeList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            Log.e("검색 리스트 observe", "실행실행~~₩")
+            Log.e("ㅁㄴㅇㄴㅁㅇ검색 리스트 observe", "실행실행~~₩")
             fragtv.setText(it.get(0).placeName)
             (viewDataBinding.fragPlaceListRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>)
                 .replaceAll(it)
