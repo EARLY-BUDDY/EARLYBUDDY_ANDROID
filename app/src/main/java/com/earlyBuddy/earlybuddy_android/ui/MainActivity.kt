@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.ui.calendar.CalendarActivity
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
-import com.earlyBuddy.earlybuddy_android.ui.placeSearch.PlaceSearchActivity
-import com.earlyBuddy.earlybuddy_android.ui.schedule.write.ScheduleActivity
+import com.earlyBuddy.earlybuddy_android.ui.placeSearch.PathActivity
+import com.earlyBuddy.earlybuddy_android.ui.placeSearch.StartPlaceSearchActivity
+import com.earlyBuddy.earlybuddy_android.ui.schedule.write.ScheduleWriteActivity
+import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
+import com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(){
@@ -28,15 +31,24 @@ class MainActivity : AppCompatActivity(){
         }
 
         act_main_btn_schedule_write.setOnClickListener {
-            val intent = Intent(this, ScheduleActivity::class.java)
+            val intent = Intent(this, ScheduleWriteActivity::class.java)
             startActivity(intent)
         }
 
         act_main_btn_placeSearch.setOnClickListener {
-            val intent = Intent(this, PlaceSearchActivity::class.java)
+            val intent = Intent(this, PathActivity::class.java)
             startActivity(intent)
         }
 
+        act_main_btn_signIn.setOnClickListener {
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+        }
+
+        act_main_btn_signUp.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 }

@@ -17,12 +17,16 @@ class CalendarActivity : BaseActivity<ActivityCalendarBinding, CalendarVIewModel
 
         viewDataBinding.vm = viewModel
 
-
+        setButton()
         setCalendarRv()
-
     }
 
     private fun setCalendarRv(){
+    }
 
+    private fun setButton(){
+        viewDataBinding.actCalendarIvBack.setOnClickListener {
+            finish()
+        }
     }
 }

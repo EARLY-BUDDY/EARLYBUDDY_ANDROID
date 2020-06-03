@@ -6,22 +6,26 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".EarlyBuddyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/ic_app"
+        android:label="얼리버디"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.signUp.SignInActivity"></activity>
+        <activity android:name=".ui.placeSearch.PathActivity"></activity>
+        <activity android:name=".ui.placeSearch.EndPlaceSearchActivity" />
+        <activity android:name=".ui.signUp.SignInActivity" />
         <activity android:name=".ui.signUp.SignUpActivity" />
-        <activity android:name=".ui.schedule.write.ScheduleActivity"></activity>
-        <activity android:name=".ui.home.HomeActivity"/>
-        <activity android:name=".ui.placeSearch.PlaceSearchActivity"/>
-        <activity android:name=".ui.calendar.CalendarActivity"/>
+        <activity android:name=".ui.schedule.write.ScheduleWriteActivity" />
+        <activity android:name=".ui.home.HomeActivity" />
+        <activity android:name=".ui.placeSearch.StartPlaceSearchActivity" />
+        <activity android:name=".ui.calendar.CalendarActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
