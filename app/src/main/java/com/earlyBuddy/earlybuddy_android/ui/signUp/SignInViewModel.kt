@@ -3,13 +3,15 @@ package com.earlyBuddy.earlybuddy_android.ui.signUp
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.repository.SignInRepository
 import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class SignInViewModel(private val repository: SignInRepository) : BaseViewModel(){
+class SignInViewModel(application: EarlyBuddyApplication) : BaseViewModel(application){
 
+    val repository = SignInRepository()
     private var _signInCheck = MutableLiveData<Boolean>()
     val signInCheck : LiveData<Boolean> get() = _signInCheck
 

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPathBinding
@@ -16,7 +17,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
     override val layoutResID: Int
         get() = R.layout.activity_path
-    override val viewModel: PathViewModel = PathViewModel()
+    override val viewModel: PathViewModel = PathViewModel(application = EarlyBuddyApplication.globalApplication)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

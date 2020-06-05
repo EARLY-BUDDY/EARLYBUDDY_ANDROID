@@ -9,6 +9,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.data.repository.SignInRepository
 import com.earlyBuddy.earlybuddy_android.databinding.ActivitySignInBinding
@@ -26,7 +27,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
 
     override val layoutResID: Int
         get() = R.layout.activity_sign_in
-    override val viewModel: SignInViewModel = SignInViewModel(repository = SignInRepository())
+    override val viewModel: SignInViewModel = SignInViewModel(application = EarlyBuddyApplication.globalApplication)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

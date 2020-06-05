@@ -2,6 +2,7 @@ package com.earlyBuddy.earlybuddy_android.ui.home
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.FirstTrans
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
@@ -11,7 +12,7 @@ import com.earlyBuddy.earlybuddy_android.ui.home.beforeBus.BeforeBusFragment
 import com.earlyBuddy.earlybuddy_android.ui.home.beforeDay.BeforeDayFragment
 import com.earlyBuddy.earlybuddy_android.ui.home.noSchedule.NoScheduleFragment
 
-class HomeViewModel:BaseViewModel(){
+class HomeViewModel(application: EarlyBuddyApplication): BaseViewModel(application){
 
     val goBeforBusFragment = MutableLiveData<Fragment>()
     val goBeforeDayFragment = MutableLiveData<Fragment>()

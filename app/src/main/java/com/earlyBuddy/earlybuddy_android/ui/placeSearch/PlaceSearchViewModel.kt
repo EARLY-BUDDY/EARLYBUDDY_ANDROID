@@ -1,21 +1,16 @@
 package com.earlyBuddy.earlybuddy_android.ui.placeSearch
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
-import com.earlyBuddy.earlybuddy_android.data.datasource.local.database.RecentPlaceDB
-import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceSearch
 import com.earlyBuddy.earlybuddy_android.data.repository.PlaceSearchRepository
-import com.earlyBuddy.earlybuddy_android.util.SchedulerProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-class PlaceSearchViewModel ( private val repository: PlaceSearchRepository): BaseViewModel() {
+class PlaceSearchViewModel : BaseViewModel(EarlyBuddyApplication.getGlobalApplicationContext()) {
+
+    private val repository = PlaceSearchRepository()
 
     private var _placeList = MutableLiveData<List<PlaceSearch>>()
     val placeList : LiveData<List<PlaceSearch>> get() = _placeList
@@ -27,9 +22,6 @@ class PlaceSearchViewModel ( private val repository: PlaceSearchRepository): Bas
 //        repository.insert(recentPlace)
 //    }
 
-//    init {
-//        getDummyPlaceList()
-//    }
     fun getPlaceSearchData(query: String){
         addDisposable(repository.searchPlace(query)
             .observeOn(AndroidSchedulers.mainThread())
@@ -43,7 +35,6 @@ class PlaceSearchViewModel ( private val repository: PlaceSearchRepository): Bas
                 // 작업 중 오류가 발생하면 이 블록은 호출되지 x
 
                 // onResponse
-//                Log.e("getPlaceRes 응답 성공 : ", it.data.toString())
                 _placeList.value = it.data
                 Log.e("getPlaceRes 응답 성공 : ", placeList.value.toString())
             }){
@@ -54,25 +45,5 @@ class PlaceSearchViewModel ( private val repository: PlaceSearchRepository): Bas
                 // onFailure
                 Log.e("통신 실패 error : ", it.message!!)
             })
-    }
-    fun getDummyPlaceList(){
-        val dummy = arrayListOf<PlaceSearch>(
-            PlaceSearch(
-                "장소이름1",
-                "주소이름1",
-                "도로명이름1"
-            ),
-            PlaceSearch(
-                "장소이름2",
-                "주소이름2",
-                "도로명이름2"
-            ),
-            PlaceSearch(
-                "장소이름3",
-                "주소이름3",
-                "도로명이름3"
-            )
-        )
-        _placeList.postValue(dummy)
     }
 }

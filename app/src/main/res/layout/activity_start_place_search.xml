@@ -78,8 +78,8 @@
                     android:layout_marginLeft="16dp"
                     android:background="@null"
                     android:hint="출발지를 입력하세요"
-                    android:maxLines="1"
                     android:inputType="text"
+                    android:maxLines="1"
                     android:textColor="@color/light_gray"
                     android:textSize="16dp" />
 
@@ -95,17 +95,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ScrollView
+        <FrameLayout
+            android:id="@+id/act_start_place_search_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/act_start_place_search_cl_search">
-
-            <FrameLayout
-                android:id="@+id/act_start_place_search_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </ScrollView>
+            app:layout_constraintTop_toBottomOf="@id/act_start_place_search_cl_search" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

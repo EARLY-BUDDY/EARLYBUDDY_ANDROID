@@ -1,13 +1,10 @@
 package com.earlyBuddy.earlybuddy_android.data.repository
 
-import android.app.Application
 import android.os.AsyncTask
 import android.util.Log
-import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseDao
-import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.dao.RecentPlaceDao
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.database.RecentPlaceDB
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity

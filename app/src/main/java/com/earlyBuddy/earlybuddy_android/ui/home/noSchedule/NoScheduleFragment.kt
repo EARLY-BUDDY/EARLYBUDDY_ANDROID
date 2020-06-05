@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseFragment
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentHomeNoScheduleBinding
@@ -25,6 +26,6 @@ class NoScheduleFragment : BaseFragment<FragmentHomeNoScheduleBinding, NoSchedul
     override val layoutResID: Int
         get() = R.layout.fragment_home_no_schedule
     override val viewModel: NoScheduleViewModel
-        get() = NoScheduleViewModel()
+        get() = NoScheduleViewModel(application = EarlyBuddyApplication.globalApplication)
 
 }
