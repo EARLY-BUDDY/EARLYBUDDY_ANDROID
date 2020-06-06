@@ -11,7 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/item_place_list_result_tv_place_name"
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textColor="@color/black"
-            android:text="스타벅스 코엑스몰점"
+            android:text="@{placeRes.placeName}"
             android:layout_marginTop="15dp"
             android:layout_marginStart="22dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +46,7 @@
             android:textColor="@color/mid_gray"
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="0sp"
-            android:text="서울특별시 강남구 봉은사로 524"
+            android:text="@{placeRes.addressName}"
             app:layout_constraintTop_toBottomOf="@id/item_place_list_result_tv_place_name"
             app:layout_constraintStart_toStartOf="@id/item_place_list_result_tv_place_name"/>
 
