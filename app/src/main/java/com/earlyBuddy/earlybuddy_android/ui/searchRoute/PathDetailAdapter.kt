@@ -7,10 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.devaon.early_buddy_android.R
-import com.devaon.early_buddy_android.data.route.Station
+import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.data.datasource.model.Station
 
-class RouteDetailAdapter(var routeDetail: ArrayList<Station>, val viewType: Int, val code: Int) :
+class PathDetailAdapter(var routeDetail: ArrayList<Station>, val viewType: Int, val code: Int) :
     RecyclerView.Adapter<RouteDetailViewHolder>() {
     override fun getItemCount(): Int {
         return routeDetail.size
@@ -28,13 +28,14 @@ class RouteDetailAdapter(var routeDetail: ArrayList<Station>, val viewType: Int,
                 //역 뒤에 붙이고 말고 결정
                 when (viewType) {
                     1 -> {
-                        holder.stopStation.text = String.format("%s역", routeDetail[position].stationName)
-                        when(code){
-                            1-> holder.stopPoint.setImageResource(R.drawable.img_path_point_one)
-                            2-> holder.stopPoint.setImageResource(R.drawable.img_path_point_two)
-                            3-> holder.stopPoint.setImageResource(R.drawable.img_path_point_three)
-                            4-> holder.stopPoint.setImageResource(R.drawable.img_path_point_four)
-                            5-> holder.stopPoint.setImageResource(R.drawable.img_path_point_five)
+                        holder.stopStation.text =
+                            String.format("%s역", routeDetail[position].stationName)
+                        when (code) {
+                            1 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_one)
+                            2 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_two)
+                            3 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_three)
+                            4 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_four)
+                            5 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_five)
                             6 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_six)
                             7 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_seven)
                             8 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_eight)
@@ -52,10 +53,10 @@ class RouteDetailAdapter(var routeDetail: ArrayList<Station>, val viewType: Int,
                     }
                     2 -> {
                         holder.stopStation.text = routeDetail[position].stationName
-                        when(code){
-                            1,2,11 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_ganline)
-                            10,12 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_jiline)
-                            4,14,15 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_gwangyuk)
+                        when (code) {
+                            1, 2, 11 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_gan_line)
+                            10, 12 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_ji_line)
+                            4, 14, 15 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_gwangyuk)
                             5 -> holder.stopPoint.setImageResource(R.drawable.img_path_point_airport)
                             else -> holder.stopPoint.setImageResource(R.drawable.img_path_point_others)
                         }
