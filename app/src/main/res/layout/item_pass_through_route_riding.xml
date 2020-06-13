@@ -8,6 +8,18 @@
         <variable
             name="subPath"
             type="com.earlyBuddy.earlybuddy_android.data.datasource.model.SubPath" />
+
+        <variable
+            name="tints"
+            type="String" />
+
+        <variable
+            name="transNumber"
+            type="String" />
+
+        <variable
+            name="transImg"
+            type="android.graphics.drawable.Drawable" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +29,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/item_pass_riding_cl_riding_number"
+            changeTextBack="@{tints}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="75dp"
@@ -32,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:lineSpacingExtra="30sp"
-                android:text="@{subPath.lane.name}"
+                android:text="@{transNumber}"
                 android:textColor="#ffffff"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -85,11 +98,13 @@
 
         <ImageView
             android:id="@+id/item_pass_riding_iv_riding_img"
+            imgTint="@{tints}"
+            android:background="@drawable/img_bus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginTop="25dp"
-            android:src="@drawable/img_bus"
+            app:changeImg="@{transImg}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_pass_riding_cl_riding_number" />
 
@@ -113,10 +128,11 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="53dp"
-            android:src="@drawable/img_transport_line"
-            app:layout_constraintBottom_toBottomOf="@+id/item_pass_riding_iv_bottom_center"
+            changeTint="@{tints}"
+            android:background="@drawable/img_transport_line"
+            app:layout_constraintBottom_toBottomOf="@+id/item_pass_riding_iv_bottom_circle"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/item_pass_riding_iv_top_center" />
+            app:layout_constraintTop_toTopOf="@+id/item_pass_riding_iv_top_circle" />
 
         <TextView
             android:id="@+id/item_pass_riding_tv_direction"
@@ -173,6 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/item_pass_through_riding_number_round"
+            changeTextBack="@{tints}"
             app:layout_constraintStart_toStartOf="@id/item_pass_riding_cl_riding_number"
             app:layout_constraintTop_toBottomOf="@id/item_pass_riding_rv_riding_info_detail">
 
@@ -220,6 +237,7 @@
             android:id="@+id/item_pass_riding_iv_top_circle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/item_pass_riding_iv_top_center"
             app:layout_constraintEnd_toEndOf="@+id/item_pass_riding_iv_riding_line"
             app:layout_constraintStart_toStartOf="@+id/item_pass_riding_iv_riding_line"
@@ -229,6 +247,7 @@
             android:id="@+id/item_pass_riding_iv_bottom_circle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/item_pass_riding_iv_bottom_center"
             app:layout_constraintEnd_toEndOf="@+id/item_pass_riding_iv_riding_line"
             app:layout_constraintStart_toStartOf="@+id/item_pass_riding_iv_riding_line"
@@ -252,6 +271,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/item_pass_riding_cl_quit"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/item_pass_riding_cl_drop_down_up" />
     </androidx.constraintlayout.widget.ConstraintLayout>

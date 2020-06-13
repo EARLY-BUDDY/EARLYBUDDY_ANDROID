@@ -22,7 +22,7 @@ class TestPathActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test_path)
         routeRecyclerView = findViewById(R.id.path_rv)
-        routeAdapter = PathAdapter("Asd", "ASd", object : RouteViewHolder.DropDownUpClickListener {
+        routeAdapter = PathAdapter("출발역 ", "도착지역", object : RouteViewHolder.DropDownUpClickListener {
             override fun dropDownUpClick(
                 position: Int,
                 dropImageView: ImageView,
@@ -49,10 +49,10 @@ class TestPathActivity : AppCompatActivity() {
 
         compositeDisposable.add(
             searchRouteRepository.getSearchRouteData(
-                127.0773398361135,
-                37.62492825094217,
-                127.028000275071,
-                37.4980854357918,
+                126.994150735779,
+                37.5613965840169,
+                127.077858590612,
+                37.6248693456496,
                 0
             ).observeOn(AndroidSchedulers.mainThread())
                 // 구독할 때 수행할 작업을 구현

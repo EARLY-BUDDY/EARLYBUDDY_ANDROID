@@ -1,19 +1,5 @@
 package com.earlyBuddy.earlybuddy_android.data.datasource.model
 
-data class RouteResponse(
-    val status: Int,
-    val message: String,
-    val data: Route
-)
-
-data class Route(
-    val subwayCount: Int,
-    val subwayBusCount: Int,
-    val path: ArrayList<Path>,
-    val leastTransitCount:Int,
-    val leastTotalWalkTime:Int
-)
-
 data class Path(
     val pathType: Int,
     val totalTime: Int,
@@ -28,23 +14,23 @@ data class SubPath(
     val trafficType: Int,
     val distance: Int,
     val sectionTime: Int,
-    val stationCount: Int,
-    val lane: Lane,
-    val startName: String,
-    val startX: Double,
-    val startY: Double,
-    val endName: String,
-    val endX: Double,
-    val endY: Double,
-    val way: String,
-    val wayCode: Int,
-    val door: String,
-    val startID: Int,
-    val endID: Int,
-    val startExitX: Double,
-    val startExitY: Double,
-    val passStopList: PassStopList,
-    val clicked: Boolean
+    val stationCount: Int?,
+    val lane: Lane?,
+    val startName: String?,
+    val startX: Double?,
+    val startY: Double?,
+    val endName: String?,
+    val endX: Double?,
+    val endY: Double?,
+    val way: String?,
+    val wayCode: Int?,
+    val door: String?,
+    val startID: Int?,
+    val endID: Int?,
+    val startExitX: Double?,
+    val startExitY: Double?,
+    val passStopList: PassStopList?,
+    var clicked: Boolean?
 )
 
 data class Lane(
@@ -64,3 +50,8 @@ data class Station(
     val x: Double,
     val y: Double
 )
+
+//val tempsubPath = arrayListOf<SubPath>(
+//    SubPath(trafficType = 3,distance = 39,sectionTime = 1,stationCount = 3,lane = Lane(name = "경의중앙선",type = 104,busID = 0),startName = "구리",startX = 127.143749,startY = 37.603405,endName = "상봉",endX = ),SubPath()
+//)
+//)

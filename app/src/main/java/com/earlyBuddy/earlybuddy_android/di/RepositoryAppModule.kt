@@ -11,4 +11,5 @@ val repositoryAppModule = module {
     single { RecentPlaceRepository(get()) }
     single { SignInRepository(get()) }
     single { SignUpRepository(get()) }
+    single { SearchRouteRepository(get()) }
 }
