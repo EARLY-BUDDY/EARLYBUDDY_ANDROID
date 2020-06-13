@@ -10,7 +10,7 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.remote.RemoteDataSource
 class PlaceSearchRepository {
     val remoteDataSource : RemoteDataSource = RemoteDataSourceImpl()
 
-    fun searchPlace(query : String) = remoteDataSource.searchPlace(query)
+    fun searchPlace(keyword : String, x:Double, y:Double) = remoteDataSource.searchPlace(keyword, x, y)
 
 //    val recentPlace: LiveData<List<RecentPlaceEntity>> = RecentPlaceDao().load
 

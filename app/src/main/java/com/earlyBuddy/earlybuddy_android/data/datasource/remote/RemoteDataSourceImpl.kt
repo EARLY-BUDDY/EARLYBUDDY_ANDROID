@@ -12,8 +12,8 @@ class RemoteDataSourceImpl : RemoteDataSource {
     val api = NetworkServiceImpl.SERVICE
     val api2 = NetworkServiceImpl.SERVICE2
 
-    override fun searchPlace(query: String): Observable<PlaceResponse> =
-        api2.getPlaceData(query)
+    override fun searchPlace(keyword: String, x:Double, y:Double): Observable<PlaceResponse> =
+        api2.getPlaceData(keyword, x, y)
             .map {
                 it }
 

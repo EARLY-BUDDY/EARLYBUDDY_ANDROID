@@ -1,0 +1,106 @@
+package com.earlyBuddy.earlybuddy_android.ui.placeSearch
+
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import androidx.annotation.UiThread
+import androidx.lifecycle.ViewModelProvider
+import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.base.BaseActivity
+import com.earlyBuddy.earlybuddy_android.databinding.ActivityMapBinding
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.*
+import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
+import kotlinx.android.synthetic.main.activity_map.*
+
+class MapActivity : BaseActivity<ActivityMapBinding, PlaceSearchViewModel>(), OnMapReadyCallback {
+
+    override val layoutResID: Int
+        get() = R.layout.activity_map
+    override lateinit var viewModel: PlaceSearchViewModel
+
+    var flag : Int? = null
+    var x : Double? = null
+    var y : Double? = null
+    var placeName : String? = null
+    var address : String? = null
+    var roadAddress : String? = null
+    var category : String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(PlaceSearchViewModel::class.java)
+
+        flag = intent.getIntExtra("flag", 0)
+        x = intent.getDoubleExtra("x", 0.0)
+        y = intent.getDoubleExtra("y", 0.0)
+        val fx = x
+        val fy = y
+        placeName = intent.getStringExtra("placeName")
+        address = intent.getStringExtra("address")
+        roadAddress = intent.getStringExtra("roadAddress")
+        category = intent.getStringExtra("category")
+
+        val fm = supportFragmentManager
+        val mapFragment = fm.findFragmentById(R.id.act_map_frag) as MapFragment?
+            ?: MapFragment.newInstance().also {
+                fm.beginTransaction().add(R.id.act_map_frag, it).commit()
+            }
+        mapFragment.getMapAsync(this)
+
+        setText()
+
+        act_map_iv_cancel.setOnClickListener{
+            finish()
+        }
+
+        act_map_ll_choice.setOnClickListener{
+            val intent = Intent()
+            intent.putExtra("placeName", placeName)
+            intent.putExtra("x", fx)
+            intent.putExtra("y", fy)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        }
+    }
+
+    @UiThread
+    override fun onMapReady(naverMap: NaverMap) {
+        val location = LatLng(y!!,x!!)
+        val marker = Marker()
+        marker.position = location
+        if(placeName==null){
+            marker.captionText =  address!!
+        } else {
+            marker.captionText = placeName!!
+        }
+        marker.icon = OverlayImage.fromResource(R.drawable.ic_marker)
+        marker.captionTextSize = 15f
+        marker.captionOffset = 20
+        marker.map = naverMap
+        val cameraUpdate = CameraUpdate.scrollTo(LatLng(y!!, x!!))
+        naverMap.moveCamera(cameraUpdate)
+    }
+
+    fun setText(){
+        if(placeName==null){
+            act_map_tv_search.text = address
+            act_map_tv_name.text = address
+        } else if (intent.hasExtra("placeName")) {
+            act_map_tv_search.text = placeName
+            act_map_tv_name.text = placeName
+        }
+
+        act_map_tv_address.text = roadAddress
+        act_map_tv_category.text = category
+
+        if(flag==1){
+            act_map_tv_flag.text = "출발"
+        }else if(flag==2){
+            act_map_tv_flag.text = "도착"
+        }
+    }
+}

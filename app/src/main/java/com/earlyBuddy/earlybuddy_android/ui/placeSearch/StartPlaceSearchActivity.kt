@@ -24,8 +24,8 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest : LocationRequest
     private lateinit var locationCallback : LocationCallback
-    var latitude = 0
-    var longitude = 0
+    var latitude = 0.0
+    var longitude = 0.0
 
     override val layoutResID: Int
         get() = R.layout.activity_start_place_search
@@ -43,13 +43,11 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
         setClick()
     }
 
-    // Start receiving location update when activity  visible/foreground
     override fun onResume() {
         super.onResume()
         startLocationUpdates()
     }
 
-    // Stop receiving location update when activity not visible/foreground
     override fun onPause() {
         super.onPause()
         stopLocationUpdates()
@@ -67,13 +65,15 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
                     placeListFragment
                 ).commit()
             bundle.putInt("flag", 1)
+            bundle.putDouble("longitude", longitude)
+            bundle.putDouble("latitude", latitude)
             placeListFragment.arguments = bundle
         }
     }
 
     fun getPlaceData(){
-        val query = act_start_place_search_et_search.text.toString()
-        viewModel.getPlaceSearchData(query)
+        val keyword = act_start_place_search_et_search.text.toString()
+        viewModel.getPlaceSearchData(keyword, longitude, latitude)
     }
 
     private fun textWatch(){
@@ -113,6 +113,8 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
                         R.id.act_start_place_search_container,
                         placeResultFragment
                     ).commit()
+                bundle.putInt("flag", 1)
+                placeResultFragment.arguments = bundle
                 return@OnKeyListener true
             }
             false
@@ -145,19 +147,17 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
                     val location = locationResult.lastLocation
                     Log.e("location@@@@", location.latitude.toString())
                     Log.e("longitude@@@", location.longitude.toString())
-                    latitude = location.latitude.toInt()
-                    longitude = location.longitude.toInt()
+                    latitude = location.latitude
+                    longitude = location.longitude
                 }
             }
         }
     }
 
-    // Start location updates
     private fun startLocationUpdates() {
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
     }
 
-    // Stop location updates
     private fun stopLocationUpdates() {
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }

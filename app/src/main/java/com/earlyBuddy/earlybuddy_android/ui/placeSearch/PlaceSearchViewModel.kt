@@ -22,8 +22,8 @@ class PlaceSearchViewModel : BaseViewModel(EarlyBuddyApplication.getGlobalApplic
 //        repository.insert(recentPlace)
 //    }
 
-    fun getPlaceSearchData(query: String){
-        addDisposable(repository.searchPlace(query)
+    fun getPlaceSearchData(keyword: String, x:Double, y:Double){
+        addDisposable(repository.searchPlace(keyword, x, y)
             .observeOn(AndroidSchedulers.mainThread())
             // 구독할 때 수행할 작업을 구현
             .doOnSubscribe {}

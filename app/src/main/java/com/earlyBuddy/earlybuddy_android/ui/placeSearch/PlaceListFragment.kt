@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,7 +22,6 @@ import com.earlyBuddy.earlybuddy_android.databinding.ItemPlaceListBinding
 import kotlinx.android.synthetic.main.activity_end_place_search.*
 import kotlinx.android.synthetic.main.activity_start_place_search.*
 
-
 class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchViewModel>() {
 
     override val layoutResID: Int
@@ -30,21 +30,18 @@ class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchView
 
     val placeResultFragment  = PlaceResultFragment()
     private var flag = 0
+    var latitude = 0.0
+    var longitude = 0.0
+    val bundle = Bundle(1)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(getViewModelStoreOwner(), ViewModelProvider.NewInstanceFactory()).get(PlaceSearchViewModel::class.java)
         flag = arguments!!.getInt("flag")
+        latitude = arguments!!.getDouble("latitude")
+        longitude = arguments!!.getDouble("longitude")
         setRv()
-
-//        viewModel.placeList.observe(viewLifecycleOwner, Observer {
-//            Log.e("검색 리스트 observe", "실행실행~~₩")
-//            (viewDataBinding.fragPlaceListRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>)
-//                .replaceAll(it)
-//            (viewDataBinding.fragPlaceListRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>)
-//                .notifyDataSetChanged()
-//        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -58,8 +55,8 @@ class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchView
         this
     }
 
+
     fun setRv(){
-        Log.e("검색 리스트 setRv", "실행실행~~₩")
         viewDataBinding.fragPlaceListRv.apply {
             adapter =
                 object : BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>() {
@@ -72,9 +69,7 @@ class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchView
                 }
             layoutManager = LinearLayoutManager(requireContext())
         }
-
         viewModel.placeList.observe(viewLifecycleOwner, Observer {
-            Log.e("검색 리스트 observe", "실행실행~~₩")
             (viewDataBinding.fragPlaceListRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>)
                 .replaceAll(it)
             (viewDataBinding.fragPlaceListRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>)
@@ -86,7 +81,11 @@ class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchView
             = object : BaseRecyclerViewAdapter.OnItemClickListener {
         override fun onItemClicked(item: Any?, position: Int?) {
             val placeName = (item as PlaceSearch).placeName
-            viewModel.getPlaceSearchData(placeName)
+            val address = (item as PlaceSearch).addressName
+            if(placeName==null){
+                viewModel.getPlaceSearchData(address, longitude, latitude)
+            }else
+                viewModel.getPlaceSearchData(placeName, longitude, latitude)
             val keyboard: InputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             keyboard.hideSoftInputFromWindow(requireView().windowToken, 0)
 
@@ -97,6 +96,8 @@ class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchView
                         R.id.act_start_place_search_container,
                         placeResultFragment
                     ).commit()
+                bundle.putInt("flag", 1)
+                placeResultFragment.arguments = bundle
             }
             else if(flag==2){
                 requireActivity().currentFocus?.clearFocus()
@@ -105,6 +106,8 @@ class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchView
                         R.id.act_end_place_search_container,
                         placeResultFragment
                     ).commit()
+                bundle.putInt("flag", 2)
+                placeResultFragment.arguments = bundle
             }
         }
     }

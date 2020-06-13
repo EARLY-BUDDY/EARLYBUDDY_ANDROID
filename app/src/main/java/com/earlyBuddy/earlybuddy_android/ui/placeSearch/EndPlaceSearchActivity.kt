@@ -24,8 +24,8 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest : LocationRequest
     private lateinit var locationCallback : LocationCallback
-    var latitude = 0
-    var longitude = 0
+    var latitude = 0.0
+    var longitude = 0.0
 
     override val layoutResID: Int
         get() = R.layout.activity_end_place_search
@@ -55,15 +55,14 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
 
     fun getPlaceData(){
         val query = act_end_place_search_et_search.text.toString()
-        viewModel.getPlaceSearchData(query)
+        viewModel.getPlaceSearchData(query, longitude, latitude)
     }
 
     fun setFrag(){
         val nowFrag = supportFragmentManager.findFragmentById(R.id.act_end_place_search_container)
         if(act_end_place_search_et_search.text.isEmpty() && nowFrag==placeListFragment){
             supportFragmentManager.beginTransaction()
-                .remove(placeListFragment)
-                .commit()
+                .remove(placeListFragment).commit()
         } else if(act_end_place_search_et_search.text.isNotEmpty() && nowFrag!=placeListFragment){
             supportFragmentManager.beginTransaction()
                 .replace(
@@ -71,6 +70,8 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
                     placeListFragment
                 ).commit()
             bundle.putInt("flag", 2)
+            bundle.putDouble("longitude", longitude)
+            bundle.putDouble("latitude", latitude)
             placeListFragment.arguments = bundle
         }
     }
@@ -112,6 +113,8 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
                         R.id.act_end_place_search_container,
                         placeResultFragment
                     ).commit()
+                bundle.putInt("flag", 2)
+                placeResultFragment.arguments = bundle
                 return@OnKeyListener true
             }
             false
@@ -130,10 +133,10 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
 
                 if (locationResult.locations.isNotEmpty()) {
                     val location = locationResult.lastLocation
-                    Log.e("location@@@@", location.latitude.toString())
-                    Log.e("longitude@@@", location.longitude.toString())
-                    latitude = location.latitude.toInt()
-                    longitude = location.longitude.toInt()
+//                    Log.e("location@@@@", location.latitude.toString())
+//                    Log.e("longitude@@@", location.longitude.toString())
+                    latitude = location.latitude
+                    longitude = location.longitude
                 }
             }
         }

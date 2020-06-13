@@ -21,7 +21,9 @@ interface NetworkService {
 
     @GET("/searchAddress")
     fun getPlaceData(
-        @Query("addr") addr: String
+        @Query("addr") addr: String,
+        @Query("x") x: Double,
+        @Query("y") y: Double
     ): Observable<PlaceResponse>
 
     @POST("/users/signup")

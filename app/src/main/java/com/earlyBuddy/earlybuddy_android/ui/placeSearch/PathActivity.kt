@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
 import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
@@ -24,6 +25,12 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
     private val REQUEST_CODE_START = 7777
     private val REQUEST_CODE_END = 8888
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var startPlaceName : String? = null
+    private var endPlaceName : String? = null
+    var sx : Double = 0.0
+    var sy : Double = 0.0
+    var ex : Double = 0.0
+    var ey : Double = 0.0
 
     override val layoutResID: Int
         get() = R.layout.activity_path
@@ -53,22 +60,27 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode == REQUEST_CODE_START){
-            if(resultCode == Activity.RESULT_OK){
-                val startPlaceName = data!!.getStringExtra("startPlaceName")
-                act_path_tv_start.setText(startPlaceName)
-            }
-        } else if(requestCode == REQUEST_CODE_END){
-            if(resultCode == Activity.RESULT_OK){
-                val endPlaceName = data!!.getStringExtra("endPlaceName")
-                act_path_tv_end.setText(endPlaceName)
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == REQUEST_CODE_START){
+                startPlaceName = data!!.getStringExtra("placeName")
+                sx = data.getDoubleExtra("x", 0.0)
+                sy = data.getDoubleExtra("y", 0.0)
+                act_path_tv_start.text = startPlaceName
+                act_path_tv_start.setTextColor(resources.getColor(R.color.black))
+            }else if (requestCode == REQUEST_CODE_END){
+                endPlaceName = data!!.getStringExtra("placeName")
+                ex = data.getDoubleExtra("x", 0.0)
+                ey = data.getDoubleExtra("y", 0.0)
+                act_path_tv_end.text = endPlaceName
+                act_path_tv_end.setTextColor(resources.getColor(R.color.black))
             }
         }
     }
 
     private fun showAlertLocation() {
         val dialog = AlertDialog.Builder(this)
-        dialog.setMessage("위치 서비스를 사용하기 위해서 설정을 확인해주세요")
+        dialog.setTitle("위치 서비스 사용")
+        dialog.setMessage("얼리버디에서 위치 서비스를 사용하려면 \n설정으로 이동해 위치 서비스를 켜주세요!")
         dialog.setPositiveButton("설정") { d, whichButton ->
             val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
             startActivity(intent)
