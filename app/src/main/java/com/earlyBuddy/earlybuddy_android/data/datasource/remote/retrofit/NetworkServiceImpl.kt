@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkServiceImpl {
     private const val BASE_URL = "http://15.164.70.24:3456/"
-    private const val BASE_URL_2 = "http://15.164.70.24:3458/"
+    private const val BASE_URL_2 = "http://13.209.182.154:3458/"
 
     private val okHttpClient: OkHttpClient =
         OkHttpClient.Builder().addInterceptor(CookiesIntercepter())
