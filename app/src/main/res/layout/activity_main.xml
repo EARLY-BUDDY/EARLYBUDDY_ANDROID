@@ -1,29 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
 
-    <data>
-        <variable
-            name="vm"
-            type="com.earlyBuddy.earlybuddy_android.ui.MainViewModel" />
+    <Button
+        android:layout_marginTop="100dp"
+        android:id="@+id/act_main_btn_calendar"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="캘린더" />
 
-    </data>
+    <Button
+        android:id="@+id/act_main_btn_home"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="홈" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.MainActivity">
+    <Button
+        android:id="@+id/act_main_btn_schedule_write"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="일정 등록" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/act_main_rv"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/act_main_btn_placeSearch"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="장소 검색" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    <Button
+        android:id="@+id/act_main_btn_signIn"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="로그인" />
+
+    <Button
+        android:id="@+id/act_main_btn_signUp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="회원가입" />
+
+</LinearLayout>

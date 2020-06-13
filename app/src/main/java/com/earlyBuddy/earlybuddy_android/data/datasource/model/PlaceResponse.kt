@@ -3,10 +3,10 @@ package com.earlyBuddy.earlybuddy_android.data.datasource.model
 import com.google.gson.annotations.SerializedName
 
 data class PlaceResponse(
-    @SerializedName("success")
-    val success: String,
-    @SerializedName("message")
-    val data: ArrayList<PlaceSearch>
+    @SerializedName("status")
+    val status: String,
+    @SerializedName("data")
+    val data: List<PlaceSearch>
 )
 
 data class PlaceSearch(
@@ -15,5 +15,9 @@ data class PlaceSearch(
     @SerializedName("addressName")
     val addressName: String,
     @SerializedName("roadAddressName")
-    val roadAddressName: String
+    val roadAddressName: String,
+    val category : String,
+    val distance : String,
+    val x : Double,
+    val y : Double
 )

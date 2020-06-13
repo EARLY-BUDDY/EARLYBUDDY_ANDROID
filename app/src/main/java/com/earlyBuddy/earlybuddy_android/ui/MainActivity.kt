@@ -1,63 +1,54 @@
 package com.earlyBuddy.earlybuddy_android.ui
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.earlyBuddy.earlybuddy_android.BR
+import androidx.appcompat.app.AppCompatActivity
 import com.earlyBuddy.earlybuddy_android.R
-import com.earlyBuddy.earlybuddy_android.base.BaseActivity
-import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
-import com.earlyBuddy.earlybuddy_android.databinding.ActivityMainBinding
-import com.earlyBuddy.earlybuddy_android.databinding.ItemMainBinding
-import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceSearch
+import com.earlyBuddy.earlybuddy_android.ui.calendar.CalendarActivity
+import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
+import com.earlyBuddy.earlybuddy_android.ui.placeSearch.PathActivity
+import com.earlyBuddy.earlybuddy_android.ui.placeSearch.StartPlaceSearchActivity
+import com.earlyBuddy.earlybuddy_android.ui.schedule.write.ScheduleWriteActivity
+import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
+import com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
-
-    // databinding객체(viewDataBinding)와 viewModel객체(viewModel) 생성
-    override val layoutResID: Int
-        get() = R.layout.activity_main
-    override val viewModel: MainViewModel
-        get() = MainViewModel()
+class MainActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewDataBinding.vm = viewModel
-        setRv()
-    }
+        setContentView(R.layout.activity_main)
 
-    val onClickListener
-            = object : BaseRecyclerViewAdapter.OnItemClickListener {
-        override fun onItemClicked(item: Any?, position: Int?) {
-            val name = (item as PlaceSearch).placeName
-            Toast.makeText(this@MainActivity, "$name 에 가시나요?", Toast.LENGTH_SHORT).show()
+        act_main_btn_calendar.setOnClickListener {
+            val intent = Intent(this, CalendarActivity::class.java)
+            startActivity(intent)
         }
 
-
-    }
-
-    fun setRv() {
-        viewDataBinding.actMainRv.apply {
-            adapter =
-                object : BaseRecyclerViewAdapter<PlaceSearch, ItemMainBinding>() {
-                    override val layoutResID: Int
-                        get() = R.layout.item_main
-                    override val bindingVariableId: Int
-                        get() = BR.placeRes
-                    override val listener: OnItemClickListener?
-                        get() = onClickListener
-
-                }
-            layoutManager = LinearLayoutManager(this@MainActivity)
+        act_main_btn_home.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
         }
 
-        viewModel.placeList.observe(this, Observer {
-            (viewDataBinding.actMainRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemMainBinding>)
-                .replaceAll(it)
-            (viewDataBinding.actMainRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemMainBinding>)
-                .notifyDataSetChanged()
-        })
-    }
+        act_main_btn_schedule_write.setOnClickListener {
+            val intent = Intent(this, ScheduleWriteActivity::class.java)
+            startActivity(intent)
+        }
 
+        act_main_btn_placeSearch.setOnClickListener {
+            val intent = Intent(this, PathActivity::class.java)
+            startActivity(intent)
+        }
+
+        act_main_btn_signIn.setOnClickListener {
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+        }
+
+        act_main_btn_signUp.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
 }
