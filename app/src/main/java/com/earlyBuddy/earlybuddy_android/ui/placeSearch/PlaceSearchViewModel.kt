@@ -8,9 +8,7 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceSearch
 import com.earlyBuddy.earlybuddy_android.data.repository.PlaceSearchRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class PlaceSearchViewModel : BaseViewModel(EarlyBuddyApplication.getGlobalApplicationContext()) {
-
-    private val repository = PlaceSearchRepository()
+class PlaceSearchViewModel(private val repository : PlaceSearchRepository) : BaseViewModel(EarlyBuddyApplication.getGlobalApplicationContext()) {
 
     private var _placeList = MutableLiveData<List<PlaceSearch>>()
     val placeList : LiveData<List<PlaceSearch>> get() = _placeList

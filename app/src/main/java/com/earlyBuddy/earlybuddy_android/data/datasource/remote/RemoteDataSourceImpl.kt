@@ -1,7 +1,7 @@
 package com.earlyBuddy.earlybuddy_android.data.datasource.remote
 
-import android.annotation.SuppressLint
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceResponse
+import com.earlyBuddy.earlybuddy_android.data.datasource.model.SearchRouteResponse
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.SignInResponse
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.SignUpResponse
 import com.earlyBuddy.earlybuddy_android.data.datasource.remote.retrofit.NetworkServiceImpl
@@ -26,5 +26,17 @@ class RemoteDataSourceImpl : RemoteDataSource {
         api.postSignInData(jsonObject)
             .map {
                 it }
+
+    override fun searchRoute(
+        SX: Double,
+        SY: Double,
+        EX: Double,
+        EY: Double,
+        SearchPathType: Int
+    ): Observable<SearchRouteResponse> =
+        api2.getSearchRouteData(SX, SY, EX, EY, SearchPathType)
+            .map {
+                it
+            }
 
 }

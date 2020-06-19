@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="vm"
             type="com.earlyBuddy.earlybuddy_android.ui.home.beforeBus.BeforeBusViewModel" />

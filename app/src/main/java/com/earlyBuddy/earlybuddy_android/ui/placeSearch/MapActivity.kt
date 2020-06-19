@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.UiThread
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
@@ -15,11 +16,7 @@ import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import kotlinx.android.synthetic.main.activity_map.*
 
-class MapActivity : BaseActivity<ActivityMapBinding, PlaceSearchViewModel>(), OnMapReadyCallback {
-
-    override val layoutResID: Int
-        get() = R.layout.activity_map
-    override lateinit var viewModel: PlaceSearchViewModel
+class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     var flag : Int? = null
     var x : Double? = null
@@ -31,8 +28,7 @@ class MapActivity : BaseActivity<ActivityMapBinding, PlaceSearchViewModel>(), On
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(PlaceSearchViewModel::class.java)
+        setContentView(R.layout.activity_map)
 
         flag = intent.getIntExtra("flag", 0)
         x = intent.getDoubleExtra("x", 0.0)

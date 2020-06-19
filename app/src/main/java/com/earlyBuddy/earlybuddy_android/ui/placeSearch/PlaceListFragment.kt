@@ -21,12 +21,16 @@ import com.earlyBuddy.earlybuddy_android.databinding.FragmentPlaceListBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPlaceListBinding
 import kotlinx.android.synthetic.main.activity_end_place_search.*
 import kotlinx.android.synthetic.main.activity_start_place_search.*
+import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPlaceBinding
+import kotlinx.android.synthetic.main.fragment_place_list.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchViewModel>() {
 
     override val layoutResID: Int
         get() = R.layout.fragment_place_list
-    override lateinit var viewModel: PlaceSearchViewModel
+    override val viewModel: PlaceSearchViewModel by sharedViewModel()
 
     val placeResultFragment  = PlaceResultFragment()
     private var flag = 0
@@ -37,13 +41,11 @@ class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(getViewModelStoreOwner(), ViewModelProvider.NewInstanceFactory()).get(PlaceSearchViewModel::class.java)
         flag = arguments!!.getInt("flag")
         latitude = arguments!!.getDouble("latitude")
         longitude = arguments!!.getDouble("longitude")
         setRv()
     }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 

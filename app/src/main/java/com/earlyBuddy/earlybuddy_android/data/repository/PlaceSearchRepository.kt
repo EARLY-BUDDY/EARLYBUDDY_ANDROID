@@ -1,14 +1,8 @@
 package com.earlyBuddy.earlybuddy_android.data.repository
 
-import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
-import com.earlyBuddy.earlybuddy_android.data.datasource.local.dao.RecentPlaceDao
-import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
 import com.earlyBuddy.earlybuddy_android.data.datasource.remote.RemoteDataSource
-import com.earlyBuddy.earlybuddy_android.data.datasource.remote.RemoteDataSourceImpl
 
-class PlaceSearchRepository {
-    val remoteDataSource : RemoteDataSource = RemoteDataSourceImpl()
+class PlaceSearchRepository(private val remoteDataSource: RemoteDataSource) {
 
     fun searchPlace(keyword : String, x:Double, y:Double) = remoteDataSource.searchPlace(keyword, x, y)
 

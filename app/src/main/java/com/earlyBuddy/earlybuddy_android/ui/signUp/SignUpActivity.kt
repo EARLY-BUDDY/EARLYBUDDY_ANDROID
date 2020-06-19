@@ -1,6 +1,5 @@
 package com.earlyBuddy.earlybuddy_android.ui.signUp
 
-import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -15,20 +14,22 @@ import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
-import com.earlyBuddy.earlybuddy_android.data.repository.SignUpRepository
 import com.earlyBuddy.earlybuddy_android.databinding.ActivitySignUpBinding
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.json.JSONObject
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.regex.Pattern
+
 
 class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
 
     override val layoutResID: Int
         get() = R.layout.activity_sign_up
-    override val viewModel: SignUpViewModel = SignUpViewModel(application = EarlyBuddyApplication.globalApplication)
+
+//    override val viewModel: SignUpViewModel = SignUpViewModel(application = EarlyBuddyApplication.globalApplication)
+    override val viewModel: SignUpViewModel by viewModel()
 
     val pwPattern: Pattern? = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}", Pattern.CASE_INSENSITIVE)
     var pwFlag: Boolean = false

@@ -11,13 +11,23 @@ class CalendarActivity : BaseActivity<ActivityCalendarBinding, CalendarVIewModel
     override val layoutResID: Int
         get() = R.layout.activity_calendar
 
-    override val viewModel = CalendarVIewModel(application = EarlyBuddyApplication.globalApplication)
+    override val viewModel = CalendarVIewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewDataBinding.vm = viewModel
 
+        setButton()
+        setCalendarRv()
+    }
 
+    private fun setCalendarRv(){
+    }
+
+    private fun setButton(){
+        viewDataBinding.actCalendarIvBack.setOnClickListener {
+            finish()
+        }
     }
 }

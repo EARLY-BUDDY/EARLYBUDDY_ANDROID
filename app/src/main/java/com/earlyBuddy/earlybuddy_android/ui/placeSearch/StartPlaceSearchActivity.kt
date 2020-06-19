@@ -15,6 +15,7 @@ import com.earlyBuddy.earlybuddy_android.databinding.ActivityStartPlaceSearchBin
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_end_place_search.*
 import kotlinx.android.synthetic.main.activity_start_place_search.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, PlaceSearchViewModel>() {
 
@@ -29,12 +30,13 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
 
     override val layoutResID: Int
         get() = R.layout.activity_start_place_search
-    override lateinit var viewModel: PlaceSearchViewModel
+//    override lateinit var viewModel: PlaceSearchViewModel
+    override val viewModel: PlaceSearchViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(PlaceSearchViewModel::class.java)
+//        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(PlaceSearchViewModel::class.java)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         viewDataBinding.vm = viewModel
 

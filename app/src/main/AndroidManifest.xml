@@ -16,12 +16,12 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.placeSearch.MapActivity"></activity>
 
+        <activity android:name=".ui.placeSearch.MapActivity"></activity>
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="gftow610wm" />
-
+        <activity android:name=".ui.searchRoute.TestPathActivity" />
         <activity android:name=".ui.placeSearch.PathActivity" />
         <activity android:name=".ui.placeSearch.EndPlaceSearchActivity" />
         <activity android:name=".ui.signUp.SignInActivity" />

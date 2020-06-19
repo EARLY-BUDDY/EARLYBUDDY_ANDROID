@@ -9,9 +9,9 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.local.dao.RecentPlaceDa
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.database.RecentPlaceDB
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
 
-class RecentPlaceRepository {
+class RecentPlaceRepository(private var recentPlaceDao: RecentPlaceDao) {
 
-    private val recentPlaceDao : RecentPlaceDao
+
     private val context = EarlyBuddyApplication.getGlobalApplicationContext()
 
     init {

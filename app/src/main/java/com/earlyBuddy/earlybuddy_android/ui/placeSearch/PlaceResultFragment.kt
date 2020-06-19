@@ -21,6 +21,8 @@ import com.earlyBuddy.earlybuddy_android.databinding.FragmentPlaceResultBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPlaceListBinding
 import com.earlyBuddy.earlybuddy_android.ui.MainActivity
 import kotlinx.android.synthetic.main.activity_path.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearchViewModel>() {
@@ -32,12 +34,13 @@ class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearch
 
     override val layoutResID: Int
         get() = R.layout.fragment_place_result
-    override lateinit var viewModel: PlaceSearchViewModel
+//    override lateinit var viewModel: PlaceSearchViewModel
+    override val viewModel: PlaceSearchViewModel by sharedViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(getViewModelStoreOwner(), ViewModelProvider.NewInstanceFactory()).get(PlaceSearchViewModel::class.java)
+//        viewModel = ViewModelProvider(getViewModelStoreOwner(), ViewModelProvider.NewInstanceFactory()).get(PlaceSearchViewModel::class.java)
         flag = arguments!!.getInt("flag")
 
         setRv()
