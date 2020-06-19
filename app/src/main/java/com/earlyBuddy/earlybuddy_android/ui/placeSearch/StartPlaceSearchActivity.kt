@@ -153,7 +153,8 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
     val onClickListener
             = object : BaseRecyclerViewAdapter.OnItemClickListener {
         override fun onItemClicked(item: Any?, position: Int?) {
-            getPlaceData()
+            val recentPlace = (item as RecentPlaceEntity).placeName
+            viewModel.getPlaceSearchData(recentPlace, longitude, latitude)
             supportFragmentManager.beginTransaction()
                 .replace(
                     R.id.act_start_place_search_container,
