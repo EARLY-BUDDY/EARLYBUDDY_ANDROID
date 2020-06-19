@@ -26,7 +26,7 @@ class BeforeDayFragment : BaseFragment<FragmentHomeBeforeDayBinding, BeforeDayVi
 
 
     private fun addObservedData() {
-        viewModel.moreThanDay.observe(this, Observer {
+        viewModel.moreThanDay.observe(viewLifecycleOwner, Observer {
             if (it) {
                 viewDataBinding.fragHomeBeforeDayIvBack.setImageResource(R.drawable.img_bg_relax)
                 viewDataBinding.fragHomeBeforeDayTvBefore.text = "일 전"

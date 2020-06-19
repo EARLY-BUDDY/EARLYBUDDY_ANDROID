@@ -10,10 +10,6 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlac
 
 @Dao
 interface RecentPlaceDao : BaseDao<RecentPlaceEntity>{
-    @Query("SELECT * FROM recentPlace")
+    @Query("SELECT * FROM recentPlace ORDER BY id DESC")
     fun loadRecentPlace(): LiveData<List<RecentPlaceEntity>>
-
-    override fun insert(obj: RecentPlaceEntity) : RecentPlaceEntity{
-        return obj
-    }
 }

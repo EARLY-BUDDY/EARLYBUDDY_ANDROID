@@ -12,7 +12,6 @@ import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import java.nio.file.Path
 
 class MainActivity : AppCompatActivity(){
 

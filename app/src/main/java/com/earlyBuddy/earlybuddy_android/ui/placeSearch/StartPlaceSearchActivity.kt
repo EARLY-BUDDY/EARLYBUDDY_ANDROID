@@ -9,9 +9,14 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.earlyBuddy.earlybuddy_android.BR
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
+import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
+import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityStartPlaceSearchBinding
+import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPlaceBinding
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_end_place_search.*
 import kotlinx.android.synthetic.main.activity_start_place_search.*
@@ -30,19 +35,18 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
 
     override val layoutResID: Int
         get() = R.layout.activity_start_place_search
-//    override lateinit var viewModel: PlaceSearchViewModel
     override val viewModel: PlaceSearchViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(PlaceSearchViewModel::class.java)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         viewDataBinding.vm = viewModel
 
         textWatch()
         getLocationUpdates()
         setClick()
+        setRv()
     }
 
     override fun onResume() {
@@ -110,6 +114,7 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
                 keyboard.hideSoftInputFromWindow(act_start_place_search_et_search.windowToken, 0)
 
                 getPlaceData()
+                viewModel.insert(RecentPlaceEntity(placeName =  act_start_place_search_et_search.text.toString()))
                 supportFragmentManager.beginTransaction()
                     .replace(
                         R.id.act_start_place_search_container,
@@ -123,17 +128,41 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
         })
     }
 
-//    fun insertDB(){
-//        act_start_place_search_et_search.addTextChangedListener(object :TextWatcher{
-//            override fun afterTextChanged(p0: Editable?) {
-//                viewModel.insert(RecentPlaceEntity(placeName = act_start_place_search_et_search.text.toString()))
-//            }
-//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//            }
-//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-//
-//        })
-//    }
+    private fun setRv(){
+        viewDataBinding.actStartPlaceSearchRv.apply {
+            adapter =
+                object : BaseRecyclerViewAdapter<RecentPlaceEntity, ItemRecentPlaceBinding>() {
+                    override val bindingVariableId: Int
+                        get() = BR.recentPlace
+                    override val layoutResID: Int
+                        get() = R.layout.item_recent_place
+                    override val listener: OnItemClickListener?
+                        get() = onClickListener
+                }
+            layoutManager = LinearLayoutManager(this@StartPlaceSearchActivity)
+        }
+
+        viewModel.places.observe(this, Observer {
+            (viewDataBinding.actStartPlaceSearchRv.adapter as BaseRecyclerViewAdapter<RecentPlaceEntity, ItemRecentPlaceBinding>)
+                .replaceAll(it)
+            (viewDataBinding.actStartPlaceSearchRv.adapter as BaseRecyclerViewAdapter<RecentPlaceEntity, ItemRecentPlaceBinding>)
+                .notifyDataSetChanged()
+        })
+    }
+
+    val onClickListener
+            = object : BaseRecyclerViewAdapter.OnItemClickListener {
+        override fun onItemClicked(item: Any?, position: Int?) {
+            getPlaceData()
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.act_start_place_search_container,
+                    placeResultFragment
+                ).commit()
+            bundle.putInt("flag", 1)
+            placeResultFragment.arguments = bundle
+        }
+    }
 
     private fun getLocationUpdates() {
         locationRequest = LocationRequest()
