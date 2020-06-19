@@ -5,10 +5,8 @@ import org.koin.dsl.module
 
 val repositoryAppModule = module {
 
-
     single { PlaceListRepository(get()) }
     single { PlaceSearchRepository(get()) }
-    single { RecentPlaceRepository(get()) }
     single { SignInRepository(get()) }
     single { SignUpRepository(get()) }
     single { SearchRouteRepository(get()) }
