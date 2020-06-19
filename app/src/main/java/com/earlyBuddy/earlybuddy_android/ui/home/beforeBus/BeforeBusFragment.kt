@@ -25,7 +25,7 @@ class BeforeBusFragment : BaseFragment<FragmentHomeBeforeBusBinding, BeforeBusVi
     }
 
     fun addObservedData() {
-        viewModel.lastCount.observe(this, Observer {
+        viewModel.lastCount.observe(viewLifecycleOwner, Observer {
             when (it) {
                 1 -> {
                     viewDataBinding.fragHomeBeforeBusIvBack.setImageResource(R.drawable.img_late_bg)
