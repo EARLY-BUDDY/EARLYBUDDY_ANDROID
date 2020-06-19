@@ -1,10 +1,7 @@
 package com.earlyBuddy.earlybuddy_android.data.datasource.remote.retrofit
 
-import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
+import com.earlyBuddy.earlybuddy_android.data.datasource.model.*
 
-import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceResponse
-import com.earlyBuddy.earlybuddy_android.data.datasource.model.SignInResponse
-import com.earlyBuddy.earlybuddy_android.data.datasource.model.SignUpResponse
 import com.google.gson.JsonObject
 
 import io.reactivex.Observable
@@ -21,7 +18,9 @@ interface NetworkService {
 
     @GET("/searchAddress")
     fun getPlaceData(
-        @Query("addr") addr: String
+        @Query("addr") addr: String,
+        @Query("x") x: Double,
+        @Query("y") y: Double
     ): Observable<PlaceResponse>
 
     @POST("/users/signup")
@@ -33,4 +32,13 @@ interface NetworkService {
     fun postSignInData(
         @Body body: JsonObject
     ): Observable<SignInResponse>
+
+    @GET("/searchPath")
+    fun getSearchRouteData(
+        @Query("SX") SX: Double,
+        @Query("SY") SY: Double,
+        @Query("EX") EX: Double,
+        @Query("EY") EY: Double,
+        @Query("SearchPathType") SearchPathType: Int
+    ): Observable<SearchRouteResponse>
 }

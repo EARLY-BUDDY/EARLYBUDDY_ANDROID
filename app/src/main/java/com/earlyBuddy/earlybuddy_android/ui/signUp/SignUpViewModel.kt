@@ -3,12 +3,13 @@ package com.earlyBuddy.earlybuddy_android.ui.signUp
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.repository.SignUpRepository
 import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class SignUpViewModel(private val repository : SignUpRepository) : BaseViewModel() {
+class SignUpViewModel(private val repository : SignUpRepository) : BaseViewModel(EarlyBuddyApplication.getGlobalApplicationContext()) {
 
     private var _netWork = MutableLiveData<Unit>()
     val netWork: LiveData<Unit> get() = _netWork

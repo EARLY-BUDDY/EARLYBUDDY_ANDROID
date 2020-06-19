@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseDialogFragment
@@ -18,7 +19,7 @@ class SignUpDialogFragment : BaseDialogFragment<DialogFragmentSignUpCompleteBind
 
     override val layoutResID: Int
         get() = R.layout.dialog_fragment_sign_up_complete
-    override val viewModel: SignUpDialogViewModel = SignUpDialogViewModel()
+    override val viewModel: SignUpDialogViewModel = SignUpDialogViewModel(application = EarlyBuddyApplication.globalApplication)
     lateinit var listener : OnDialogDismissedListener
 
     override fun onCreateView(

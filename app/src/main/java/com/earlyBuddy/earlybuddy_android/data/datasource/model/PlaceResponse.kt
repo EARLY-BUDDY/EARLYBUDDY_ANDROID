@@ -15,5 +15,9 @@ data class PlaceSearch(
     @SerializedName("addressName")
     val addressName: String,
     @SerializedName("roadAddressName")
-    val roadAddressName: String
+    val roadAddressName: String,
+    val category : String,
+    val distance : String,
+    val x : Double,
+    val y : Double
 )

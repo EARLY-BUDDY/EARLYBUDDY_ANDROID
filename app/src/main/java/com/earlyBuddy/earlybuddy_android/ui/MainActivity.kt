@@ -7,8 +7,8 @@ import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.ui.calendar.CalendarActivity
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.PathActivity
-import com.earlyBuddy.earlybuddy_android.ui.placeSearch.StartPlaceSearchActivity
 import com.earlyBuddy.earlybuddy_android.ui.schedule.write.ScheduleWriteActivity
+import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -49,6 +49,9 @@ class MainActivity : AppCompatActivity(){
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
-
+        act_main_btn_test.setOnClickListener {
+            val intent = Intent(this, TestPathActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

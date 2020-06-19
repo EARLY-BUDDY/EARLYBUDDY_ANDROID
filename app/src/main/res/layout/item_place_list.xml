@@ -10,17 +10,20 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/item_place_list_tv_place_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="16dp"
+            android:background="@null"
             android:textColor="@color/black"
             android:layout_marginTop="15dp"
             android:layout_marginStart="22dp"
-            android:text="@{placeRes.placeName}"
+            placeName="@{placeRes.placeName}"
+            address="@{placeRes.addressName}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

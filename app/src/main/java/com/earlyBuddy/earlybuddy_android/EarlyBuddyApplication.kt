@@ -30,7 +30,8 @@ class EarlyBuddyApplication : Application() {
                 remoteDataAppModule,
                 repositoryAppModule,
                 viewModelAppModule
-            ))}
+            ))
+        }
     }
 
 }
