@@ -20,6 +20,10 @@
         <variable
             name="transImg"
             type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="fastDoor"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +33,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/item_pass_riding_cl_riding_number"
-            changeTextBack="@{tints}"
+            changeTint="@{tints}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="75dp"
@@ -64,7 +68,8 @@
             android:ellipsize="end"
             android:letterSpacing="-0.05"
             android:lineSpacingExtra="8sp"
-            android:text="@{subPath.startName}"
+            name="@{subPath.startName}"
+            trafficType="@{subPath.trafficType}"
             android:textColor="#5a5a5a"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/item_pass_riding_cl_riding_number"
@@ -141,7 +146,8 @@
             android:layout_marginTop="15dp"
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="6sp"
-            android:text="배차간격 매일 6 - 20분"
+            trafficType="@{subPath.trafficType}"
+            fastDoor="@{subPath.door}"
             android:textColor="@color/light_gray"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/item_pass_riding_cl_riding_number"
@@ -189,7 +195,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/item_pass_through_riding_number_round"
-            changeTextBack="@{tints}"
+            changeTint="@{tints}"
             app:layout_constraintStart_toStartOf="@id/item_pass_riding_cl_riding_number"
             app:layout_constraintTop_toBottomOf="@id/item_pass_riding_rv_riding_info_detail">
 
@@ -218,7 +224,8 @@
             android:ellipsize="end"
             android:letterSpacing="-0.05"
             android:lineSpacingExtra="8sp"
-            android:text="@{subPath.endName}"
+            name="@{subPath.endName}"
+            trafficType="@{subPath.trafficType}"
             android:textColor="#5a5a5a"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/item_pass_riding_cl_quit"

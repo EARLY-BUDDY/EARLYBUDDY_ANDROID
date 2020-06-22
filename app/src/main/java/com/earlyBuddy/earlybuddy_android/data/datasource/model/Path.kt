@@ -27,8 +27,9 @@ data class SubPath(
     val door: String?,
     val startID: Int?,
     val endID: Int?,
-    val startExitX: Double?,
-    val startExitY: Double?,
+    val fastExitNo : Int,
+    val fastExitX: Double?,
+    val fastExitY: Double?,
     val passStopList: PassStopList?,
     var clicked: Boolean?
 )
