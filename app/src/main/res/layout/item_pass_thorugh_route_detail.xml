@@ -4,6 +4,12 @@
 
     <data>
 
+        <variable
+            name="tints"
+            type="String" />
+        <variable
+            name="stationName"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,11 +19,12 @@
         android:orientation="vertical">
 
         <ImageView
+            changeTint="@{tints}"
             android:id="@+id/item_tv_stop_station_point"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="53dp"
-            android:src="@drawable/img_path_point_transport"
+            android:background="@drawable/img_path_point_transport"
             app:layout_constraintBottom_toBottomOf="@+id/item_tv_stop_station_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/item_tv_stop_station_name" />
@@ -28,10 +35,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="21dp"
             android:layout_marginTop="5dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
             android:layout_marginBottom="5dp"
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="5sp"
-            android:text="외대앞"
+            android:text="@{stationName}"
             android:textColor="#5a5a5a"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
