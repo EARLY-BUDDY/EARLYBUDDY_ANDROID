@@ -98,6 +98,7 @@ class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearch
                 intent.putExtra("placeName", data!!.getStringExtra("placeName"))
                 intent.putExtra("x", data.getDoubleExtra("x", 0.0))
                 intent.putExtra("y", data.getDoubleExtra("y", 0.0))
+                intent.putExtra("flag", data.getIntExtra("flag", 0))
                 activity!!.setResult(Activity.RESULT_OK, intent)
                 activity!!.finish()
             } else if (requestCode == REQUEST_CODE_END){
@@ -105,6 +106,7 @@ class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearch
                 intent.putExtra("placeName", data!!.getStringExtra("placeName"))
                 intent.putExtra("x", data.getDoubleExtra("x", 0.0))
                 intent.putExtra("y", data.getDoubleExtra("y", 0.0))
+                intent.putExtra("flag", data.getIntExtra("flag", 0))
                 activity!!.setResult(Activity.RESULT_OK, intent)
                 activity!!.finish()
             }

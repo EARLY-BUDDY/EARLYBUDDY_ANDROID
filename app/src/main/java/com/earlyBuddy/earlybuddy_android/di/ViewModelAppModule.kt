@@ -1,6 +1,7 @@
 package com.earlyBuddy.earlybuddy_android.di
 
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeViewModel
+import com.earlyBuddy.earlybuddy_android.ui.placeSearch.PathViewModel
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.PlaceSearchViewModel
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInViewModel
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpViewModel
@@ -12,4 +13,5 @@ val viewModelAppModule = module {
     viewModel { PlaceSearchViewModel(get()) }
     viewModel { SignInViewModel(get()) }
     viewModel { SignUpViewModel(get()) }
+    viewModel { PathViewModel(get()) }
 }
