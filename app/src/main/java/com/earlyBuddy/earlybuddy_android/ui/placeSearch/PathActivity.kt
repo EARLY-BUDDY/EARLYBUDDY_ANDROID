@@ -19,6 +19,7 @@ import com.earlyBuddy.earlybuddy_android.databinding.ActivityPathBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_path.*
+import org.koin.android.architecture.ext.viewModel
 
 class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
@@ -31,19 +32,27 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
     var sy : Double = 0.0
     var ex : Double = 0.0
     var ey : Double = 0.0
+    var searchPathType : Int = 0
+    var sFlag : Int = 0
+    var eFlag : Int = 0
 
     override val layoutResID: Int
         get() = R.layout.activity_path
-    override lateinit var viewModel: PathViewModel
+    override val viewModel: PathViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(PathViewModel::class.java)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         getLastLocation()
         setClick()
+        flagCheck()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        flagCheck()
     }
 
     fun setClick(){
@@ -65,16 +74,31 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 startPlaceName = data!!.getStringExtra("placeName")
                 sx = data.getDoubleExtra("x", 0.0)
                 sy = data.getDoubleExtra("y", 0.0)
+                sFlag = data.getIntExtra("flag" ,0)
+                Log.e("sFlag -> ", sFlag.toString())
                 act_path_tv_start.text = startPlaceName
                 act_path_tv_start.setTextColor(resources.getColor(R.color.black))
             }else if (requestCode == REQUEST_CODE_END){
                 endPlaceName = data!!.getStringExtra("placeName")
                 ex = data.getDoubleExtra("x", 0.0)
                 ey = data.getDoubleExtra("y", 0.0)
+                eFlag = data.getIntExtra("flag" ,0)
+                Log.e("eFlag -> ", eFlag.toString())
                 act_path_tv_end.text = endPlaceName
                 act_path_tv_end.setTextColor(resources.getColor(R.color.black))
             }
         }
+    }
+
+    fun flagCheck(){
+        if(sFlag==1 && eFlag==1){
+            getRoute()
+        }
+    }
+
+
+    fun getRoute(){
+        viewModel.getRouteData(sx, sy, ex, ey, searchPathType)
     }
 
     private fun showAlertLocation() {

@@ -58,6 +58,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             intent.putExtra("placeName", placeName)
             intent.putExtra("x", fx)
             intent.putExtra("y", fy)
+            intent.putExtra("flag", 1)
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
@@ -68,11 +69,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         val location = LatLng(y!!,x!!)
         val marker = Marker()
         marker.position = location
-        if(placeName==null){
-            marker.captionText =  address!!
-        } else {
-            marker.captionText = placeName!!
-        }
+//        if(placeName==null){
+//            marker.captionText =  address!!
+//        } else {
+//            marker.captionText = placeName!!
+//        }
         marker.icon = OverlayImage.fromResource(R.drawable.ic_marker)
         marker.captionTextSize = 15f
         marker.captionOffset = 20

@@ -17,6 +17,10 @@ class PlaceSearchViewModel(private val repository : PlaceSearchRepository) : Bas
         repository.insert(recentPlace)
     }
 
+    fun delete(recentPlace : RecentPlaceEntity) {
+        repository.delete(recentPlace)
+    }
+
     private var _placeList = MutableLiveData<List<PlaceSearch>>()
     val placeList : LiveData<List<PlaceSearch>> get() = _placeList
 

@@ -20,6 +20,7 @@ import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPlaceBinding
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_end_place_search.*
 import kotlinx.android.synthetic.main.activity_start_place_search.*
+import kotlinx.android.synthetic.main.item_recent_place.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, PlaceSearchViewModel>() {
@@ -162,6 +163,9 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
                 ).commit()
             bundle.putInt("flag", 1)
             placeResultFragment.arguments = bundle
+
+//            val recentPlace = (item as RecentPlaceEntity)
+//            viewModel.delete(recentPlace)
         }
     }
 
