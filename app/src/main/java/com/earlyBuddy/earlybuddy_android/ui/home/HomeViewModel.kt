@@ -12,7 +12,7 @@ import com.earlyBuddy.earlybuddy_android.ui.home.beforeBus.BeforeBusFragment
 import com.earlyBuddy.earlybuddy_android.ui.home.beforeDay.BeforeDayFragment
 import com.earlyBuddy.earlybuddy_android.ui.home.noSchedule.NoScheduleFragment
 
-class HomeViewModel(application: EarlyBuddyApplication): BaseViewModel(application){
+class HomeViewModel() : BaseViewModel(EarlyBuddyApplication.getGlobalApplicationContext()) {
 
     val goBeforBusFragment = MutableLiveData<Fragment>()
     val goBeforeDayFragment = MutableLiveData<Fragment>()
@@ -29,26 +29,25 @@ class HomeViewModel(application: EarlyBuddyApplication): BaseViewModel(applicati
                     ready = true,
                     scheduleSummaryData = ScheduleSummaryData(
                         scheduleIdx = 3,
-                        scheduleName = "집가기",
-                        scheduleStartTime = "2020-06-08 22:20:00",
-                        endAddress = "서울 오륜동 올림픽선수촌 아파트"
+                        scheduleName = "집가기울 오륜동 올픽선수촌 아파트",
+                        scheduleStartTime = "2020-06-24 01:30:00",
+                        endAddress = "서울 오륜동 올림픽선수촌 아파트울 오륜동 올림픽선수촌 아파트"
                     ),
                     lastTransCount = 1,
-                    arriveTime = "2020-06-08 22:20:00",
+                    arriveTime = "2020-06-24 01:22:00",
                     firstTrans = FirstTrans(
                         detailIdx = 2,
                         trafficType = 1, // 1 -> 지하철 2 -> 버스
                         subwayLane = 7,
                         busNo = null,
                         busType = null,
-                        detailStartAddress = "공릉역"
+                        detailStartAddress = "공릉역울 오륜동 올림픽륜동 올림픽선수촌 아파트"
                     ),
-                    nextTransArriveTime = "2020-06-08 22:30:00"
+                    nextTransArriveTime = "2020-06-24 14:58:00"
                 )
             )
 
         homeResponse.value = tempHomeResponse
-
 
         when (tempHomeResponse.data!!.scheduleCheck) {
             1 -> {

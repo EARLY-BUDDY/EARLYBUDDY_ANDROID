@@ -1,30 +1,35 @@
-package com.earlyBuddy.earlybuddy_android.ui.searchRoute
+package com.earlyBuddy.earlybuddy_android.ui.home.pathCheck
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.data.datasource.remote.RemoteDataSourceImpl
 import com.earlyBuddy.earlybuddy_android.data.repository.SearchRouteRepository
+import com.earlyBuddy.earlybuddy_android.databinding.ActivityHomePathBinding
+import com.earlyBuddy.earlybuddy_android.ui.searchRoute.PathAdapter
+import com.earlyBuddy.earlybuddy_android.ui.searchRoute.RouteViewHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.activity_home_path.*
 
-class TestPathActivity : AppCompatActivity() {
+class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel>() {
+
+    override val layoutResID: Int
+        get() = R.layout.activity_home_path
+    override val viewModel: HomePathViewModel = HomePathViewModel()
+    private lateinit var routeAdapter: PathAdapter
     private val compositeDisposable = CompositeDisposable()
     private val searchRouteRepository: SearchRouteRepository =
         SearchRouteRepository(remoteDataSource = RemoteDataSourceImpl())
-    private lateinit var routeRecyclerView: RecyclerView
-    private lateinit var routeAdapter: PathAdapter
 
-    @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test_path)
-        routeRecyclerView = findViewById(R.id.path_rv)
+
+
         routeAdapter =
             PathAdapter("출발지역출발지역출발지역출발지역출발지역출발지역출발지역출발지역출발지역", "도착지역", object : RouteViewHolder.DropDownUpClickListener {
                 override fun dropDownUpClick(
@@ -49,7 +54,7 @@ class TestPathActivity : AppCompatActivity() {
                     }
                 }
             })
-        routeRecyclerView.adapter = routeAdapter
+        act_home_path_rv_path.adapter = routeAdapter
 
         compositeDisposable.add(
             searchRouteRepository.getSearchRouteData(
@@ -72,6 +77,6 @@ class TestPathActivity : AppCompatActivity() {
                     Log.e("통신 실패 error : ", it.toString())
                 })
 
-
     }
+
 }
