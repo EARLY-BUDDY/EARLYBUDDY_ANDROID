@@ -41,6 +41,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/act_map_tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -165,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
                     android:textColor="@color/white"
-                    android:text="도착"
+                    android:text="출발"
                     android:layout_marginStart="7dp"
                     android:gravity="center"
                     android:background="@drawable/act_map_full_circle"/>
