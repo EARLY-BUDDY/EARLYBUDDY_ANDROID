@@ -11,15 +11,13 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.ViewModelProvider
-import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPathBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_path.*
-import org.koin.android.architecture.ext.viewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
@@ -47,12 +45,13 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
         getLastLocation()
         setClick()
-        flagCheck()
     }
 
     override fun onResume() {
         super.onResume()
-        flagCheck()
+        if(sFlag==1 && eFlag==1){
+            getRoute()
+        }
     }
 
     fun setClick(){
@@ -63,6 +62,31 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
         act_path_tv_end.setOnClickListener {
             val intent = Intent(this, EndPlaceSearchActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_END)
+        }
+        act_path_iv_cancel.setOnClickListener {
+            act_path_tv_start.text = "출발지를 입력하세요"
+            act_path_tv_end.text = "도착지를 입력하세요"
+            act_path_tv_start.setTextColor(resources.getColor(R.color.mid_gray))
+            act_path_tv_end.setTextColor(resources.getColor(R.color.mid_gray))
+            sFlag = 0
+            eFlag = 0
+        }
+        act_path_iv_change.setOnClickListener {
+            if(sFlag==1 && eFlag==1){
+                val temp = act_path_tv_start.text
+                act_path_tv_start.text = act_path_tv_end.text
+                act_path_tv_end.text = temp
+                var tempD = sx
+                sx = ex
+                ex = tempD
+                tempD = sy
+                sy = ey
+                ey = tempD
+                getRoute()
+            }
+        }
+        act_path_iv_back.setOnClickListener {
+            finish()
         }
     }
 
@@ -89,13 +113,6 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
             }
         }
     }
-
-    fun flagCheck(){
-        if(sFlag==1 && eFlag==1){
-            getRoute()
-        }
-    }
-
 
     fun getRoute(){
         viewModel.getRouteData(sx, sy, ex, ey, searchPathType)

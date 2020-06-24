@@ -52,6 +52,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         act_map_iv_cancel.setOnClickListener{
             finish()
         }
+        act_map_iv_back.setOnClickListener {
+            finish()
+        }
 
         act_map_ll_choice.setOnClickListener{
             val intent = Intent()
@@ -94,10 +97,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         act_map_tv_address.text = roadAddress
         act_map_tv_category.text = category
 
-        if(flag==1){
-            act_map_tv_flag.text = "출발"
-        }else if(flag==2){
+        if(flag==2){
             act_map_tv_flag.text = "도착"
+            act_map_tv_title.text = "도착지 선택"
         }
     }
 }

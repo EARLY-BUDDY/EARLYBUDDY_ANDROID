@@ -108,6 +108,10 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
             act_start_place_search_et_search.findFocus()
         }
 
+        act_start_place_search_iv_back.setOnClickListener {
+            finish()
+        }
+
         act_start_place_search_et_search.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 v.clearFocus()
