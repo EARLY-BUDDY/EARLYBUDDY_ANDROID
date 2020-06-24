@@ -8,6 +8,7 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Suppress("DEPRECATION")
 class BeforeDayViewModel(application: EarlyBuddyApplication): BaseViewModel(application) {
 
     val homeResponse = MutableLiveData<HomeResponse>()
@@ -35,7 +36,11 @@ class BeforeDayViewModel(application: EarlyBuddyApplication): BaseViewModel(appl
         if (promise.hours >= 12) {
             startTime.value = "오후 " + promise.hours + ":" + promise.minutes
         } else {
-            startTime.value = "오전 " + promise.hours + ":" + promise.minutes
+            if (promise.hours < 10) {
+                startTime.value = "오전 0" + promise.hours + ":" + promise.minutes
+            } else {
+                startTime.value = "오전 " + promise.hours + ":" + promise.minutes
+            }
         }
 
         Log.e("현재시간 : ", sdf.format(date).toString())

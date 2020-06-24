@@ -44,6 +44,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:fontFamily="@font/noto_sans_kr_bold"
                 android:id="@+id/item_pass_riding_tv_riding_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,17 +63,18 @@
 
         <TextView
             android:id="@+id/item_pass_riding_tv_starting_point"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
-            android:ellipsize="end"
-            android:letterSpacing="-0.05"
-            android:lineSpacingExtra="8sp"
             name="@{subPath.startName}"
             trafficType="@{subPath.trafficType}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="0sp"
             android:textColor="#5a5a5a"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/item_pass_riding_cl_riding_number"
+            app:layout_constraintEnd_toStartOf="@id/item_pass_riding_tv_view_map"
             app:layout_constraintStart_toEndOf="@+id/item_pass_riding_cl_riding_number"
             app:layout_constraintTop_toTopOf="@+id/item_pass_riding_cl_riding_number" />
 
@@ -80,15 +82,14 @@
             android:id="@+id/item_pass_riding_tv_view_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/item_pass_through_view_map"
+            android:fontFamily="@font/noto_sans_kr_medium"
             android:letterSpacing="-0.05"
             android:lineSpacingExtra="5sp"
             android:text="지도보기"
             android:textColor="@color/light_gray"
             android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/item_pass_riding_tv_starting_point"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/item_pass_riding_tv_starting_point" />
 
@@ -120,6 +121,7 @@
             android:layout_marginTop="2.9dp"
             android:gravity="center_horizontal"
             android:letterSpacing="-0.05"
+            android:fontFamily="@font/noto_sans_kr_regular"
             android:lineSpacingExtra="6sp"
             android:textColor="#5a5a5a"
             android:textSize="12sp"
@@ -145,18 +147,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:letterSpacing="-0.02"
+            android:fontFamily="@font/noto_sans_kr_medium"
             android:lineSpacingExtra="6sp"
             trafficType="@{subPath.trafficType}"
             fastDoor="@{subPath.door}"
-            android:textColor="@color/light_gray"
+            android:textColor="@color/gray"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/item_pass_riding_cl_riding_number"
-            app:layout_constraintTop_toBottomOf="@id/item_pass_riding_cl_riding_number" />
+            app:layout_constraintTop_toBottomOf="@id/item_pass_riding_tv_starting_point" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/item_pass_riding_cl_drop_down_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
             android:layout_marginTop="1.5dp"
             android:paddingEnd="30dp"
             android:paddingBottom="4dp"
@@ -169,6 +173,7 @@
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.02"
                 android:lineSpacingExtra="6sp"
+                android:fontFamily="@font/noto_sans_kr_medium"
                 android:text="@{subPath.stationCount+`개 정류장`}"
                 android:textColor="@color/gray"
                 android:textSize="12sp"
@@ -200,6 +205,7 @@
             app:layout_constraintTop_toBottomOf="@id/item_pass_riding_rv_riding_info_detail">
 
             <TextView
+                android:fontFamily="@font/noto_sans_kr_bold"
                 android:id="@+id/item_pass_riding_tv_quit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -217,18 +223,19 @@
 
         <TextView
             android:id="@+id/item_pass_riding_tv_end_point"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="2dp"
-            android:ellipsize="end"
-            android:letterSpacing="-0.05"
-            android:lineSpacingExtra="8sp"
             name="@{subPath.endName}"
             trafficType="@{subPath.trafficType}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="0sp"
             android:textColor="#5a5a5a"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/item_pass_riding_cl_quit"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="@id/item_pass_riding_iv_bottom_line"
             app:layout_constraintStart_toEndOf="@id/item_pass_riding_cl_quit"
             app:layout_constraintTop_toTopOf="@+id/item_pass_riding_cl_quit" />
 
@@ -261,15 +268,16 @@
             app:layout_constraintTop_toTopOf="@+id/item_pass_riding_iv_bottom_center" />
 
         <ImageView
+            android:id="@+id/item_pass_riding_iv_bottom_line"
             android:layout_width="0dp"
-            android:layout_height="0.25dp"
+            android:layout_height="0.3dp"
             android:layout_marginStart="61dp"
             android:layout_marginTop="16.5dp"
             android:layout_marginEnd="15.5dp"
             android:background="#707070"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_pass_riding_cl_quit" />
+            app:layout_constraintTop_toBottomOf="@+id/item_pass_riding_tv_end_point" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/item_pass_riding_rv_riding_info_detail"

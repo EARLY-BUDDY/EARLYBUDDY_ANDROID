@@ -57,6 +57,7 @@
         <TextView
             android:id="@+id/act_route_tv_walk_time"
             android:layout_width="wrap_content"
+            android:fontFamily="@font/noto_sans_kr_regular"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:letterSpacing="-0.05"
@@ -97,24 +98,27 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:layout_width="0dp"
             android:id="@+id/act_route_tv_walk_start_point"
-            android:layout_width="wrap_content"
+            android:fontFamily="@font/noto_sans_kr_regular"
             android:layout_height="wrap_content"
             android:layout_marginStart="75dp"
             android:ellipsize="end"
             android:letterSpacing="-0.05"
-            android:lineSpacingExtra="6sp"
+            android:lineSpacingExtra="0sp"
             android:text="집 : 서울특별시 광진구 아차산로 463-4"
             android:textColor="#000000"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/act_route_iv_walk_top_center"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/act_route_iv_walk_horizon_line"
             app:layout_constraintTop_toTopOf="@id/act_route_iv_walk_top_center"
             app:startName="@{startPointName}"
             app:fastOutExitNo="@{fastOutExitNo}"
             app:trafficType="@{previousTrafficType}" />
 
         <TextView
+            android:fontFamily="@font/noto_sans_kr_medium"
             android:id="@+id/act_route_tv_walk_distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -142,16 +146,17 @@
 
         <TextView
             android:id="@+id/act_route_tv_walk_end_point"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="75dp"
-            android:ellipsize="end"
             android:letterSpacing="-0.05"
-            android:lineSpacingExtra="6sp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:lineSpacingExtra="0sp"
             android:text="집 : 서울특별시 광진구 아차산로 463-4"
             android:textColor="#000000"
             android:textSize="14sp"
             app:endName="@{endPointName}"
+            app:layout_constraintEnd_toEndOf="@id/act_route_iv_walk_horizon_line"
             app:layout_constraintBottom_toBottomOf="@id/act_route_iv_walk_bottom_center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/act_route_iv_walk_bottom_center"

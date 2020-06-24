@@ -5,8 +5,8 @@ import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseFragment
-import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentHomeBeforeDayBinding
+import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
 
 class BeforeDayFragment : BaseFragment<FragmentHomeBeforeDayBinding, BeforeDayViewModel>() {
     override val layoutResID: Int
@@ -15,9 +15,11 @@ class BeforeDayFragment : BaseFragment<FragmentHomeBeforeDayBinding, BeforeDayVi
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val homeResponse = this.arguments!!.getSerializable("homeResponse") as HomeResponse
 
-        viewModel.getData(homeResponse)
+        val homeResponse = (activity as HomeActivity).viewModel.homeResponse.value
+        if (homeResponse != null) {
+            viewModel.getData(homeResponse)
+        }
 
         viewDataBinding.vm = viewModel
 
@@ -37,4 +39,5 @@ class BeforeDayFragment : BaseFragment<FragmentHomeBeforeDayBinding, BeforeDayVi
             }
         })
     }
+
 }
