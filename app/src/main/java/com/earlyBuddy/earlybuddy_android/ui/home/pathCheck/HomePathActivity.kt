@@ -1,12 +1,9 @@
 package com.earlyBuddy.earlybuddy_android.ui.home.pathCheck
 
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
