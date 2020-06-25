@@ -1,9 +1,12 @@
 package com.earlyBuddy.earlybuddy_android.ui.home.pathCheck
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
@@ -26,12 +29,23 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
     private val searchRouteRepository: SearchRouteRepository =
         SearchRouteRepository(remoteDataSource = RemoteDataSourceImpl())
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        rottie_ani.setAnimation("roading.json")
+        rottie_ani.loop(true)
+        rottie_ani.playAnimation()
 
+        connectRecyclerView()
+        setRecyclerViewData()
+
+
+    }
+
+    private fun connectRecyclerView() {
         routeAdapter =
-            PathAdapter("출발지역출발지역출발지역출발지역출발지역출발지역출발지역출발지역출발지역", "도착지역", object : RouteViewHolder.DropDownUpClickListener {
+            PathAdapter("출발지역", "도착지역", object : RouteViewHolder.DropDownUpClickListener {
                 override fun dropDownUpClick(
                     position: Int,
                     dropImageView: ImageView,
@@ -39,23 +53,22 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
                 ) {
                     when (routeAdapter.getClicked(position)) {
                         true -> {
-                            Log.e("리스트 접음", "~~")
                             dropImageView.setImageResource(R.drawable.ic_dropbox_down)
                             detailRecyclerView.visibility = View.GONE
                             routeAdapter.setClicked(position, false)
                         }
                         else -> {
-                            Log.e("리스트 펼침", "~~")
                             dropImageView.setImageResource(R.drawable.ic_dropbox_up)
                             detailRecyclerView.visibility = View.VISIBLE
                             routeAdapter.setClicked(position, true)
-
                         }
                     }
                 }
             })
         act_home_path_rv_path.adapter = routeAdapter
+    }
 
+    private fun setRecyclerViewData() {
         compositeDisposable.add(
             searchRouteRepository.getSearchRouteData(
                 126.994150735779,
@@ -67,7 +80,11 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
                 // 구독할 때 수행할 작업을 구현
                 .doOnSubscribe {}
                 // 스트림이 종료될 때 수행할 작업을 구현
-                .doOnTerminate {}
+                .doOnTerminate {
+
+                    rottie_ani.clearAnimation()
+                    rottie_ani.visibility = View.GONE
+                }
                 // 옵서버블을 구독
                 .subscribe({
                     Log.e("getPlaceRes 응답 성공 : ", it.toString())
@@ -76,7 +93,5 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
                 }) {
                     Log.e("통신 실패 error : ", it.toString())
                 })
-
     }
-
 }
