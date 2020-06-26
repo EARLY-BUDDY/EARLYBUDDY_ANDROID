@@ -1,4 +1,4 @@
-package com.earlyBuddy.earlybuddy_android.ui.placeSearch
+package com.earlyBuddy.earlybuddy_android.ui.pathSearch
 
 import android.Manifest
 import android.app.Activity
@@ -10,10 +10,18 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import androidx.lifecycle.*
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.earlyBuddy.earlybuddy_android.BR
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
+import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
+import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPathBinding
+import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPathBinding
+import com.earlyBuddy.earlybuddy_android.ui.placeSearch.EndPlaceSearchActivity
+import com.earlyBuddy.earlybuddy_android.ui.placeSearch.StartPlaceSearchActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_path.*
@@ -45,12 +53,48 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
         getLastLocation()
         setClick()
+        setRv()
     }
 
     override fun onResume() {
         super.onResume()
         if(sFlag==1 && eFlag==1){
             getRoute()
+            viewModel.insert(RecentPathEntity(startPlaceName = act_path_tv_start.text.toString(),
+                endPlaceName = act_path_tv_end.text.toString(), sx = sx, sy = sy, ex = ex, ey=ey))
+        }
+    }
+
+    private fun setRv(){
+        viewDataBinding.actPathRv.apply {
+            adapter =
+                object : BaseRecyclerViewAdapter<RecentPathEntity, ItemRecentPathBinding>() {
+                    override val bindingVariableId: Int
+                        get() = BR.recentPath
+                    override val layoutResID: Int
+                        get() = R.layout.item_recent_path
+                    override val listener: OnItemClickListener?
+                        get() = onClickListener
+                }
+            layoutManager = LinearLayoutManager(this@PathActivity)
+        }
+
+        viewModel.routes.observe(this, Observer {
+            (viewDataBinding.actPathRv.adapter as BaseRecyclerViewAdapter<RecentPathEntity, ItemRecentPathBinding>)
+                .replaceAll(it)
+            (viewDataBinding.actPathRv.adapter as BaseRecyclerViewAdapter<RecentPathEntity, ItemRecentPathBinding>)
+                .notifyDataSetChanged()
+        })
+    }
+
+    val onClickListener
+            = object : BaseRecyclerViewAdapter.OnItemClickListener {
+        override fun onItemClicked(item: Any?, position: Int?) {
+            val rsx = (item as RecentPathEntity).sx
+            val rsy = (item as RecentPathEntity).sy
+            val rex = (item as RecentPathEntity).ex
+            val rey = (item as RecentPathEntity).ey
+            viewModel.getRouteData(rsx, rsy, rex, rey, 0)
         }
     }
 
