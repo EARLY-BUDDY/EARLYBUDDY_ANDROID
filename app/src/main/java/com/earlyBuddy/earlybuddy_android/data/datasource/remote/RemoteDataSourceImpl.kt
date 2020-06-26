@@ -1,9 +1,6 @@
 package com.earlyBuddy.earlybuddy_android.data.datasource.remote
 
-import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceResponse
-import com.earlyBuddy.earlybuddy_android.data.datasource.model.SearchRouteResponse
-import com.earlyBuddy.earlybuddy_android.data.datasource.model.SignInResponse
-import com.earlyBuddy.earlybuddy_android.data.datasource.model.SignUpResponse
+import com.earlyBuddy.earlybuddy_android.data.datasource.model.*
 import com.earlyBuddy.earlybuddy_android.data.datasource.remote.retrofit.NetworkServiceImpl
 import com.google.gson.JsonObject
 import io.reactivex.Observable
@@ -38,5 +35,13 @@ class RemoteDataSourceImpl : RemoteDataSource {
             .map {
                 it
             }
+
+    override fun scheduleDetail(scheduleIdx: Int): Observable<ScheduleDetailResponse> =
+        api.getScheduleDetail(scheduleIdx)
+            .map {
+                it
+            }
+
+    override fun homeSchedule(): Observable<HomeResponse> = api.getHomeSchedule()
 
 }

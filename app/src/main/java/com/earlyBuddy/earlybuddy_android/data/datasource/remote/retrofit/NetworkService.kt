@@ -5,10 +5,7 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.model.*
 import com.google.gson.JsonObject
 
 import io.reactivex.Observable
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface NetworkService {
     @GET("/searchAddress")
@@ -41,4 +38,13 @@ interface NetworkService {
         @Query("EY") EY: Double,
         @Query("SearchPathType") SearchPathType: Int
     ): Observable<SearchRouteResponse>
+
+    @GET("/schedules")
+    fun getScheduleDetail(
+        @Query("scheduleIdx") scheduleIdx: Int
+    ): Observable<ScheduleDetailResponse>
+
+    @GET("/home")
+    fun getHomeSchedule(
+    ): Observable<HomeResponse>
 }
