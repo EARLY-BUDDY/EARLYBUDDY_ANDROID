@@ -150,4 +150,6 @@ dependencies {
 
     implementation "org.koin:koin-android-architecture:0.8.2"
 
+    implementation 'com.airbnb.android:lottie:3.4.1'
+
 }

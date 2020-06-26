@@ -83,7 +83,7 @@ class PathAdapter(
             is RouteViewHolder -> {
                 holder.bindAdapter(
                     PathDetailAdapter(
-                        subPathData[position].passStopList!!.stations,
+                        subPathData[position].passStopList,
                         holder.itemViewType,
                         subPathData[position].lane!!.type
                     )

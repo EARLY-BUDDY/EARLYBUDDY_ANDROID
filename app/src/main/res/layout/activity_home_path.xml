@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.home.pathCheck.HomePathActivity">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/act_home_path_cl_title"
             android:layout_width="match_parent"
@@ -147,11 +148,30 @@
             android:id="@+id/act_home_path_rv_path"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/act_home_path_cl_schedule_info" />
+            app:layout_constraintTop_toBottomOf="@id/act_home_path_cl_schedule_info"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/lottie_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#66000000">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_ani"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

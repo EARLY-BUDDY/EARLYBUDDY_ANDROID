@@ -9,7 +9,7 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.model.Station
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPassThorughRouteDetailBinding
 
 class PathDetailAdapter(
-    private val routeDetail: ArrayList<Station>,
+    private val routeDetail: ArrayList<String>,
     private val trafficType: Int,
     private val type: Int
 ) :
@@ -40,7 +40,7 @@ class PathDetailAdapter(
 class RouteDetailViewHolder(private val detailBinding: ItemPassThorughRouteDetailBinding) :
     RecyclerView.ViewHolder(detailBinding.root) {
 
-    fun bind(data: Station, trafficType: Int, type: Int, bool: Boolean) {
+    fun bind(data: String, trafficType: Int, type: Int, bool: Boolean) {
         if (bool) {
             detailBinding.itemClStopStationView.visibility = View.GONE
             detailBinding.itemClStopStationView.layoutParams = ViewGroup.MarginLayoutParams(0, 0)
@@ -51,11 +51,11 @@ class RouteDetailViewHolder(private val detailBinding: ItemPassThorughRouteDetai
         when (trafficType) {
             1 -> {  //지하철
                 detailBinding.tints = TransportMap.subwayMap[type]!![0]
-                detailBinding.stationName = "${data.stationName}역"
+                detailBinding.stationName = "${data}역"
             }
             2 -> {  //버스
                 detailBinding.tints = TransportMap.busMap[type]
-                detailBinding.stationName = data.stationName
+                detailBinding.stationName = data
             }
         }
     }

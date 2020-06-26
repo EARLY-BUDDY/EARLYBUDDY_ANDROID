@@ -1,7 +1,7 @@
 package com.earlyBuddy.earlybuddy_android.data.datasource.remote.retrofit
 
 
-import com.earlyBuddy.earlybuddy_android.CookiesIntercepter
+import com.earlyBuddy.earlybuddy_android.CookiesInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -12,8 +12,8 @@ object NetworkServiceImpl {
     private const val BASE_URL_2 = "http://13.209.182.154:3458/"
 
     private val okHttpClient: OkHttpClient =
-        OkHttpClient.Builder().addInterceptor(CookiesIntercepter())
-            .addNetworkInterceptor(CookiesIntercepter()).build()
+        OkHttpClient.Builder().addInterceptor(CookiesInterceptor())
+            .addNetworkInterceptor(CookiesInterceptor()).build()
 
     private val retrofit: Retrofit =
         Retrofit.Builder().baseUrl(BASE_URL).client(
