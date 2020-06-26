@@ -4,9 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.ui.calendar.CalendarActivity
-import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathActivity
+import com.earlyBuddy.earlybuddy_android.ui.home.pathCheck.HomePathActivity
 import com.earlyBuddy.earlybuddy_android.ui.schedule.write.ScheduleWriteActivity
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
@@ -19,14 +20,15 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-
+        TransportMap.jwt =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjEsImlhdCI6MTU5MjkyNzg3MiwiZXhwIjoxNjAwNzAzODcyfQ.FPFQZw_h2wtHx-ctS5U94bMDGe2PRTaFmkKADuOYYEE"
         act_main_btn_calendar.setOnClickListener {
             val intent = Intent(this, CalendarActivity::class.java)
             startActivity(intent)
         }
 
         act_main_btn_home.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
+            val intent = Intent(this, HomePathActivity::class.java)
             startActivity(intent)
         }
 

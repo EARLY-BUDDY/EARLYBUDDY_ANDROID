@@ -62,7 +62,7 @@ class BeforeBusViewModel(application: EarlyBuddyApplication) : BaseViewModel(app
                 trafficNumber = tempHomeResponse.data.firstTrans.busNo.toString()
 
                 // TODO("버스 노선에 따른 박스 색깔 변화")
-                tints = TransportMap.subwayMap[tempHomeResponse.data.firstTrans.busType]!![0]
+                tints = TransportMap.busMap[tempHomeResponse.data.firstTrans.busType]!!
 
             }
         }
