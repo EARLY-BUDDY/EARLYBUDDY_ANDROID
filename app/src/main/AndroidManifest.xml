@@ -16,7 +16,9 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.home.pathCheck.HomePathActivity"></activity>
+        <activity android:name=".ui.LoadingActivity"
+            android:theme="@style/Transparent"></activity>
+        <activity android:name=".ui.home.pathCheck.HomePathActivity" />
         <activity android:name=".ui.placeSearch.MapActivity" />
 
         <meta-data

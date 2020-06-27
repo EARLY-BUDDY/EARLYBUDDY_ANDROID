@@ -8,6 +8,7 @@ import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityHomeBinding
+import com.earlyBuddy.earlybuddy_android.ui.Loading
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
@@ -19,6 +20,8 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Loading.goLoading(this)
         addObservedData()
         viewModel.getData()
 

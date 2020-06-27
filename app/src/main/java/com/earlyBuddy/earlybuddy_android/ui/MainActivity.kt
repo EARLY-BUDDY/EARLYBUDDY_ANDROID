@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(){
         }
 
         act_main_btn_home.setOnClickListener {
-            val intent = Intent(this, HomePathActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
 

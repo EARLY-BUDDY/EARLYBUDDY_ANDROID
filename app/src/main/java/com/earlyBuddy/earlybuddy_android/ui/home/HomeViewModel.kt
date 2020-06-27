@@ -7,6 +7,7 @@ import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
 import com.earlyBuddy.earlybuddy_android.data.repository.HomeRepository
+import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.home.beforeBus.BeforeBusFragment
 import com.earlyBuddy.earlybuddy_android.ui.home.beforeDay.BeforeDayFragment
 import com.earlyBuddy.earlybuddy_android.ui.home.noSchedule.NoScheduleFragment
@@ -29,6 +30,7 @@ class HomeViewModel(private val repository: HomeRepository) :
              .doOnSubscribe {}
              // 스트림이 종료될 때 수행할 작업을 구현
              .doOnTerminate {
+                 Loading.exitLoading()
                  homeResponse.value = tempHomeResponse
 
                  when (tempHomeResponse.data!!.scheduleCheck) {

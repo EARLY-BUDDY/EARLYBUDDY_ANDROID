@@ -54,7 +54,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/act_home_path_cl_schedule_info"
             android:layout_width="match_parent"
-            android:layout_height="62dp"
+            android:layout_height="58dp"
             android:background="@drawable/bg_30_3092ff_left_under"
             app:layout_constraintEnd_toEndOf="@id/act_home_path_cl_title"
             app:layout_constraintStart_toStartOf="@id/act_home_path_cl_title"
@@ -83,7 +83,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/act_home_path_iv_time"
                 app:layout_constraintStart_toEndOf="@id/act_home_path_iv_time"
                 app:layout_constraintTop_toTopOf="@id/act_home_path_iv_time"
-                tools:text="오후 12:20" />
+                android:text="오후 12:20" />
 
             <ImageView
                 android:id="@+id/act_home_path_iv_location"
@@ -108,7 +108,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/act_home_path_iv_location"
                 app:layout_constraintStart_toEndOf="@id/act_home_path_iv_location"
                 app:layout_constraintTop_toTopOf="@id/act_home_path_iv_location"
-                tools:text="오렌지팜 서초센터" />
+                android:text="오렌지팜 서초센터" />
 
             <TextView
                 android:id="@+id/act_home_path_tv_trafficType"
@@ -124,7 +124,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/act_home_path_iv_time"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/act_home_path_iv_time"
-                tools:text="버스 + 지하철" />
+                android:text="버스 + 지하철" />
 
             <TextView
                 android:id="@+id/act_home_path_tv_hours"
@@ -139,7 +139,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/act_home_path_iv_location"
                 app:layout_constraintEnd_toEndOf="@id/act_home_path_tv_trafficType"
                 app:layout_constraintTop_toTopOf="@id/act_home_path_iv_location"
-                tools:text="1시간 30분" />
+                android:text="1시간 30분" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
