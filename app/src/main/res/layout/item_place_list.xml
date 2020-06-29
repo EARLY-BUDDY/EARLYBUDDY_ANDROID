@@ -22,8 +22,7 @@
             android:textColor="@color/black"
             android:layout_marginTop="15dp"
             android:layout_marginStart="22dp"
-            placeName="@{placeRes.placeName}"
-            address="@{placeRes.addressName}"
+            android:text="@{placeRes.placeName}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

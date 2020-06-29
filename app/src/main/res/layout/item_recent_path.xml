@@ -3,6 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        
+        <variable
+            name="recentPath"
+            type="com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity" />
 
     </data>
 
@@ -33,7 +37,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서울 강남구 양재대로49길 25"
+                android:text="@{recentPath.startPlaceName}"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -41,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="인천국제공항"
+                android:text="@{recentPath.endPlaceName}"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
