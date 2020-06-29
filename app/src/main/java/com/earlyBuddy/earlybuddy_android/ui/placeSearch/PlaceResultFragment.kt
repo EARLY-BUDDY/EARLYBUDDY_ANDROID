@@ -34,7 +34,6 @@ class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearch
 
     override val layoutResID: Int
         get() = R.layout.fragment_place_result
-//    override lateinit var viewModel: PlaceSearchViewModel
     override val viewModel: PlaceSearchViewModel by sharedViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
