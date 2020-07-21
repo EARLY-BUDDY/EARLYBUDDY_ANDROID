@@ -2,14 +2,13 @@ package com.earlyBuddy.earlybuddy_android.ui.home.beforeDay
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Suppress("DEPRECATION")
-class BeforeDayViewModel(application: EarlyBuddyApplication): BaseViewModel(application) {
+class BeforeDayViewModel() : BaseViewModel() {
 
     val homeResponse = MutableLiveData<HomeResponse>()
     val timeDifference = MutableLiveData<Int>()
@@ -20,7 +19,6 @@ class BeforeDayViewModel(application: EarlyBuddyApplication): BaseViewModel(appl
         homeResponse.value = tempHomeResponse
 
         getTimeDifference(tempHomeResponse)
-
     }
 
     private fun getTimeDifference(tempHomeResponse: HomeResponse) {

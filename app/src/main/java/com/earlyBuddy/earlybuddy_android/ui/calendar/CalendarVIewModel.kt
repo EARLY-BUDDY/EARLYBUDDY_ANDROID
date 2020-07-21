@@ -8,7 +8,7 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.model.Schedule
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CalendarVIewModel : BaseViewModel(EarlyBuddyApplication.globalApplication){
+class CalendarVIewModel : BaseViewModel(){
 
     private var _schedule = MutableLiveData<ArrayList<Schedule>>()
     val schedule : LiveData<ArrayList<Schedule>> get() = _schedule

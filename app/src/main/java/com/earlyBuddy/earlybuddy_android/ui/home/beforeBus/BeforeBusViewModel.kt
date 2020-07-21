@@ -2,7 +2,6 @@ package com.earlyBuddy.earlybuddy_android.ui.home.beforeBus
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
@@ -10,7 +9,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @Suppress("DEPRECATION")
-class BeforeBusViewModel(application: EarlyBuddyApplication) : BaseViewModel(application) {
+class BeforeBusViewModel() : BaseViewModel() {
 
     val homeResponse = MutableLiveData<HomeResponse>()
     val startTime = MutableLiveData<String>()
@@ -25,7 +24,9 @@ class BeforeBusViewModel(application: EarlyBuddyApplication) : BaseViewModel(app
     val remainingMinute = MutableLiveData<Int>()
     val timer = Timer()
 
+
     fun getData(tempHomeResponse: HomeResponse) {
+
 
         homeResponse.value = tempHomeResponse
 

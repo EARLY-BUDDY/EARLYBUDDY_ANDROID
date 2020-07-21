@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
-import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityHomeBinding
 import com.earlyBuddy.earlybuddy_android.ui.Loading

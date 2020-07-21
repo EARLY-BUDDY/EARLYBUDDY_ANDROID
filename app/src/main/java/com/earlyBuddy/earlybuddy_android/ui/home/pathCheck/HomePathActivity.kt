@@ -14,6 +14,8 @@ import com.earlyBuddy.earlybuddy_android.ui.searchRoute.PathAdapter
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.RouteViewHolder
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_home_path.*
+import kotlinx.android.synthetic.main.activity_home_path.lottie_back
+import kotlinx.android.synthetic.main.activity_loading.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel>() {

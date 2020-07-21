@@ -9,7 +9,7 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceSearch
 import com.earlyBuddy.earlybuddy_android.data.repository.PlaceSearchRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class PlaceSearchViewModel(private val repository : PlaceSearchRepository) : BaseViewModel(EarlyBuddyApplication.getGlobalApplicationContext()) {
+class PlaceSearchViewModel(private val repository : PlaceSearchRepository) : BaseViewModel() {
 
     val places: LiveData<List<RecentPlaceEntity>> = repository.loadRecentPlace()
 

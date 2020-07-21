@@ -9,7 +9,7 @@ import com.earlyBuddy.earlybuddy_android.data.repository.SignInRepository
 import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class SignInViewModel(private val repository : SignInRepository) : BaseViewModel(EarlyBuddyApplication.getGlobalApplicationContext()){
+class SignInViewModel(private val repository : SignInRepository) : BaseViewModel(){
 
     private var _signInCheck = MutableLiveData<Boolean>()
     val signInCheck : LiveData<Boolean> get() = _signInCheck

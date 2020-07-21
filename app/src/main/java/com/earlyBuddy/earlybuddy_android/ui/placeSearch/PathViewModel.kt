@@ -9,7 +9,7 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.model.Path
 import com.earlyBuddy.earlybuddy_android.data.repository.SearchRouteRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class PathViewModel(private val repository : SearchRouteRepository) : BaseViewModel(EarlyBuddyApplication.getGlobalApplicationContext()) {
+class PathViewModel(private val repository : SearchRouteRepository) : BaseViewModel() {
 
     private var _routeList = MutableLiveData<List<Path>>()
     val routeList : LiveData<List<Path>> get() = _routeList

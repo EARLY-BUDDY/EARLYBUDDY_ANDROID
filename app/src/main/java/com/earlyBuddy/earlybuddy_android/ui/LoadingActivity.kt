@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.earlyBuddy.earlybuddy_android.R
-import kotlinx.android.synthetic.main.activity_home_path.*
+import kotlinx.android.synthetic.main.activity_loading.*
 
 object Loading {
     lateinit var activity: Activity
