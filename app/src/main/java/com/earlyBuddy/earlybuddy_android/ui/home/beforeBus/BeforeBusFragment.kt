@@ -2,25 +2,29 @@ package com.earlyBuddy.earlybuddy_android.ui.home.beforeBus
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.Observer
-import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
+import androidx.lifecycle.ViewModelProvider
 import com.earlyBuddy.earlybuddy_android.R
-import com.earlyBuddy.earlybuddy_android.base.BaseFragment
+import com.earlyBuddy.earlybuddy_android.base.BaseTTFragment
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentHomeBeforeBusBinding
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
 import com.earlyBuddy.earlybuddy_android.ui.home.pathCheck.HomePathActivity
-import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
 import kotlinx.android.synthetic.main.fragment_home_before_bus.*
+import java.util.*
 
-class BeforeBusFragment : BaseFragment<FragmentHomeBeforeBusBinding, BeforeBusViewModel>() {
+class BeforeBusFragment : BaseTTFragment<FragmentHomeBeforeBusBinding, BeforeBusViewModel>() {
     override val layoutResID: Int
         get() = R.layout.fragment_home_before_bus
-    override val viewModel = BeforeBusViewModel(application = EarlyBuddyApplication.globalApplication)
 
+    val timer = Timer()
+
+    lateinit var viewModel: BeforeBusViewModel
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val homeResponse = (activity as HomeActivity).viewModel.homeResponse.value
 
+        viewModel = ViewModelProvider(this).get(BeforeBusViewModel::class.java)
         if (homeResponse != null) {
             viewModel.getData(homeResponse)
         }
@@ -30,6 +34,15 @@ class BeforeBusFragment : BaseFragment<FragmentHomeBeforeBusBinding, BeforeBusVi
         frag_home_before_bus__tv_station.isSelected = true
 
         addObservedData()
+
+
+        timer.scheduleAtFixedRate(object : TimerTask() {
+            override fun run() {
+                timer.cancel()
+                (activity as HomeActivity).refresh()
+                Log.e("QQQ","weqwewq")
+            }
+        }, 7000, 7000)
 
         frag_home_before_bus__iv_reboot.setOnClickListener {
             viewModel.timer.cancel()
@@ -59,5 +72,6 @@ class BeforeBusFragment : BaseFragment<FragmentHomeBeforeBusBinding, BeforeBusVi
     override fun onPause() {
         super.onPause()
         viewModel.timer.cancel()
+        timer.cancel()
     }
 }

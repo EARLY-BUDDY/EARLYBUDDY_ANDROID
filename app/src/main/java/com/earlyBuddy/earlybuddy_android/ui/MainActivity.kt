@@ -7,7 +7,9 @@ import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.ui.calendar.CalendarActivity
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathActivity
-import com.earlyBuddy.earlybuddy_android.ui.home.pathCheck.HomePathActivity
+import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
+import com.earlyBuddy.earlybuddy_android.ui.initial.nickname.NickNameActivity
+import com.earlyBuddy.earlybuddy_android.ui.initial.place.PlaceActivity
 import com.earlyBuddy.earlybuddy_android.ui.schedule.write.ScheduleWriteActivity
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity(){
         }
 
         act_main_btn_home.setOnClickListener {
-            val intent = Intent(this, HomePathActivity::class.java)
+            val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }
 
@@ -53,6 +55,14 @@ class MainActivity : AppCompatActivity(){
         }
         act_main_btn_test.setOnClickListener {
             val intent = Intent(this, TestPathActivity::class.java)
+            startActivity(intent)
+        }
+        act_main_btn_initial.setOnClickListener {
+            val intent = Intent(this, NickNameActivity::class.java)
+            startActivity(intent)
+        }
+        act_main_btn_initial_place.setOnClickListener {
+            val intent = Intent(this, PlaceActivity::class.java)
             startActivity(intent)
         }
     }

@@ -3,17 +3,17 @@ package com.earlyBuddy.earlybuddy_android.ui.home
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
 import com.earlyBuddy.earlybuddy_android.data.repository.HomeRepository
+import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.home.beforeBus.BeforeBusFragment
 import com.earlyBuddy.earlybuddy_android.ui.home.beforeDay.BeforeDayFragment
 import com.earlyBuddy.earlybuddy_android.ui.home.noSchedule.NoScheduleFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class HomeViewModel(private val repository: HomeRepository) :
-    BaseViewModel(EarlyBuddyApplication.getGlobalApplicationContext()) {
+    BaseViewModel() {
 
     val goBeforBusFragment = MutableLiveData<Fragment>()
     val goBeforeDayFragment = MutableLiveData<Fragment>()
@@ -22,13 +22,14 @@ class HomeViewModel(private val repository: HomeRepository) :
 
     private lateinit var tempHomeResponse: HomeResponse
 
-     fun getData() {
+    fun getData() {
 
          addDisposable(repository.getHomeData().observeOn(AndroidSchedulers.mainThread())
              // 구독할 때 수행할 작업을 구현
              .doOnSubscribe {}
              // 스트림이 종료될 때 수행할 작업을 구현
              .doOnTerminate {
+                 Loading.exitLoading()
                  homeResponse.value = tempHomeResponse
 
                  when (tempHomeResponse.data!!.scheduleCheck) {

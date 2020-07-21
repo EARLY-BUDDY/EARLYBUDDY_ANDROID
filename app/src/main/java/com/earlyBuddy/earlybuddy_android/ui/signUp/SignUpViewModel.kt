@@ -9,7 +9,7 @@ import com.earlyBuddy.earlybuddy_android.data.repository.SignUpRepository
 import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class SignUpViewModel(private val repository : SignUpRepository) : BaseViewModel(EarlyBuddyApplication.getGlobalApplicationContext()) {
+class SignUpViewModel(private val repository : SignUpRepository) : BaseViewModel() {
 
     private var _netWork = MutableLiveData<Unit>()
     val netWork: LiveData<Unit> get() = _netWork

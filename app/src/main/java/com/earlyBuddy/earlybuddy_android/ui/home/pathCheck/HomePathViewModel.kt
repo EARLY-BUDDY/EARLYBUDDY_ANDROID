@@ -9,7 +9,7 @@ import com.earlyBuddy.earlybuddy_android.data.repository.ScheduleDetailRepositor
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class HomePathViewModel(private val repository: ScheduleDetailRepository) :
-    BaseViewModel(EarlyBuddyApplication.globalApplication) {
+    BaseViewModel() {
     val scheduleDetailResponse = MutableLiveData<ScheduleDetailResponse>()
     val lottieVisible = MutableLiveData<Boolean>()
 

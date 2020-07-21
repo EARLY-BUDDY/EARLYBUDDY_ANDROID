@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/act_initial_nn_cl_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.initial.nickname.NickNameActivity">
+
+        <ImageView
+            android:id="@+id/act_initial_nn_iv_top_img"
+            android:layout_width="0dp"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/img_nickname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/act_initial_nn_tv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="41dp"
+            android:layout_marginTop="41dp"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="9sp"
+            android:text="얼리버디와 함께 할\n닉네임을 설정해주세요."
+            android:textColor="@color/black"
+            android:textSize="26sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/act_initial_nn_iv_top_img" />
+
+        <TextView
+            android:id="@+id/act_initial_nn_tv_warning"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:textColor="#ff6e6e"
+            android:gravity="end"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="8dp"
+            android:text="닉네임을 입력해주세요"
+            app:layout_constraintEnd_toEndOf="@id/act_initial_nn_et_nickname"
+            app:layout_constraintBottom_toTopOf="@id/act_initial_nn_et_nickname"
+            />
+        <EditText
+            android:id="@+id/act_initial_nn_et_nickname"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/selector_sign_up_round_rect"
+            android:hint="한글 6글자 이내로 적어주세요."
+            android:inputType="text"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:paddingLeft="18dp"
+            android:textSize="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/act_initial_nn_tv_text" />
+
+        <TextView
+            android:id="@+id/act_initial_nn_tv_next"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="53dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginBottom="53dp"
+            android:background="@drawable/bg_25_c3c3c3"
+            android:gravity="center"
+            android:lineSpacingExtra="-3sp"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:text="다음"
+            android:textColor="#ffffff"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
