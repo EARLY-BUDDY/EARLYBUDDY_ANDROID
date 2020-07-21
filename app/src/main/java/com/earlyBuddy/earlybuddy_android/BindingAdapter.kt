@@ -55,7 +55,7 @@ fun View.changeTint(tints: String){
     }
 }
 @BindingAdapter("changeImg", "imgTint")
-fun ImageView.changeImg(image: Drawable, tints: String) {
+fun ImageView.changeimg(image: Drawable, tints: String) {
     background = image
     backgroundTintList = ColorStateList.valueOf(Color.parseColor(tints))
 }
