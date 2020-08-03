@@ -29,7 +29,7 @@
             android:value="gftow610wm" />
 
         <activity android:name=".ui.searchRoute.TestPathActivity" />
-        <activity android:name=".ui.placeSearch.PathActivity" />
+        <activity android:name=".ui.pathSearch.PathActivity" />
         <activity android:name=".ui.placeSearch.EndPlaceSearchActivity" />
         <activity android:name=".ui.signUp.SignInActivity" />
         <activity android:name=".ui.signUp.SignUpActivity" />

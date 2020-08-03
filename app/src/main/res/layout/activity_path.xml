@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.placeSearch.PathActivity">
+        tools:context=".ui.pathSearch.PathActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/act_path_cl_title"
@@ -71,6 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="16dp"
+                    android:layout_marginTop="2dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="40dp"
                     android:paddingLeft="16dp"

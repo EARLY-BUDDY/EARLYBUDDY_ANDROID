@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
+import org.w3c.dom.Text
 
 @BindingAdapter("trafficType", "endName", "fastInExitNo")
 fun walkEndText(textView: TextView, nextTrafficType: Int, endName: String?, fastInExitNo: Int) {
@@ -57,16 +58,6 @@ fun View.changeTint(tints: String){
 fun ImageView.changeImg(image: Drawable, tints: String) {
     background = image
     backgroundTintList = ColorStateList.valueOf(Color.parseColor(tints))
-}
-
-@BindingAdapter("placeName", "address")
-fun checkNull(view : TextView, placeName : String?, address: String?){
-    Log.e("bindingAdapter",placeName)
-    if(placeName==null){
-        view.text = address
-    }else{
-        view.text = placeName
-    }
 }
 
 @BindingAdapter("trafficType", "name")

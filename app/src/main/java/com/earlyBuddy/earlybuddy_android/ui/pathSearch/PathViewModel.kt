@@ -1,15 +1,27 @@
-package com.earlyBuddy.earlybuddy_android.ui.placeSearch
+package com.earlyBuddy.earlybuddy_android.ui.pathSearch
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
+import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity
+import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Path
 import com.earlyBuddy.earlybuddy_android.data.repository.SearchRouteRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class PathViewModel(private val repository : SearchRouteRepository) : BaseViewModel() {
+
+    val routes: LiveData<List<RecentPathEntity>> = repository.loadRecentPath()
+
+    fun insert(recentPath : RecentPathEntity) {
+        repository.insert(recentPath)
+    }
+
+    fun delete(recentPath : RecentPathEntity) {
+        repository.delete(recentPath)
+    }
 
     private var _routeList = MutableLiveData<List<Path>>()
     val routeList : LiveData<List<Path>> get() = _routeList

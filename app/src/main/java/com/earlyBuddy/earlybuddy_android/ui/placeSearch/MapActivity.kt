@@ -86,14 +86,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     fun setText(){
-        if(placeName==null){
-            act_map_tv_search.text = address
-            act_map_tv_name.text = address
-        } else if (intent.hasExtra("placeName")) {
-            act_map_tv_search.text = placeName
-            act_map_tv_name.text = placeName
-        }
-
+        act_map_tv_search.text = placeName
+        act_map_tv_name.text = placeName
         act_map_tv_address.text = roadAddress
         act_map_tv_category.text = category
 
