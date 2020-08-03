@@ -23,7 +23,7 @@ data class FirstTrans(
     val subwayLane:Int?,
     val busNo:Int?,
     val busType:Int?,
-    val detailStartAddress:String
+    val startName:String
 )
 data class ScheduleSummaryData(
     val scheduleIdx:Int,

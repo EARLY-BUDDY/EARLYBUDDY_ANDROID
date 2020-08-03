@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.data.datasource.remote.RemoteDataSourceImpl
 import com.earlyBuddy.earlybuddy_android.data.repository.SearchRouteRepository
+import com.earlyBuddy.earlybuddy_android.ui.Loading
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
@@ -24,6 +25,10 @@ class TestPathActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test_path)
+
+        Loading.goLoading(this)
+
+
         routeRecyclerView = findViewById(R.id.path_rv)
         routeAdapter =
             PathAdapter("출발지역출발지역출발지역출발지역출발지역출발지역출발지역출발지역출발지역", "도착지역", object : RouteViewHolder.DropDownUpClickListener {
@@ -62,11 +67,14 @@ class TestPathActivity : AppCompatActivity() {
                 // 구독할 때 수행할 작업을 구현
                 .doOnSubscribe {}
                 // 스트림이 종료될 때 수행할 작업을 구현
-                .doOnTerminate {}
+                .doOnTerminate {
+                    Loading.exitLoading()
+                }
                 // 옵서버블을 구독
                 .subscribe({
                     Log.e("getPlaceRes 응답 성공 : ", it.toString())
                     routeAdapter.setRouteItemList(it.data.path[2].subPath)
+
 //                    routeAdapter.notifyDataSetChanged()
                 }) {
                     Log.e("통신 실패 error : ", it.toString())

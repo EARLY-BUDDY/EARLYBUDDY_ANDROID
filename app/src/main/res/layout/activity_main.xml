@@ -47,4 +47,15 @@
         android:layout_height="50dp"
         android:text="경로테스트" />
 
+    <Button
+        android:id="@+id/act_main_btn_initial"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="최초가입" />
+    <Button
+        android:id="@+id/act_main_btn_initial_place"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="최초장소선택" />
+
 </LinearLayout>

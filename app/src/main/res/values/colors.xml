@@ -41,4 +41,6 @@
     <color name="seoul_bus_ji_line">#33c63c</color>
     <color name="seoul_bus_gwangyuk">#ff574c</color>
     <color name="seoul_bus_remainder">#85c900</color>
+    <color name="transparent">#1A000000</color>
+
 </resources>

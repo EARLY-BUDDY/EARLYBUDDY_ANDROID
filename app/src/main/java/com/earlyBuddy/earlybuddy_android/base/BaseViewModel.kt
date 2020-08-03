@@ -2,13 +2,13 @@ package com.earlyBuddy.earlybuddy_android.base
 
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
-import com.earlyBuddy.earlybuddy_android.ui.placeSearch.PlaceSearchViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-open class BaseViewModel(application: EarlyBuddyApplication) : AndroidViewModel(application){
+open class BaseViewModel() : ViewModel() {
+
+    val ealryBuddyApplication = EarlyBuddyApplication.getGlobalApplicationContext()
 
     private val compositeDisposable = CompositeDisposable()
 

@@ -2,7 +2,6 @@ package com.earlyBuddy.earlybuddy_android.ui.home.beforeBus
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
@@ -10,7 +9,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @Suppress("DEPRECATION")
-class BeforeBusViewModel(application: EarlyBuddyApplication) : BaseViewModel(application) {
+class BeforeBusViewModel() : BaseViewModel() {
 
     val homeResponse = MutableLiveData<HomeResponse>()
     val startTime = MutableLiveData<String>()
@@ -25,7 +24,9 @@ class BeforeBusViewModel(application: EarlyBuddyApplication) : BaseViewModel(app
     val remainingMinute = MutableLiveData<Int>()
     val timer = Timer()
 
+
     fun getData(tempHomeResponse: HomeResponse) {
+
 
         homeResponse.value = tempHomeResponse
 
@@ -72,10 +73,16 @@ class BeforeBusViewModel(application: EarlyBuddyApplication) : BaseViewModel(app
     private fun getTimeDifference(tempHomeResponse: HomeResponse) {
         val scheduleStartTime =
             tempHomeResponse.data!!.scheduleSummaryData.scheduleStartTime
-        val arriveTime = tempHomeResponse.data.arriveTime
-        val nextTransArriveTime = tempHomeResponse.data.nextTransArriveTime
 
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+        var arriveTime = tempHomeResponse.data.arriveTime
+
+        val nextTransArriveTime = tempHomeResponse.data.nextTransArriveTime
+
+        if (arriveTime == "곧 도착") {
+            arriveTime = sdf.format(Date())
+        }
 
         val nowDate = Date()
         val promiseStartTime = sdf.parse(scheduleStartTime)
@@ -125,16 +132,15 @@ class BeforeBusViewModel(application: EarlyBuddyApplication) : BaseViewModel(app
 
         var remainingMinuteValue = arriveMinuteDifference.value!!
         remainingMinute.value = (remainingMinuteValue)
-        Log.e("ttt", remainingMinute.value.toString())
 
-        // 분 줄여가기 (1분마다/60000 밀리세크)
-        timer.scheduleAtFixedRate(object : TimerTask() {
-            override fun run() {
-                remainingMinuteValue--
-                remainingMinute.postValue(remainingMinuteValue)
-                Log.e("ttt", remainingMinute.value.toString())
-            }
-        }, 6000, 6000)
+//        // 분 줄여가기 (1분마다/60000 밀리세크)
+//        timer.scheduleAtFixedRate(object : TimerTask() {
+//            override fun run() {
+//                remainingMinuteValue--
+//                remainingMinute.postValue(remainingMinuteValue)
+//                Log.e("ttt", remainingMinute.value.toString())
+//            }
+//        }, 6000, 6000)
     }
 
 }
