@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
 import java.text.SimpleDateFormat
-import java.util.*
 
 @Suppress("DEPRECATION")
 class BeforeDayViewModel() : BaseViewModel() {
@@ -28,7 +27,9 @@ class BeforeDayViewModel() : BaseViewModel() {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
 
-        val date = Date()
+//        val date = Date()
+        val date = sdf.parse("2020-07-23 01:15:00")
+
         val promise = sdf.parse(scheduleStartTime)
 
         if (promise.hours >= 12) {
@@ -57,7 +58,26 @@ class BeforeDayViewModel() : BaseViewModel() {
         moreThanDay.value = diffDay > 0
 
         if (diffDay > 0) {
-            timeDifference.value = diffDay
+            if (promise.day - date.day == 1) {
+                // 내일이라고 표시 근데 여기서 2일 차이나는거랑 1일 차이나는 걸 구분해줘야한다.
+
+                date.minutes = 0
+                date.hours = 0
+                date.seconds = 0
+
+                val tempGap = promise.time - date.time
+                val tempDiffDay = (tempGap / 1000 / 60 / 60 / 24).toInt()
+                if(tempDiffDay==1){
+                    // 내일이라고 표시를 해줘야한다.
+                    timeDifference.value = -1
+                }else{
+                    timeDifference.value = tempDiffDay
+                }
+
+
+            } else {
+                timeDifference.value = diffDay
+            }
         } else {
             timeDifference.value = diffHour
         }

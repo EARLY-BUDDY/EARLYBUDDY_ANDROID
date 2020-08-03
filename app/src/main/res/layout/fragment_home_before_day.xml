@@ -76,7 +76,6 @@
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="38dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="@{String.valueOf(vm.timeDifference)}"
                 android:textColor="@color/black"
                 android:textSize="85dp"
                 app:layout_constraintBottom_toBottomOf="@+id/frag_home_before_day__view_center"

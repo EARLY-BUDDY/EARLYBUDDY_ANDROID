@@ -41,9 +41,7 @@ class BeforeDayFragment : BaseFragment<FragmentHomeBeforeDayBinding, BeforeDayVi
         viewModel.timeDifference.observe(viewLifecycleOwner, Observer {
             if(it==-1){
                 // 내일이다
-                viewDataBinding.fragHomeBeforeDayTvDay.text = "내일"
-                viewDataBinding.fragHomeBeforeDayTvBefore.visibility = View.GONE
-                viewDataBinding.fragHomeBeforeDayTvNext.text = "다음 일정은"
+                viewDataBinding.fragHomeBeforeDayTvDay.text = "1"
             }else{
                 viewDataBinding.fragHomeBeforeDayTvDay.text = it.toString()
             }
