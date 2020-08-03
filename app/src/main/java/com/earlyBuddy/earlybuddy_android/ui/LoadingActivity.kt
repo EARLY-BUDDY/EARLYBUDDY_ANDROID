@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.earlyBuddy.earlybuddy_android.R
 import kotlinx.android.synthetic.main.activity_loading.*
@@ -14,10 +16,17 @@ object Loading {
     fun goLoading(nowActivityName: Context) {
         val intent = Intent(nowActivityName, LoadingActivity::class.java)
         nowActivityName.startActivity(intent)
+        Log.e("로딩", "시작~~~~~~~")
     }
 
-    fun exitLoading(){
-        activity.finish()
+    fun exitLoading() {
+        val handler = Handler()
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                Log.e("로딩", "끝ㅠㅠㅠㅠㅠㅠ")
+                activity.finish()
+            }
+        }, 100)
     }
 }
 
