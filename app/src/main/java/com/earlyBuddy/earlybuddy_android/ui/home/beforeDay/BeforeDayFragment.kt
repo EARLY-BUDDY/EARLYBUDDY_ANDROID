@@ -1,12 +1,14 @@
 package com.earlyBuddy.earlybuddy_android.ui.home.beforeDay
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseFragment
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentHomeBeforeDayBinding
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
+import com.earlyBuddy.earlybuddy_android.ui.home.pathCheck.HomePathActivity
+import kotlinx.android.synthetic.main.fragment_home_before_day.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class BeforeDayFragment : BaseFragment<FragmentHomeBeforeDayBinding, BeforeDayViewModel>() {
@@ -25,6 +27,11 @@ class BeforeDayFragment : BaseFragment<FragmentHomeBeforeDayBinding, BeforeDayVi
         viewDataBinding.vm = viewModel
 
         addObservedData()
+
+        frag_home_before_day__iv_detail.setOnClickListener {
+            val intent = Intent(activity, HomePathActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun addObservedData() {
@@ -40,7 +47,7 @@ class BeforeDayFragment : BaseFragment<FragmentHomeBeforeDayBinding, BeforeDayVi
 
         viewModel.timeDifference.observe(viewLifecycleOwner, Observer {
             if(it==-1){
-                // 내일이다
+                // 24시간이 넘는데 약속 1일전이다!
                 viewDataBinding.fragHomeBeforeDayTvDay.text = "1"
             }else{
                 viewDataBinding.fragHomeBeforeDayTvDay.text = it.toString()

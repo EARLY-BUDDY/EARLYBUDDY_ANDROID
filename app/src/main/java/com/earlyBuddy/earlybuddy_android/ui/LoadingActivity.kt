@@ -11,7 +11,7 @@ import com.earlyBuddy.earlybuddy_android.R
 import kotlinx.android.synthetic.main.activity_loading.*
 
 object Loading {
-    lateinit var activity: Activity
+     var activity: Activity = LoadingActivity()
 
     fun goLoading(nowActivityName: Context) {
         val intent = Intent(nowActivityName, LoadingActivity::class.java)
@@ -21,12 +21,10 @@ object Loading {
 
     fun exitLoading() {
         val handler = Handler()
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                Log.e("로딩", "끝ㅠㅠㅠㅠㅠㅠ")
-                activity.finish()
-            }
-        }, 100)
+        handler.postDelayed({
+            Log.e("로딩", "끝ㅠㅠㅠㅠㅠㅠ")
+            activity.finish()
+        }, 300)
     }
 }
 
