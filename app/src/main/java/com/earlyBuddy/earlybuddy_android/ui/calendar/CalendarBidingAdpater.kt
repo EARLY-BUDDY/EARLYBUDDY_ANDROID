@@ -20,7 +20,7 @@ fun setHeight(view: View, lines: Int) {
     view.parent
     val layoutParams = view.layoutParams
 
-    val dpHeight = 330
+    val dpHeight = 300
     val metrics = view.context.resources.displayMetrics
     val height = dpHeight * (metrics.densityDpi / 160f)
 

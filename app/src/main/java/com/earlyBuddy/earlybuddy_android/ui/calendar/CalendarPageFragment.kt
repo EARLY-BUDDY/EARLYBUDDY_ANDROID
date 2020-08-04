@@ -100,23 +100,25 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
 
         // 캘린더 줄 수 설정
         val lines: Int
-        when(mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)){
-            28 -> {
-                if(mCalendar.get(Calendar.DAY_OF_MONTH) == 1) lines = 4
-                else lines = 5
-            }
-            30 -> {
-                if(mCalendar.get(Calendar.DAY_OF_MONTH) == 7) lines = 6
-                else lines = 5
-            }
-            31 -> {
-                when(mCalendar.get(Calendar.DAY_OF_MONTH)){
-                    6,7 -> lines = 6
-                    else -> lines = 5
-                }
-            }
-            else -> lines = 5
-        }
+//        when(mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)){
+//            28 -> {
+//                if(mCalendar.get(Calendar.DAY_OF_MONTH) == 1) lines = 4
+//                else lines = 5
+//            }
+//            30 -> {
+//                if(mCalendar.get(Calendar.DAY_OF_MONTH) == 7) lines = 6
+//                else lines = 5
+//            }
+//            31 -> {
+//                when(mCalendar.get(Calendar.DAY_OF_MONTH)){
+//                    6,7 -> lines = 6
+//                    else -> lines = 5
+//                }
+//            }
+//            else -> lines = 5
+//        }
+
+        lines = 6
 
 
         makeSchedule(mCalendar, mPrevCalendar, mNextCalendar, mInstanceCalendar, date, lines)
@@ -212,8 +214,8 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
             }
         }
 
-        if(nextDayNum != 1){
-            for(i in 1 until 9 - nextDayNum){
+//        if(nextDayNum != 1){
+            for(i in 1 until 16 - nextDayNum){
 
                 val scheduleList = viewModel.getSchedule(
                     mNextCalendar.get(Calendar.YEAR).toString(),
@@ -234,7 +236,8 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
                     )
                 )
             }
-        }
+
+//        }
 
         refreshCal()
     }
