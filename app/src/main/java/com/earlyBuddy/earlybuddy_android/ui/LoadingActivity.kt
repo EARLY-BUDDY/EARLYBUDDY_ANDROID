@@ -37,7 +37,7 @@ class LoadingActivity : AppCompatActivity() {
         Loading.activity = this
 
         lottie_ani.run {
-            setAnimation("roading.json")
+            setAnimation("loading.json")
             loop(true)
             playAnimation()
         }
