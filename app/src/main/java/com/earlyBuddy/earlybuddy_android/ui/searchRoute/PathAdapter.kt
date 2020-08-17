@@ -82,11 +82,9 @@ class PathAdapter(
             }
             is RouteViewHolder -> {
                 holder.bindAdapter(
-                    PathDetailAdapter(
                         subPathData[position].passStopList,
                         holder.itemViewType,
                         subPathData[position].lane!!.type
-                    )
                 )
                 holder.bind(subPathData[position])
             }
@@ -99,6 +97,8 @@ class RouteViewHolder(
     private val clickListener: DropDownUpClickListener
 ) :
     RecyclerView.ViewHolder(routeBinding.root) {
+
+    private val pathDetailAdapter: PathDetailAdapter = PathDetailAdapter()
 
     init {
         routeBinding.itemPassRidingClDropDownUp.setOnClickListener {
@@ -140,8 +140,13 @@ class RouteViewHolder(
         }
     }
 
-    fun bindAdapter(detailAdapter: PathDetailAdapter) {
-        routeBinding.itemPassRidingRvRidingInfoDetail.adapter = detailAdapter
+    fun bindAdapter(routeDetail: ArrayList<String>, trafficType: Int, type: Int) {
+        routeBinding.itemPassRidingRvRidingInfoDetail.adapter = pathDetailAdapter
+        pathDetailAdapter.routeDetail = routeDetail
+        pathDetailAdapter.trafficType = trafficType
+        pathDetailAdapter.type = type
+        pathDetailAdapter.notifyDataSetChanged()
+
         routeBinding.itemPassRidingRvRidingInfoDetail.layoutManager =
             LinearLayoutManager(routeBinding.root.context)
         routeBinding.itemPassRidingRvRidingInfoDetail.visibility = View.GONE

@@ -20,14 +20,13 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Loading.goLoading(this)
         addObservedData()
-        viewModel.getData()
+        viewModel.getData(true)
 
     }
 
-    fun refresh() {
-        viewModel.getData()
+    fun refresh(loadingVisible:Boolean) {
+        viewModel.getData(loadingVisible)
         Log.e("refresh", "리프레시...")
     }
 
@@ -44,6 +43,17 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
         viewModel.goBeforBusFragment.observe(this, Observer {
             replaceFragment(it)
         })
+
+        viewModel.loadingVisiblity.observe(this, Observer {
+            when (it) {
+                true -> {
+                    Loading.goLoading(this)
+                }
+                else -> {
+                    Loading.exitLoading()
+                }
+            }
+        })
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -57,6 +67,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
 
     override fun onRestart() {
         super.onRestart()
-        refresh()
+        refresh(true)
     }
 }

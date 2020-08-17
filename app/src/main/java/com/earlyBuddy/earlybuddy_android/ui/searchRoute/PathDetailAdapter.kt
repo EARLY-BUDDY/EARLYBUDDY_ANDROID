@@ -7,12 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPassThorughRouteDetailBinding
 
-class PathDetailAdapter(
-    private val routeDetail: ArrayList<String>,
-    private val trafficType: Int,
-    private val type: Int
-) :
+class PathDetailAdapter :
     RecyclerView.Adapter<RouteDetailViewHolder>() {
+
+     lateinit var routeDetail: ArrayList<String>
+     var trafficType: Int = 0
+     var type: Int = 0
+
     override fun getItemCount(): Int {
         return routeDetail.size
     }

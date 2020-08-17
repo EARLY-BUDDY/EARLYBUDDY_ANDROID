@@ -1,24 +1,25 @@
 package com.earlyBuddy.earlybuddy_android.ui.home.beforeDay
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.earlyBuddy.earlybuddy_android.R
-import com.earlyBuddy.earlybuddy_android.base.BaseTTFragment
+import com.earlyBuddy.earlybuddy_android.base.BaseFragment
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentHomeBeforeDayBinding
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
+import com.earlyBuddy.earlybuddy_android.ui.home.pathCheck.HomePathActivity
+import kotlinx.android.synthetic.main.fragment_home_before_day.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class BeforeDayFragment : BaseTTFragment<FragmentHomeBeforeDayBinding, BeforeDayViewModel>() {
+class BeforeDayFragment : BaseFragment<FragmentHomeBeforeDayBinding, BeforeDayViewModel>() {
     override val layoutResID: Int
         get() = R.layout.fragment_home_before_day
-    lateinit var viewModel: BeforeDayViewModel
+    override val viewModel: BeforeDayViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(BeforeDayViewModel::class.java)
-
-        val homeResponse = (activity as HomeActivity).viewModel.homeResponse.value
+        val homeResponse = (requireActivity() as HomeActivity).viewModel.homeResponse.value
         if (homeResponse != null) {
             viewModel.getData(homeResponse)
         }
@@ -26,6 +27,11 @@ class BeforeDayFragment : BaseTTFragment<FragmentHomeBeforeDayBinding, BeforeDay
         viewDataBinding.vm = viewModel
 
         addObservedData()
+
+        frag_home_before_day__iv_detail.setOnClickListener {
+            val intent = Intent(activity, HomePathActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun addObservedData() {
@@ -36,6 +42,15 @@ class BeforeDayFragment : BaseTTFragment<FragmentHomeBeforeDayBinding, BeforeDay
             } else {
                 viewDataBinding.fragHomeBeforeDayIvBack.setImageResource(R.drawable.img_late_bg)
                 viewDataBinding.fragHomeBeforeDayTvBefore.text = "시간 전"
+            }
+        })
+
+        viewModel.timeDifference.observe(viewLifecycleOwner, Observer {
+            if(it==-1){
+                // 24시간이 넘는데 약속 1일전이다!
+                viewDataBinding.fragHomeBeforeDayTvDay.text = "1"
+            }else{
+                viewDataBinding.fragHomeBeforeDayTvDay.text = it.toString()
             }
         })
     }
