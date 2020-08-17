@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.TransportMap
-import com.earlyBuddy.earlybuddy_android.data.datasource.model.Station
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPassThorughRouteDetailBinding
 
 class PathDetailAdapter(

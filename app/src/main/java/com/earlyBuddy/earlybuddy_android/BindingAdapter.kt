@@ -49,11 +49,12 @@ fun walkStartText(
 }
 
 @BindingAdapter("changeTint")
-fun View.changeTint(tints: String){
-    if(this is ImageView || this is ConstraintLayout) {
+fun View.changeTint(tints: String) {
+    if (this is ImageView || this is ConstraintLayout) {
         backgroundTintList = ColorStateList.valueOf(Color.parseColor(tints))
     }
 }
+
 @BindingAdapter("changeImg", "imgTint")
 fun ImageView.changeimg(image: Drawable, tints: String) {
     background = image
@@ -101,4 +102,57 @@ fun visibleText(view: TextView, remainingMinuteSetVisible: Int) {
     } else {
         view.visibility = View.INVISIBLE
     }
+}
+
+@BindingAdapter("placeResultRoadAddress", "placeResultAddressName")
+fun TextView.placeResultAddress(placeResultRoadAddress: String, placeResultAddressName: String) {
+    text = if (placeResultRoadAddress.isEmpty()) {
+        placeResultAddressName
+    } else {
+        placeResultRoadAddress
+    }
+}
+
+@BindingAdapter("setMethodColor", "setMethodColorType")
+fun View.setMethodColor(color: String?, type: Int) {
+    if (this is ImageView) {
+        if (type == 3) visibility = View.INVISIBLE
+        else {
+            backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
+        }
+    }
+    if (this is TextView) {
+        if (type != 3) {
+            setTextColor(ColorStateList.valueOf(Color.parseColor(color)))
+        }
+    }
+}
+
+@BindingAdapter("setTotalTime")
+fun TextView.setTotalTime(time: Int?) {
+    text = if (time!! < 60) "${time}분"
+    else "${time / 60}시간 ${time % 60}분"
+}
+
+@BindingAdapter("setPathType")
+fun TextView.setPathType(type: Int?) {
+    text = if (type==1) "지하철"
+    else if(type==2) "버스"
+    else "지하철 + 버스"
+}
+
+@BindingAdapter("setTransitCount")
+fun TextView.setTransitCount(cnt: Int?) {
+    text = "환승 ${cnt}회"
+}
+
+@BindingAdapter("setWalkTime")
+fun TextView.setWalkTime(time: Int?) {
+    text = "도보 ${time}분"
+}
+
+@BindingAdapter("setPay")
+fun TextView.setPay(pay: String?) {
+    val size = pay!!.length
+    text = "${pay.substring(0, size - 3)},${pay.substring(size - 3)}원"
 }

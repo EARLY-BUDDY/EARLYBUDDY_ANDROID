@@ -26,6 +26,6 @@ class NoScheduleFragment : BaseFragment<FragmentHomeNoScheduleBinding, NoSchedul
     override val layoutResID: Int
         get() = R.layout.fragment_home_no_schedule
     override val viewModel: NoScheduleViewModel
-        get() = NoScheduleViewModel(application = EarlyBuddyApplication.globalApplication)
+        get() = NoScheduleViewModel()
 
 }

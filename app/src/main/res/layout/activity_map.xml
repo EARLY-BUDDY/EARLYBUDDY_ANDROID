@@ -146,6 +146,7 @@
                     android:textSize="14dp"
                     android:textColor="@color/mid_gray"
                     android:text="서울특별시 강남구 봉은사로 524"
+
                     app:layout_constraintTop_toBottomOf="@id/act_map_tv_name"
                     app:layout_constraintStart_toStartOf="@id/act_map_tv_name"/>
 

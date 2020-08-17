@@ -27,12 +27,19 @@ object TransportMap {
     val busMap: Map<Int, String> = mapOf(
         1 to "#3469ec",
         2 to "#3469ec",
-        11 to "#3469ec",
-        10 to "#33c63c",
-        12 to "#33c63c",
+        3 to "#85c900",
         4 to "#ff574c",
+        5 to "#70b5e6",
+        6 to "#3469ec",
+        10 to "#33c63c",
+        11 to "#3469ec",
+        12 to "#33c63c",
+        13 to "#efae13",
         14 to "#ff574c",
         15 to "#ff574c",
-        5 to "#70b5e6"
+        20 to "#ffffff",
+        21 to "#ffffff",
+        22 to "#ffffff",
+        26 to "#3469ec"
     )
 }
