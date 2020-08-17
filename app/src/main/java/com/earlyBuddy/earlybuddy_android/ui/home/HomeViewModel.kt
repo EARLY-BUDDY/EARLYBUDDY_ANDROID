@@ -9,7 +9,6 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeSchedule
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.ScheduleSummaryData
 import com.earlyBuddy.earlybuddy_android.data.repository.HomeRepository
-import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.home.beforeBus.BeforeBusFragment
 import com.earlyBuddy.earlybuddy_android.ui.home.beforeDay.BeforeDayFragment
 import com.earlyBuddy.earlybuddy_android.ui.home.noSchedule.NoScheduleFragment
@@ -22,6 +21,7 @@ class HomeViewModel(private val repository: HomeRepository) :
     val goBeforeDayFragment = MutableLiveData<Fragment>()
     val goNoScheduleFragment = MutableLiveData<Fragment>()
     val homeResponse = MutableLiveData<HomeResponse>()
+    val loadingVisiblity = MutableLiveData<Boolean>()
 
     private lateinit var tempHomeResponse: HomeResponse
 
@@ -52,18 +52,20 @@ class HomeViewModel(private val repository: HomeRepository) :
             )
         )
 
-    fun getData() {
+    fun getData(loadingVisible: Boolean) {
 
         addDisposable(repository.getHomeData().observeOn(AndroidSchedulers.mainThread())
             // 구독할 때 수행할 작업을 구현
             .doOnSubscribe {}
             // 스트림이 종료될 때 수행할 작업을 구현
             .doOnTerminate {
-                Loading.exitLoading()
-//                 homeResponse.value = tempHomeResponse
-                homeResponse.value = homeResponses
+                if (loadingVisible) {
+                    loadingVisiblity.value = false
+                }
+                homeResponse.value = tempHomeResponse
+//                homeResponse.value = homeResponses
 
-                when (homeResponses.data!!.scheduleCheck) {
+                when (tempHomeResponse.data!!.scheduleCheck) {
                     1 -> {
                         goNoScheduleFragment.value = NoScheduleFragment()
                     }
@@ -79,6 +81,9 @@ class HomeViewModel(private val repository: HomeRepository) :
              .subscribe({
                  // API를 통해 액세스 토큰을 정상적으로 받았을 때 처리할 작업을 구현
                  // 작업 중 오류가 발생하면 이 블록은 호출되지 x
+                 if (loadingVisible) {
+                     loadingVisiblity.value = true
+                 }
 
                  // onResponse
                  tempHomeResponse = it!!

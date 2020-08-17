@@ -36,7 +36,7 @@ class BeforeBusViewModel() : BaseViewModel() {
         if (lastTransCount == "2") {
             lastsSentence.value = "이제 나갈 준비를 해주세요!"
         } else {
-            lastsSentence.value = "이거 놓치면 지각이에요!"
+            lastsSentence.value = "이번에 놓치면 지각이에요!"
         }
         divideTraffic(tempHomeResponse)
         getTimeDifference(tempHomeResponse)

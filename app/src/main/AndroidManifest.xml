@@ -16,7 +16,7 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.initial.place.PlaceActivity"></activity>
+        <activity android:name=".ui.initial.place.InitialPlaceActivity"></activity>
         <activity android:name=".ui.initial.nickname.NickNameActivity" />
         <activity
             android:name=".ui.LoadingActivity"

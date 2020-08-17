@@ -39,14 +39,13 @@ class BeforeBusFragment : BaseFragment<FragmentHomeBeforeBusBinding, BeforeBusVi
         timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
                 timer.cancel()
-                (activity as HomeActivity).refresh()
-                Log.e("QQQ","weqwewq")
+                (activity as HomeActivity).refresh(false)
             }
         }, 7000, 7000)
 
         frag_home_before_bus__iv_reboot.setOnClickListener {
             viewModel.timer.cancel()
-            (activity as HomeActivity).refresh()
+            (activity as HomeActivity).refresh(true)
         }
 
         frag_home_before_bus__iv_detail.setOnClickListener {

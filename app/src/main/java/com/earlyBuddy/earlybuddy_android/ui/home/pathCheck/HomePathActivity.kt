@@ -7,15 +7,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
-import com.earlyBuddy.earlybuddy_android.data.datasource.remote.RemoteDataSourceImpl
-import com.earlyBuddy.earlybuddy_android.data.repository.SearchRouteRepository
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityHomePathBinding
+import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.PathAdapter
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.RouteViewHolder
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_home_path.*
-import kotlinx.android.synthetic.main.activity_home_path.lottie_back
-import kotlinx.android.synthetic.main.activity_loading.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel>() {
@@ -43,16 +39,10 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
         viewModel.lottieVisible.observe(this, Observer {
             when (it) {
                 true -> {
-                    lottie_ani.run {
-                        setAnimation("roading.json")
-                        loop(true)
-                        playAnimation()
-                    }
-                    lottie_back.visibility = View.VISIBLE
+                    Loading.goLoading(this)
                 }
                 false -> {
-                    lottie_ani.clearAnimation()
-                    lottie_back.visibility = View.GONE
+                    Loading.exitLoading()
                 }
             }
         })

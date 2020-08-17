@@ -29,6 +29,7 @@ class SignInViewModel(private val repository : SignInRepository) : BaseViewModel
             .subscribe({
                 // API를 통해 액세스 토큰을 정상적으로 받았을 때 처리할 작업을 구현
                 // 작업 중 오류가 발생하면 이 블록은 호출되지 x
+                Log.e("token is ",it.toString())
 
                 Log.e("it.status", it.status.toString())
                 // onResponse

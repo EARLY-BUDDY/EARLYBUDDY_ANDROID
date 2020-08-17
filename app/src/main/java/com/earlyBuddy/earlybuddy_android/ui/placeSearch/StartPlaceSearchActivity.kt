@@ -8,7 +8,7 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.earlyBuddy.earlybuddy_android.BR
 import com.earlyBuddy.earlybuddy_android.R
@@ -22,6 +22,10 @@ import kotlinx.android.synthetic.main.activity_start_place_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, PlaceSearchViewModel>() {
+    companion object{
+        var getByInitial = -1
+        var favoriteCategory = -1
+    }
 
     val bundle = Bundle(1)
     private val placeListFragment = PlaceListFragment()
@@ -42,10 +46,25 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         viewDataBinding.vm = viewModel
 
+        isLoadedByInitial()
         textWatch()
         getLocationUpdates()
         setClick()
         setRv()
+    }
+
+    private fun isLoadedByInitial() {
+        val intent = intent
+        getByInitial = intent.getIntExtra("initial", -1)
+        favoriteCategory = intent.getIntExtra("favoriteCategory",-1)
+        if (getByInitial == 1) {
+            // 1이면 최초가입에서 불러진 뷰
+            viewDataBinding.actStartPlaceSearchViewLine.visibility = View.GONE
+            viewDataBinding.actStartPlaceSearchHsv.visibility = View.GONE
+            viewDataBinding.actStartPlaceSearchTvTitle.text = "자주 가는 장소"
+            viewDataBinding.actStartPlaceSearchEtSearch.hint = "장소를 입력해주세요"
+        }
+
     }
 
     override fun onResume() {
