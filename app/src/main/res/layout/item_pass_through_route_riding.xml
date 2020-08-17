@@ -10,6 +10,14 @@
             type="com.earlyBuddy.earlybuddy_android.data.datasource.model.SubPath" />
 
         <variable
+            name="subPathSectionTime"
+            type="String" />
+
+        <variable
+            name="subPathStationCount"
+            type="String" />
+
+        <variable
             name="tints"
             type="String" />
 
@@ -128,7 +136,7 @@
             app:layout_constraintEnd_toEndOf="@+id/item_pass_riding_iv_riding_img"
             app:layout_constraintStart_toStartOf="@+id/item_pass_riding_iv_riding_img"
             app:layout_constraintTop_toBottomOf="@id/item_pass_riding_iv_riding_img"
-            tools:text="@{`약 `+subPath.sectionTime+`분`}" />
+            tools:text="@{subPathSectionTime}" />
 
         <ImageView
             android:id="@+id/item_pass_riding_iv_riding_line"
@@ -174,7 +182,7 @@
                 android:letterSpacing="-0.02"
                 android:lineSpacingExtra="6sp"
                 android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="@{subPath.stationCount+`개 정류장`}"
+                android:text="@{subPathStationCount}"
                 android:textColor="@color/gray"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
