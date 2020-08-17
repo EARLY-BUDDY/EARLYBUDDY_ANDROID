@@ -11,6 +11,7 @@ import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.SubPath
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPassThroughRouteRidingBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPassThroughRouteWalkBinding
+import java.util.*
 
 class PathAdapter(
     private val startAddress: String,
@@ -119,10 +120,12 @@ class RouteViewHolder(
     }
 
     fun bind(data: SubPath) {
-        if(data.distance==0){
-            routeBinding.root.visibility=View.GONE
+        if (data.distance == 0) {
+            routeBinding.root.visibility = View.GONE
         }
         routeBinding.subPath = data
+        routeBinding.subPathSectionTime = "약 " + data.sectionTime + "분"
+        routeBinding.subPathStationCount = data.stationCount.toString() + "개 정류장"
 
         when (data.trafficType) {
             1 -> {  //지하철
@@ -163,6 +166,8 @@ class WalkViewHolder(
 
     fun bind(data: SubPath, position: Int) {
         walkBinding.subPath = data
+        walkBinding.subPathSectionTime = "약 " + data.sectionTime + "분"
+        walkBinding.subPathDistance = "도보 " +data.distance+ "m"
 
         when (position) {
             // 첫번째 걷기
