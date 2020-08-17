@@ -49,6 +49,8 @@
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="0sp"
             android:text="@{placeRes.roadAddressName}"
+            placeResultRoadAddress = "@{placeRes.roadAddressName}"
+            placeResultAddressName = "@{placeRes.addressName}"
             app:layout_constraintTop_toBottomOf="@id/item_place_list_result_tv_place_name"
             app:layout_constraintStart_toStartOf="@id/item_place_list_result_tv_place_name"/>
 

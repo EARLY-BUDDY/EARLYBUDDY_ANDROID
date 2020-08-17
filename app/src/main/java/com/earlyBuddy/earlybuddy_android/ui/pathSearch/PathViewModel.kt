@@ -23,8 +23,8 @@ class PathViewModel(private val repository : SearchRouteRepository) : BaseViewMo
         repository.delete(recentPath)
     }
 
-    private var _routeList = MutableLiveData<List<Path>>()
-    val routeList : LiveData<List<Path>> get() = _routeList
+    private var _routeList = MutableLiveData<ArrayList<Path>>()
+    val routeList : LiveData<ArrayList<Path>> get() = _routeList
 
     fun getRouteData(SX : Double, SY : Double, EX : Double, EY : Double, SearchPathType : Int){
         addDisposable(repository.getSearchRouteData(SX, SY, EX, EY, SearchPathType)

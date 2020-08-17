@@ -2,15 +2,9 @@ package com.earlyBuddy.earlybuddy_android.ui.placeSearch
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.earlyBuddy.earlybuddy_android.BR
 import com.earlyBuddy.earlybuddy_android.R
@@ -19,12 +13,7 @@ import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceSearch
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentPlaceListBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPlaceListBinding
-import kotlinx.android.synthetic.main.activity_end_place_search.*
-import kotlinx.android.synthetic.main.activity_start_place_search.*
-import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPlaceBinding
-import kotlinx.android.synthetic.main.fragment_place_list.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchViewModel>() {
 

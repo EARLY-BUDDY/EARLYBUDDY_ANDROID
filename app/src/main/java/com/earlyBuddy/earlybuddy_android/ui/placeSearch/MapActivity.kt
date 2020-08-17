@@ -98,7 +98,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     fun setText(){
         act_map_tv_search.text = placeName
         act_map_tv_name.text = placeName
-        act_map_tv_address.text = roadAddress
+        if(roadAddress.isNullOrEmpty()) act_map_tv_address.text = address
+        else act_map_tv_address.text = roadAddress
         act_map_tv_category.text = category
 
         if(flag==2){
