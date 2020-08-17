@@ -179,8 +179,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto_sans_kr_medium"
-                android:inputType="text"
-                android:clickable="false"
                 android:maxLength="20"
                 android:maxLines="1"
                 android:paddingLeft="66dp"
