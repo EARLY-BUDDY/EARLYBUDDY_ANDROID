@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
-import android.os.Handler
 import android.provider.Settings
 import android.util.Log
 import androidx.core.app.ActivityCompat
@@ -107,11 +106,13 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
     val onClickListener = object : BaseRecyclerViewAdapter.OnItemClickListener {
         override fun onItemClicked(item: Any?, position: Int?) {
-            val rsx = (item as RecentPathEntity).sx
-            val rsy = (item as RecentPathEntity).sy
-            val rex = (item as RecentPathEntity).ex
-            val rey = (item as RecentPathEntity).ey
-            viewModel.getRouteData(rsx, rsy, rex, rey, 0)
+            sx = (item as RecentPathEntity).sx
+            sy = item.sy
+            ex = item.ex
+            ey = item.ey
+            sFlag = 1
+            eFlag = 1
+            viewModel.getRouteData(sx, sy, ex, ey, 0)
 
             pathResultFrag = PathResultFragment()
             supportFragmentManager.beginTransaction()
@@ -120,23 +121,23 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                     pathResultFrag
                 ).commit()
 
-            act_path_tv_start.text = viewModel.routes.value!![position!!].startPlaceName
-            act_path_tv_end.text = viewModel.routes.value!![position].endPlaceName
-            act_path_tv_start.setTextColor(resources.getColor(R.color.black))
-            act_path_tv_end.setTextColor(resources.getColor(R.color.black))
+            viewDataBinding.actPathTvStart.text = viewModel.routes.value!![position!!].startPlaceName
+            viewDataBinding.actPathTvEnd.text = viewModel.routes.value!![position].endPlaceName
+            viewDataBinding.actPathTvStart.setTextColor(resources.getColor(R.color.black))
+            viewDataBinding.actPathTvEnd.setTextColor(resources.getColor(R.color.black))
         }
     }
 
     fun setClick() {
-        act_path_tv_start.setOnClickListener {
+        viewDataBinding.actPathTvStart.setOnClickListener {
             val intent = Intent(this, StartPlaceSearchActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_START)
         }
-        act_path_tv_end.setOnClickListener {
+        viewDataBinding.actPathTvEnd.setOnClickListener {
             val intent = Intent(this, EndPlaceSearchActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_END)
         }
-        act_path_iv_cancel.setOnClickListener {
+        viewDataBinding.actPathIvCancel.setOnClickListener {
             act_path_tv_start.text = "출발지를 입력하세요"
             act_path_tv_end.text = "도착지를 입력하세요"
             act_path_tv_start.setTextColor(resources.getColor(R.color.mid_gray))
@@ -144,16 +145,15 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
             sFlag = 0
             eFlag = 0
 
-            supportFragmentManager.beginTransaction()
-                .remove(
-                    pathResultFrag
-                ).commit()
+            for (fragment in supportFragmentManager.fragments) {
+                supportFragmentManager.beginTransaction().remove(fragment!!).commit()
+            }
         }
-        act_path_iv_change.setOnClickListener {
+        viewDataBinding.actPathIvChange.setOnClickListener {
             if (sFlag == 1 && eFlag == 1) {
-                val temp = act_path_tv_start.text
-                act_path_tv_start.text = act_path_tv_end.text
-                act_path_tv_end.text = temp
+                val temp = viewDataBinding.actPathTvStart.text
+                viewDataBinding.actPathTvStart.text = viewDataBinding.actPathTvEnd.text
+                viewDataBinding.actPathTvEnd.text = temp
                 var tempD = sx
                 sx = ex
                 ex = tempD
@@ -177,21 +177,24 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 sx = data.getDoubleExtra("x", 0.0)
                 sy = data.getDoubleExtra("y", 0.0)
                 sFlag = data.getIntExtra("flag", 0)
+                viewDataBinding.actPathTvStart.text = startPlaceName
+                viewDataBinding.actPathTvStart.setTextColor(resources.getColor(R.color.black))
+
                 Log.e("sFlag -> ", sFlag.toString())
                 Log.e("sx좌표 -> ", sx.toString())
                 Log.e("sy좌표 -> ", sy.toString())
-                act_path_tv_start.text = startPlaceName
-                act_path_tv_start.setTextColor(resources.getColor(R.color.black))
+
             } else if (requestCode == REQUEST_CODE_END) {
                 endPlaceName = data!!.getStringExtra("placeName")
                 ex = data.getDoubleExtra("x", 0.0)
                 ey = data.getDoubleExtra("y", 0.0)
                 eFlag = data.getIntExtra("flag", 0)
+                viewDataBinding.actPathTvEnd.text = endPlaceName
+                viewDataBinding.actPathTvEnd.setTextColor(resources.getColor(R.color.black))
+
                 Log.e("eFlag -> ", eFlag.toString())
                 Log.e("ex좌표 -> ", ex.toString())
                 Log.e("ey좌표 -> ", ey.toString())
-                act_path_tv_end.text = endPlaceName
-                act_path_tv_end.setTextColor(resources.getColor(R.color.black))
             }
         }
     }

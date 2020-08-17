@@ -43,10 +43,10 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
+        setRv()
         textWatch()
         getLocationUpdates()
         setClick()
-        setRv()
     }
 
     override fun onResume() {
