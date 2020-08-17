@@ -35,6 +35,7 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
     private lateinit var locationCallback : LocationCallback
     var latitude = 0.0
     var longitude = 0.0
+    var recentPlaceClick = 0
 
     override val layoutResID: Int
         get() = R.layout.activity_start_place_search
@@ -64,7 +65,6 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
             viewDataBinding.actStartPlaceSearchTvTitle.text = "자주 가는 장소"
             viewDataBinding.actStartPlaceSearchEtSearch.hint = "장소를 입력해주세요"
         }
-
     }
 
     override fun onResume() {
@@ -78,6 +78,8 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
     }
 
     fun setFrag(){
+        if(recentPlaceClick==1) return
+
         val nowFrag = supportFragmentManager.findFragmentById(R.id.act_start_place_search_container)
         if(act_start_place_search_et_search.text.isEmpty() && nowFrag==placeListFragment){
             supportFragmentManager.beginTransaction()
@@ -115,6 +117,7 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
     private fun setClick(){
         act_start_place_search_iv_cancel.setOnClickListener{
             act_start_place_search_et_search.text.clear()
+
             val nowFrag = supportFragmentManager.findFragmentById(R.id.act_start_place_search_container)
             if(nowFrag!=null) {
                 supportFragmentManager.beginTransaction()
@@ -176,6 +179,7 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
             = object : BaseRecyclerViewAdapter.OnItemClickListener {
         override fun onItemClicked(item: Any?, position: Int?) {
             val recentPlace = (item as RecentPlaceEntity).placeName
+            recentPlaceClick = 1
             viewModel.getPlaceSearchData(recentPlace, longitude, latitude)
             supportFragmentManager.beginTransaction()
                 .replace(
@@ -184,6 +188,8 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
                 ).commit()
             bundle.putInt("flag", 1)
             placeResultFragment.arguments = bundle
+
+            viewDataBinding.actStartPlaceSearchEtSearch.setText(viewModel.places.value!![position!!].placeName)
 
 //            val recentPlace = (item as RecentPlaceEntity)
 //            viewModel.delete(recentPlace)
