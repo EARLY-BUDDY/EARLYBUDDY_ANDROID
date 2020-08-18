@@ -32,22 +32,8 @@ class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearch
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        viewModel = ViewModelProvider(getViewModelStoreOwner(), ViewModelProvider.NewInstanceFactory()).get(PlaceSearchViewModel::class.java)
         flag = arguments!!.getInt("flag")
-
         setRv()
-        viewModel.placeList.observe(viewLifecycleOwner, Observer {
-            (viewDataBinding.fragPlaceResultRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>)
-                .replaceAll(it)
-            (viewDataBinding.fragPlaceResultRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>)
-                .notifyDataSetChanged()
-        })
-    }
-
-    fun Fragment.getViewModelStoreOwner(): ViewModelStoreOwner = try {
-        requireActivity()
-    } catch (e: IllegalStateException) {
-        this
     }
 
     fun setRv(){
@@ -63,6 +49,12 @@ class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearch
                 }
             layoutManager = LinearLayoutManager(requireContext())
         }
+        viewModel.placeList.observe(viewLifecycleOwner, Observer {
+            (viewDataBinding.fragPlaceResultRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>)
+                .replaceAll(it)
+            (viewDataBinding.fragPlaceResultRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>)
+                .notifyDataSetChanged()
+        })
     }
 
     val onClickListener
