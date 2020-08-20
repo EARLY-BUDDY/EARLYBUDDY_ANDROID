@@ -105,8 +105,8 @@ fun visibleText(view: TextView, remainingMinuteSetVisible: Int) {
 }
 
 @BindingAdapter("placeResultRoadAddress", "placeResultAddressName")
-fun TextView.placeResultAddress(placeResultRoadAddress: String, placeResultAddressName: String) {
-    text = if (placeResultRoadAddress.isEmpty()) {
+fun TextView.placeResultAddress(placeResultRoadAddress: String?, placeResultAddressName: String?) {
+    text = if (placeResultRoadAddress.isNullOrEmpty()) {
         placeResultAddressName
     } else {
         placeResultRoadAddress

@@ -1,6 +1,7 @@
 package com.earlyBuddy.earlybuddy_android.ui.searchRoute
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.data.datasource.model.Path
 import com.earlyBuddy.earlybuddy_android.data.datasource.remote.RemoteDataSourceImpl
 import com.earlyBuddy.earlybuddy_android.data.repository.SearchRouteRepository
 import com.earlyBuddy.earlybuddy_android.ui.Loading
@@ -28,10 +30,14 @@ class TestPathActivity : AppCompatActivity() {
 
         Loading.goLoading(this)
 
+        val pathData = intent.getSerializableExtra("path") as Path
+        val startAdd = intent.getStringExtra("startAdd")
+        val endAdd = intent.getStringExtra("endAdd")
+        Log.e("pathData", pathData.toString())
 
         routeRecyclerView = findViewById(R.id.path_rv)
         routeAdapter =
-            PathAdapter("출발지역출발지역출발지역출발지역출발지역출발지역출발지역출발지역출발지역", "도착지역", object : RouteViewHolder.DropDownUpClickListener {
+            PathAdapter(startAdd!!, endAdd!!, pathData, object : RouteViewHolder.DropDownUpClickListener {
                 override fun dropDownUpClick(
                     position: Int,
                     dropImageView: ImageView,

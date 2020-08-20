@@ -123,8 +123,6 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
                 supportFragmentManager.beginTransaction()
                     .remove(nowFrag).commit()
             }
-            val keyboard: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            keyboard.showSoftInput(act_start_place_search_et_search, 0)
             act_start_place_search_et_search.findFocus()
         }
 
@@ -180,6 +178,8 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
         override fun onItemClicked(item: Any?, position: Int?) {
             val recentPlace = (item as RecentPlaceEntity).placeName
             recentPlaceClick = 1
+            viewDataBinding.actStartPlaceSearchEtSearch.clearFocus()
+
             viewModel.getPlaceSearchData(recentPlace, longitude, latitude)
             supportFragmentManager.beginTransaction()
                 .replace(

@@ -4,13 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.earlyBuddy.earlybuddy_android.BR
 import com.earlyBuddy.earlybuddy_android.R
@@ -106,8 +103,6 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
                 supportFragmentManager.beginTransaction()
                     .remove(nowFrag).commit()
             }
-            val keyboard: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            keyboard.showSoftInput(act_end_place_search_et_search, 0)
             act_end_place_search_et_search.findFocus()
         }
 
@@ -160,6 +155,7 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
     val onClickListener
             = object : BaseRecyclerViewAdapter.OnItemClickListener {
         override fun onItemClicked(item: Any?, position: Int?) {
+            viewDataBinding.actEndPlaceSearchEtSearch.clearFocus()
             val recentPlace = (item as RecentPlaceEntity).placeName
             recentPlaceClick = 1
             viewModel.getPlaceSearchData(recentPlace, longitude, latitude)
