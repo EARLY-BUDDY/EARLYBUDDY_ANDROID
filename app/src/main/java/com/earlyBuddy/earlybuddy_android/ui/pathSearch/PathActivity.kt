@@ -21,6 +21,7 @@ import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPathBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPathBinding
+import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.EndPlaceSearchActivity
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.StartPlaceSearchActivity
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -30,6 +31,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
+    val bundle = Bundle()
     private val REQUEST_CODE_START = 7777
     private val REQUEST_CODE_END = 8888
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -65,8 +67,8 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
             viewModel.insert(
                 RecentPathEntity(
-                    startPlaceName = act_path_tv_start.text.toString(),
-                    endPlaceName = act_path_tv_end.text.toString(),
+                    startPlaceName = viewDataBinding.actPathTvStart.text.toString(),
+                    endPlaceName = viewDataBinding.actPathTvEnd.text.toString(),
                     sx = sx,
                     sy = sy,
                     ex = ex,
@@ -79,6 +81,9 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                     R.id.act_path_fl,
                     pathResultFrag
                 ).commit()
+            bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
+            bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
+            pathResultFrag.arguments = bundle
         }
     }
 
@@ -106,6 +111,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
     val onClickListener = object : BaseRecyclerViewAdapter.OnItemClickListener {
         override fun onItemClicked(item: Any?, position: Int?) {
+
             sx = (item as RecentPathEntity).sx
             sy = item.sy
             ex = item.ex
@@ -114,6 +120,11 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
             eFlag = 1
             viewModel.getRouteData(sx, sy, ex, ey, 0)
 
+            viewDataBinding.actPathTvStart.text = viewModel.routes.value!![position!!].startPlaceName
+            viewDataBinding.actPathTvEnd.text = viewModel.routes.value!![position].endPlaceName
+            viewDataBinding.actPathTvStart.setTextColor(resources.getColor(R.color.black))
+            viewDataBinding.actPathTvEnd.setTextColor(resources.getColor(R.color.black))
+
             pathResultFrag = PathResultFragment()
             supportFragmentManager.beginTransaction()
                 .add(
@@ -121,10 +132,9 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                     pathResultFrag
                 ).commit()
 
-            viewDataBinding.actPathTvStart.text = viewModel.routes.value!![position!!].startPlaceName
-            viewDataBinding.actPathTvEnd.text = viewModel.routes.value!![position].endPlaceName
-            viewDataBinding.actPathTvStart.setTextColor(resources.getColor(R.color.black))
-            viewDataBinding.actPathTvEnd.setTextColor(resources.getColor(R.color.black))
+            bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
+            bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
+            pathResultFrag.arguments = bundle
         }
     }
 
