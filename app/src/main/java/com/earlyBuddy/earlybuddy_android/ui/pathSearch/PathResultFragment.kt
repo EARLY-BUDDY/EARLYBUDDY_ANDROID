@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseFragment
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentPathResultBinding
+import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import java.io.Serializable

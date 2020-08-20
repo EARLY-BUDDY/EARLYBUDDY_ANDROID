@@ -17,12 +17,11 @@ import java.util.*
 class PathAdapter(
     private val startAddress: String,
     private val endAddress: String,
-    private val pathData: Path,
     private val clickListener: RouteViewHolder.DropDownUpClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-//    private val subPathData: ArrayList<SubPath> = ArrayList()
-    private val subPathData: ArrayList<SubPath> = pathData.subPath
+    var subPathData: ArrayList<SubPath> = ArrayList()
+//    private val subPathData: ArrayList<SubPath> = pathData.subPath
 
     fun setRouteItemList(newSubPathData: List<SubPath>) {
         with(subPathData) {

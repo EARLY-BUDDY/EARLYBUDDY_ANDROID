@@ -21,6 +21,7 @@ import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPathBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPathBinding
+import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.EndPlaceSearchActivity
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.StartPlaceSearchActivity
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -110,6 +111,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
     val onClickListener = object : BaseRecyclerViewAdapter.OnItemClickListener {
         override fun onItemClicked(item: Any?, position: Int?) {
+
             sx = (item as RecentPathEntity).sx
             sy = item.sy
             ex = item.ex
