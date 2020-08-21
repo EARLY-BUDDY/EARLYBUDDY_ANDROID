@@ -5,13 +5,18 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.InitialObject
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Favorite
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPlaceBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_place.*
+import org.json.JSONObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceViewModel>(),
@@ -33,18 +38,53 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
     override val layoutResID: Int
         get() = R.layout.activity_place
     override val viewModel: InitialPlaceViewModel by viewModel()
+
     private val favoriteArr =
         arrayOf(
             Favorite("", -1, 0.0, 0.0),
             Favorite("", -1, 0.0, 0.0),
             Favorite("", -1, 0.0, 0.0)
         )
-
     private val initialPlaceDialogFragment = InitialPlaceDialogFragment().getInstance()
     private lateinit var cancelList: Array<Cancel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setCancelList()
+        setClickListener()
+        setObservedData()
+
+    }
+
+    private fun registerFavoritePlace() {
+        Log.e("asd", "click")
+        val favorite = JSONObject()
+        val tempFavoriteArr = mutableListOf<Favorite>()
+        for (i in favoriteArr.indices) {
+            if (favoriteArr[i].favoriteCategory != -1) {
+                tempFavoriteArr.add(favoriteArr[i])
+            }
+        }
+
+        Log.e("data!!",tempFavoriteArr.toString())
+        favorite.put("favoriteArr", tempFavoriteArr)
+        Log.e("QQQ!!",favorite.toString())
+        val body = JsonParser.parseString(favorite.toString()) as JsonObject
+        viewModel.registerFavoritePlaces(body)
+    }
+
+    private fun setObservedData() {
+        viewModel.response.observe(this, Observer {
+            if (it) {
+                Toast.makeText(this, "자주 가는 장소 등록 성공!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "자주 가는 장소 등록 실패!", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun setCancelList() {
 
         cancelList = arrayOf(
             Cancel(
@@ -63,7 +103,9 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                 viewDataBinding.actInitialPlaceIvThird
             )
         )
+    }
 
+    private fun setClickListener() {
         viewDataBinding.actInitialPlaceClFirst.onlyOneClickListener {
             clickedNum = 1
             initialPlaceDialogFragment.show(supportFragmentManager, "InitialPlace")
@@ -76,6 +118,10 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
             clickedNum = 3
             initialPlaceDialogFragment.show(supportFragmentManager, "InitialPlace")
         }
+        viewDataBinding.actInitialPlaceTvRegister.onlyOneClickListener {
+            registerFavoritePlace()
+        }
+        viewDataBinding.actInitialPlaceTvRegister.isClickable = false
 
         for (i in cancelList.indices) {
             cancelList[i].cancelBtn.onlyOneClickListener {
@@ -87,7 +133,6 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
             }
 
         }
-
     }
 
     private fun isOneSelected() {
@@ -99,6 +144,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                         R.drawable.bg_25_3092ff
                     )
                 )
+                viewDataBinding.actInitialPlaceTvRegister.isClickable = true
                 isAllUnSelected = false
             }
         }
@@ -108,6 +154,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                     R.drawable.bg_25_c3c3c3
                 )
             )
+            viewDataBinding.actInitialPlaceTvRegister.isClickable = false
         }
 
     }
