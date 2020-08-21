@@ -73,7 +73,7 @@ class TestPathActivity : AppCompatActivity() {
                 // 옵서버블을 구독
                 .subscribe({
                     Log.e("getPlaceRes 응답 성공 : ", it.toString())
-                    routeAdapter.setRouteItemList(it.data.path[2].subPath)
+                    routeAdapter.setRouteItemList(it.data.path[0].subPath)
 
 //                    routeAdapter.notifyDataSetChanged()
                 }) {
