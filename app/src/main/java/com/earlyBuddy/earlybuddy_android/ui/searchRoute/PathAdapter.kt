@@ -174,6 +174,7 @@ class WalkViewHolder(
         when (position) {
             // 첫번째 걷기
             0 -> {
+                walkBinding.fastInExitNo = subPathList[position + 1].startExitNo
                 walkBinding.actRouteTvWalkStartPoint.text = startAddress
                 walkBinding.nextTrafficType = subPathList[position + 1].trafficType
                 walkBinding.previousTrafficType = -1
@@ -181,7 +182,7 @@ class WalkViewHolder(
             }
             // 마지막 걷기
             subPathList.size - 1 -> {
-                walkBinding.fastOutExitNo = subPathList[position - 1].fastExitNo // 몇번출구로 나오기
+                walkBinding.fastOutExitNo = subPathList[position - 1].endExitNo // 몇번출구로 나오기
                 walkBinding.actRouteTvWalkEndPoint.text = endAddress
                 walkBinding.previousTrafficType = subPathList[position - 1].trafficType
                 walkBinding.nextTrafficType = -1
@@ -194,8 +195,8 @@ class WalkViewHolder(
                     walkBinding.root.layoutParams = ViewGroup.MarginLayoutParams(0, 0)
                     return
                 }
-                walkBinding.fastOutExitNo = subPathList[position - 1].fastExitNo // 몇번출구로 나오기
-                walkBinding.fastInExitNo = subPathList[position + 1].fastExitNo  // 몇번출구까지 걷기
+                walkBinding.fastOutExitNo = subPathList[position - 1].endExitNo // 몇번출구로 나오기
+                walkBinding.fastInExitNo = subPathList[position + 1].startExitNo  // 몇번출구까지 걷기
                 walkBinding.previousTrafficType = subPathList[position - 1].trafficType
                 walkBinding.nextTrafficType = subPathList[position + 1].trafficType
                 walkBinding.startPointName = subPathList[position - 1].endName
