@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.TransportMap
+import com.earlyBuddy.earlybuddy_android.data.datasource.model.Path
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.SubPath
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPassThroughRouteRidingBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPassThroughRouteWalkBinding
@@ -19,7 +20,8 @@ class PathAdapter(
     private val clickListener: RouteViewHolder.DropDownUpClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val subPathData: ArrayList<SubPath> = ArrayList()
+    var subPathData: ArrayList<SubPath> = ArrayList()
+//    private val subPathData: ArrayList<SubPath> = pathData.subPath
 
     fun setRouteItemList(newSubPathData: List<SubPath>) {
         with(subPathData) {

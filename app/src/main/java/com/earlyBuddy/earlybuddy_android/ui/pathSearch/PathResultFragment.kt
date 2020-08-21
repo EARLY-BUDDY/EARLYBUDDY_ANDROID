@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseFragment
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentPathResultBinding
+import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import java.io.Serializable
 
 class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel>() {
 
@@ -27,9 +29,11 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
         val pathItemAdapter = PathItemAdapter(
             object : PathItemViewHolder.OnClickPathItemListener {
                 override fun onClickPathItem(position: Int, pathIdx: Int) {
-//                    val intent = Intent(requireContext(), TestPathActivity::class.java)
-//                    intent.putExtra("path", )
-//                    startActivity(intent)
+                    val intent = Intent(requireContext(), TestPathActivity::class.java)
+                    intent.putExtra("path", viewModel.routeList.value!![position])
+                    intent.putExtra("startAdd", arguments!!.getString("startAdd"))
+                    intent.putExtra("endAdd", arguments!!.getString("endAdd"))
+                    startActivity(intent)
                 }
             }
         )

@@ -60,14 +60,16 @@ class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchView
     val onClickListener
             = object : BaseRecyclerViewAdapter.OnItemClickListener {
         override fun onItemClicked(item: Any?, position: Int?) {
+
+            val keyboard: InputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            keyboard.hideSoftInputFromWindow(requireView().windowToken, 0)
+
             val placeName = (item as PlaceSearch).placeName
-            val address = (item as PlaceSearch).addressName
+            val address = item.addressName
             if(placeName == null){
                 viewModel.getPlaceSearchData(address, longitude, latitude)
             }else
                 viewModel.getPlaceSearchData(placeName, longitude, latitude)
-            val keyboard: InputMethodManager = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            keyboard.hideSoftInputFromWindow(requireView().windowToken, 0)
 
             if(flag==1){
                 requireActivity().currentFocus?.clearFocus()

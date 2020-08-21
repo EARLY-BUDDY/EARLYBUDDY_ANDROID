@@ -105,8 +105,8 @@ fun visibleText(view: TextView, remainingMinuteSetVisible: Int) {
 }
 
 @BindingAdapter("placeResultRoadAddress", "placeResultAddressName")
-fun TextView.placeResultAddress(placeResultRoadAddress: String, placeResultAddressName: String) {
-    text = if (placeResultRoadAddress.isEmpty()) {
+fun TextView.placeResultAddress(placeResultRoadAddress: String?, placeResultAddressName: String?) {
+    text = if (placeResultRoadAddress.isNullOrEmpty()) {
         placeResultAddressName
     } else {
         placeResultRoadAddress
@@ -116,7 +116,9 @@ fun TextView.placeResultAddress(placeResultRoadAddress: String, placeResultAddre
 @BindingAdapter("setMethodColor", "setMethodColorType")
 fun View.setMethodColor(color: String?, type: Int) {
     if (this is ImageView) {
-        if (type == 3) visibility = View.INVISIBLE
+//        if (type == 3) visibility = View.INVISIBLE
+        if(color=="1") visibility = View.INVISIBLE
+        else if(color=="0") backgroundTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
         else {
             backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
         }
