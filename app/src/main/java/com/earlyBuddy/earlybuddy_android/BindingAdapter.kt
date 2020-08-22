@@ -75,7 +75,7 @@ fun namingFastDoor(view: TextView, trafficType: Int, fastDoor: String?) {
     fastDoor?.let {
         val str = fastDoor.split("-")
         if (trafficType == 1) {
-            view.text = "빠른 환승 : ${str[0]} - ${str[0]}"
+            view.text = "빠른 환승 : ${str[0]} - ${str[1]}"
         } else {
             view.text = "방향을 확인하고 타세요"
         }
