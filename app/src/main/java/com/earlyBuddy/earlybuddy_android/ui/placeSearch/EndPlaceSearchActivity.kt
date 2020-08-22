@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -183,8 +184,8 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
 
                 if (locationResult.locations.isNotEmpty()) {
                     val location = locationResult.lastLocation
-//                    Log.e("location@@@@", location.latitude.toString())
-//                    Log.e("longitude@@@", location.longitude.toString())
+                    Log.e("location@@@@", location.latitude.toString())
+                    Log.e("longitude@@@", location.longitude.toString())
                     latitude = location.latitude
                     longitude = location.longitude
                 }
