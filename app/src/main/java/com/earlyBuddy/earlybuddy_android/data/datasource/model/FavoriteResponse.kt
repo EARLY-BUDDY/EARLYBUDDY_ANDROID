@@ -1,12 +1,11 @@
 package com.earlyBuddy.earlybuddy_android.data.datasource.model
 
 data class FavoriteResponse(
-    val favoriteArr: ArrayList<Favorite>
+    val status: Int,
+    val message: String,
+    val data: FavoriteData
 )
 
-data class Favorite(
-    val favoriteInfo: String,
-    val favoriteCategory: Int,
-    val favoriteLongitude: Double,
-    val favoriteLatitude: Double
+data class FavoriteData(
+    val userIdx: Int
 )

@@ -13,9 +13,12 @@ import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Favorite
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPlaceBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
+import com.earlyBuddy.earlybuddy_android.ui.Loading
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_place.*
+import org.json.JSONArray
 import org.json.JSONObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -58,18 +61,31 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
     }
 
     private fun registerFavoritePlace() {
-        Log.e("asd", "click")
-        val favorite = JSONObject()
-        val tempFavoriteArr = mutableListOf<Favorite>()
+        val jsonObjectList = JSONArray()
         for (i in favoriteArr.indices) {
             if (favoriteArr[i].favoriteCategory != -1) {
-                tempFavoriteArr.add(favoriteArr[i])
+                val tempJsonObject = JSONObject()
+                tempJsonObject.put("favoriteInfo", favoriteArr[i].favoriteInfo)
+                tempJsonObject.put("favoriteCategory", favoriteArr[i].favoriteCategory)
+                tempJsonObject.put("favoriteLongitude", favoriteArr[i].favoriteLongitude)
+                tempJsonObject.put("favoriteLatitude", favoriteArr[i].favoriteLatitude)
+                jsonObjectList.put(tempJsonObject)
             }
+
         }
 
-        Log.e("data!!",tempFavoriteArr.toString())
-        favorite.put("favoriteArr", tempFavoriteArr)
-        Log.e("QQQ!!",favorite.toString())
+        Log.e("asd", "click")
+        val favorite = JSONObject()
+//        val tempFavoriteArr = mutableListOf<Favorite>()
+//        for (i in favoriteArr.indices) {
+//            if (favoriteArr[i].favoriteCategory != -1) {
+//                tempFavoriteArr.add(favoriteArr[i])
+//            }
+//        }
+
+        Log.e("data!!", jsonObjectList.toString())
+        favorite.put("favoriteArr", jsonObjectList)
+        Log.e("QQQ!!", favorite.toString())
         val body = JsonParser.parseString(favorite.toString()) as JsonObject
         viewModel.registerFavoritePlaces(body)
     }
@@ -80,6 +96,16 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                 Toast.makeText(this, "자주 가는 장소 등록 성공!", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "자주 가는 장소 등록 실패!", Toast.LENGTH_SHORT).show()
+            }
+        })
+        viewModel.loading.observe(this, Observer {
+            when (it) {
+                true -> {
+                    Loading.goLoading(this)
+                }
+                false -> {
+                    Loading.exitLoading()
+                }
             }
         })
     }

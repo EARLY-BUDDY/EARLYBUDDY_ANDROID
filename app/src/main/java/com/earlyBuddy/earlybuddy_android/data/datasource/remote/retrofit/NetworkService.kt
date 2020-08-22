@@ -9,7 +9,7 @@ import retrofit2.http.*
 
 interface NetworkService {
     @GET("/searchAddress")
-    fun getAdress(
+    fun getAddress(
         @Query("addr") addr: String
     ): Observable<HomeResponse>
 
