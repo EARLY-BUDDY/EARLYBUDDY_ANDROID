@@ -186,7 +186,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
         jsonObject.put("deviceToken", 1)
         Log.e("ㅇㅏ이디 비번", "$id $pw $pwCheck")
 
-        val body = JsonParser().parse(jsonObject.toString()) as JsonObject
+        val body = JsonParser.parseString(jsonObject.toString()) as JsonObject
         viewModel.postSignUp(body)
     }
 

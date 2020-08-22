@@ -102,7 +102,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
         jsonObject.put("userId", id)
         jsonObject.put("userPw", pw)
         jsonObject.put("deviceToken", "1")
-        val body = JsonParser().parse(jsonObject.toString()) as JsonObject
+        val body = JsonParser.parseString(jsonObject.toString()) as JsonObject
         viewModel.postSignIn(body)
         Log.e("body ->", body.toString())
     }
