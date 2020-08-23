@@ -52,10 +52,17 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="최초가입" />
+
     <Button
         android:id="@+id/act_main_btn_initial_place"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="최초장소선택" />
+
+    <Button
+        android:id="@+id/act_main_btn_my_page"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="마이페이지" />
 
 </LinearLayout>
