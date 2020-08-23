@@ -9,7 +9,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivitySignInBinding
@@ -102,6 +101,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
         jsonObject.put("userId", id)
         jsonObject.put("userPw", pw)
         jsonObject.put("deviceToken", "1")
+        Log.e("qwe", jsonObject.toString())
         val body = JsonParser.parseString(jsonObject.toString()) as JsonObject
         viewModel.postSignIn(body)
         Log.e("body ->", body.toString())
@@ -109,10 +109,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
 
     fun observe(){
         viewModel.signInCheck.observe(this, Observer{
-            if(it)
-                Toast.makeText(this, "환영합니다", Toast.LENGTH_SHORT).show()
-            else
-                Toast.makeText(this, "아이디 또는 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
     }
 
