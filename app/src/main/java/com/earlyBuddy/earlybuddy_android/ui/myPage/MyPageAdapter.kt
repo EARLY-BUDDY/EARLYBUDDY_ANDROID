@@ -71,9 +71,6 @@ class MyPageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 class MyPageViewHolder(val binding: ItemMyPageMenuBinding) : RecyclerView.ViewHolder(binding.root) {
 
-    interface goToAnyClickListener{
-        fun go
-    }
 
     fun bind(item: MyPageItem) {
         binding.itemMyTvTitle.text = item.title
