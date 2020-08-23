@@ -3,7 +3,6 @@ package com.earlyBuddy.earlybuddy_android.ui.signUp
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.repository.SignUpRepository
 import com.google.gson.JsonObject
@@ -14,8 +13,8 @@ class SignUpViewModel(private val repository : SignUpRepository) : BaseViewModel
     private var _netWork = MutableLiveData<Unit>()
     val netWork: LiveData<Unit> get() = _netWork
 
-    private var _signUpCheck = MutableLiveData<Boolean>()
-    val signUpCheck: LiveData<Boolean> get() = _signUpCheck
+    private var _signUpCheck = MutableLiveData<String>()
+    val signUpCheck: LiveData<String> get() = _signUpCheck
 
     fun postSignUp(body: JsonObject) {
         addDisposable(disposable = repository.signUp(body)
@@ -31,10 +30,7 @@ class SignUpViewModel(private val repository : SignUpRepository) : BaseViewModel
 
                 // onResponse
                 Log.e("postUserData 응답 성공 : ", it.message)
-                if (it.status == 200)
-                    _signUpCheck.postValue(true)
-//                else if(it.status==400)
-//                    _signUpCheck.postValue(false)
+                _signUpCheck.postValue(it.message)
             }) {
                 // 에러 블록
                 // 네트워크 오류나 데이터 처리 오류 등
@@ -43,7 +39,7 @@ class SignUpViewModel(private val repository : SignUpRepository) : BaseViewModel
                 // onFailure
 //                Log.e("통신 실패 error : ", it.message!!)
 //                _netWork.value = Unit
-                _signUpCheck.postValue(false)
+                _signUpCheck.postValue("통신을 확인해주세요")
             })
     }
 }
