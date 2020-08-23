@@ -192,15 +192,17 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
 
     fun observe(){
         viewModel.signUpCheck.observe(this, Observer {
-            if(it){
+            if (it == "회원 가입 성공") {
                 Toast.makeText(this, "얼리버디의 회원이 되셨습니다", Toast.LENGTH_SHORT).show()
 //                signUpDialog.show(supportFragmentManager,"signUp_fagment")
                 val intent = Intent(this, SignInActivity::class.java)
                 startActivity(intent)
                 finish()
-            } else {
+            } else if (it == "이미 사용중인 아이디입니다.") {
                 act_sign_up_tv_id_warning.visibility = View.VISIBLE
                 act_sign_up_et_id.setBackgroundResource(R.drawable.border_25_ff6e6e)
+            } else if (it == "입력되지 않은 값이 있습니다") {
+                Toast.makeText(this, "입력되지 않은 값이 있습니다", Toast.LENGTH_SHORT).show()
             }
         })
 

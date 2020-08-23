@@ -110,6 +110,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
     fun observe(){
         viewModel.signInCheck.observe(this, Observer{
                 Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            if(it == "로그인 성공"){
+                // 로그인 성공했을 때 실행 됨.
+            }
         })
     }
 
