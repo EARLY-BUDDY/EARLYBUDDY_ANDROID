@@ -3,6 +3,11 @@ package com.earlyBuddy.earlybuddy_android.ui.pathSearch
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.earlyBuddy.earlybuddy_android.R
@@ -23,6 +28,8 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
         super.onActivityCreated(savedInstanceState)
 
         setRv()
+        setNotiSpinner()
+//        setSpinner()
     }
 
     private fun setRv(){
@@ -48,6 +55,60 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
                 notifyDataSetChanged()
             }
         })
+    }
+
+    fun setNotiSpinner(){
+//        val notiSpinner: Spinner = findViewById(R.id.act_schedule_sp_noti)
+        ArrayAdapter.createFromResource(requireContext(), R.array.prefer_path, R.layout.item_spinner_list)
+            .also {
+                    adapter -> adapter.setDropDownViewResource(R.layout.item_spinner_list)
+                viewDataBinding.fragPathResultSpPrefer.adapter = adapter
+            }
+        viewDataBinding.fragPathResultSpPrefer.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//                Log.e("알림배차몇분?!!!!!?!?!?!??!", position.toString())
+                var userNoti = viewDataBinding.fragPathResultSpPrefer.selectedItemPosition
+                when(userNoti){
+//                    0 -> arriveCount = 1
+//                    1 -> arriveCount = 2
+//                    2 -> arriveCount = 3
+//                    3 -> arriveCount = 0
+                }
+
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+    }
+
+    fun setSpinner(){
+        val array = resources.getStringArray(R.array.prefer_path)
+        val adapter : ArrayAdapter<String> = ArrayAdapter(requireContext(), R.layout.item_spinner_list, array)
+        adapter.setDropDownViewResource(R.layout.item_spinner_list)
+        viewDataBinding.fragPathResultSpPrefer.adapter = adapter
+
+//        viewDataBinding.fragPathResultSpPrefer.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//                TODO("Not yet implemented")
+//            }
+//
+//            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+//
+//                //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작하게 됩니다.
+//                when(position) {
+//                    0   ->  {
+//                    }
+//                    1   ->  {
+//
+//                    }
+//                    //...
+//                    else -> {
+//
+//                    }
+//                }
+//            }
+//        }
     }
 
 }

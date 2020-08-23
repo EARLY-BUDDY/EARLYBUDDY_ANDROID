@@ -155,5 +155,8 @@ fun TextView.setWalkTime(time: Int?) {
 @BindingAdapter("setPay")
 fun TextView.setPay(pay: String?) {
     val size = pay!!.length
-    text = "${pay.substring(0, size - 3)},${pay.substring(size - 3)}원"
+    Log.e("pay size", pay.length.toString())
+    text = if(pay.length>=4) "${pay.substring(0, size - 3)},${pay.substring(size - 3)}원"
+    else if(pay=="0") "가격미상"
+    else "${pay}원"
 }

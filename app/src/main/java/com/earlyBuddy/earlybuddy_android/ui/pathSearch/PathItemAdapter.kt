@@ -73,10 +73,10 @@ class PathItemViewHolder(
             val width = binding.itemPathRv.width
 
             val minWalkLen = (width * 0.07).toInt()
-            val minTransLen = (width * 0.1).toInt()
+            val minTransLen = (width * 0.12).toInt()
 
             pathMethodAdapter.minWalkLen = (width * 0.07).toInt()
-            pathMethodAdapter.minTransLen = (width * 0.1).toInt()
+            pathMethodAdapter.minTransLen = (width * 0.12).toInt()
 
             var cnt = 0
             for (item in data) {
