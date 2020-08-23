@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseFragment
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentPathResultBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
+import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import java.io.Serializable
 
@@ -23,13 +25,16 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
     override val layoutResID: Int
         get() = R.layout.fragment_path_result
     override val viewModel: PathViewModel by sharedViewModel()
+    val PREFER_LIST_DIALOG = 1
+    val SORT_LIST_DIALOG = 2
+    var preferIdx = 0
+    var sortIdx = 0
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         setRv()
-        setNotiSpinner()
-//        setSpinner()
+        setClick()
     }
 
     private fun setRv(){
@@ -57,58 +62,35 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
         })
     }
 
-    fun setNotiSpinner(){
-//        val notiSpinner: Spinner = findViewById(R.id.act_schedule_sp_noti)
-        ArrayAdapter.createFromResource(requireContext(), R.array.prefer_path, R.layout.item_spinner_list)
-            .also {
-                    adapter -> adapter.setDropDownViewResource(R.layout.item_spinner_list)
-                viewDataBinding.fragPathResultSpPrefer.adapter = adapter
-            }
-        viewDataBinding.fragPathResultSpPrefer.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                Log.e("알림배차몇분?!!!!!?!?!?!??!", position.toString())
-                var userNoti = viewDataBinding.fragPathResultSpPrefer.selectedItemPosition
-                when(userNoti){
-//                    0 -> arriveCount = 1
-//                    1 -> arriveCount = 2
-//                    2 -> arriveCount = 3
-//                    3 -> arriveCount = 0
-                }
+    fun setClick(){
+        viewDataBinding.fragPathResultLlPrefer.onlyOneClickListener {
+            val preferListDialog = PreferListDialogFragment()
+            val args = Bundle()
+            args.putInt("preferIdx", preferIdx)
+            preferListDialog.arguments = args
+            preferListDialog.setTargetFragment(this, PREFER_LIST_DIALOG)
+            preferListDialog.show(requireActivity().supportFragmentManager, "dialog")
+        }
 
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
+        viewDataBinding.fragPathResultLlSort.onlyOneClickListener {
+            val sortListDialog = SortListDialogFragment()
+            val args = Bundle()
+            args.putInt("sortIdx", sortIdx)
+            sortListDialog.arguments = args
+            sortListDialog.setTargetFragment(this, SORT_LIST_DIALOG)
+            sortListDialog.show(requireActivity().supportFragmentManager, "dialog")
         }
     }
 
-    fun setSpinner(){
-        val array = resources.getStringArray(R.array.prefer_path)
-        val adapter : ArrayAdapter<String> = ArrayAdapter(requireContext(), R.layout.item_spinner_list, array)
-        adapter.setDropDownViewResource(R.layout.item_spinner_list)
-        viewDataBinding.fragPathResultSpPrefer.adapter = adapter
-
-//        viewDataBinding.fragPathResultSpPrefer.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//
-//            override fun onNothingSelected(p0: AdapterView<*>?) {
-//                TODO("Not yet implemented")
-//            }
-//
-//            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-//
-//                //아이템이 클릭 되면 맨 위부터 position 0번부터 순서대로 동작하게 됩니다.
-//                when(position) {
-//                    0   ->  {
-//                    }
-//                    1   ->  {
-//
-//                    }
-//                    //...
-//                    else -> {
-//
-//                    }
-//                }
-//            }
-//        }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val bundle = data!!.extras
+        if(resultCode == PREFER_LIST_DIALOG) {
+            preferIdx = bundle!!.getInt("preferIdx")
+        }else if(resultCode == SORT_LIST_DIALOG) {
+            sortIdx = bundle!!.getInt("sortIdx")
+        }else{
+            Log.e("onactResult", "fail")
+        }
     }
-
 }
