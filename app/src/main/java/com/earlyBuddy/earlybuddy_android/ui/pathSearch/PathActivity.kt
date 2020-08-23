@@ -7,9 +7,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,7 +23,6 @@ import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPathBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPathBinding
-import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.EndPlaceSearchActivity
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.StartPlaceSearchActivity
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -229,26 +230,48 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
     }
 
     private fun getLastLocation() {
-        if (checkPermissions())
-            if (!isLocationEnabled())
-                showAlertLocation()
+        Log.e("locationEnabled", isLocationEnabled().toString())
+        Log.e("checkFinePermissions", checkPermissions().toString())
+        if (!checkPermissions() && isLocationEnabled()) // 앱 수준 권한 부여 안됨
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 0)
+        else if (!isLocationEnabled() && checkPermissions()) // gps 사용을 허용 안함
+            showAlertLocation()
+        else if(!isLocationEnabled() && !checkPermissions()){ // 둘 다 허용 안함
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 0)
+            if(checkPermissions()) showAlertLocation()
+        }
     }
 
-    private fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        )
-            return true
-        return false
+    private fun checkPermissions(): Boolean { // 앱 수준 권한 부여 확인
+        return ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun isLocationEnabled(): Boolean {
+//    private fun getLastLocation() {
+//      Log.e("locationEnabled", isLocationEnabled().toString())
+//      Log.e("checkFinePermissions", checkPermissions().toString())
+//        if (checkPermissions())
+//            if (!isLocationEnabled())
+//                showAlertLocation()
+//    }
+//
+//    private fun checkPermissions(): Boolean {
+//        if (ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.ACCESS_COARSE_LOCATION
+//            ) == PackageManager.PERMISSION_GRANTED &&
+//            ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            ) == PackageManager.PERMISSION_GRANTED
+//        )
+//            return true
+//        return false
+//    }
+
+    private fun isLocationEnabled(): Boolean { // gps 사용 확인
         val locationManager: LocationManager =
             getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
