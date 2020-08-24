@@ -103,6 +103,24 @@ fun visibleText(view: TextView, remainingMinuteSetVisible: Int) {
     }
 }
 
+@BindingAdapter("calendarScheduleTime")
+fun visibleText(view: TextView, time: String) {
+
+    var result = ""
+
+    val seperated = time.split(' ').toTypedArray()[1].split(':').toTypedArray()
+    val h = seperated[0]
+    val m = seperated[1]
+
+    if (h.toInt() < 12) {
+        result = "오전 $h:$m"
+    } else {
+        result = "오후 " + (h.toInt() - 12) + ":" + m
+    }
+
+    view.text = result
+
+}
 @BindingAdapter("placeResultRoadAddress", "placeResultAddressName")
 fun TextView.placeResultAddress(placeResultRoadAddress: String?, placeResultAddressName: String?) {
     text = if (placeResultRoadAddress.isNullOrEmpty()) {
