@@ -38,12 +38,13 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var startPlaceName: String? = null
     private var endPlaceName: String? = null
-    lateinit var pathResultFrag : Fragment
+    lateinit var pathResultFrag: Fragment
     var sx: Double = 0.0
     var sy: Double = 0.0
     var ex: Double = 0.0
     var ey: Double = 0.0
     var searchPathType: Int = 0
+    var sortPathType: Int = 0
     var sFlag: Int = 0
     var eFlag: Int = 0
 
@@ -70,12 +71,10 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 RecentPathEntity(
                     startPlaceName = viewDataBinding.actPathTvStart.text.toString(),
                     endPlaceName = viewDataBinding.actPathTvEnd.text.toString(),
-                    sx = sx,
-                    sy = sy,
-                    ex = ex,
-                    ey = ey
+                    sx = sx, sy = sy, ex = ex, ey = ey
                 )
             )
+
             pathResultFrag = PathResultFragment()
             supportFragmentManager.beginTransaction()
                 .add(
@@ -121,7 +120,8 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
             eFlag = 1
             viewModel.getRouteData(sx, sy, ex, ey, 0)
 
-            viewDataBinding.actPathTvStart.text = viewModel.routes.value!![position!!].startPlaceName
+            viewDataBinding.actPathTvStart.text =
+                viewModel.routes.value!![position!!].startPlaceName
             viewDataBinding.actPathTvEnd.text = viewModel.routes.value!![position].endPlaceName
             viewDataBinding.actPathTvStart.setTextColor(resources.getColor(R.color.black))
             viewDataBinding.actPathTvEnd.setTextColor(resources.getColor(R.color.black))
@@ -211,7 +211,27 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
     }
 
     fun getRoute() {
+        Log.e("무엇이 문제인가", "${sx} + ${sy} + ${ex} + ${ey} + ${searchPathType}")
         viewModel.getRouteData(sx, sy, ex, ey, searchPathType)
+    }
+
+    fun sortRoute() {
+        when (sortPathType) {
+            1 // 최단 시간순
+            -> viewModel.routeArrayList.sortedWith(compareBy {
+                it.totalTime
+            })
+            2// 최소 환승순
+            -> viewModel.routeArrayList.sortedWith(compareBy {
+                it.transitCount
+            })
+            else // 최소 도보순
+            -> viewModel.routeArrayList.sortedWith(compareBy {
+                it.totalWalkTime
+            })
+        }
+
+        viewModel._routeList.value = viewModel.routeArrayList
     }
 
     private fun showAlertLocation() {
@@ -233,12 +253,20 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
         Log.e("locationEnabled", isLocationEnabled().toString())
         Log.e("checkFinePermissions", checkPermissions().toString())
         if (!checkPermissions() && isLocationEnabled()) // 앱 수준 권한 부여 안됨
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 0)
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                0
+            )
         else if (!isLocationEnabled() && checkPermissions()) // gps 사용을 허용 안함
             showAlertLocation()
-        else if(!isLocationEnabled() && !checkPermissions()){ // 둘 다 허용 안함
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), 0)
-            if(checkPermissions()) showAlertLocation()
+        else if (!isLocationEnabled() && !checkPermissions()) { // 둘 다 허용 안함
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                0
+            )
+            if (checkPermissions()) showAlertLocation()
         }
     }
 

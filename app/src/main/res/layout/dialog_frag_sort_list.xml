@@ -13,7 +13,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/dial_frag_store_list_cl"
             android:layout_width="300dp"
-            android:layout_height="196dp"
+            android:layout_height="234dp"
             android:background="@drawable/bg_10_ffffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -21,13 +21,13 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/dial_frag_prefer_list_tv_title"
+                android:id="@+id/dial_frag_sort_list_tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="26dp"
                 android:layout_marginTop="28dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="선호 수단"
+                android:text="정렬기준"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
                 android:background="@color/gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dial_frag_prefer_list_tv_title" />
+                app:layout_constraintTop_toBottomOf="@+id/dial_frag_sort_list_tv_title" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,22 +59,22 @@
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <LinearLayout
-                    android:id="@+id/dial_frag_prefer_list_ll_all"
+                    android:id="@+id/dial_frag_sort_list_ll_best"
                     android:layout_width="match_parent"
                     android:layout_height="38dp">
 
                     <TextView
-                        android:id="@+id/dial_frag_prefer_list_tv_all"
+                        android:id="@+id/dial_frag_sort_list_tv_best"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="@font/noto_sans_kr_medium"
-                        android:text="전체"
+                        android:text="최적 경로순"
                         android:textColor="@color/light_gray"
                         android:textSize="14dp" />
 
                     <ImageView
-                        android:id="@+id/dial_frag_prefer_iv_all"
+                        android:id="@+id/dial_frag_sort_iv_best"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="invisible"
@@ -85,22 +85,22 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/dial_frag_prefer_list_ll_bus"
+                    android:id="@+id/dial_frag_sort_list_ll_time"
                     android:layout_width="match_parent"
                     android:layout_height="38dp">
 
                     <TextView
-                        android:id="@+id/dial_frag_prefer_list_tv_bus"
+                        android:id="@+id/dial_frag_sort_list_tv_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="@font/noto_sans_kr_medium"
-                        android:text="버스"
+                        android:text="최단 시간순"
                         android:textColor="@color/light_gray"
                         android:textSize="14dp" />
 
                     <ImageView
-                        android:id="@+id/dial_frag_prefer_iv_bus"
+                        android:id="@+id/dial_frag_sort_iv_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="invisible"
@@ -111,22 +111,48 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/dial_frag_prefer_list_ll_sub"
+                    android:id="@+id/dial_frag_sort_list_ll_trans"
                     android:layout_width="match_parent"
                     android:layout_height="38dp">
 
                     <TextView
-                        android:id="@+id/dial_frag_prefer_list_tv_sub"
+                        android:id="@+id/dial_frag_sort_list_tv_trans"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:fontFamily="@font/noto_sans_kr_medium"
-                        android:text="지하철"
+                        android:text="최소 환승순"
                         android:textColor="@color/light_gray"
                         android:textSize="14dp" />
 
                     <ImageView
-                        android:id="@+id/dial_frag_prefer_iv_sub"
+                        android:id="@+id/dial_frag_sort_iv_trans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:src="@drawable/ic_best_list_check" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dial_frag_sort_list_ll_walk"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
+
+                    <TextView
+                        android:id="@+id/dial_frag_sort_list_tv_walk"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/noto_sans_kr_medium"
+                        android:text="최소 도보순"
+                        android:textColor="@color/light_gray"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/dial_frag_sort_iv_walk"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="invisible"
