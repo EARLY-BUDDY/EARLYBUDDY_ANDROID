@@ -5,9 +5,9 @@ import com.google.gson.JsonObject
 import io.reactivex.Observable
 
 interface RemoteDataSource {
-    fun searchPlace(keyword: String, x:Double, y:Double) : Observable<PlaceResponse>
-    fun signUp(jsonObject: JsonObject) : Observable<SignUpResponse>
-    fun signIn(jsonObject: JsonObject) : Observable<SignInResponse>
+    fun searchPlace(keyword: String, x: Double, y: Double): Observable<PlaceResponse>
+    fun signUp(jsonObject: JsonObject): Observable<SignUpResponse>
+    fun signIn(jsonObject: JsonObject): Observable<SignInResponse>
     fun searchRoute(
         SX: Double,
         SY: Double,
@@ -22,5 +22,7 @@ interface RemoteDataSource {
 
     fun homeSchedule(): Observable<HomeResponse>
 
-    fun getCalendarSchedules(year: String, month : String) : Observable<CalendarResponse>
+    fun getCalendarSchedules(year: String, month: String): Observable<CalendarResponse>
+
+    fun registerFavoritePlaces(jsonObject: JsonObject): Observable<FavoriteResponse>
 }

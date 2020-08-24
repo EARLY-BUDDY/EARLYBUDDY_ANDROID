@@ -10,6 +10,14 @@
             type="com.earlyBuddy.earlybuddy_android.data.datasource.model.SubPath" />
 
         <variable
+            name="subPathSectionTime"
+            type="String" />
+
+        <variable
+            name="subPathDistance"
+            type="String" />
+
+        <variable
             name="previousTrafficType"
             type="Integer" />
 
@@ -67,7 +75,7 @@
             app:layout_constraintEnd_toEndOf="@+id/act_route_iv_walk_human"
             app:layout_constraintStart_toStartOf="@id/act_route_iv_walk_human"
             app:layout_constraintTop_toBottomOf="@id/act_route_iv_walk_human"
-            tools:text="@{`약 `+subPath.sectionTime+`분`}" />
+            tools:text="@{subPathSectionTime}" />
 
         <ImageView
             android:id="@+id/act_route_iv_walk_top_center"
@@ -125,7 +133,7 @@
             android:layout_marginStart="75dp"
             android:letterSpacing="-0.02"
             android:lineSpacingExtra="6sp"
-            android:text="@{`도보 `+subPath.distance+`m`}"
+            android:text="@{subPathDistance}"
             android:textColor="@color/light_gray"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/act_route_iv_walk_line"

@@ -9,7 +9,7 @@ import retrofit2.http.*
 
 interface NetworkService {
     @GET("/searchAddress")
-    fun getAdress(
+    fun getAddress(
         @Query("addr") addr: String
     ): Observable<HomeResponse>
 
@@ -53,4 +53,9 @@ interface NetworkService {
         @Query("year") year: String,
         @Query("month") month: String
     ): Observable<CalendarResponse>
+
+    @PUT("/users/setFavorite")
+    fun registerFavoritePlaces(
+        @Body body: JsonObject
+    ): Observable<FavoriteResponse>
 }

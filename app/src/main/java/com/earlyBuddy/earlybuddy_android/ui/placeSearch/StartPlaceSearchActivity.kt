@@ -1,14 +1,18 @@
 package com.earlyBuddy.earlybuddy_android.ui.placeSearch
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.lifecycle.*
+import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.earlyBuddy.earlybuddy_android.BR
 import com.earlyBuddy.earlybuddy_android.R
@@ -22,6 +26,10 @@ import kotlinx.android.synthetic.main.activity_start_place_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, PlaceSearchViewModel>() {
+    companion object{
+        var getByInitial = -1
+        var favoriteCategory = -1
+    }
 
     val bundle = Bundle(1)
     private val placeListFragment = PlaceListFragment()
@@ -31,6 +39,7 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
     private lateinit var locationCallback : LocationCallback
     var latitude = 0.0
     var longitude = 0.0
+    var recentPlaceClick = 0
 
     override val layoutResID: Int
         get() = R.layout.activity_start_place_search
@@ -42,10 +51,24 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         viewDataBinding.vm = viewModel
 
+        isLoadedByInitial()
         textWatch()
         getLocationUpdates()
         setClick()
         setRv()
+    }
+
+    private fun isLoadedByInitial() {
+        val intent = intent
+        getByInitial = intent.getIntExtra("initial", -1)
+        favoriteCategory = intent.getIntExtra("favoriteCategory",-1)
+        if (getByInitial == 1) {
+            // 1이면 최초가입에서 불러진 뷰
+            viewDataBinding.actStartPlaceSearchViewLine.visibility = View.GONE
+            viewDataBinding.actStartPlaceSearchHsv.visibility = View.GONE
+            viewDataBinding.actStartPlaceSearchTvTitle.text = "자주 가는 장소"
+            viewDataBinding.actStartPlaceSearchEtSearch.hint = "장소를 입력해주세요"
+        }
     }
 
     override fun onResume() {
@@ -59,6 +82,8 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
     }
 
     fun setFrag(){
+        if(recentPlaceClick==1) return
+
         val nowFrag = supportFragmentManager.findFragmentById(R.id.act_start_place_search_container)
         if(act_start_place_search_et_search.text.isEmpty() && nowFrag==placeListFragment){
             supportFragmentManager.beginTransaction()
@@ -96,13 +121,12 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
     private fun setClick(){
         act_start_place_search_iv_cancel.setOnClickListener{
             act_start_place_search_et_search.text.clear()
+
             val nowFrag = supportFragmentManager.findFragmentById(R.id.act_start_place_search_container)
             if(nowFrag!=null) {
                 supportFragmentManager.beginTransaction()
                     .remove(nowFrag).commit()
             }
-            val keyboard: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            keyboard.showSoftInput(act_start_place_search_et_search, 0)
             act_start_place_search_et_search.findFocus()
         }
 
@@ -157,6 +181,9 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
             = object : BaseRecyclerViewAdapter.OnItemClickListener {
         override fun onItemClicked(item: Any?, position: Int?) {
             val recentPlace = (item as RecentPlaceEntity).placeName
+            recentPlaceClick = 1
+            viewDataBinding.actStartPlaceSearchEtSearch.clearFocus()
+
             viewModel.getPlaceSearchData(recentPlace, longitude, latitude)
             supportFragmentManager.beginTransaction()
                 .replace(
@@ -165,6 +192,8 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
                 ).commit()
             bundle.putInt("flag", 1)
             placeResultFragment.arguments = bundle
+
+            viewDataBinding.actStartPlaceSearchEtSearch.setText(viewModel.places.value!![position!!].placeName)
 
 //            val recentPlace = (item as RecentPlaceEntity)
 //            viewModel.delete(recentPlace)

@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
-import org.w3c.dom.Text
 
 @BindingAdapter("trafficType", "endName", "fastInExitNo")
 fun walkEndText(textView: TextView, nextTrafficType: Int, endName: String?, fastInExitNo: Int) {
@@ -49,13 +48,14 @@ fun walkStartText(
 }
 
 @BindingAdapter("changeTint")
-fun View.changeTint(tints: String){
-    if(this is ImageView || this is ConstraintLayout) {
+fun View.changeTint(tints: String) {
+    if (this is ImageView || this is ConstraintLayout) {
         backgroundTintList = ColorStateList.valueOf(Color.parseColor(tints))
     }
 }
+
 @BindingAdapter("changeImg", "imgTint")
-fun ImageView.changeImg(image: Drawable, tints: String) {
+fun ImageView.changeimg(image: Drawable, tints: String) {
     background = image
     backgroundTintList = ColorStateList.valueOf(Color.parseColor(tints))
 }
@@ -75,7 +75,7 @@ fun namingFastDoor(view: TextView, trafficType: Int, fastDoor: String?) {
     fastDoor?.let {
         val str = fastDoor.split("-")
         if (trafficType == 1) {
-            view.text = "빠른 환승 : ${str[0]} - ${str[0]}"
+            view.text = "빠른 환승 : ${str[0]} - ${str[1]}"
         } else {
             view.text = "방향을 확인하고 타세요"
         }
@@ -112,12 +112,69 @@ fun visibleText(view: TextView, time: String) {
     val h = seperated[0]
     val m = seperated[1]
 
-    if(h.toInt() < 12){
+    if (h.toInt() < 12) {
         result = "오전 $h:$m"
-    }else{
+    } else {
         result = "오후 " + (h.toInt() - 12) + ":" + m
     }
 
     view.text = result
 
+}
+@BindingAdapter("placeResultRoadAddress", "placeResultAddressName")
+fun TextView.placeResultAddress(placeResultRoadAddress: String?, placeResultAddressName: String?) {
+    text = if (placeResultRoadAddress.isNullOrEmpty()) {
+        placeResultAddressName
+    } else {
+        placeResultRoadAddress
+    }
+}
+
+@BindingAdapter("setMethodColor", "setMethodColorType")
+fun View.setMethodColor(color: String?, type: Int) {
+    if (this is ImageView) {
+//        if (type == 3) visibility = View.INVISIBLE
+        if(color=="1") visibility = View.INVISIBLE
+        else if(color=="0") backgroundTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
+        else {
+            backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
+        }
+    }
+    if (this is TextView) {
+        if (type != 3) {
+            setTextColor(ColorStateList.valueOf(Color.parseColor(color)))
+        }
+    }
+}
+
+@BindingAdapter("setTotalTime")
+fun TextView.setTotalTime(time: Int?) {
+    text = if (time!! < 60) "${time}분"
+    else "${time / 60}시간 ${time % 60}분"
+}
+
+@BindingAdapter("setPathType")
+fun TextView.setPathType(type: Int?) {
+    text = if (type==1) "지하철"
+    else if(type==2) "버스"
+    else "지하철 + 버스"
+}
+
+@BindingAdapter("setTransitCount")
+fun TextView.setTransitCount(cnt: Int?) {
+    text = "환승 ${cnt}회"
+}
+
+@BindingAdapter("setWalkTime")
+fun TextView.setWalkTime(time: Int?) {
+    text = "도보 ${time}분"
+}
+
+@BindingAdapter("setPay")
+fun TextView.setPay(pay: String?) {
+    val size = pay!!.length
+    Log.e("pay size", pay.length.toString())
+    text = if(pay.length>=4) "${pay.substring(0, size - 3)},${pay.substring(size - 3)}원"
+    else if(pay=="0") "가격미상"
+    else "${pay}원"
 }

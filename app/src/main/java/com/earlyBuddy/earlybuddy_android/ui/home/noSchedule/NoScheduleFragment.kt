@@ -27,5 +27,4 @@ class NoScheduleFragment : BaseFragment<FragmentHomeNoScheduleBinding, NoSchedul
         return view
     }
 
-
 }

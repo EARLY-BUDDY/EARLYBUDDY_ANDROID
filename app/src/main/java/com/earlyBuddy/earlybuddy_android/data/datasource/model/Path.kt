@@ -1,5 +1,9 @@
 package com.earlyBuddy.earlybuddy_android.data.datasource.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
+
 data class Path(
     val pathType: Int,
     val totalTime: Int,
@@ -8,7 +12,7 @@ data class Path(
     val totalWalkTime: Int,
     val subPath: ArrayList<SubPath>,
     val leastTotalTime:Int
-)
+) : Serializable
 
 data class SubPath(
     val trafficType: Int,
@@ -25,32 +29,18 @@ data class SubPath(
     val way: String?,
     val wayCode: Int?,
     val door: String?,
-    val fastExitNo : Int,
-    val fastExitX: Double?,
-    val fastExitY: Double?,
+    val startExitNo: Int,
+    val startExitX: Double?,
+    val startExitY: Double?,
+    val endExitNo: Int,
+    val endExitX: Double?,
+    val endExitY: Double?,
     val passStopList: ArrayList<String>,
     var clicked: Boolean?
-)
+) : Serializable
 
 data class Lane(
     val name: String,
     val type: Int,
     val busID: Int
-)
-
-data class PassStopList(
-    val stations: ArrayList<Station>
-)
-
-data class Station(
-    val index: Int,
-    val stationID: Int,
-    val stationName: String,
-    val x: Double,
-    val y: Double
-)
-
-//val tempsubPath = arrayListOf<SubPath>(
-//    SubPath(trafficType = 3,distance = 39,sectionTime = 1,stationCount = 3,lane = Lane(name = "경의중앙선",type = 104,busID = 0),startName = "구리",startX = 127.143749,startY = 37.603405,endName = "상봉",endX = ),SubPath()
-//)
-//)
+) : Serializable

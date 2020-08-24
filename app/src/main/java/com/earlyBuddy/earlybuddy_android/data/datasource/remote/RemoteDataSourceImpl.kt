@@ -50,4 +50,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
             it
         }
 
+    override fun registerFavoritePlaces(jsonObject: JsonObject): Observable<FavoriteResponse> =
+        api.registerFavoritePlaces(jsonObject).map { it }
+
 }

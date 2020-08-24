@@ -1,15 +1,11 @@
 package com.earlyBuddy.earlybuddy_android.ui.placeSearch
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.earlyBuddy.earlybuddy_android.BR
@@ -19,10 +15,8 @@ import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceSearch
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentPlaceResultBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPlaceListBinding
-import com.earlyBuddy.earlybuddy_android.ui.MainActivity
-import kotlinx.android.synthetic.main.activity_path.*
+import com.earlyBuddy.earlybuddy_android.databinding.ItemPlaceResultBinding
 import org.koin.android.viewmodel.ext.android.sharedViewModel
-import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearchViewModel>() {
@@ -39,37 +33,29 @@ class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearch
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        viewModel = ViewModelProvider(getViewModelStoreOwner(), ViewModelProvider.NewInstanceFactory()).get(PlaceSearchViewModel::class.java)
         flag = arguments!!.getInt("flag")
-
         setRv()
-        viewModel.placeList.observe(viewLifecycleOwner, Observer {
-            (viewDataBinding.fragPlaceResultRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>)
-                .replaceAll(it)
-            (viewDataBinding.fragPlaceResultRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>)
-                .notifyDataSetChanged()
-        })
-    }
-
-    fun Fragment.getViewModelStoreOwner(): ViewModelStoreOwner = try {
-        requireActivity()
-    } catch (e: IllegalStateException) {
-        this
     }
 
     fun setRv(){
         viewDataBinding.fragPlaceResultRv.apply {
             adapter =
-                object : BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>() {
-                    override val bindingVariableId: Int
-                        get() = BR.placeRes
+                object : BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceResultBinding>() {
                     override val layoutResID: Int
                         get() = R.layout.item_place_result
+                    override val bindingVariableId: Int
+                        get() = BR.placeRes
                     override val listener: OnItemClickListener?
                         get() = onClickListener
                 }
             layoutManager = LinearLayoutManager(requireContext())
         }
+        viewModel.placeList.observe(viewLifecycleOwner, Observer {
+            (viewDataBinding.fragPlaceResultRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceResultBinding>)
+                .replaceAll(it)
+            (viewDataBinding.fragPlaceResultRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceResultBinding>)
+                .notifyDataSetChanged()
+        })
     }
 
     val onClickListener
@@ -77,6 +63,10 @@ class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearch
         override fun onItemClicked(item: Any?, position: Int?) {
             val placeInfo = (item as PlaceSearch)
             val intent = Intent(activity, MapActivity::class.java)
+            if (StartPlaceSearchActivity.getByInitial == 1) {
+                intent.putExtra("initial", 1)
+                intent.putExtra("favoriteCategory", StartPlaceSearchActivity.favoriteCategory)
+            }
             intent.putExtra("flag", flag)
             intent.putExtra("placeName", placeInfo.placeName)
             intent.putExtra("address", placeInfo.addressName)
@@ -98,6 +88,7 @@ class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearch
                 intent.putExtra("x", data.getDoubleExtra("x", 0.0))
                 intent.putExtra("y", data.getDoubleExtra("y", 0.0))
                 intent.putExtra("flag", data.getIntExtra("flag", 0))
+                intent.putExtra("favoriteCategory", data.getIntExtra("favoriteCategory", -1))
                 activity!!.setResult(Activity.RESULT_OK, intent)
                 activity!!.finish()
             } else if (requestCode == REQUEST_CODE_END){

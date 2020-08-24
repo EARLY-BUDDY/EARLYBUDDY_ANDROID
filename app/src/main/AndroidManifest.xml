@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.earlyBuddy.earlybuddy_android">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-feature android:name="android.hardware.type.watch" />
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -16,7 +20,8 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.initial.place.PlaceActivity"></activity>
+        <activity android:name=".ui.myPage.MyPageActivity" />
+        <activity android:name=".ui.initial.place.InitialPlaceActivity" />
         <activity android:name=".ui.initial.nickname.NickNameActivity" />
         <activity
             android:name=".ui.LoadingActivity"
@@ -44,6 +49,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <uses-library
+            android:name="com.test"
+            android:required="false" />
     </application>
 
 </manifest>

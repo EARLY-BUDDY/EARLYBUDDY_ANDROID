@@ -1,61 +1,122 @@
 package com.earlyBuddy.earlybuddy_android.ui.pathSearch
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.base.BaseFragment
+import com.earlyBuddy.earlybuddy_android.databinding.FragmentPathResultBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
+import com.earlyBuddy.earlybuddy_android.ui.Loading
+import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
+import org.koin.android.ext.android.get
+import org.koin.android.viewmodel.ext.android.sharedViewModel
+import java.io.Serializable
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel>() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PathResultFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class PathResultFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    override val layoutResID: Int
+        get() = R.layout.fragment_path_result
+    override val viewModel: PathViewModel by sharedViewModel()
+    private val PREFER_LIST_DIALOG = 1
+    private val SORT_LIST_DIALOG = 2
+    var preferIdx = 0
+    var sortIdx = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        setRv()
+        setClick()
+    }
+
+    private fun setRv(){
+        val pathItemAdapter = PathItemAdapter(
+            object : PathItemViewHolder.OnClickPathItemListener {
+                override fun onClickPathItem(position: Int, pathIdx: Int) {
+                    val intent = Intent(requireContext(), TestPathActivity::class.java)
+                    intent.putExtra("path", viewModel.routeList.value!![position])
+                    intent.putExtra("startAdd", arguments!!.getString("startAdd"))
+                    intent.putExtra("endAdd", arguments!!.getString("endAdd"))
+                    startActivity(intent)
+                }
+            }
+        )
+        viewDataBinding.fragPathResultRv.apply {
+            adapter = pathItemAdapter
+            layoutManager = LinearLayoutManager(requireActivity())
+        }
+
+        viewModel.routeList.observe(viewLifecycleOwner, Observer {
+            pathItemAdapter.run{
+                replaceAll(it)
+                notifyDataSetChanged()
+            }
+        })
+    }
+
+    fun setClick(){
+        viewDataBinding.fragPathResultLlPrefer.onlyOneClickListener {
+            val preferListDialog = PreferListDialogFragment()
+            val args = Bundle()
+            args.putInt("preferIdx", preferIdx)
+            preferListDialog.arguments = args
+            preferListDialog.setTargetFragment(this, PREFER_LIST_DIALOG)
+            preferListDialog.show(requireActivity().supportFragmentManager, "dialog")
+        }
+
+        viewDataBinding.fragPathResultLlSort.onlyOneClickListener {
+            val sortListDialog = SortListDialogFragment()
+            val args = Bundle()
+            args.putInt("sortIdx", sortIdx)
+            sortListDialog.arguments = args
+            sortListDialog.setTargetFragment(this, SORT_LIST_DIALOG)
+            sortListDialog.show(requireActivity().supportFragmentManager, "dialog")
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_path_result, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PathResultFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PathResultFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val bundle = data!!.extras
+        if(resultCode == PREFER_LIST_DIALOG) {
+            preferIdx = bundle!!.getInt("preferIdx")
+            (activity as PathActivity).searchPathType = preferIdx
+            (activity as PathActivity).getRoute()
+            if(preferIdx==0){
+                viewDataBinding.fragPathResultTvPrefer.text = "선호수단"
+            }else if(preferIdx==1){
+                viewDataBinding.fragPathResultTvPrefer.text = "지하철"
+            }else{
+                viewDataBinding.fragPathResultTvPrefer.text = "버스"
             }
+        }else if(resultCode == SORT_LIST_DIALOG) {
+            sortIdx = bundle!!.getInt("sortIdx")
+            if(sortIdx==0){
+                viewDataBinding.fragPathResultTvSort.text = "최적경로순"
+                (activity as PathActivity).sortPathType = 0
+                (activity as PathActivity).sortRoute()
+            }else if(sortIdx==1){
+                viewDataBinding.fragPathResultTvSort.text = "최단시간순"
+                (activity as PathActivity).sortPathType = 1
+                (activity as PathActivity).sortRoute()
+            }else if(sortIdx==2){
+                viewDataBinding.fragPathResultTvSort.text = "최소환승순"
+                (activity as PathActivity).sortPathType = 2
+                (activity as PathActivity).sortRoute()
+            }else{
+                viewDataBinding.fragPathResultTvSort.text = "최소도보순"
+                (activity as PathActivity).sortPathType = 3
+                (activity as PathActivity).sortRoute()
+            }
+        }else{
+            Log.e("onActResult", "fail")
+        }
     }
 }
