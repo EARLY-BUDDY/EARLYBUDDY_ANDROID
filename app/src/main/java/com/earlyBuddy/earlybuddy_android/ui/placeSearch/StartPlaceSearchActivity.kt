@@ -18,7 +18,6 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlac
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityStartPlaceSearchBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPlaceBinding
 import com.google.android.gms.location.*
-import kotlinx.android.synthetic.main.activity_end_place_search.*
 import kotlinx.android.synthetic.main.activity_start_place_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -107,6 +106,10 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
             act_start_place_search_et_search.findFocus()
         }
 
+        act_start_place_search_iv_back.setOnClickListener {
+            finish()
+        }
+
         act_start_place_search_et_search.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 v.clearFocus()
@@ -153,7 +156,8 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
     val onClickListener
             = object : BaseRecyclerViewAdapter.OnItemClickListener {
         override fun onItemClicked(item: Any?, position: Int?) {
-            getPlaceData()
+            val recentPlace = (item as RecentPlaceEntity).placeName
+            viewModel.getPlaceSearchData(recentPlace, longitude, latitude)
             supportFragmentManager.beginTransaction()
                 .replace(
                     R.id.act_start_place_search_container,
@@ -161,6 +165,9 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
                 ).commit()
             bundle.putInt("flag", 1)
             placeResultFragment.arguments = bundle
+
+//            val recentPlace = (item as RecentPlaceEntity)
+//            viewModel.delete(recentPlace)
         }
     }
 

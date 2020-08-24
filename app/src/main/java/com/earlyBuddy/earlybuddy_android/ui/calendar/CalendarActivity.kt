@@ -1,16 +1,29 @@
 package com.earlyBuddy.earlybuddy_android.ui.calendar
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.BR
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
+import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
+import com.earlyBuddy.earlybuddy_android.data.datasource.model.Schedule
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityCalendarBinding
+import com.earlyBuddy.earlybuddy_android.databinding.ItemCalendarScheduleBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CalendarActivity : BaseActivity<ActivityCalendarBinding, CalendarViewModel>(){
 
     override val layoutResID: Int
         get() = R.layout.activity_calendar
-    override val viewModel = CalendarViewModel()
+    override val viewModel : CalendarViewModel by viewModel()
+
+    lateinit var calendarPagerAdapter : CalendarPagerAdapter
 
     var position = COUNT_PAGE
 
@@ -21,10 +34,11 @@ class CalendarActivity : BaseActivity<ActivityCalendarBinding, CalendarViewModel
 
         setButton()
         setCalendarVP()
+        setScheduleRv()
     }
 
     private fun setCalendarVP(){
-        var calendarPagerAdapter = CalendarPagerAdapter(supportFragmentManager).apply {
+        calendarPagerAdapter = CalendarPagerAdapter(supportFragmentManager).apply {
             setNumOfMonth(COUNT_PAGE)
         }
 
@@ -32,13 +46,10 @@ class CalendarActivity : BaseActivity<ActivityCalendarBinding, CalendarViewModel
 
         viewDataBinding.actCalendarVp.run{
             adapter = calendarPagerAdapter
+            offscreenPageLimit = 3
             currentItem = COUNT_PAGE
             addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int
-                ) {
-
-                }
-
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
                 override fun onPageSelected(position: Int) {
                     viewDataBinding.actCalendarTvMonth.text = calendarPagerAdapter.getMonthDisplayed(position)
 
@@ -60,9 +71,46 @@ class CalendarActivity : BaseActivity<ActivityCalendarBinding, CalendarViewModel
 
     }
 
+    private fun setScheduleRv(){
+        viewDataBinding.actCalendarScheduleRv.run{
+            adapter = object : BaseRecyclerViewAdapter<Schedule, ItemCalendarScheduleBinding>(){
+                override val layoutResID: Int
+                    get() = R.layout.item_calendar_schedule
+                override val bindingVariableId: Int
+                    get() = BR.schedule
+                override val listener: OnItemClickListener?
+                    get() = null
+            }
+
+            layoutManager = LinearLayoutManager(this@CalendarActivity)
+        }
+
+    }
+
+    fun showSchedule(schedules : ArrayList<Schedule>){
+        (viewDataBinding.actCalendarScheduleRv.adapter as BaseRecyclerViewAdapter<Schedule, *>).apply{
+            replaceAll(schedules)
+            notifyDataSetChanged()
+        }
+
+        if(schedules.size == 0){
+            viewDataBinding.actCalendarClEmpty.visibility = VISIBLE
+        }else{
+            viewDataBinding.actCalendarClEmpty.visibility = GONE
+        }
+    }
+
     private fun setButton(){
         viewDataBinding.actCalendarIvBack.setOnClickListener {
             finish()
+        }
+
+        viewDataBinding.actCalendarIvLeft.setOnClickListener {
+            viewDataBinding.actCalendarVp.setCurrentItem(position - 1, true)
+        }
+
+        viewDataBinding.actCalendarIvRight.setOnClickListener {
+            viewDataBinding.actCalendarVp.setCurrentItem(position + 1, true)
         }
     }
 

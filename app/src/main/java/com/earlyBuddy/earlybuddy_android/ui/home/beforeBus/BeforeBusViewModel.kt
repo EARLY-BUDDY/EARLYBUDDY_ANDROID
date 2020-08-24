@@ -2,13 +2,14 @@ package com.earlyBuddy.earlybuddy_android.ui.home.beforeBus
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
+import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
 import java.text.SimpleDateFormat
 import java.util.*
 
-class BeforeBusViewModel(application: EarlyBuddyApplication) : BaseViewModel(application) {
+@Suppress("DEPRECATION")
+class BeforeBusViewModel() : BaseViewModel() {
 
     val homeResponse = MutableLiveData<HomeResponse>()
     val startTime = MutableLiveData<String>()
@@ -19,8 +20,13 @@ class BeforeBusViewModel(application: EarlyBuddyApplication) : BaseViewModel(app
     val lastsSentence = MutableLiveData<String>()
     var trafficNumber = ""
     val lastCount = MutableLiveData<Int>()
+    var tints: String = ""
+    val remainingMinute = MutableLiveData<Int>()
+    val timer = Timer()
+
 
     fun getData(tempHomeResponse: HomeResponse) {
+
 
         homeResponse.value = tempHomeResponse
 
@@ -47,14 +53,17 @@ class BeforeBusViewModel(application: EarlyBuddyApplication) : BaseViewModel(app
 
 
                 // TODO("지하철 노선에 따른 박스 색깔 변화")
+
+                tints = TransportMap.subwayMap[tempHomeResponse.data.firstTrans.subwayLane]!![0]
             }
             2 -> {
                 trafficType = "버스는"
 
                 //TODO("버스 일때 번호 표시")
-
+                trafficNumber = tempHomeResponse.data.firstTrans.busNo.toString()
 
                 // TODO("버스 노선에 따른 박스 색깔 변화")
+                tints = TransportMap.busMap[tempHomeResponse.data.firstTrans.busType]!!
 
             }
         }
@@ -64,10 +73,16 @@ class BeforeBusViewModel(application: EarlyBuddyApplication) : BaseViewModel(app
     private fun getTimeDifference(tempHomeResponse: HomeResponse) {
         val scheduleStartTime =
             tempHomeResponse.data!!.scheduleSummaryData.scheduleStartTime
-        val arriveTime = tempHomeResponse.data.arriveTime
-        val nextTransArriveTime = tempHomeResponse.data.nextTransArriveTime
 
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+        var arriveTime = tempHomeResponse.data.arriveTime
+
+        val nextTransArriveTime = tempHomeResponse.data.nextTransArriveTime
+
+        if (arriveTime == "곧 도착") {
+            arriveTime = sdf.format(Date())
+        }
 
         val nowDate = Date()
         val promiseStartTime = sdf.parse(scheduleStartTime)
@@ -75,22 +90,25 @@ class BeforeBusViewModel(application: EarlyBuddyApplication) : BaseViewModel(app
         val nextArriveTime = sdf.parse(nextTransArriveTime)
 
         var tempMin = ""
+        var tempHour = ""
 
-        if (promiseStartTime.minutes.toString().length == 1) {
-            tempMin = "0" + promiseStartTime.minutes
+        tempMin = if (promiseStartTime.minutes.toString().length == 1) {
+            "0" + promiseStartTime.minutes
         } else {
-            tempMin = promiseStartTime.minutes.toString()
+            promiseStartTime.minutes.toString()
         }
 
+        tempHour = if (promiseStartTime.hours.toString().length == 1) {
+            "0" + promiseStartTime.hours
+        } else {
+            promiseStartTime.hours.toString()
+        }
 
         if (promiseStartTime.hours >= 12) {
-            startTime.value = "오후 " + promiseStartTime.hours + ":" + tempMin
+            startTime.value = "오후 $tempHour:$tempMin"
         } else {
-            startTime.value = "오전 " + promiseStartTime.hours + ":" + tempMin
+            startTime.value = "오전 $tempHour:$tempMin"
         }
-
-        Log.e("현재시간 : ", sdf.format(nowDate).toString())
-        Log.e("약속시간 : ", sdf.format(promiseStartTime).toString())
 
         val arriveGap = firstArriveTime.time - nowDate.time
         val nextArriveGap = nextArriveTime.time - nowDate.time
@@ -110,8 +128,19 @@ class BeforeBusViewModel(application: EarlyBuddyApplication) : BaseViewModel(app
         nextArriveMinuteDifference.value =
             nextArriveDiffMinute.toInt() + nextArriveDiffHour.toInt() * 60
 
+        Log.e("다음 도착까지", arriveMinuteDifference.value.toString())
 
+        var remainingMinuteValue = arriveMinuteDifference.value!!
+        remainingMinute.value = (remainingMinuteValue)
 
+//        // 분 줄여가기 (1분마다/60000 밀리세크)
+//        timer.scheduleAtFixedRate(object : TimerTask() {
+//            override fun run() {
+//                remainingMinuteValue--
+//                remainingMinute.postValue(remainingMinuteValue)
+//                Log.e("ttt", remainingMinute.value.toString())
+//            }
+//        }, 6000, 6000)
     }
 
 }

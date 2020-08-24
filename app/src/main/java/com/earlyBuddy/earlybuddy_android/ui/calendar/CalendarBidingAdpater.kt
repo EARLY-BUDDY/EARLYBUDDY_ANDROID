@@ -40,10 +40,15 @@ fun dayScheduleVisibility(view: ImageView, schedules: ArrayList<Schedule>?){
     }
 }
 
-@BindingAdapter("calendar_today_background")
-fun setCalendarTodayBackground(view: ConstraintLayout, bool: Boolean){
-    if(bool){
+
+@BindingAdapter("calendar_today_background","calendar_click_day_background")
+fun setCalendarClickDayBackground(view: ConstraintLayout, isToday: Boolean, isClick: Boolean){
+    if(isToday && isClick || isClick){
+        view.setBackgroundResource(R.drawable.circle_ff6e6e_fill)
+    }else if(isToday){
         view.setBackgroundResource(R.drawable.circle_c3c3c3_fill)
+    }else{
+        view.setBackgroundColor(view.context.getColor(R.color.white))
     }
 }
 
@@ -61,13 +66,6 @@ fun setCalendarDayTextColor(view: TextView, isCurrentMonth: Boolean){
         view.setTextColor(view.context.getColor(R.color.black))
     }else{
         view.setTextColor(view.context.getColor(R.color.light_gray))
-    }
-}
-
-@BindingAdapter("calendar_click_day_background")
-fun setCalendarClickDayBackground(view: ConstraintLayout, bool: Boolean){
-    if(bool){
-        view.setBackgroundResource(R.drawable.circle_ff6e6e_fill)
     }
 }
 

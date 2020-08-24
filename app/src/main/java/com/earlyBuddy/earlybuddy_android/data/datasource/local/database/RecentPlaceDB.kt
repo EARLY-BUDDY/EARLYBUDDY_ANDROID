@@ -4,16 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
+import com.earlyBuddy.earlybuddy_android.data.datasource.local.dao.RecentPathDao
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.dao.RecentPlaceDao
+import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-@Database(entities = [RecentPlaceEntity::class], version = 1)
+@Database(entities = [RecentPlaceEntity::class, RecentPathEntity::class], version = 2)
 abstract class RecentPlaceDB : RoomDatabase() {
     abstract fun recentPlaceDao() : RecentPlaceDao
+    abstract fun recentPathDao() : RecentPathDao
 
     companion object {
 

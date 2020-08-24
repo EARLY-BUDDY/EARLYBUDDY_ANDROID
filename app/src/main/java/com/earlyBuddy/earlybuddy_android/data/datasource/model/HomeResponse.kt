@@ -10,7 +10,6 @@ data class HomeResponse (
 
 data class HomeSchedule(
     val scheduleCheck:Int,
-    val ready :Boolean,
     val lastTransCount:Int,
     val arriveTime:String,
     val firstTrans:FirstTrans,
@@ -24,7 +23,7 @@ data class FirstTrans(
     val subwayLane:Int?,
     val busNo:Int?,
     val busType:Int?,
-    val detailStartAddress:String
+    val startName:String
 )
 data class ScheduleSummaryData(
     val scheduleIdx:Int,

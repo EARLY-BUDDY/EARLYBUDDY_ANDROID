@@ -34,7 +34,6 @@ class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearch
 
     override val layoutResID: Int
         get() = R.layout.fragment_place_result
-//    override lateinit var viewModel: PlaceSearchViewModel
     override val viewModel: PlaceSearchViewModel by sharedViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -98,6 +97,7 @@ class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearch
                 intent.putExtra("placeName", data!!.getStringExtra("placeName"))
                 intent.putExtra("x", data.getDoubleExtra("x", 0.0))
                 intent.putExtra("y", data.getDoubleExtra("y", 0.0))
+                intent.putExtra("flag", data.getIntExtra("flag", 0))
                 activity!!.setResult(Activity.RESULT_OK, intent)
                 activity!!.finish()
             } else if (requestCode == REQUEST_CODE_END){
@@ -105,6 +105,7 @@ class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearch
                 intent.putExtra("placeName", data!!.getStringExtra("placeName"))
                 intent.putExtra("x", data.getDoubleExtra("x", 0.0))
                 intent.putExtra("y", data.getDoubleExtra("y", 0.0))
+                intent.putExtra("flag", data.getIntExtra("flag", 0))
                 activity!!.setResult(Activity.RESULT_OK, intent)
                 activity!!.finish()
             }

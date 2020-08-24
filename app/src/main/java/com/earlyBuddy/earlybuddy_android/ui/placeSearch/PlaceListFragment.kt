@@ -46,17 +46,6 @@ class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchView
         longitude = arguments!!.getDouble("longitude")
         setRv()
     }
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-    }
-
-    private fun Fragment.getViewModelStoreOwner(): ViewModelStoreOwner = try {
-        requireActivity()
-    } catch (e: IllegalStateException) {
-        this
-    }
-
 
     fun setRv(){
         viewDataBinding.fragPlaceListRv.apply {
@@ -84,7 +73,7 @@ class PlaceListFragment : BaseFragment<FragmentPlaceListBinding, PlaceSearchView
         override fun onItemClicked(item: Any?, position: Int?) {
             val placeName = (item as PlaceSearch).placeName
             val address = (item as PlaceSearch).addressName
-            if(placeName==null){
+            if(placeName == null){
                 viewModel.getPlaceSearchData(address, longitude, latitude)
             }else
                 viewModel.getPlaceSearchData(placeName, longitude, latitude)

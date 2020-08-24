@@ -97,9 +97,6 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
 
-    // Dependencies for working with Architecture components
-    // You'll probably have to update the version numbers in build.gradle (Project)
-
     // Room components
     implementation "androidx.room:room-runtime:$rootProject.roomVersion"
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
@@ -152,4 +149,7 @@ dependencies {
     implementation "org.koin:koin-androidx-ext:$koin_version"
 
     implementation "org.koin:koin-android-architecture:0.8.2"
+
+    implementation 'com.airbnb.android:lottie:3.4.1'
+
 }

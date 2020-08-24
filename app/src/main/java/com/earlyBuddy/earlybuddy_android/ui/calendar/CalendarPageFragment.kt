@@ -1,6 +1,8 @@
 package com.earlyBuddy.earlybuddy_android.ui.calendar
 
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import com.earlyBuddy.earlybuddy_android.BR
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseFragment
@@ -12,14 +14,20 @@ import java.util.*
 import kotlin.collections.ArrayList
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Date
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Schedule
+import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.util.NonScrollGridLayoutManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarViewModel>() {
 
     override val layoutResID: Int
         get() = R.layout.fragment_calendar_page
 
-    override val viewModel = CalendarViewModel()
+    override val viewModel : CalendarViewModel by viewModel()
+
+    lateinit var calendarRecyclerViewAdapter: CalendarRecyclerViewAdapter
+    var position = 0
+
 
     private var timeByMillis : Long = 0
     private val dataList : ArrayList<Date> by lazy { ArrayList<Date>()}
@@ -31,40 +39,36 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewDataBinding.vm = viewModel
+        position = arguments!!.getInt("position", 0)
 
         setRv()
         setCalendar()
     }
 
     private fun setRv(){
-        viewDataBinding.fragCalendarPageRv.run{
-            adapter = object : BaseRecyclerViewAdapter<Date, ItemCalendarDateBinding>(){
-                override val layoutResID: Int
-                    get() = R.layout.item_calendar_date
-                override val bindingVariableId: Int
-                    get() = BR.date
-                override val listener: OnItemClickListener?
-                    get() = onItemClickListener
-            }
-            layoutManager = NonScrollGridLayoutManager(activity!!, 7)
+
+        calendarRecyclerViewAdapter = CalendarRecyclerViewAdapter()
+        calendarRecyclerViewAdapter.apply{
+            setOnItemClickListener(onCalendarRecyclerViewAdpater)
+            setHasStableIds(true)
         }
 
+        viewDataBinding.fragCalendarPageRv.run{
+            adapter = calendarRecyclerViewAdapter
+            layoutManager = NonScrollGridLayoutManager(activity!!, 7)
+        }
     }
 
-    val onItemClickListener
-            = object :  BaseRecyclerViewAdapter.OnItemClickListener {
-        override fun onItemClicked(item: Any?, position: Int?) {
+    val onCalendarRecyclerViewAdpater
+            = object : CalendarRecyclerViewAdapter.OnItemClickListener{
+        override fun onItemClicked(item: Date) {
+            for(i in position - 3 .. position + 3) {
+                (activity!! as CalendarActivity).calendarPagerAdapter.getItem(i).calendarRecyclerViewAdapter.removeClickDay()
+            }
 
-//            val adapter = (viewDataBinding.fragCalendarPageRv.adapter as BaseRecyclerViewAdapter<Date, ItemCalendarDateBinding>)
-//            val items = adapter.items
-//            for (i in 0 until items.size) {
-//                items[i].isClickDay = false
-//            }
-//
-//            adapter.replaceAll(items)
+            (activity!! as CalendarActivity).showSchedule(viewModel.getScheduleByDay(item.year, item.month, item.date))
 
-            (item as Date).isClickDay = true
-            viewDataBinding.fragCalendarPageRv.adapter?.notifyItemChanged(position!!)
+            calendarRecyclerViewAdapter.clickDay(item.month, item.date)
         }
     }
 
@@ -81,6 +85,8 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
         val year = yearFormat.format(date)
         val month = monthFormat.format(date)
         val day = dateFormat.format(date)
+
+        viewModel.getSchedule(year, month)
 
         mCalendar.set(year.toInt(), month.toInt()-1, 1)
         when(month.toInt() - 1) {
@@ -99,35 +105,18 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
         }
 
         // 캘린더 줄 수 설정
-        val lines: Int
-//        when(mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)){
-//            28 -> {
-//                if(mCalendar.get(Calendar.DAY_OF_MONTH) == 1) lines = 4
-//                else lines = 5
-//            }
-//            30 -> {
-//                if(mCalendar.get(Calendar.DAY_OF_MONTH) == 7) lines = 6
-//                else lines = 5
-//            }
-//            31 -> {
-//                when(mCalendar.get(Calendar.DAY_OF_MONTH)){
-//                    6,7 -> lines = 6
-//                    else -> lines = 5
-//                }
-//            }
-//            else -> lines = 5
-//        }
+        val lines = 6
+        viewModel.schedule.observe(requireActivity(), androidx.lifecycle.Observer {
+            makeSchedule(mCalendar, mPrevCalendar, mNextCalendar, mInstanceCalendar, date, lines)
+        })
 
-        lines = 6
-
-
-        makeSchedule(mCalendar, mPrevCalendar, mNextCalendar, mInstanceCalendar, date, lines)
 
 
     }
 
     private fun makeSchedule(mCalendar: Calendar, mPrevCalendar: Calendar, mNextCalendar: Calendar,
                              mInstanceCal: Calendar, date : java.util.Date, lines: Int){
+
 
         val year = yearFormat.format(date)
         val month = monthFormat.format(date)
@@ -146,11 +135,6 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
         for(i in mPrevCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) - dayNum + 2
                 until mPrevCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) + 1) {
 
-            val scheduleList = viewModel.getSchedule(
-                mPrevCalendar.get(Calendar.YEAR).toString(),
-                mPrevCalendar.get(Calendar.MONTH).toString()
-            )
-
             dataList.add(
                 Date(
                     mPrevCalendar.get(Calendar.YEAR).toString(),
@@ -160,12 +144,13 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
                     false,
                     false,
                     false,
-                    scheduleList,
+                    arrayListOf(),
                     lines
                 )
             )
 
         }
+
 
         // 이번달
         for(i in 0 until mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)) {
@@ -173,9 +158,9 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
             mInstanceCal.set(year.toInt(), month.toInt() - 1, i + 1)
             instanceDayNum = mInstanceCal.get(Calendar.DAY_OF_WEEK)
 
-
             val scheduleList = java.util.ArrayList<Schedule>()
-            val instanceScheduleList = viewModel.getSchedule(year, month)
+            val instanceScheduleList = viewModel.getScheduleByMonth(year, month)
+            Log.e("instanceSchedule", instanceScheduleList.toString())
 
             for (j in instanceScheduleList.indices) {
                 if (instanceScheduleList[j].scheduleStartTime.substring(8, 10).toInt() == i + 1) {
@@ -192,11 +177,15 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
                         instanceDayNum,
                         true,
                         true,
-                        false,
+                        true,
                         scheduleList,
                         lines
                     )
                 )
+
+                (activity!! as CalendarActivity).showSchedule(viewModel.getScheduleByDay(year, month, today))
+
+
             } else {
                 dataList.add(
                     Date(
@@ -217,10 +206,10 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
 //        if(nextDayNum != 1){
             for(i in 1 until 16 - nextDayNum){
 
-                val scheduleList = viewModel.getSchedule(
-                    mNextCalendar.get(Calendar.YEAR).toString(),
-                    mNextCalendar.get(Calendar.MONTH).toString()
-                )
+//                val scheduleList = viewModel.getSchedule(
+//                    mNextCalendar.get(Calendar.YEAR).toString(),
+//                    mNextCalendar.get(Calendar.MONTH).toString()
+//                )
 
                 dataList.add(
                     Date(
@@ -231,7 +220,7 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
                         false,
                         false,
                         false,
-                        scheduleList,
+                        arrayListOf(),
                         lines
                     )
                 )
@@ -243,7 +232,7 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
     }
 
     private fun refreshCal(){
-        (viewDataBinding.fragCalendarPageRv.adapter as BaseRecyclerViewAdapter<Any, *>)?.run{
+        calendarRecyclerViewAdapter.run{
             replaceAll(dataList)
             notifyDataSetChanged()
         }

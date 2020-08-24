@@ -18,7 +18,6 @@ class PathAdapter(
     private val clickListener: RouteViewHolder.DropDownUpClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private lateinit var pathDetailAdapter: PathDetailAdapter
     private val subPathData: ArrayList<SubPath> = ArrayList()
 
     fun setRouteItemList(newSubPathData: List<SubPath>) {
@@ -80,18 +79,16 @@ class PathAdapter(
         when (holder) {
             is WalkViewHolder -> {
                 holder.bind(subPathData[position], position)
-
             }
             is RouteViewHolder -> {
-
-                pathDetailAdapter = PathDetailAdapter(
-                    subPathData[position].passStopList!!.stations,
-                    holder.itemViewType,
-                    subPathData[position].lane!!.type
+                holder.bindAdapter(
+                    PathDetailAdapter(
+                        subPathData[position].passStopList,
+                        holder.itemViewType,
+                        subPathData[position].lane!!.type
+                    )
                 )
-                holder.bindAdapter(pathDetailAdapter)
                 holder.bind(subPathData[position])
-
             }
         }
     }
@@ -172,6 +169,7 @@ class WalkViewHolder(
             }
             // 마지막 걷기
             subPathList.size - 1 -> {
+                walkBinding.fastOutExitNo = subPathList[position - 1].fastExitNo // 몇번출구로 나오기
                 walkBinding.actRouteTvWalkEndPoint.text = endAddress
                 walkBinding.previousTrafficType = subPathList[position - 1].trafficType
                 walkBinding.nextTrafficType = -1
@@ -179,6 +177,13 @@ class WalkViewHolder(
             }
             // 중간 걷기
             else -> {
+                if (subPathList[position].distance == 0) {
+                    walkBinding.root.visibility = View.GONE
+                    walkBinding.root.layoutParams = ViewGroup.MarginLayoutParams(0, 0)
+                    return
+                }
+                walkBinding.fastOutExitNo = subPathList[position - 1].fastExitNo // 몇번출구로 나오기
+                walkBinding.fastInExitNo = subPathList[position + 1].fastExitNo  // 몇번출구까지 걷기
                 walkBinding.previousTrafficType = subPathList[position - 1].trafficType
                 walkBinding.nextTrafficType = subPathList[position + 1].trafficType
                 walkBinding.startPointName = subPathList[position - 1].endName

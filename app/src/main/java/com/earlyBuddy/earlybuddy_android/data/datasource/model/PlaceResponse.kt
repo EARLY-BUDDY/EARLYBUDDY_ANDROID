@@ -10,11 +10,8 @@ data class PlaceResponse(
 )
 
 data class PlaceSearch(
-    @SerializedName("placeName")
-    val placeName: String,
-    @SerializedName("addressName")
+    val placeName: String?,
     val addressName: String,
-    @SerializedName("roadAddressName")
     val roadAddressName: String,
     val category : String,
     val distance : String,

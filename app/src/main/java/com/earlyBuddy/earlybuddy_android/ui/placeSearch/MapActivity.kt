@@ -52,12 +52,16 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         act_map_iv_cancel.setOnClickListener{
             finish()
         }
+        act_map_iv_back.setOnClickListener {
+            finish()
+        }
 
         act_map_ll_choice.setOnClickListener{
             val intent = Intent()
             intent.putExtra("placeName", placeName)
             intent.putExtra("x", fx)
             intent.putExtra("y", fy)
+            intent.putExtra("flag", 1)
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
@@ -68,11 +72,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         val location = LatLng(y!!,x!!)
         val marker = Marker()
         marker.position = location
-        if(placeName==null){
-            marker.captionText =  address!!
-        } else {
-            marker.captionText = placeName!!
-        }
+//        if(placeName==null){
+//            marker.captionText =  address!!
+//        } else {
+//            marker.captionText = placeName!!
+//        }
         marker.icon = OverlayImage.fromResource(R.drawable.ic_marker)
         marker.captionTextSize = 15f
         marker.captionOffset = 20
@@ -82,21 +86,14 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     fun setText(){
-        if(placeName==null){
-            act_map_tv_search.text = address
-            act_map_tv_name.text = address
-        } else if (intent.hasExtra("placeName")) {
-            act_map_tv_search.text = placeName
-            act_map_tv_name.text = placeName
-        }
-
+        act_map_tv_search.text = placeName
+        act_map_tv_name.text = placeName
         act_map_tv_address.text = roadAddress
         act_map_tv_category.text = category
 
-        if(flag==1){
-            act_map_tv_flag.text = "출발"
-        }else if(flag==2){
+        if(flag==2){
             act_map_tv_flag.text = "도착"
+            act_map_tv_title.text = "도착지 선택"
         }
     }
 }

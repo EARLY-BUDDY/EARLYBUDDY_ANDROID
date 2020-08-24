@@ -9,10 +9,16 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.earlyBuddy.earlybuddy_android.BR
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
+import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
+import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityEndPlaceSearchBinding
+import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPlaceBinding
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_end_place_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -40,6 +46,7 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
         textWatch()
         getLocationUpdates()
         setClick()
+        setRv()
     }
 
     override fun onResume() {
@@ -101,6 +108,10 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
             act_end_place_search_et_search.findFocus()
         }
 
+        act_end_place_search_iv_back.setOnClickListener {
+            finish()
+        }
+
         act_end_place_search_et_search.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 v.clearFocus()
@@ -119,6 +130,43 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
             }
             false
         })
+    }
+
+    private fun setRv(){
+        viewDataBinding.actEndPlaceSearchRv.apply {
+            adapter =
+                object : BaseRecyclerViewAdapter<RecentPlaceEntity, ItemRecentPlaceBinding>() {
+                    override val bindingVariableId: Int
+                        get() = BR.recentPlace
+                    override val layoutResID: Int
+                        get() = R.layout.item_recent_place
+                    override val listener: OnItemClickListener?
+                        get() = onClickListener
+                }
+            layoutManager = LinearLayoutManager(this@EndPlaceSearchActivity)
+        }
+
+        viewModel.places.observe(this, Observer {
+            (viewDataBinding.actEndPlaceSearchRv.adapter as BaseRecyclerViewAdapter<RecentPlaceEntity, ItemRecentPlaceBinding>)
+                .replaceAll(it)
+            (viewDataBinding.actEndPlaceSearchRv.adapter as BaseRecyclerViewAdapter<RecentPlaceEntity, ItemRecentPlaceBinding>)
+                .notifyDataSetChanged()
+        })
+    }
+
+    val onClickListener
+            = object : BaseRecyclerViewAdapter.OnItemClickListener {
+        override fun onItemClicked(item: Any?, position: Int?) {
+            val recentPlace = (item as RecentPlaceEntity).placeName
+            viewModel.getPlaceSearchData(recentPlace, longitude, latitude)
+            supportFragmentManager.beginTransaction()
+                .replace(
+                    R.id.act_end_place_search_container,
+                    placeResultFragment
+                ).commit()
+            bundle.putInt("flag", 2)
+            placeResultFragment.arguments = bundle
+        }
     }
 
     private fun getLocationUpdates() {
