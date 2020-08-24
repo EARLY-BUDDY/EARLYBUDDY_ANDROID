@@ -57,7 +57,7 @@ class TestPathActivity : AppCompatActivity() {
                     }
                 }
             })
-        routeAdapter.subPathData = pathData.subPath
+        routeAdapter.setRouteItemList(pathData.subPath)
         routeRecyclerView.adapter = routeAdapter
 
 //        compositeDisposable.add(

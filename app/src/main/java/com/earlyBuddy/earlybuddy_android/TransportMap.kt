@@ -1,7 +1,7 @@
 package com.earlyBuddy.earlybuddy_android
 
 object TransportMap {
-    lateinit var jwt: String
+    var jwt: String = ""
 
     val subwayMap: Map<Int, ArrayList<String>> = mapOf(
         1 to arrayListOf("#243899", "1호선"),
