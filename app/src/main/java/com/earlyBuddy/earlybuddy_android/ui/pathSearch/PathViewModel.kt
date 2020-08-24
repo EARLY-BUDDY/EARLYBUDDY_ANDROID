@@ -23,7 +23,8 @@ class PathViewModel(private val repository : SearchRouteRepository) : BaseViewMo
         repository.delete(recentPath)
     }
 
-    private var _routeList = MutableLiveData<ArrayList<Path>>()
+    var routeArrayList = ArrayList<Path>()
+    var _routeList = MutableLiveData<ArrayList<Path>>()
     val routeList : LiveData<ArrayList<Path>> get() = _routeList
     var loadingVisiblity = MutableLiveData<Boolean>()
 
@@ -45,6 +46,7 @@ class PathViewModel(private val repository : SearchRouteRepository) : BaseViewMo
 
                 // onResponse
                 _routeList.value = it.data.path
+                routeArrayList = it.data.path
                 Log.e("getRoute 응답 성공 : ", routeList.value.toString())
             }){
                 // 에러 블록

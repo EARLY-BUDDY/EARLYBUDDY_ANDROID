@@ -25,8 +25,8 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
     override val layoutResID: Int
         get() = R.layout.fragment_path_result
     override val viewModel: PathViewModel by sharedViewModel()
-    val PREFER_LIST_DIALOG = 1
-    val SORT_LIST_DIALOG = 2
+    private val PREFER_LIST_DIALOG = 1
+    private val SORT_LIST_DIALOG = 2
     var preferIdx = 0
     var sortIdx = 0
 
@@ -87,10 +87,36 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
         val bundle = data!!.extras
         if(resultCode == PREFER_LIST_DIALOG) {
             preferIdx = bundle!!.getInt("preferIdx")
+            (activity as PathActivity).searchPathType = preferIdx
+            (activity as PathActivity).getRoute()
+            if(preferIdx==0){
+                viewDataBinding.fragPathResultTvPrefer.text = "선호수단"
+            }else if(preferIdx==1){
+                viewDataBinding.fragPathResultTvPrefer.text = "지하철"
+            }else{
+                viewDataBinding.fragPathResultTvPrefer.text = "버스"
+            }
         }else if(resultCode == SORT_LIST_DIALOG) {
             sortIdx = bundle!!.getInt("sortIdx")
+            if(sortIdx==0){
+                viewDataBinding.fragPathResultTvSort.text = "최적경로순"
+                (activity as PathActivity).sortPathType = 0
+                (activity as PathActivity).sortRoute()
+            }else if(sortIdx==1){
+                viewDataBinding.fragPathResultTvSort.text = "최단시간순"
+                (activity as PathActivity).sortPathType = 1
+                (activity as PathActivity).sortRoute()
+            }else if(sortIdx==2){
+                viewDataBinding.fragPathResultTvSort.text = "최소환승순"
+                (activity as PathActivity).sortPathType = 2
+                (activity as PathActivity).sortRoute()
+            }else{
+                viewDataBinding.fragPathResultTvSort.text = "최소도보순"
+                (activity as PathActivity).sortPathType = 3
+                (activity as PathActivity).sortRoute()
+            }
         }else{
-            Log.e("onactResult", "fail")
+            Log.e("onActResult", "fail")
         }
     }
 }

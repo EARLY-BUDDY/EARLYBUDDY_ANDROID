@@ -37,7 +37,7 @@ class  PreferListDialogFragment : DialogFragment() {
         if(tag==0){
             dial_frag_prefer_list_tv_all.setTextColor(resources.getColor(R.color.main_color))
             dial_frag_prefer_iv_all.visibility = View.VISIBLE
-        }else if(tag==1){
+        }else if(tag==2){
             dial_frag_prefer_list_tv_bus.setTextColor(resources.getColor(R.color.main_color))
             dial_frag_prefer_iv_bus.visibility = View.VISIBLE
         }else {
@@ -55,16 +55,15 @@ class  PreferListDialogFragment : DialogFragment() {
         }
         dial_frag_prefer_list_ll_bus.onlyOneClickListener {
             val bundle = Bundle()
-            bundle.putInt("preferIdx", 1)
+            bundle.putInt("preferIdx", 2)
             val intent = Intent()
             intent.putExtras(bundle)
             targetFragment!!.onActivityResult(targetRequestCode, 1, intent)
             dismiss()
-
         }
         dial_frag_prefer_list_ll_sub.onlyOneClickListener {
             val bundle = Bundle()
-            bundle.putInt("preferIdx", 2)
+            bundle.putInt("preferIdx", 1)
             val intent = Intent()
             intent.putExtras(bundle)
             targetFragment!!.onActivityResult(targetRequestCode, 1, intent)
