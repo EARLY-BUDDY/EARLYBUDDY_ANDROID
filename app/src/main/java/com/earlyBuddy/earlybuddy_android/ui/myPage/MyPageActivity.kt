@@ -1,6 +1,7 @@
 package com.earlyBuddy.earlybuddy_android.ui.myPage
 
 import android.os.Bundle
+import android.widget.Toast
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityMyPageBinding
@@ -15,8 +16,16 @@ class MyPageActivity : BaseActivity<ActivityMyPageBinding, MyPageViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        myPageAdapter = MyPageAdapter()
-        viewDataBinding.actMyRvMenu.adapter =myPageAdapter
+        myPageAdapter = MyPageAdapter(object : MyPageViewHolder.MyPageItemClickListener {
+            override fun itemClick(position: Int) {
+                Toast.makeText(
+                    this@MyPageActivity,
+                    myPageAdapter.myPageItemData[position].title,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+        viewDataBinding.actMyRvMenu.adapter = myPageAdapter
 
     }
 }
