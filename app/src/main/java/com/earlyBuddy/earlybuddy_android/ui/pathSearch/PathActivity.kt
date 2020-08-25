@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -266,7 +267,22 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
                 0
             )
-            if (checkPermissions()) showAlertLocation()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            0 -> {
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    showAlertLocation()
+                } else {
+                    Toast.makeText(this, "위치 싀팔", Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
         }
     }
 
