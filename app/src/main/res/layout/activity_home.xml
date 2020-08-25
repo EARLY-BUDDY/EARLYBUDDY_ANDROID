@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="14dp"
-                android:src="@drawable/img_mypage"
+                android:src="@drawable/btn_mypage"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/act_home_iv_write"
                 app:layout_constraintTop_toTopOf="parent" />

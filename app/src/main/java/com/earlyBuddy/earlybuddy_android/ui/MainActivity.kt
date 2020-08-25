@@ -9,7 +9,7 @@ import com.earlyBuddy.earlybuddy_android.ui.calendar.CalendarActivity
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
 import com.earlyBuddy.earlybuddy_android.ui.initial.nickname.NickNameActivity
 import com.earlyBuddy.earlybuddy_android.ui.initial.place.InitialPlaceActivity
-import com.earlyBuddy.earlybuddy_android.ui.myPage.MyPageActivity
+import com.earlyBuddy.earlybuddy_android.ui.myPage.main.MyPageActivity
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathActivity
 import com.earlyBuddy.earlybuddy_android.ui.schedule.write.ScheduleWriteActivity
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity(){
 
         setContentView(R.layout.activity_main)
         TransportMap.jwt =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjEsImlhdCI6MTU5MjkyNzg3MiwiZXhwIjoxNjAwNzAzODcyfQ.FPFQZw_h2wtHx-ctS5U94bMDGe2PRTaFmkKADuOYYEE"
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjcsImlhdCI6MTU5Njk2ODY2MywiZXhwIjoxNjA0NzQ0NjYzfQ.Rirg7UTxUQBLz6WjGqJiaKCWTT5XdCxd6q2Rwbtz5gc"
         act_main_btn_calendar.setOnClickListener {
             val intent = Intent(this, CalendarActivity::class.java)
             startActivity(intent)

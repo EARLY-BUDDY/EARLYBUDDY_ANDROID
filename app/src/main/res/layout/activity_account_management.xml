@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.myPage.accountManagement.AccountManagementActivity">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/act_account_manage_cl_top"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/main_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/act_account_manage_iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/btn_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/act_account_manage_tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:gravity="center"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="-6sp"
+                android:text="계정 관리"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@id/act_account_manage_iv_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/act_account_manage_iv_back" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/act_account_manage_tv_nickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="-4sp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/act_account_manage_cl_top"
+            android:text="닉네임" />
+
+        <EditText
+            android:id="@+id/act_account_manage_et_nickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@null"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="-2sp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/act_account_manage_tv_nickName"
+            app:layout_constraintTop_toBottomOf="@id/act_account_manage_tv_nickName"
+            android:text="이비조아요우" />
+
+        <View
+            android:id="@+id/act_account_manage_view_center"
+            android:layout_width="0dp"
+            android:layout_height="0.2dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/act_account_manage_tv_nickName"
+            app:layout_constraintTop_toBottomOf="@id/act_account_manage_et_nickName"
+            app:layout_constraintVertical_bias="0.80" />
+
+        <TextView
+            android:id="@+id/act_account_manage_tv_account_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="39dp"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="-4sp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/act_account_manage_tv_nickName"
+            app:layout_constraintTop_toBottomOf="@id/act_account_manage_view_center"
+            android:text="계정 정보" />
+
+        <TextView
+            android:id="@+id/act_account_manage_tv_id_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="-2sp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/act_account_manage_tv_nickName"
+            app:layout_constraintTop_toBottomOf="@id/act_account_manage_tv_account_title"
+            android:text="아이디" />
+
+        <TextView
+            android:id="@+id/act_account_manage_tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="27dp"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="-2sp"
+            android:textColor="#3092ff"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/act_account_manage_tv_id_title"
+            app:layout_constraintStart_toEndOf="@id/act_account_manage_tv_id_title"
+            app:layout_constraintTop_toTopOf="@id/act_account_manage_tv_id_title"
+            android:text="earlybuddy12" />
+
+        <TextView
+            android:id="@+id/act_account_manage_tv_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="0sp"
+            android:textColor="@color/light_gray"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/act_account_manage_tv_id_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/act_account_manage_tv_id_title"
+            android:text="로그아웃" />
+
+        <TextView
+            android:id="@+id/act_account_manage_tv_title_pw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="-2sp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/act_account_manage_tv_nickName"
+            app:layout_constraintTop_toBottomOf="@id/act_account_manage_tv_id"
+            android:text="비밀번호 변경" />
+
+        <ImageView
+            android:id="@+id/act_account_manage_iv_pw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="11dp"
+            android:src="@drawable/ic_detail_light"
+            app:layout_constraintBottom_toBottomOf="@id/act_account_manage_tv_title_pw"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/act_account_manage_tv_title_pw" />
+
+        <TextView
+            android:id="@+id/act_account_manage_tv_quit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="-2sp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@id/act_account_manage_tv_nickName"
+            app:layout_constraintTop_toBottomOf="@id/act_account_manage_tv_title_pw"
+            android:text="회원 탈퇴" />
+
+        <ImageView
+            android:id="@+id/act_account_manage_iv_quit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="11dp"
+            android:src="@drawable/ic_detail_light"
+            app:layout_constraintBottom_toBottomOf="@id/act_account_manage_tv_quit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/act_account_manage_tv_quit" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
