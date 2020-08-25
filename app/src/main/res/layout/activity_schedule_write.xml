@@ -332,8 +332,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="7dp"
                         android:entries="@array/noti_array"
+                        android:layout_marginTop="7dp"
                         app:layout_constraintStart_toStartOf="@id/act_schedule_tv_noti"
                         app:layout_constraintTop_toBottomOf="@+id/act_schedule_tv_noti" />
 

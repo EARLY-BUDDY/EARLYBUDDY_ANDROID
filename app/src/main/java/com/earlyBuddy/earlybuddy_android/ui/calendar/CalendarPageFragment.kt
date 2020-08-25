@@ -1,24 +1,33 @@
 package com.earlyBuddy.earlybuddy_android.ui.calendar
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Handler
+import android.util.Log
 import com.earlyBuddy.earlybuddy_android.BR
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseFragment
 import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
-import com.earlyBuddy.earlybuddy_android.data.datasource.model.Schedule
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentCalendarPageBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemCalendarDateBinding
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import com.earlyBuddy.earlybuddy_android.data.datasource.model.Date
+import com.earlyBuddy.earlybuddy_android.data.datasource.model.Schedule
+import com.earlyBuddy.earlybuddy_android.ui.Loading
+import com.earlyBuddy.earlybuddy_android.util.NonScrollGridLayoutManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarVIewModel>() {
+class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarViewModel>() {
 
     override val layoutResID: Int
         get() = R.layout.fragment_calendar_page
 
-    override val viewModel = CalendarVIewModel()
+    override val viewModel : CalendarViewModel by viewModel()
+
+    lateinit var calendarRecyclerViewAdapter: CalendarRecyclerViewAdapter
+    var position = 0
+
 
     private var timeByMillis : Long = 0
     private val dataList : ArrayList<Date> by lazy { ArrayList<Date>()}
@@ -30,22 +39,37 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewDataBinding.vm = viewModel
+        position = arguments!!.getInt("position", 0)
 
         setRv()
+        setCalendar()
     }
 
     private fun setRv(){
-        viewDataBinding.fragCalendarPageRv.run{
-            adapter = object : BaseRecyclerViewAdapter<Date, ItemCalendarDateBinding>(){
-                override val layoutResID: Int
-                    get() = R.layout.item_calendar_date
-                override val bindingVariableId: Int
-                    get() = BR.date
-                override val listener: OnItemClickListener?
-                    get() = null
-            }
+
+        calendarRecyclerViewAdapter = CalendarRecyclerViewAdapter()
+        calendarRecyclerViewAdapter.apply{
+            setOnItemClickListener(onCalendarRecyclerViewAdpater)
+            setHasStableIds(true)
         }
 
+        viewDataBinding.fragCalendarPageRv.run{
+            adapter = calendarRecyclerViewAdapter
+            layoutManager = NonScrollGridLayoutManager(activity!!, 7)
+        }
+    }
+
+    val onCalendarRecyclerViewAdpater
+            = object : CalendarRecyclerViewAdapter.OnItemClickListener{
+        override fun onItemClicked(item: Date) {
+            for(i in position - 3 .. position + 3) {
+                (activity!! as CalendarActivity).calendarPagerAdapter.getItem(i).calendarRecyclerViewAdapter.removeClickDay()
+            }
+
+            (activity!! as CalendarActivity).showSchedule(viewModel.getScheduleByDay(item.year, item.month, item.date))
+
+            calendarRecyclerViewAdapter.clickDay(item.month, item.date)
+        }
     }
 
     private fun setCalendar(){
@@ -61,6 +85,8 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
         val year = yearFormat.format(date)
         val month = monthFormat.format(date)
         val day = dateFormat.format(date)
+
+        viewModel.getSchedule(year, month)
 
         mCalendar.set(year.toInt(), month.toInt()-1, 1)
         when(month.toInt() - 1) {
@@ -79,33 +105,22 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
         }
 
         // 캘린더 줄 수 설정
-        val lines: Int
-        when(mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)){
-            28 -> {
-                if(mCalendar.get(Calendar.DAY_OF_MONTH) == 1) lines = 4
-                else lines = 5
-            }
-            30 -> {
-                if(mCalendar.get(Calendar.DAY_OF_MONTH) == 7) lines = 6
-                else lines = 5
-            }
-            31 -> {
-                when(mCalendar.get(Calendar.DAY_OF_MONTH)){
-                    6,7 -> lines = 6
-                    else -> lines = 5
-                }
-            }
-            else -> lines = 5
-        }
-
-        viewModel.schedule.observe(this, androidx.lifecycle.Observer {
+        val lines = 6
+        viewModel.schedule.observe(requireActivity(), androidx.lifecycle.Observer {
             makeSchedule(mCalendar, mPrevCalendar, mNextCalendar, mInstanceCalendar, date, lines)
         })
+
+
 
     }
 
     private fun makeSchedule(mCalendar: Calendar, mPrevCalendar: Calendar, mNextCalendar: Calendar,
-                             mInstanceCal: Calendar, date : Date, lines: Int){
+                             mInstanceCal: Calendar, date : java.util.Date, lines: Int){
+
+
+        val year = yearFormat.format(date)
+        val month = monthFormat.format(date)
+        val day = dateFormat.format(date)
 
         val todayYear = yearFormat.format(System.currentTimeMillis())
         val todayMonth = monthFormat.format(System.currentTimeMillis())
@@ -120,12 +135,124 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
         for(i in mPrevCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) - dayNum + 2
                 until mPrevCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) + 1) {
 
-            val scheduleList = viewModel.getSchedule(
-                mPrevCalendar.get(Calendar.YEAR).toString(),
-                mPrevCalendar.get(Calendar.MONTH).toString()
+            dataList.add(
+                Date(
+                    mPrevCalendar.get(Calendar.YEAR).toString(),
+                    (mPrevCalendar.get(Calendar.MONTH) + 1).toString(),
+                    i.toString(),
+                    0,
+                    false,
+                    false,
+                    false,
+                    arrayListOf(),
+                    lines
+                )
             )
 
         }
+
+
+        // 이번달
+        for(i in 0 until mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH)) {
+
+            mInstanceCal.set(year.toInt(), month.toInt() - 1, i + 1)
+            instanceDayNum = mInstanceCal.get(Calendar.DAY_OF_WEEK)
+
+            val scheduleList = java.util.ArrayList<Schedule>()
+            val instanceScheduleList = viewModel.getScheduleByMonth(year, month)
+            Log.e("instanceSchedule", instanceScheduleList.toString())
+
+            for (j in instanceScheduleList.indices) {
+                if (instanceScheduleList[j].scheduleStartTime.substring(8, 10).toInt() == i + 1) {
+                    scheduleList.add(instanceScheduleList[j])
+                }
+            }
+
+            if (i + 1 == today.toInt() && month == todayMonth && year == todayYear) {
+                dataList.add(
+                    Date(
+                        year.toString(),
+                        month.toString(),
+                        (i + 1).toString(),
+                        instanceDayNum,
+                        true,
+                        true,
+                        true,
+                        scheduleList,
+                        lines
+                    )
+                )
+
+                (activity!! as CalendarActivity).showSchedule(viewModel.getScheduleByDay(year, month, today))
+
+
+            } else {
+                dataList.add(
+                    Date(
+                        year.toString(),
+                        month.toString(),
+                        (i + 1).toString(),
+                        instanceDayNum,
+                        false,
+                        true,
+                        false,
+                        scheduleList,
+                        lines
+                    )
+                )
+            }
+        }
+
+//        if(nextDayNum != 1){
+            for(i in 1 until 16 - nextDayNum){
+
+//                val scheduleList = viewModel.getSchedule(
+//                    mNextCalendar.get(Calendar.YEAR).toString(),
+//                    mNextCalendar.get(Calendar.MONTH).toString()
+//                )
+
+                dataList.add(
+                    Date(
+                        mNextCalendar.get(Calendar.YEAR).toString(),
+                        (mNextCalendar.get(Calendar.MONTH) + 1).toString(),
+                        i.toString(),
+                        0,
+                        false,
+                        false,
+                        false,
+                        arrayListOf(),
+                        lines
+                    )
+                )
+            }
+
+//        }
+
+        refreshCal()
     }
 
+    private fun refreshCal(){
+        calendarRecyclerViewAdapter.run{
+            replaceAll(dataList)
+            notifyDataSetChanged()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    fun setTimeByMillis(timeByMillis : Long){
+        this.timeByMillis = timeByMillis
+    }
+
+    companion object {
+        fun newInstance(position: Int): CalendarPageFragment {
+            val frg = CalendarPageFragment()
+            val bundle = Bundle()
+            bundle.putInt("position", position)
+            frg.arguments = bundle
+            return frg
+        }
+    }
 }

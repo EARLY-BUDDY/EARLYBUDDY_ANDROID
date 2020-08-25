@@ -103,6 +103,24 @@ fun visibleText(view: TextView, remainingMinuteSetVisible: Int) {
     }
 }
 
+@BindingAdapter("calendarScheduleTime")
+fun visibleText(view: TextView, time: String) {
+
+    var result = ""
+
+    val seperated = time.split(' ').toTypedArray()[1].split(':').toTypedArray()
+    val h = seperated[0]
+    val m = seperated[1]
+
+    if (h.toInt() < 12) {
+        result = "오전 $h:$m"
+    } else {
+        result = "오후 " + (h.toInt() - 12) + ":" + m
+    }
+
+    view.text = result
+
+}
 @BindingAdapter("placeResultRoadAddress", "placeResultAddressName")
 fun TextView.placeResultAddress(placeResultRoadAddress: String?, placeResultAddressName: String?) {
     text = if (placeResultRoadAddress.isNullOrEmpty()) {
@@ -155,5 +173,8 @@ fun TextView.setWalkTime(time: Int?) {
 @BindingAdapter("setPay")
 fun TextView.setPay(pay: String?) {
     val size = pay!!.length
-    text = "${pay.substring(0, size - 3)},${pay.substring(size - 3)}원"
+    Log.e("pay size", pay.length.toString())
+    text = if(pay.length>=4) "${pay.substring(0, size - 3)},${pay.substring(size - 3)}원"
+    else if(pay=="0") "가격미상"
+    else "${pay}원"
 }

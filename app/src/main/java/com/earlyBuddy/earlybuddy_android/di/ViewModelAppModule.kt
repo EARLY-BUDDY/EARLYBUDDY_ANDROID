@@ -1,5 +1,6 @@
 package com.earlyBuddy.earlybuddy_android.di
 
+import com.earlyBuddy.earlybuddy_android.ui.calendar.CalendarViewModel
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeViewModel
 import com.earlyBuddy.earlybuddy_android.ui.home.beforeBus.BeforeBusViewModel
 import com.earlyBuddy.earlybuddy_android.ui.home.beforeDay.BeforeDayViewModel
@@ -22,6 +23,7 @@ val viewModelAppModule = module {
     viewModel { HomePathViewModel(get()) }
     viewModel { BeforeBusViewModel() }
     viewModel { BeforeDayViewModel() }
+    viewModel { CalendarViewModel(get()) }
     viewModel { InitialPlaceViewModel(get()) }
     viewModel {
         MyPageViewModel(

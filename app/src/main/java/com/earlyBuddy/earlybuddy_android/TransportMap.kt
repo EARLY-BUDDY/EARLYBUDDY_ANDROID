@@ -14,6 +14,7 @@ object TransportMap {
         8 to arrayListOf("#e8146d", "8호선"),
         9 to arrayListOf("#d2a715", "9호선"),
         21 to arrayListOf("#6d98d2", "인천1호선"),
+        22 to arrayListOf("#f7ac2e", "인천2호선"),
         31 to arrayListOf("#2cb83d", "대전1호선"),
         41 to arrayListOf("#f35f23", "대구1호선"),
         42 to arrayListOf("#2cb83d", "대구2호선"),
@@ -53,9 +54,9 @@ object TransportMap {
         13 to "#efae13",
         14 to "#ff574c",
         15 to "#ff574c",
-        20 to "#ffffff",
-        21 to "#ffffff",
-        22 to "#ffffff",
+        20 to "#FF9DD1",
+        21 to "#FF9DD1",
+        22 to "#FF9DD1",
         26 to "#3469ec"
     )
 }

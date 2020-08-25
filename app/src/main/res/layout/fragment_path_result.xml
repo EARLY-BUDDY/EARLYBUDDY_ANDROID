@@ -79,6 +79,7 @@
                     android:background="@drawable/border_18_c3c3c3">
 
                     <TextView
+                        android:id="@+id/frag_path_result_tv_prefer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="10dp"
@@ -97,13 +98,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/frag_path_result_ll_best"
+                    android:id="@+id/frag_path_result_ll_sort"
                     android:layout_width="87dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="12dp"
                     android:background="@drawable/border_18_c3c3c3">
 
                     <TextView
+                        android:id="@+id/frag_path_result_tv_sort"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="10dp"
