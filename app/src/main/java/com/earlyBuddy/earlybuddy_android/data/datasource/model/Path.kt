@@ -1,7 +1,5 @@
 package com.earlyBuddy.earlybuddy_android.data.datasource.model
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 data class Path(
@@ -29,10 +27,10 @@ data class SubPath(
     val way: String?,
     val wayCode: Int?,
     val door: String?,
-    val startExitNo: Int,
+    val startExitNo: String?,
     val startExitX: Double?,
     val startExitY: Double?,
-    val endExitNo: Int,
+    val endExitNo: String?,
     val endExitX: Double?,
     val endExitY: Double?,
     val passStopList: ArrayList<String>,

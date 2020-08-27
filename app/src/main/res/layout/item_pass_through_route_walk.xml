@@ -35,11 +35,11 @@
 
         <variable
             name="fastOutExitNo"
-            type="Integer" />
+            type="String" />
 
         <variable
             name="fastInExitNo"
-            type="Integer" />
+            type="String" />
 
         <variable
             name="visibleBool"

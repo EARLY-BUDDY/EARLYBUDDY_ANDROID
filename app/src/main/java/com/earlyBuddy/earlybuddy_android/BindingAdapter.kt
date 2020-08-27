@@ -11,17 +11,17 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 
 @BindingAdapter("trafficType", "endName", "fastInExitNo")
-fun walkEndText(textView: TextView, nextTrafficType: Int, endName: String?, fastInExitNo: Int) {
+fun walkEndText(textView: TextView, nextTrafficType: Int, endName: String?, fastInExitNo: String?) {
     if (nextTrafficType == -1) {
         return
     }
     when (nextTrafficType) {
         1 -> {
-            if (fastInExitNo == 0) {
+            if (fastInExitNo == "0") {
                 textView.text = String.format("%s역까지 걷기", endName)
             } else {
                 textView.text =
-                    String.format("%s역 %d번 출구까지 걷기", endName, fastInExitNo)
+                    String.format("%s역 %s번 출구까지 걷기", endName, fastInExitNo)
             }
         }
         2 -> textView.text =
@@ -34,14 +34,14 @@ fun walkStartText(
     textView: TextView,
     previousTrafficType: Int,
     startName: String?,
-    fastOutExitNo: Int
+    fastOutExitNo: String?
 ) {
     if (previousTrafficType == -1) {
         return
     }
     when (previousTrafficType) {
         1 -> textView.text =
-            String.format("%s역 %d번 출구로 나오기", startName, fastOutExitNo)
+            String.format("%s역 %s번 출구로 나오기", startName, fastOutExitNo)
         2 -> textView.text =
             String.format("%s 정류장 하차", startName)
     }
@@ -132,6 +132,7 @@ fun View.setMethodColor(color: String?, type: Int) {
 @BindingAdapter("setTotalTime")
 fun TextView.setTotalTime(time: Int?) {
     text = if (time!! < 60) "${time}분"
+    else if(time%60==0) "${time / 60}시간"
     else "${time / 60}시간 ${time % 60}분"
 }
 
