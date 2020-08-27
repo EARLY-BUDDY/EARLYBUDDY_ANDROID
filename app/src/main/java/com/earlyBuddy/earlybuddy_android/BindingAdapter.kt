@@ -97,6 +97,9 @@ fun hideText(view: TextView, remainingMinuteSetHide: Int, changeText: Boolean) {
 @BindingAdapter("remainingMinuteSetVisible")
 fun visibleText(view: TextView, remainingMinuteSetVisible: Int) {
     if (remainingMinuteSetVisible <= 3) {
+        if(remainingMinuteSetVisible==-3){
+            view.text="운행종료"
+        }
         view.visibility = View.VISIBLE
     } else {
         view.visibility = View.INVISIBLE

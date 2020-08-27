@@ -18,6 +18,8 @@ class MyPageActivity : BaseActivity<ActivityMyPageBinding, MyPageViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewDataBinding.actAccountManageTopTitle.actTopTitleTvTitle.text = "마이페이지"
+
         myPageAdapter =
             MyPageAdapter(object :
                 MyPageViewHolder.MyPageItemClickListener {
