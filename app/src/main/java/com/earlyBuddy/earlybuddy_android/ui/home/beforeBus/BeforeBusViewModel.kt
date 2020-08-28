@@ -85,17 +85,20 @@ class BeforeBusViewModel() : BaseViewModel() {
         var tempMin = ""
         var tempHour = ""
 
-        tempMin = if (promiseStartTime.minutes.toString().length == 1) {
-            "0" + promiseStartTime.minutes
-        } else {
-            promiseStartTime.minutes.toString()
-        }
+        tempMin = String.format("%02d",promiseStartTime.minutes)
+//        tempMin = if (promiseStartTime.minutes.toString().length == 1) {
+//            "0" + promiseStartTime.minutes
+//        } else {
+//            promiseStartTime.minutes.toString()
+//        }
 
-        tempHour = if (promiseStartTime.hours.toString().length == 1) {
-            "0" + promiseStartTime.hours
-        } else {
-            promiseStartTime.hours.toString()
-        }
+        tempHour = String.format("%02d",promiseStartTime.hours)
+
+//        tempHour = if (promiseStartTime.hours.toString().length == 1) {
+//            "0" + promiseStartTime.hours
+//        } else {
+//            promiseStartTime.hours.toString()
+//        }
 
         if (promiseStartTime.hours >= 12) {
             startTime.value = "오후 $tempHour:$tempMin"
