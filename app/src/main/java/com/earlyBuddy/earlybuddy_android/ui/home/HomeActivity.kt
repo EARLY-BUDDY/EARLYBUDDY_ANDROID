@@ -40,11 +40,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
             replaceFragment(it)
         })
 
-        viewModel.goBeforBusFragment.observe(this, Observer {
+        viewModel.goBeforeBusFragment.observe(this, Observer {
             replaceFragment(it)
         })
 
-        viewModel.loadingVisiblity.observe(this, Observer {
+        viewModel.loadingVisibility.observe(this, Observer {
             when (it) {
                 true -> {
                     Loading.goLoading(this)

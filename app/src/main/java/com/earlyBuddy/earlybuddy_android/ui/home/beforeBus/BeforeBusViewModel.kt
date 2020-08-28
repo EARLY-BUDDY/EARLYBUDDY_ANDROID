@@ -24,12 +24,8 @@ class BeforeBusViewModel() : BaseViewModel() {
     val timer = Timer()
     val nextArriveStop = MutableLiveData<Unit>()
 
-
     fun getData(tempHomeResponse: HomeResponse) {
-
-
         homeResponse.value = tempHomeResponse
-
 
         lastTransCount = tempHomeResponse.data!!.lastTransCount.toString()
         lastCount.value = tempHomeResponse.data.lastTransCount
@@ -40,7 +36,6 @@ class BeforeBusViewModel() : BaseViewModel() {
         }
         divideTraffic(tempHomeResponse)
         getTimeDifference(tempHomeResponse)
-
     }
 
     private fun divideTraffic(tempHomeResponse: HomeResponse) {
@@ -50,7 +45,6 @@ class BeforeBusViewModel() : BaseViewModel() {
 
                 //("지하철일때 번호 표시")
                 trafficNumber = tempHomeResponse.data.firstTrans.subwayLane.toString() + "호선"
-
 
                 // ("지하철 노선에 따른 박스 색깔 변화")
 
@@ -81,29 +75,12 @@ class BeforeBusViewModel() : BaseViewModel() {
         var nextTransArriveTime = tempHomeResponse.data.nextTransArriveTime
         val promiseStartTime = sdf.parse(scheduleStartTime)
 
-
-        var tempMin = ""
-        var tempHour = ""
-
-        tempMin = String.format("%02d",promiseStartTime.minutes)
-//        tempMin = if (promiseStartTime.minutes.toString().length == 1) {
-//            "0" + promiseStartTime.minutes
-//        } else {
-//            promiseStartTime.minutes.toString()
-//        }
-
-        tempHour = String.format("%02d",promiseStartTime.hours)
-
-//        tempHour = if (promiseStartTime.hours.toString().length == 1) {
-//            "0" + promiseStartTime.hours
-//        } else {
-//            promiseStartTime.hours.toString()
-//        }
-
         if (promiseStartTime.hours >= 12) {
-            startTime.value = "오후 $tempHour:$tempMin"
+            startTime.value =
+                "오후 ${String.format("%02d:%02d", promiseStartTime.minutes, promiseStartTime.hours)}"
         } else {
-            startTime.value = "오전 $tempHour:$tempMin"
+            startTime.value =
+                "오전 ${String.format("%02d:%02d", promiseStartTime.minutes, promiseStartTime.hours)}"
         }
 
         val nowDate = Date()
@@ -134,62 +111,6 @@ class BeforeBusViewModel() : BaseViewModel() {
                 getNextArriveTime(nextArriveTime, nowDate)
             }
         }
-
-//        else if (arriveTime == "운행종료" && nextTransArriveTime == "운행종료") {
-//            arriveTime = sdf.format(Date())
-//            nextTransArriveTime = sdf.format(Date())
-//        } else if (arriveTime == "운행종료") {
-//            arriveTime = sdf.format(Date())
-//        } else if (nextTransArriveTime == "운행종료") {
-//            nextTransArriveTime = sdf.format(Date())
-//        }
-
-
-//        val firstArriveTime = sdf.parse(arriveTime)
-//        val nextArriveTime = sdf.parse(nextTransArriveTime)
-//
-//        if (arriveTime == "운행종료" && nextTransArriveTime == "운행종료") {
-//            remainingMinute.value = -3
-//        } else if (arriveTime == "운행종료") {
-//            getNextArriveTime(nextArriveTime, nowDate)
-//            remainingMinute.value = -3
-//        } else {
-//            getFirstArriveTime(firstArriveTime, nowDate)
-//            getNextArriveTime(nextArriveTime, nowDate)
-//        }
-
-
-//        val arriveGap = firstArriveTime.time - nowDate.time
-//        val nextArriveGap = nextArriveTime.time - nowDate.time
-//
-//        val arriveDiffDay = arriveGap / 1000 / 60 / 60 / 24
-//        val arriveDiffHour = arriveGap / 1000 / 60 / 60 - (arriveDiffDay * 24)
-//        val arriveDiffMinute =
-//            arriveGap / 1000 / 60 - (arriveDiffDay * 24 * 60) - (arriveDiffHour * 60)
-//
-//        arriveMinuteDifference.value = arriveDiffMinute.toInt() + arriveDiffHour.toInt() * 60
-//
-//        val nextArriveDiffDay = nextArriveGap / 1000 / 60 / 60 / 24
-//        val nextArriveDiffHour = nextArriveGap / 1000 / 60 / 60 - (nextArriveDiffDay * 24)
-//        val nextArriveDiffMinute =
-//            nextArriveGap / 1000 / 60 - (nextArriveDiffDay * 24 * 60) - (nextArriveDiffHour * 60)
-//
-//        nextArriveMinuteDifference.value =
-//            nextArriveDiffMinute.toInt() + nextArriveDiffHour.toInt() * 60
-//
-//        Log.e("다음 도착까지", arriveMinuteDifference.value.toString())
-//
-//        var remainingMinuteValue = arriveMinuteDifference.value!!
-//        remainingMinute.value = (remainingMinuteValue)
-
-//        // 분 줄여가기 (1분마다/60000 밀리세크)
-//        timer.scheduleAtFixedRate(object : TimerTask() {
-//            override fun run() {
-//                remainingMinuteValue--
-//                remainingMinute.postValue(remainingMinuteValue)
-//                Log.e("ttt", remainingMinute.value.toString())
-//            }
-//        }, 6000, 6000)
     }
 
     private fun getFirstArriveTime(firstArriveTime: Date, nowDate: Date) {

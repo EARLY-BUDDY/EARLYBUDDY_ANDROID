@@ -31,24 +31,11 @@ class BeforeDayViewModel() : BaseViewModel() {
         val date = sdf.parse("2020-07-23 01:15:00")
 
         val promise = sdf.parse(scheduleStartTime)
-        var tempMin = ""
-        var tempHour = ""
-
-        tempHour = String.format("%02d", promise.hours)
-        tempMin = String.format("%02d", promise.minutes)
-//        var promiseMinute = ""
-//
-//
-//        if (promise.minutes < 10) {
-//            promiseMinute = "0${promise.minutes}"
-//        } else {
-//            promiseMinute = promise.minutes.toString()
-//        }
 
         if (promise.hours >= 12) {
-            startTime.value = "오후 $tempHour:$tempMin"
+            startTime.value = "오후 ${String.format("%02d:%02d", promise.minutes, promise.hours)}"
         } else {
-            startTime.value = "오전 $tempHour:$tempMin"
+            startTime.value = "오전 ${String.format("%02d:%02d", promise.minutes, promise.hours)}"
         }
 
         Log.e("현재시간 : ", sdf.format(date).toString())
