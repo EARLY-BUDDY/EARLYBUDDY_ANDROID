@@ -17,11 +17,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 class HomeViewModel(private val repository: HomeRepository) :
     BaseViewModel() {
 
-    val goBeforBusFragment = MutableLiveData<Fragment>()
+    val goBeforeBusFragment = MutableLiveData<Fragment>()
     val goBeforeDayFragment = MutableLiveData<Fragment>()
     val goNoScheduleFragment = MutableLiveData<Fragment>()
     val homeResponse = MutableLiveData<HomeResponse>()
-    val loadingVisiblity = MutableLiveData<Boolean>()
+    val loadingVisibility = MutableLiveData<Boolean>()
 
     private lateinit var tempHomeResponse: HomeResponse
 
@@ -53,14 +53,16 @@ class HomeViewModel(private val repository: HomeRepository) :
         )
 
     fun getData(loadingVisible: Boolean) {
-
+        if (loadingVisible) {
+            loadingVisibility.value = true
+        }
         addDisposable(repository.getHomeData().observeOn(AndroidSchedulers.mainThread())
             // 구독할 때 수행할 작업을 구현
             .doOnSubscribe {}
             // 스트림이 종료될 때 수행할 작업을 구현
             .doOnTerminate {
                 if (loadingVisible) {
-                    loadingVisiblity.value = false
+                    loadingVisibility.value = false
                 }
                 homeResponse.value = tempHomeResponse
 //                homeResponse.value = homeResponses
@@ -73,7 +75,7 @@ class HomeViewModel(private val repository: HomeRepository) :
                         goBeforeDayFragment.value = BeforeDayFragment()
                     }
                     else -> {
-                        goBeforBusFragment.value = BeforeBusFragment()
+                        goBeforeBusFragment.value = BeforeBusFragment()
                     }
                 }
              }
@@ -81,9 +83,6 @@ class HomeViewModel(private val repository: HomeRepository) :
              .subscribe({
                  // API를 통해 액세스 토큰을 정상적으로 받았을 때 처리할 작업을 구현
                  // 작업 중 오류가 발생하면 이 블록은 호출되지 x
-                 if (loadingVisible) {
-                     loadingVisiblity.value = true
-                 }
 
                  // onResponse
                  tempHomeResponse = it!!

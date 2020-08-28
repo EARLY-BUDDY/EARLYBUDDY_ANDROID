@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseFragment
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentHomeBeforeBusBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
 import com.earlyBuddy.earlybuddy_android.ui.home.pathCheck.HomePathActivity
 import kotlinx.android.synthetic.main.fragment_home_before_bus.*
@@ -42,7 +43,7 @@ class BeforeBusFragment : BaseFragment<FragmentHomeBeforeBusBinding, BeforeBusVi
             }
         }, 7000, 7000)
 
-        frag_home_before_bus__iv_reboot.setOnClickListener {
+        frag_home_before_bus__iv_reboot.onlyOneClickListener {
             viewModel.timer.cancel()
             (activity as HomeActivity).refresh(true)
         }
