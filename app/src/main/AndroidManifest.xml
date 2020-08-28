@@ -20,7 +20,9 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.myPage.MyPageActivity" />
+        <activity android:name=".ui.myPage.password.PasswordChangeActivity"></activity>
+        <activity android:name=".ui.myPage.accountManagement.AccountManagementActivity" />
+        <activity android:name=".ui.myPage.main.MyPageActivity" />
         <activity android:name=".ui.initial.place.InitialPlaceActivity" />
         <activity android:name=".ui.initial.nickname.NickNameActivity" />
         <activity

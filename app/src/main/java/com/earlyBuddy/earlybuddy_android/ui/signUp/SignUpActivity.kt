@@ -40,7 +40,6 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
 
         viewDataBinding.vm = viewModel
 //        signUpDialog = SignUpDialogFragment()
@@ -51,7 +50,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
         focusController()
         confirmJoin()
         observe()
-        act_sign_up_et_pw_check.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+        viewDataBinding.actSignUpTvPwCheck.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 v.clearFocus()
                 val keyboard: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -71,18 +70,18 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
 //    }
 
     private fun pwCheck(){
-        act_sign_up_et_pw.addTextChangedListener(object: TextWatcher {
+        viewDataBinding.actSignUpEtPw.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) { }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (!(pwPattern!!.matcher(p0.toString()).matches())) {
-                    act_sign_up_et_pw.setBackgroundResource(R.drawable.border_25_ff6e6e)
-                    act_sign_up_tv_pw_warning.visibility = View.VISIBLE
+                    viewDataBinding.actSignUpEtPw.setBackgroundResource(R.drawable.border_25_ff6e6e)
+                    viewDataBinding.actSignUpTvPwWarning.visibility = View.VISIBLE
                     pwFlag = false
                     pw = p0.toString()
                 }else{
-                    act_sign_up_et_pw.setBackgroundResource(R.drawable.border_25_3092ff)
-                    act_sign_up_tv_pw_warning.visibility = View.INVISIBLE
+                    viewDataBinding.actSignUpEtPw.setBackgroundResource(R.drawable.border_25_3092ff)
+                    viewDataBinding.actSignUpTvPwWarning.visibility = View.INVISIBLE
                     pwFlag = true
                     pw = p0.toString()
                 }
@@ -98,15 +97,15 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
                 if (p0.toString() != pw){
                     Log.e("비밀번호는 -> ", pw)
                     Log.e("입력중인 비밀번호는 -> ", p0.toString())
-                    act_sign_up_et_pw_check.setBackgroundResource(R.drawable.border_25_ff6e6e)
-                    act_sign_up_tv_pw_check_warning.visibility = View.VISIBLE
+                    viewDataBinding.actSignUpEtPwCheck.setBackgroundResource(R.drawable.border_25_ff6e6e)
+                    viewDataBinding.actSignUpTvPwCheckWarning.visibility = View.VISIBLE
                     pwCheckFlag = false
                     pwCheck = p0.toString()
                 } else if (p0.toString() == pw) {
                     Log.e("비밀번호는 -> ", pw)
                     Log.e("입력중인 비밀번호는 -> ", p0.toString())
-                    act_sign_up_et_pw_check.setBackgroundResource(R.drawable.border_25_3092ff)
-                    act_sign_up_tv_pw_check_warning.visibility = View.INVISIBLE
+                    viewDataBinding.actSignUpEtPwCheck.setBackgroundResource(R.drawable.border_25_3092ff)
+                    viewDataBinding.actSignUpTvPwCheckWarning.visibility = View.INVISIBLE
                     pwCheckFlag= true
                     pwCheck = p0.toString()
                 }
@@ -115,67 +114,67 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
     }
 
     private fun focusController(){
-        act_sign_up_et_id.setOnFocusChangeListener { view, isFocused ->
+        viewDataBinding.actSignUpEtId.setOnFocusChangeListener { view, isFocused ->
             if(isFocused){
-                act_sign_up_et_id.setBackgroundResource(R.drawable.border_25_3092ff)
-                act_sign_up_tv_id_warning.visibility = View.INVISIBLE
+                viewDataBinding.actSignUpEtId.setBackgroundResource(R.drawable.border_25_3092ff)
+                viewDataBinding.actSignUpTvIdWarning.visibility = View.INVISIBLE
             } else{
-                act_sign_up_et_id.setBackgroundResource(R.drawable.border_25_c3c3c3)
+                viewDataBinding.actSignUpEtId.setBackgroundResource(R.drawable.border_25_c3c3c3)
             }
         }
 
-        act_sign_up_et_pw.setOnFocusChangeListener { view, isFocused ->
+        viewDataBinding.actSignUpEtPw.setOnFocusChangeListener { view, isFocused ->
             if (!isFocused && !pwFlag){ //포커스 잃고 비밀번호 유효하지 않은 경우
                 Log.e("포커스 잃고 유효하지 않은", pwFlag.toString())
-                act_sign_up_et_pw.setBackgroundResource(R.drawable.border_25_ff6e6e)
+                viewDataBinding.actSignUpEtPw.setBackgroundResource(R.drawable.border_25_ff6e6e)
                 confirmJoin()
             } else if (!isFocused && pwFlag){ //포커스 잃고 비밀번호 유효한 경우
                 Log.e("포커스 잃고 유효", pwFlag.toString())
-                act_sign_up_et_pw.setBackgroundResource(R.drawable.border_25_c3c3c3)
+                viewDataBinding.actSignUpEtPw.setBackgroundResource(R.drawable.border_25_c3c3c3)
                 confirmJoin()
             } else if (isFocused && !pwFlag) { //포커스 얻은 상태에서 비밀번호 유효하지 않은 경우
                 Log.e("포커스 얻고 유효하지 않은", pwFlag.toString())
-                act_sign_up_et_pw.setBackgroundResource(R.drawable.border_25_ff6e6e)
-                act_sign_up_tv_pw_warning.visibility = View.VISIBLE
+                viewDataBinding.actSignUpEtPw.setBackgroundResource(R.drawable.border_25_ff6e6e)
+                viewDataBinding.actSignUpTvPwWarning.visibility = View.VISIBLE
                 confirmJoin()
             } else if (isFocused && pwFlag){ //포커스 얻은 상태에서 비밀번호 유효한 경우
                 Log.e("포커스 얻고 유효", pwFlag.toString())
-                act_sign_up_et_pw.setBackgroundResource(R.drawable.border_25_3092ff)
+                viewDataBinding.actSignUpEtPw.setBackgroundResource(R.drawable.border_25_3092ff)
                 confirmJoin()
             }
         }
 
-        act_sign_up_et_pw_check.setOnFocusChangeListener { view, isFocused ->
+        viewDataBinding.actSignUpEtPwCheck.setOnFocusChangeListener { view, isFocused ->
             if (!isFocused && !pwCheckFlag){ //포커스 잃고 비밀번호 유효하지 않은 경우
-                act_sign_up_et_pw_check.setBackgroundResource(R.drawable.border_25_ff6e6e)
+                viewDataBinding.actSignUpEtPwCheck.setBackgroundResource(R.drawable.border_25_ff6e6e)
                 confirmJoin()
             } else if (!isFocused && pwCheckFlag){ //포커스 잃고 비밀번호 유효한 경우
-                act_sign_up_et_pw_check.setBackgroundResource(R.drawable.border_25_c3c3c3)
+                viewDataBinding.actSignUpEtPwCheck.setBackgroundResource(R.drawable.border_25_c3c3c3)
                 confirmJoin()
             } else if (isFocused && !pwCheckFlag) { //포커스 얻은 상태에서 비밀번호 유효하지 않은 경우
-                act_sign_up_et_pw_check.setBackgroundResource(R.drawable.border_25_ff6e6e)
-                act_sign_up_tv_pw_check_warning.visibility = View.VISIBLE
+                viewDataBinding.actSignUpEtPwCheck.setBackgroundResource(R.drawable.border_25_ff6e6e)
+                viewDataBinding.actSignUpTvPwCheckWarning.visibility = View.VISIBLE
                 confirmJoin()
             } else if (isFocused && pwCheckFlag){ //포커스 얻은 상태에서 비밀번호 유효한 경우
-                act_sign_up_et_pw_check.setBackgroundResource(R.drawable.border_25_3092ff)
+                viewDataBinding.actSignUpEtPwCheck.setBackgroundResource(R.drawable.border_25_3092ff)
                 confirmJoin()
             }
         }
     }
 
     private fun confirmJoin(){
-        if (act_sign_up_et_id.text.isNotEmpty() && pwFlag && pwCheckFlag) {
-            act_sign_up_tv_regist.setBackgroundResource(R.drawable.bg_25_3092ff)
+        if (viewDataBinding.actSignUpEtId.text.isNotEmpty() && pwFlag && pwCheckFlag) {
+            viewDataBinding.actSignUpTvRegist.setBackgroundResource(R.drawable.bg_25_3092ff)
             id = act_sign_up_et_id.text.toString()
-            act_sign_up_tv_regist.isClickable = true
-            act_sign_up_tv_regist.setOnClickListener {
+            viewDataBinding.actSignUpTvRegist.isClickable = true
+            viewDataBinding.actSignUpTvRegist.setOnClickListener {
                 postSignUp()
             }
-        } else if(act_sign_up_et_id.text.isEmpty() || act_sign_up_et_pw.text.isEmpty() || act_sign_up_et_pw_check.text.isEmpty()
+        } else if(viewDataBinding.actSignUpEtId.text.isEmpty() || viewDataBinding.actSignUpEtPw.text.isEmpty() || viewDataBinding.actSignUpEtPwCheck.text.isEmpty()
             || !pwFlag || !pwCheckFlag){
-            act_sign_up_tv_regist.setBackgroundResource(R.drawable.bg_25_c3c3c3)
-            act_sign_up_tv_regist.setOnClickListener(null)
-            act_sign_up_tv_regist.isClickable = false
+            viewDataBinding.actSignUpTvRegist.setBackgroundResource(R.drawable.bg_25_c3c3c3)
+            viewDataBinding.actSignUpTvRegist.setOnClickListener(null)
+            viewDataBinding.actSignUpTvRegist.isClickable = false
         }
     }
 
@@ -199,8 +198,8 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
                 startActivity(intent)
                 finish()
             } else if (it == "이미 사용중인 아이디입니다.") {
-                act_sign_up_tv_id_warning.visibility = View.VISIBLE
-                act_sign_up_et_id.setBackgroundResource(R.drawable.border_25_ff6e6e)
+                viewDataBinding.actSignUpTvIdWarning.visibility = View.VISIBLE
+                viewDataBinding.actSignUpEtId.setBackgroundResource(R.drawable.border_25_ff6e6e)
             } else if (it == "입력되지 않은 값이 있습니다") {
                 Toast.makeText(this, "입력되지 않은 값이 있습니다", Toast.LENGTH_SHORT).show()
             }

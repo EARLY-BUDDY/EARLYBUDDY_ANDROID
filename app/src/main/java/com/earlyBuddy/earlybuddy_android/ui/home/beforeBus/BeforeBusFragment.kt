@@ -2,7 +2,6 @@ package com.earlyBuddy.earlybuddy_android.ui.home.beforeBus
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseFragment
@@ -65,6 +64,9 @@ class BeforeBusFragment : BaseFragment<FragmentHomeBeforeBusBinding, BeforeBusVi
                     viewDataBinding.fragHomeBeforeBusIvBack.setImageResource(R.drawable.img_twobus)
                 }
             }
+        })
+        viewModel.nextArriveStop.observe(viewLifecycleOwner, Observer {
+            viewDataBinding.fragHomeBeforeBusTvNextTime.text = "다음 배차는 없습니다."
         })
     }
 
