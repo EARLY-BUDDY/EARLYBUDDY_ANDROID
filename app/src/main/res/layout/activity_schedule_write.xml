@@ -311,6 +311,7 @@
                             android:layout_height="match_parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/act_schedule_tv_route"
                             tools:layout_editor_absoluteY="0dp" />
 
                         <TextView
