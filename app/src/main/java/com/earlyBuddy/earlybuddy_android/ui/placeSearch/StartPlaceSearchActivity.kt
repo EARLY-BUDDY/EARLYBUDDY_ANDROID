@@ -206,6 +206,7 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
         locationRequest.fastestInterval = 50000
         locationRequest.smallestDisplacement = 170f
         locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 locationResult ?: return

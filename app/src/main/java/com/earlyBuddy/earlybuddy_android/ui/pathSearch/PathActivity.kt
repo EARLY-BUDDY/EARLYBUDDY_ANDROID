@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -16,19 +15,19 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.earlyBuddy.earlybuddy_android.BR
+import androidx.recyclerview.widget.RecyclerView.ItemAnimator
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
-import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPathBinding
-import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPathBinding
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.EndPlaceSearchActivity
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.StartPlaceSearchActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_path.*
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
@@ -59,87 +58,92 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
         getLastLocation()
         setClick()
-        setRv()
+        initRv()
+//        setRv()
     }
 
     override fun onResume() {
         super.onResume()
-        if (sFlag == 1 && eFlag == 1) {
-            getRoute()
-
-            viewModel.insert(
-                RecentPathEntity(
-                    startPlaceName = viewDataBinding.actPathTvStart.text.toString(),
-                    endPlaceName = viewDataBinding.actPathTvEnd.text.toString(),
-                    sx = sx, sy = sy, ex = ex, ey = ey
-                )
-            )
-
-            pathResultFrag = PathResultFragment()
-            supportFragmentManager.beginTransaction()
-                .add(
-                    R.id.act_path_fl,
-                    pathResultFrag
-                ).commit()
-            bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
-            bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
-            pathResultFrag.arguments = bundle
-        }
+//        if (sFlag == 1 && eFlag == 1) {
+//            getRoute()
+//
+//            viewModel.insert(
+//                RecentPathEntity(
+//                    startPlaceName = viewDataBinding.actPathTvStart.text.toString(),
+//                    endPlaceName = viewDataBinding.actPathTvEnd.text.toString(),
+//                    sx = sx, sy = sy, ex = ex, ey = ey
+//                )
+//            )
+//
+//            pathResultFrag = PathResultFragment()
+//            supportFragmentManager.beginTransaction()
+//                .replace(
+//                    R.id.act_path_fl,
+//                    pathResultFrag
+//                ).commit()
+//            bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
+//            bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
+//            pathResultFrag.arguments = bundle
+//        }
     }
 
-    private fun setRv() {
-        viewDataBinding.actPathRv.apply {
-            adapter =
-                object : BaseRecyclerViewAdapter<RecentPathEntity, ItemRecentPathBinding>() {
-                    override val bindingVariableId: Int
-                        get() = BR.recentPath
-                    override val layoutResID: Int
-                        get() = R.layout.item_recent_path
-                    override val listener: OnItemClickListener?
-                        get() = onClickListener
+    private fun initRv(){
+        val recentPathadapter = RecentPathAdpater(this, object : RecentPathViewHolder.onClickItemListener{
+                override fun onClickStoreItem(position: Int, item: RecentPathEntity) {
+                    sx = item.sx
+                    sy = item.sy
+                    ex = item.ex
+                    ey = item.ey
+                    sFlag = 1
+                    eFlag = 1
+                    Log.e("onClick", "${sx} ${sy} ${ex} ${ey} ")
+
+                    viewModel.getRouteData(sx, sy, ex, ey, 0)
+
+                    viewDataBinding.actPathTvStart.text = viewModel.routes.value!![position].startPlaceName
+                    viewDataBinding.actPathTvEnd.text = viewModel.routes.value!![position].endPlaceName
+                    viewDataBinding.actPathTvStart.setTextColor(resources.getColor(R.color.black))
+                    viewDataBinding.actPathTvEnd.setTextColor(resources.getColor(R.color.black))
+
+                    pathResultFrag = PathResultFragment()
+                    supportFragmentManager.beginTransaction()
+                        .add(
+                            R.id.act_path_fl,
+                            pathResultFrag
+                        ).commit()
+
+                    bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
+                    bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
+                    pathResultFrag.arguments = bundle
                 }
+
+            }, object : RecentPathViewHolder.onClickDeleteListener{
+                override fun onDeleteItem(
+                    position: Int,
+                    item: RecentPathEntity
+                ) {
+                    viewModel.delete(item)
+                }
+
+            })
+
+        recentPathadapter.setHasStableIds(true)
+
+        viewDataBinding.actPathRv.apply {
+            adapter = recentPathadapter
             layoutManager = LinearLayoutManager(this@PathActivity)
         }
 
         viewModel.routes.observe(this, Observer {
-            (viewDataBinding.actPathRv.adapter as BaseRecyclerViewAdapter<RecentPathEntity, ItemRecentPathBinding>)
-                .replaceAll(it)
-            (viewDataBinding.actPathRv.adapter as BaseRecyclerViewAdapter<RecentPathEntity, ItemRecentPathBinding>)
-                .notifyDataSetChanged()
+            recentPathadapter.run {
+                replaceAll(it)
+                notifyDataSetChanged()
+            }
         })
+
     }
 
-    val onClickListener = object : BaseRecyclerViewAdapter.OnItemClickListener {
-        override fun onItemClicked(item: Any?, position: Int?) {
-
-            sx = (item as RecentPathEntity).sx
-            sy = item.sy
-            ex = item.ex
-            ey = item.ey
-            sFlag = 1
-            eFlag = 1
-            viewModel.getRouteData(sx, sy, ex, ey, 0)
-
-            viewDataBinding.actPathTvStart.text =
-                viewModel.routes.value!![position!!].startPlaceName
-            viewDataBinding.actPathTvEnd.text = viewModel.routes.value!![position].endPlaceName
-            viewDataBinding.actPathTvStart.setTextColor(resources.getColor(R.color.black))
-            viewDataBinding.actPathTvEnd.setTextColor(resources.getColor(R.color.black))
-
-            pathResultFrag = PathResultFragment()
-            supportFragmentManager.beginTransaction()
-                .add(
-                    R.id.act_path_fl,
-                    pathResultFrag
-                ).commit()
-
-            bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
-            bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
-            pathResultFrag.arguments = bundle
-        }
-    }
-
-    fun setClick() {
+    private fun setClick() {
         viewDataBinding.actPathTvStart.setOnClickListener {
             val intent = Intent(this, StartPlaceSearchActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_START)
@@ -184,6 +188,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_CODE_START) {
+                searchPathType = 0
                 startPlaceName = data!!.getStringExtra("placeName")
                 sx = data.getDoubleExtra("x", 0.0)
                 sy = data.getDoubleExtra("y", 0.0)
@@ -195,7 +200,30 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 Log.e("sx좌표 -> ", sx.toString())
                 Log.e("sy좌표 -> ", sy.toString())
 
+//                if (sFlag == 1 && eFlag == 1) {
+//                    getRoute()
+//
+//                    viewModel.insert(
+//                        RecentPathEntity(
+//                            startPlaceName = viewDataBinding.actPathTvStart.text.toString(),
+//                            endPlaceName = viewDataBinding.actPathTvEnd.text.toString(),
+//                            sx = sx, sy = sy, ex = ex, ey = ey
+//                        )
+//                    )
+//
+//                    pathResultFrag = PathResultFragment()
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(
+//                            R.id.act_path_fl,
+//                            pathResultFrag
+//                        ).commit()
+//                    bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
+//                    bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
+//                    pathResultFrag.arguments = bundle
+//                }
+
             } else if (requestCode == REQUEST_CODE_END) {
+                searchPathType = 0
                 endPlaceName = data!!.getStringExtra("placeName")
                 ex = data.getDoubleExtra("x", 0.0)
                 ey = data.getDoubleExtra("y", 0.0)
@@ -207,6 +235,29 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 Log.e("ex좌표 -> ", ex.toString())
                 Log.e("ey좌표 -> ", ey.toString())
             }
+
+            if (sFlag == 1 && eFlag == 1) {
+                getRoute()
+
+                viewModel.insert(
+                    RecentPathEntity(
+                        startPlaceName = viewDataBinding.actPathTvStart.text.toString(),
+                        endPlaceName = viewDataBinding.actPathTvEnd.text.toString(),
+                        sx = sx, sy = sy, ex = ex, ey = ey
+                    )
+                )
+
+                pathResultFrag = PathResultFragment()
+                supportFragmentManager.beginTransaction()
+                    .replace(
+                        R.id.act_path_fl,
+                        pathResultFrag
+                    ).commit()
+                bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
+                bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
+                pathResultFrag.arguments = bundle
+            }
+
         }
     }
 
@@ -218,20 +269,14 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
     fun sortRoute() {
         when (sortPathType) {
             1 // 최단 시간순
-            -> viewModel.routeArrayList.sortedWith(compareBy {
-                it.totalTime
-            })
+            -> viewModel.routeArrayList.sortBy { it.totalTime }
             2// 최소 환승순
-            -> viewModel.routeArrayList.sortedWith(compareBy {
-                it.transitCount
-            })
-            else // 최소 도보순
-            -> viewModel.routeArrayList.sortedWith(compareBy {
-                it.totalWalkTime
-            })
+            -> viewModel.routeArrayList.sortBy { it.totalTime }
+            3 // 최소 도보순
+            -> viewModel.routeArrayList.sortBy { it.totalWalkTime }
         }
 
-        viewModel._routeList.value = viewModel.routeArrayList
+        viewModel._routeList.postValue(viewModel.routeArrayList)
     }
 
     private fun showAlertLocation() {
@@ -266,7 +311,22 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
                 0
             )
-            if (checkPermissions()) showAlertLocation()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            0 -> {
+                if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    showAlertLocation()
+                } else {
+                    Toast.makeText(this, "위치 싀팔", Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
         }
     }
 

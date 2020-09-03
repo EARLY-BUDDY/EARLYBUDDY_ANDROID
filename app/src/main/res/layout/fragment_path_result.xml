@@ -72,10 +72,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <LinearLayout
-                    android:id="@+id/frag_path_result_ll_prefer"
+                <RelativeLayout
+                    android:id="@+id/frag_path_result_rl_prefer"
                     android:layout_width="87dp"
                     android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:background="@drawable/border_18_c3c3c3">
 
                     <TextView
@@ -92,16 +93,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/btn_downarrow"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="12dp"/>
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_gravity="center_vertical"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/frag_path_result_ll_sort"
+                <RelativeLayout
+                    android:id="@+id/frag_path_result_rl_sort"
                     android:layout_width="87dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="12dp"
+                    android:gravity="center_vertical"
                     android:background="@drawable/border_18_c3c3c3">
 
                     <TextView
@@ -119,9 +123,11 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/btn_downarrow"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginTop="2dp"/>
 
-                </LinearLayout>
+                </RelativeLayout>
 
             </LinearLayout>
 

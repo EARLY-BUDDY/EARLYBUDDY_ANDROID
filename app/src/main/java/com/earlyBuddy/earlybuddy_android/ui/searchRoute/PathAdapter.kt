@@ -173,7 +173,8 @@ class WalkViewHolder(
         when (position) {
             // 첫번째 걷기
             0 -> {
-                walkBinding.fastInExitNo = subPathList[position + 1].startExitNo
+                walkBinding.fastInExitNo =
+                    subPathList[position + 1].startExitNo
                 walkBinding.actRouteTvWalkStartPoint.text = startAddress
                 walkBinding.nextTrafficType = subPathList[position + 1].trafficType
                 walkBinding.previousTrafficType = -1

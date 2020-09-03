@@ -26,18 +26,15 @@ class PathViewModel(private val repository : SearchRouteRepository) : BaseViewMo
     var routeArrayList = ArrayList<Path>()
     var _routeList = MutableLiveData<ArrayList<Path>>()
     val routeList : LiveData<ArrayList<Path>> get() = _routeList
-    var loadingVisiblity = MutableLiveData<Boolean>()
 
     fun getRouteData(SX : Double, SY : Double, EX : Double, EY : Double, SearchPathType : Int){
         addDisposable(repository.getSearchRouteData(SX, SY, EX, EY, SearchPathType)
             .observeOn(AndroidSchedulers.mainThread())
             // 구독할 때 수행할 작업을 구현
             .doOnSubscribe {
-                loadingVisiblity.postValue(false)
             }
             // 스트림이 종료될 때 수행할 작업을 구현
             .doOnTerminate {
-                loadingVisiblity.postValue(true)
             }
             // 옵서버블을 구독
             .subscribe({
@@ -45,9 +42,9 @@ class PathViewModel(private val repository : SearchRouteRepository) : BaseViewMo
                 // 작업 중 오류가 발생하면 이 블록은 호출되지 x
 
                 // onResponse
-                _routeList.value = it.data.path
                 routeArrayList = it.data.path
-                Log.e("getRoute 응답 성공 : ", routeList.value.toString())
+                _routeList.value = it.data.path
+//                Log.e("getRoute 응답 성공 : ", routeList.value.toString())
             }){
                 // 에러 블록
                 // 네트워크 오류나 데이터 처리 오류 등
