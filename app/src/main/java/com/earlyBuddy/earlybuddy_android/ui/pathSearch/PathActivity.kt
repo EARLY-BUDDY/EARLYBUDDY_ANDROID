@@ -15,8 +15,6 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.ItemAnimator
-import androidx.recyclerview.widget.SimpleItemAnimator
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity
@@ -88,8 +86,8 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
     }
 
     private fun initRv(){
-        val recentPathadapter = RecentPathAdpater(this, object : RecentPathViewHolder.onClickItemListener{
-                override fun onClickStoreItem(position: Int, item: RecentPathEntity) {
+        val recentPathAdapter = RecentPathAdpater(object : RecentPathViewHolder.onClickItemListener{
+                override fun onClickItem(position: Int, item: RecentPathEntity) {
                     sx = item.sx
                     sy = item.sy
                     ex = item.ex
@@ -127,15 +125,15 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
             })
 
-        recentPathadapter.setHasStableIds(true)
+        recentPathAdapter.setHasStableIds(true)
 
         viewDataBinding.actPathRv.apply {
-            adapter = recentPathadapter
+            adapter = recentPathAdapter
             layoutManager = LinearLayoutManager(this@PathActivity)
         }
 
         viewModel.routes.observe(this, Observer {
-            recentPathadapter.run {
+            recentPathAdapter.run {
                 replaceAll(it)
                 notifyDataSetChanged()
             }
