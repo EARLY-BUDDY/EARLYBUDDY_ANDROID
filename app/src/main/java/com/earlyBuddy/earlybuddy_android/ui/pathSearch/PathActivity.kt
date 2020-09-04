@@ -15,8 +15,6 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.ItemAnimator
-import androidx.recyclerview.widget.SimpleItemAnimator
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity
@@ -59,37 +57,11 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
         getLastLocation()
         setClick()
         initRv()
-//        setRv()
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        if (sFlag == 1 && eFlag == 1) {
-//            getRoute()
-//
-//            viewModel.insert(
-//                RecentPathEntity(
-//                    startPlaceName = viewDataBinding.actPathTvStart.text.toString(),
-//                    endPlaceName = viewDataBinding.actPathTvEnd.text.toString(),
-//                    sx = sx, sy = sy, ex = ex, ey = ey
-//                )
-//            )
-//
-//            pathResultFrag = PathResultFragment()
-//            supportFragmentManager.beginTransaction()
-//                .replace(
-//                    R.id.act_path_fl,
-//                    pathResultFrag
-//                ).commit()
-//            bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
-//            bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
-//            pathResultFrag.arguments = bundle
-//        }
     }
 
     private fun initRv(){
-        val recentPathadapter = RecentPathAdpater(this, object : RecentPathViewHolder.onClickItemListener{
-                override fun onClickStoreItem(position: Int, item: RecentPathEntity) {
+        val recentPathAdapter = RecentPathAdpater(object : RecentPathViewHolder.onClickItemListener{
+                override fun onClickItem(position: Int, item: RecentPathEntity) {
                     sx = item.sx
                     sy = item.sy
                     ex = item.ex
@@ -127,15 +99,15 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
             })
 
-        recentPathadapter.setHasStableIds(true)
+        recentPathAdapter.setHasStableIds(true)
 
         viewDataBinding.actPathRv.apply {
-            adapter = recentPathadapter
+            adapter = recentPathAdapter
             layoutManager = LinearLayoutManager(this@PathActivity)
         }
 
         viewModel.routes.observe(this, Observer {
-            recentPathadapter.run {
+            recentPathAdapter.run {
                 replaceAll(it)
                 notifyDataSetChanged()
             }
@@ -199,28 +171,6 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 Log.e("sFlag -> ", sFlag.toString())
                 Log.e("sx좌표 -> ", sx.toString())
                 Log.e("sy좌표 -> ", sy.toString())
-
-//                if (sFlag == 1 && eFlag == 1) {
-//                    getRoute()
-//
-//                    viewModel.insert(
-//                        RecentPathEntity(
-//                            startPlaceName = viewDataBinding.actPathTvStart.text.toString(),
-//                            endPlaceName = viewDataBinding.actPathTvEnd.text.toString(),
-//                            sx = sx, sy = sy, ex = ex, ey = ey
-//                        )
-//                    )
-//
-//                    pathResultFrag = PathResultFragment()
-//                    supportFragmentManager.beginTransaction()
-//                        .replace(
-//                            R.id.act_path_fl,
-//                            pathResultFrag
-//                        ).commit()
-//                    bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
-//                    bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
-//                    pathResultFrag.arguments = bundle
-//                }
 
             } else if (requestCode == REQUEST_CODE_END) {
                 searchPathType = 0
