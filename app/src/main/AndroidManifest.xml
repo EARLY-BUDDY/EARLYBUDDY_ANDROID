@@ -38,7 +38,7 @@
         <activity android:name=".ui.placeSearch.EndPlaceSearchActivity" />
         <activity android:name=".ui.signUp.SignInActivity" />
         <activity android:name=".ui.signUp.SignUpActivity" />
-        <activity android:name=".ui.schedule.write.ScheduleWriteActivity" />
+        <activity android:name=".ui.schedule.ScheduleActivity" />
         <activity android:name=".ui.home.HomeActivity" />
         <activity android:name=".ui.placeSearch.StartPlaceSearchActivity" />
         <activity android:name=".ui.calendar.CalendarActivity" />

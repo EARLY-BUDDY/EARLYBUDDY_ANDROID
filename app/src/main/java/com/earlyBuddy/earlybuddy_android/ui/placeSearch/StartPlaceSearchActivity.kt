@@ -156,49 +156,44 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
     }
 
     private fun setRv(){
+
+        val recentPlaceAdapter = RecentPlaceAdapter(object : RecentPlaceViewHolder.onClickItemListener{
+            override fun onClickItem(position: Int, item: RecentPlaceEntity) {
+                val recentPlace = item.placeName
+                recentPlaceClick = 1
+                viewDataBinding.actStartPlaceSearchEtSearch.clearFocus()
+
+                viewModel.getPlaceSearchData(recentPlace, longitude, latitude)
+                supportFragmentManager.beginTransaction()
+                    .replace(
+                        R.id.act_start_place_search_container,
+                        placeResultFragment
+                    ).commit()
+                bundle.putInt("flag", 1)
+                placeResultFragment.arguments = bundle
+
+                viewDataBinding.actStartPlaceSearchEtSearch.setText(viewModel.places.value!![position!!].placeName)
+            }
+        }, object :  RecentPlaceViewHolder.onClickDeleteListener {
+            override fun onDeleteItem(position: Int, item: RecentPlaceEntity) {
+                viewModel.delete(item)
+            }
+        })
+
+        recentPlaceAdapter.setHasStableIds(true)
         viewDataBinding.actStartPlaceSearchRv.apply {
-            adapter =
-                object : BaseRecyclerViewAdapter<RecentPlaceEntity, ItemRecentPlaceBinding>() {
-                    override val bindingVariableId: Int
-                        get() = BR.recentPlace
-                    override val layoutResID: Int
-                        get() = R.layout.item_recent_place
-                    override val listener: OnItemClickListener?
-                        get() = onClickListener
-                }
+            adapter = recentPlaceAdapter
             layoutManager = LinearLayoutManager(this@StartPlaceSearchActivity)
         }
 
         viewModel.places.observe(this, Observer {
-            (viewDataBinding.actStartPlaceSearchRv.adapter as BaseRecyclerViewAdapter<RecentPlaceEntity, ItemRecentPlaceBinding>)
-                .replaceAll(it)
-            (viewDataBinding.actStartPlaceSearchRv.adapter as BaseRecyclerViewAdapter<RecentPlaceEntity, ItemRecentPlaceBinding>)
-                .notifyDataSetChanged()
+            recentPlaceAdapter.run {
+                replaceAll(it)
+                notifyDataSetChanged()
+            }
         })
     }
 
-    val onClickListener
-            = object : BaseRecyclerViewAdapter.OnItemClickListener {
-        override fun onItemClicked(item: Any?, position: Int?) {
-            val recentPlace = (item as RecentPlaceEntity).placeName
-            recentPlaceClick = 1
-            viewDataBinding.actStartPlaceSearchEtSearch.clearFocus()
-
-            viewModel.getPlaceSearchData(recentPlace, longitude, latitude)
-            supportFragmentManager.beginTransaction()
-                .replace(
-                    R.id.act_start_place_search_container,
-                    placeResultFragment
-                ).commit()
-            bundle.putInt("flag", 1)
-            placeResultFragment.arguments = bundle
-
-            viewDataBinding.actStartPlaceSearchEtSearch.setText(viewModel.places.value!![position!!].placeName)
-
-//            val recentPlace = (item as RecentPlaceEntity)
-//            viewModel.delete(recentPlace)
-        }
-    }
 
     private fun getLocationUpdates() {
         locationRequest = LocationRequest()
