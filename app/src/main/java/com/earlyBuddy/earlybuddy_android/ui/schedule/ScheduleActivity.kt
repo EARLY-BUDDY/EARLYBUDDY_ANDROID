@@ -31,6 +31,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         viewDataBinding.activity = this
 
         setPickerClick()
+        setClick()
     }
 
     fun setClick(){
@@ -41,6 +42,12 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         viewDataBinding.actScheduleTvPlaceToResult.setOnClickListener {
             val intent = Intent(this, EndPlaceSearchActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_END)
+        }
+
+        viewDataBinding.actScheduleTvRegister.setOnClickListener {
+            val registFragment = ScheduleDialogFragment(1)
+
+            registFragment.show(supportFragmentManager, "dialog")
         }
     }
 

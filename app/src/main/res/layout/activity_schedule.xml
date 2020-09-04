@@ -499,7 +499,7 @@
                                 android:src="@drawable/selector_fri"
                                 android:onClick="@{(view)->activity.onWeekClick(view)}"
                                 app:layout_constraintEnd_toStartOf="@id/act_schedule_iv_sat"
-                                app:layout_constraintHorizontal_chainStyle="dpread_inside"
+                                app:layout_constraintHorizontal_chainStyle="spread_inside"
                                 app:layout_constraintStart_toEndOf="@+id/act_schedule_iv_thu"
                                 app:layout_constraintTop_toTopOf="@id/act_schedule_iv_thu" />
 
