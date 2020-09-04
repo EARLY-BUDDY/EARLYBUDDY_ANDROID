@@ -1,17 +1,21 @@
-package com.earlyBuddy.earlybuddy_android.ui.myPage
+package com.earlyBuddy.earlybuddy_android.ui.myPage.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.MyPageItem
 import com.earlyBuddy.earlybuddy_android.databinding.ItemMyPageMenuBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemMyPageMenuTopBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
+import com.earlyBuddy.earlybuddy_android.ui.myPage.accountManagement.AccountManagementActivity
 
-class MyPageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MyPageAdapter(private val myPageItemClickListener: MyPageViewHolder.MyPageItemClickListener) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val myPageItemData = listOf<MyPageItem>(
+    val myPageItemData = listOf<MyPageItem>(
         MyPageItem("전체 알림", null),
-        MyPageItem("계정 관리", null),
+        MyPageItem("계정 관리", AccountManagementActivity()),
         MyPageItem("자주 가는 장소", null),
         MyPageItem("오픈소스 라이선스", null),
         MyPageItem("이용약관", null),
@@ -38,7 +42,9 @@ class MyPageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         parent,
                         false
                     )
-                return MyPageTopViewHolder(topItemBinding)
+                return MyPageTopViewHolder(
+                    topItemBinding
+                )
             }
             else -> {
                 val generalItemBinding =
@@ -47,7 +53,10 @@ class MyPageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         parent,
                         false
                     )
-                return MyPageViewHolder(generalItemBinding)
+                return MyPageViewHolder(
+                    generalItemBinding,
+                    myPageItemClickListener
+                )
 
             }
         }
@@ -69,8 +78,20 @@ class MyPageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 }
 
-class MyPageViewHolder(val binding: ItemMyPageMenuBinding) : RecyclerView.ViewHolder(binding.root) {
+class MyPageViewHolder(
+    val binding: ItemMyPageMenuBinding,
+    private val myPageItemClickListener: MyPageItemClickListener
+) : RecyclerView.ViewHolder(binding.root) {
 
+    interface MyPageItemClickListener {
+        fun itemClick(position: Int)
+    }
+
+    init {
+        binding.itemMyClBack.onlyOneClickListener {
+            myPageItemClickListener.itemClick(adapterPosition)
+        }
+    }
 
     fun bind(item: MyPageItem) {
         binding.itemMyTvTitle.text = item.title

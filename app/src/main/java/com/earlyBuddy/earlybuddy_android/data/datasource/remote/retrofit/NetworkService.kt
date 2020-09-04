@@ -48,6 +48,12 @@ interface NetworkService {
     fun getHomeSchedule(
     ): Observable<HomeResponse>
 
+    @GET("/calendars")
+    fun getCalendarSchedules(
+        @Query("year") year: String,
+        @Query("month") month: String
+    ): Observable<CalendarResponse>
+
     @PUT("/users/setFavorite")
     fun registerFavoritePlaces(
         @Body body: JsonObject

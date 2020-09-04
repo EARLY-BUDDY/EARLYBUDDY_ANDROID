@@ -12,6 +12,7 @@ val repositoryAppModule = module {
     single { SearchRouteRepository(get()) }
     single { ScheduleDetailRepository(get()) }
     single { HomeRepository(get()) }
+    single { CalendarRepository(get()) }
     single { InitialPlaceRepository(get()) }
     single { MyPageRepository(get()) }
 }
