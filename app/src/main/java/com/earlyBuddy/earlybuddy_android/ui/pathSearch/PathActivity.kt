@@ -26,7 +26,6 @@ import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_path.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-
 class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
     val bundle = Bundle()
@@ -58,31 +57,6 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
         setClick()
         initRv()
 //        setRv()
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        if (sFlag == 1 && eFlag == 1) {
-//            getRoute()
-//
-//            viewModel.insert(
-//                RecentPathEntity(
-//                    startPlaceName = viewDataBinding.actPathTvStart.text.toString(),
-//                    endPlaceName = viewDataBinding.actPathTvEnd.text.toString(),
-//                    sx = sx, sy = sy, ex = ex, ey = ey
-//                )
-//            )
-//
-//            pathResultFrag = PathResultFragment()
-//            supportFragmentManager.beginTransaction()
-//                .replace(
-//                    R.id.act_path_fl,
-//                    pathResultFrag
-//                ).commit()
-//            bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
-//            bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
-//            pathResultFrag.arguments = bundle
-//        }
     }
 
     private fun initRv(){
