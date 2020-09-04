@@ -1,18 +1,14 @@
 package com.earlyBuddy.earlybuddy_android.ui.pathSearch
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity
-import com.earlyBuddy.earlybuddy_android.data.datasource.model.Path
 import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPathBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 
-class RecentPathAdpater(private val context : Context,
-                       private val clickListener : RecentPathViewHolder.onClickItemListener,
-                       private val clickFavListener: RecentPathViewHolder.onClickDeleteListener) : RecyclerView.Adapter<RecentPathViewHolder>(){
+class RecentPathAdpater(private val clickListener : RecentPathViewHolder.onClickItemListener,
+                       private val clickDeleteListener: RecentPathViewHolder.onClickDeleteListener) : RecyclerView.Adapter<RecentPathViewHolder>(){
 
     var data = mutableListOf<RecentPathEntity>()
     lateinit var binding : ItemRecentPathBinding
@@ -28,7 +24,7 @@ class RecentPathAdpater(private val context : Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentPathViewHolder {
         binding = ItemRecentPathBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RecentPathViewHolder(binding, clickListener, clickFavListener)
+        return RecentPathViewHolder(binding, clickListener, clickDeleteListener)
     }
 
     override fun getItemCount(): Int {
@@ -46,7 +42,7 @@ class RecentPathViewHolder(val binding : ItemRecentPathBinding,
 
     init {
         binding.itemRecentPathCl.onlyOneClickListener {
-            clickListener.onClickStoreItem(adapterPosition,
+            clickListener.onClickItem(adapterPosition,
                 binding.recentPath!!)
         }
         binding.itemRecentPathIvDelete.onlyOneClickListener {
@@ -55,7 +51,7 @@ class RecentPathViewHolder(val binding : ItemRecentPathBinding,
     }
 
     interface onClickItemListener{
-        fun onClickStoreItem(position: Int, item: RecentPathEntity)
+        fun onClickItem(position: Int, item: RecentPathEntity)
     }
 
     interface onClickDeleteListener{
