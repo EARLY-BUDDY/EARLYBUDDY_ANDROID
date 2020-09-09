@@ -9,6 +9,8 @@ import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Path
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.SubPath
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPathBinding
+import kotlin.math.ceil
+import kotlin.math.round
 
 class PathItemAdapter(
     private val clickListener: PathItemViewHolder.OnClickPathItemListener
@@ -70,7 +72,26 @@ class PathItemViewHolder(
     fun bindAdapter(data : ArrayList<SubPath>, totalTime : Int) {
         binding.itemPathRv.post {
             binding.itemPathRv.adapter = pathMethodAdapter
-            pathMethodAdapter.totalLen = binding.itemPathRv.width
+            val width = binding.itemPathRv.width
+            Log.e("width ----++++++++", width.toString())
+
+            val minWalkLen = round((width * 0.07))
+            val minTransLen = round((width * 0.12))
+
+            Log.e("round%%%%%%%", "${minWalkLen} + ${minTransLen}")
+
+            pathMethodAdapter.minWalkLen = minWalkLen.toInt()
+            pathMethodAdapter.minTransLen = minTransLen.toInt()
+
+            var cnt = 0
+            for (item in data) {
+                if (item.sectionTime==0) cnt++
+            }
+
+//            val totalSize = data.size
+            val transSize = data.size/2
+            val walkSize = transSize + 1 - cnt
+            pathMethodAdapter.totalLen = width - (minWalkLen*walkSize).toInt() - (minTransLen*transSize).toInt()
         }
         pathMethodAdapter.data = data
         pathMethodAdapter.totalTime = totalTime

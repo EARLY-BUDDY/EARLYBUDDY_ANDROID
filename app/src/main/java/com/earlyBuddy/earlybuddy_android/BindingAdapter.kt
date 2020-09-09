@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
-import org.w3c.dom.Text
 
 @BindingAdapter("trafficType", "endName", "fastInExitNo")
 fun walkEndText(textView: TextView, nextTrafficType: Int, endName: String?, fastInExitNo: Int) {
@@ -76,7 +75,7 @@ fun namingFastDoor(view: TextView, trafficType: Int, fastDoor: String?) {
     fastDoor?.let {
         val str = fastDoor.split("-")
         if (trafficType == 1) {
-            view.text = "빠른 환승 : ${str[0]} - ${str[0]}"
+            view.text = "빠른 환승 : ${str[0]} - ${str[1]}"
         } else {
             view.text = "방향을 확인하고 타세요"
         }
@@ -104,9 +103,27 @@ fun visibleText(view: TextView, remainingMinuteSetVisible: Int) {
     }
 }
 
+@BindingAdapter("calendarScheduleTime")
+fun visibleText(view: TextView, time: String) {
+
+    var result = ""
+
+    val seperated = time.split(' ').toTypedArray()[1].split(':').toTypedArray()
+    val h = seperated[0]
+    val m = seperated[1]
+
+    if (h.toInt() < 12) {
+        result = "오전 $h:$m"
+    } else {
+        result = "오후 " + (h.toInt() - 12) + ":" + m
+    }
+
+    view.text = result
+
+}
 @BindingAdapter("placeResultRoadAddress", "placeResultAddressName")
-fun TextView.placeResultAddress(placeResultRoadAddress: String, placeResultAddressName: String) {
-    text = if (placeResultRoadAddress.isEmpty()) {
+fun TextView.placeResultAddress(placeResultRoadAddress: String?, placeResultAddressName: String?) {
+    text = if (placeResultRoadAddress.isNullOrEmpty()) {
         placeResultAddressName
     } else {
         placeResultRoadAddress
@@ -116,7 +133,9 @@ fun TextView.placeResultAddress(placeResultRoadAddress: String, placeResultAddre
 @BindingAdapter("setMethodColor", "setMethodColorType")
 fun View.setMethodColor(color: String?, type: Int) {
     if (this is ImageView) {
-        if (type == 3) visibility = View.INVISIBLE
+//        if (type == 3) visibility = View.INVISIBLE
+        if(color=="1") visibility = View.INVISIBLE
+        else if(color=="0") backgroundTintList = ColorStateList.valueOf(Color.parseColor("#ffffff"))
         else {
             backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
         }
@@ -154,5 +173,8 @@ fun TextView.setWalkTime(time: Int?) {
 @BindingAdapter("setPay")
 fun TextView.setPay(pay: String?) {
     val size = pay!!.length
-    text = "${pay.substring(0, size - 3)},${pay.substring(size - 3)}원"
+    Log.e("pay size", pay.length.toString())
+    text = if(pay.length>=4) "${pay.substring(0, size - 3)},${pay.substring(size - 3)}원"
+    else if(pay=="0") "가격미상"
+    else "${pay}원"
 }

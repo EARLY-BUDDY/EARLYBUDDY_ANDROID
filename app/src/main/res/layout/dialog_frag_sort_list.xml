@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dial_frag_store_list_cl"
+            android:layout_width="300dp"
+            android:layout_height="234dp"
+            android:background="@drawable/bg_10_ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/dial_frag_sort_list_tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:text="정렬기준"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/dial_frag_view"
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="26dp"
+                android:background="@color/gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dial_frag_sort_list_tv_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="26dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dial_frag_view"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/dial_frag_sort_list_ll_best"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
+
+                    <TextView
+                        android:id="@+id/dial_frag_sort_list_tv_best"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/noto_sans_kr_medium"
+                        android:text="최적 경로순"
+                        android:textColor="@color/light_gray"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/dial_frag_sort_iv_best"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:src="@drawable/ic_best_list_check" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dial_frag_sort_list_ll_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
+
+                    <TextView
+                        android:id="@+id/dial_frag_sort_list_tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/noto_sans_kr_medium"
+                        android:text="최단 시간순"
+                        android:textColor="@color/light_gray"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/dial_frag_sort_iv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:src="@drawable/ic_best_list_check" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dial_frag_sort_list_ll_trans"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
+
+                    <TextView
+                        android:id="@+id/dial_frag_sort_list_tv_trans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/noto_sans_kr_medium"
+                        android:text="최소 환승순"
+                        android:textColor="@color/light_gray"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/dial_frag_sort_iv_trans"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:src="@drawable/ic_best_list_check" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dial_frag_sort_list_ll_walk"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
+
+                    <TextView
+                        android:id="@+id/dial_frag_sort_list_tv_walk"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/noto_sans_kr_medium"
+                        android:text="최소 도보순"
+                        android:textColor="@color/light_gray"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/dial_frag_sort_iv_walk"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:src="@drawable/ic_best_list_check" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

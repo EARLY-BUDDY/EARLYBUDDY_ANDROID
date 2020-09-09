@@ -7,10 +7,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.provider.Settings
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -31,17 +32,19 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
+    val bundle = Bundle()
     private val REQUEST_CODE_START = 7777
     private val REQUEST_CODE_END = 8888
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var startPlaceName: String? = null
     private var endPlaceName: String? = null
-    lateinit var pathResultFrag : Fragment
+    lateinit var pathResultFrag: Fragment
     var sx: Double = 0.0
     var sy: Double = 0.0
     var ex: Double = 0.0
     var ey: Double = 0.0
     var searchPathType: Int = 0
+    var sortPathType: Int = 0
     var sFlag: Int = 0
     var eFlag: Int = 0
 
@@ -66,20 +69,21 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
             viewModel.insert(
                 RecentPathEntity(
-                    startPlaceName = act_path_tv_start.text.toString(),
-                    endPlaceName = act_path_tv_end.text.toString(),
-                    sx = sx,
-                    sy = sy,
-                    ex = ex,
-                    ey = ey
+                    startPlaceName = viewDataBinding.actPathTvStart.text.toString(),
+                    endPlaceName = viewDataBinding.actPathTvEnd.text.toString(),
+                    sx = sx, sy = sy, ex = ex, ey = ey
                 )
             )
+
             pathResultFrag = PathResultFragment()
             supportFragmentManager.beginTransaction()
                 .add(
                     R.id.act_path_fl,
                     pathResultFrag
                 ).commit()
+            bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
+            bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
+            pathResultFrag.arguments = bundle
         }
     }
 
@@ -107,11 +111,20 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
     val onClickListener = object : BaseRecyclerViewAdapter.OnItemClickListener {
         override fun onItemClicked(item: Any?, position: Int?) {
-            val rsx = (item as RecentPathEntity).sx
-            val rsy = (item as RecentPathEntity).sy
-            val rex = (item as RecentPathEntity).ex
-            val rey = (item as RecentPathEntity).ey
-            viewModel.getRouteData(rsx, rsy, rex, rey, 0)
+
+            sx = (item as RecentPathEntity).sx
+            sy = item.sy
+            ex = item.ex
+            ey = item.ey
+            sFlag = 1
+            eFlag = 1
+            viewModel.getRouteData(sx, sy, ex, ey, 0)
+
+            viewDataBinding.actPathTvStart.text =
+                viewModel.routes.value!![position!!].startPlaceName
+            viewDataBinding.actPathTvEnd.text = viewModel.routes.value!![position].endPlaceName
+            viewDataBinding.actPathTvStart.setTextColor(resources.getColor(R.color.black))
+            viewDataBinding.actPathTvEnd.setTextColor(resources.getColor(R.color.black))
 
             pathResultFrag = PathResultFragment()
             supportFragmentManager.beginTransaction()
@@ -120,23 +133,22 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                     pathResultFrag
                 ).commit()
 
-            act_path_tv_start.text = viewModel.routes.value!![position!!].startPlaceName
-            act_path_tv_end.text = viewModel.routes.value!![position].endPlaceName
-            act_path_tv_start.setTextColor(resources.getColor(R.color.black))
-            act_path_tv_end.setTextColor(resources.getColor(R.color.black))
+            bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
+            bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
+            pathResultFrag.arguments = bundle
         }
     }
 
     fun setClick() {
-        act_path_tv_start.setOnClickListener {
+        viewDataBinding.actPathTvStart.setOnClickListener {
             val intent = Intent(this, StartPlaceSearchActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_START)
         }
-        act_path_tv_end.setOnClickListener {
+        viewDataBinding.actPathTvEnd.setOnClickListener {
             val intent = Intent(this, EndPlaceSearchActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_END)
         }
-        act_path_iv_cancel.setOnClickListener {
+        viewDataBinding.actPathIvCancel.setOnClickListener {
             act_path_tv_start.text = "출발지를 입력하세요"
             act_path_tv_end.text = "도착지를 입력하세요"
             act_path_tv_start.setTextColor(resources.getColor(R.color.mid_gray))
@@ -144,16 +156,15 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
             sFlag = 0
             eFlag = 0
 
-            supportFragmentManager.beginTransaction()
-                .remove(
-                    pathResultFrag
-                ).commit()
+            for (fragment in supportFragmentManager.fragments) {
+                supportFragmentManager.beginTransaction().remove(fragment!!).commit()
+            }
         }
-        act_path_iv_change.setOnClickListener {
+        viewDataBinding.actPathIvChange.setOnClickListener {
             if (sFlag == 1 && eFlag == 1) {
-                val temp = act_path_tv_start.text
-                act_path_tv_start.text = act_path_tv_end.text
-                act_path_tv_end.text = temp
+                val temp = viewDataBinding.actPathTvStart.text
+                viewDataBinding.actPathTvStart.text = viewDataBinding.actPathTvEnd.text
+                viewDataBinding.actPathTvEnd.text = temp
                 var tempD = sx
                 sx = ex
                 ex = tempD
@@ -177,27 +188,50 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 sx = data.getDoubleExtra("x", 0.0)
                 sy = data.getDoubleExtra("y", 0.0)
                 sFlag = data.getIntExtra("flag", 0)
+                viewDataBinding.actPathTvStart.text = startPlaceName
+                viewDataBinding.actPathTvStart.setTextColor(resources.getColor(R.color.black))
+
                 Log.e("sFlag -> ", sFlag.toString())
                 Log.e("sx좌표 -> ", sx.toString())
                 Log.e("sy좌표 -> ", sy.toString())
-                act_path_tv_start.text = startPlaceName
-                act_path_tv_start.setTextColor(resources.getColor(R.color.black))
+
             } else if (requestCode == REQUEST_CODE_END) {
                 endPlaceName = data!!.getStringExtra("placeName")
                 ex = data.getDoubleExtra("x", 0.0)
                 ey = data.getDoubleExtra("y", 0.0)
                 eFlag = data.getIntExtra("flag", 0)
+                viewDataBinding.actPathTvEnd.text = endPlaceName
+                viewDataBinding.actPathTvEnd.setTextColor(resources.getColor(R.color.black))
+
                 Log.e("eFlag -> ", eFlag.toString())
                 Log.e("ex좌표 -> ", ex.toString())
                 Log.e("ey좌표 -> ", ey.toString())
-                act_path_tv_end.text = endPlaceName
-                act_path_tv_end.setTextColor(resources.getColor(R.color.black))
             }
         }
     }
 
     fun getRoute() {
+        Log.e("무엇이 문제인가", "${sx} + ${sy} + ${ex} + ${ey} + ${searchPathType}")
         viewModel.getRouteData(sx, sy, ex, ey, searchPathType)
+    }
+
+    fun sortRoute() {
+        when (sortPathType) {
+            1 // 최단 시간순
+            -> viewModel.routeArrayList.sortedWith(compareBy {
+                it.totalTime
+            })
+            2// 최소 환승순
+            -> viewModel.routeArrayList.sortedWith(compareBy {
+                it.transitCount
+            })
+            else // 최소 도보순
+            -> viewModel.routeArrayList.sortedWith(compareBy {
+                it.totalWalkTime
+            })
+        }
+
+        viewModel._routeList.value = viewModel.routeArrayList
     }
 
     private fun showAlertLocation() {
@@ -216,26 +250,56 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
     }
 
     private fun getLastLocation() {
-        if (checkPermissions())
-            if (!isLocationEnabled())
-                showAlertLocation()
+        Log.e("locationEnabled", isLocationEnabled().toString())
+        Log.e("checkFinePermissions", checkPermissions().toString())
+        if (!checkPermissions() && isLocationEnabled()) // 앱 수준 권한 부여 안됨
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                0
+            )
+        else if (!isLocationEnabled() && checkPermissions()) // gps 사용을 허용 안함
+            showAlertLocation()
+        else if (!isLocationEnabled() && !checkPermissions()) { // 둘 다 허용 안함
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),
+                0
+            )
+            if (checkPermissions()) showAlertLocation()
+        }
     }
 
-    private fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        )
-            return true
-        return false
+    private fun checkPermissions(): Boolean { // 앱 수준 권한 부여 확인
+        return ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun isLocationEnabled(): Boolean {
+//    private fun getLastLocation() {
+//      Log.e("locationEnabled", isLocationEnabled().toString())
+//      Log.e("checkFinePermissions", checkPermissions().toString())
+//        if (checkPermissions())
+//            if (!isLocationEnabled())
+//                showAlertLocation()
+//    }
+//
+//    private fun checkPermissions(): Boolean {
+//        if (ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.ACCESS_COARSE_LOCATION
+//            ) == PackageManager.PERMISSION_GRANTED &&
+//            ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            ) == PackageManager.PERMISSION_GRANTED
+//        )
+//            return true
+//        return false
+//    }
+
+    private fun isLocationEnabled(): Boolean { // gps 사용 확인
         val locationManager: LocationManager =
             getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)

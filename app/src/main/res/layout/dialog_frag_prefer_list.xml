@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dial_frag_store_list_cl"
+            android:layout_width="300dp"
+            android:layout_height="196dp"
+            android:background="@drawable/bg_10_ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/dial_frag_prefer_list_tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:text="선호 수단"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/dial_frag_view"
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="26dp"
+                android:background="@color/gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dial_frag_prefer_list_tv_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="26dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dial_frag_view"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/dial_frag_prefer_list_ll_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
+
+                    <TextView
+                        android:id="@+id/dial_frag_prefer_list_tv_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/noto_sans_kr_medium"
+                        android:text="전체"
+                        android:textColor="@color/light_gray"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/dial_frag_prefer_iv_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:src="@drawable/ic_best_list_check" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dial_frag_prefer_list_ll_bus"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
+
+                    <TextView
+                        android:id="@+id/dial_frag_prefer_list_tv_bus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/noto_sans_kr_medium"
+                        android:text="버스"
+                        android:textColor="@color/light_gray"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/dial_frag_prefer_iv_bus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:src="@drawable/ic_best_list_check" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dial_frag_prefer_list_ll_sub"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp">
+
+                    <TextView
+                        android:id="@+id/dial_frag_prefer_list_tv_sub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/noto_sans_kr_medium"
+                        android:text="지하철"
+                        android:textColor="@color/light_gray"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/dial_frag_prefer_iv_sub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:src="@drawable/ic_best_list_check" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

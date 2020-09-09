@@ -26,14 +26,13 @@ class CalendarPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) 
 
     override fun getItem(position: Int): CalendarPageFragment {
         var frg : CalendarPageFragment? = null
-        frg = frgMap[position]!!
-//        if(frgMap.size > 0) frg = frgMap[position]
-//        if(frg == null) {
-//            frg = CalendarPageFragment.newInstance(position)
-//            frgMap[position] = frg
-//        }
-//
-//        frg.setTimeByMillis(monthListByMillis[position])
+        if(frgMap.size > 0) frg = frgMap[position]
+        if(frg == null) {
+            frg = CalendarPageFragment.newInstance(position)
+            frgMap[position] = frg
+        }
+
+        frg.setTimeByMillis(monthListByMillis[position])
 
         return frg
 
@@ -108,16 +107,14 @@ class CalendarPagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) 
         val calendar = Calendar.getInstance()
         calendar.timeInMillis = monthListByMillis[position]
 
-        val yearFormat = SimpleDateFormat("yyyy", Locale.KOREA)
         val monthFormat = SimpleDateFormat("MM", Locale.KOREA)
 
         val date = Date()
         date.time = monthListByMillis[position]
 
-        val year = yearFormat.format(date).toString()
-        val month = monthFormat.format(date).toString()
+        val month = monthFormat.format(date).toInt().toString()
 
-        return year +"년 " + month +"월"
+        return month +"월"
 
     }
 

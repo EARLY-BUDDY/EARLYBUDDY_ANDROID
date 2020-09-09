@@ -38,7 +38,7 @@ class PlaceSearchViewModel(private val repository : PlaceSearchRepository) : Bas
 
                 // onResponse
                 _placeList.value = it.data
-                Log.e("getPlaceRes 응답 성공 : ", placeList.value.toString())
+//                Log.e("getPlaceRes 응답 성공 : ", placeList.value.toString())
             }){
                 // 에러 블록
                 // 네트워크 오류나 데이터 처리 오류 등

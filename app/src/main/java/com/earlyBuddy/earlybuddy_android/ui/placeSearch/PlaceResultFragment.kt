@@ -15,6 +15,7 @@ import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceSearch
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentPlaceResultBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPlaceListBinding
+import com.earlyBuddy.earlybuddy_android.databinding.ItemPlaceResultBinding
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
@@ -32,37 +33,29 @@ class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearch
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        viewModel = ViewModelProvider(getViewModelStoreOwner(), ViewModelProvider.NewInstanceFactory()).get(PlaceSearchViewModel::class.java)
         flag = arguments!!.getInt("flag")
-
         setRv()
-        viewModel.placeList.observe(viewLifecycleOwner, Observer {
-            (viewDataBinding.fragPlaceResultRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>)
-                .replaceAll(it)
-            (viewDataBinding.fragPlaceResultRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>)
-                .notifyDataSetChanged()
-        })
-    }
-
-    fun Fragment.getViewModelStoreOwner(): ViewModelStoreOwner = try {
-        requireActivity()
-    } catch (e: IllegalStateException) {
-        this
     }
 
     fun setRv(){
         viewDataBinding.fragPlaceResultRv.apply {
             adapter =
-                object : BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceListBinding>() {
-                    override val bindingVariableId: Int
-                        get() = BR.placeRes
+                object : BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceResultBinding>() {
                     override val layoutResID: Int
                         get() = R.layout.item_place_result
+                    override val bindingVariableId: Int
+                        get() = BR.placeRes
                     override val listener: OnItemClickListener?
                         get() = onClickListener
                 }
             layoutManager = LinearLayoutManager(requireContext())
         }
+        viewModel.placeList.observe(viewLifecycleOwner, Observer {
+            (viewDataBinding.fragPlaceResultRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceResultBinding>)
+                .replaceAll(it)
+            (viewDataBinding.fragPlaceResultRv.adapter as BaseRecyclerViewAdapter<PlaceSearch, ItemPlaceResultBinding>)
+                .notifyDataSetChanged()
+        })
     }
 
     val onClickListener
