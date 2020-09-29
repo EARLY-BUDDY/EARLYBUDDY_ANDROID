@@ -21,7 +21,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
         super.onCreate(savedInstanceState)
 
         addObservedData()
+
         viewModel.getData(true)
+
+//        val asd = intent.getIntExtra("asd", -1)
+//        viewModel.getTestData(true, asd)
 
     }
 
@@ -41,6 +45,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
         })
 
         viewModel.goBeforeBusFragment.observe(this, Observer {
+            replaceFragment(it)
+        })
+
+        viewModel.goGoingFragment.observe(this, Observer {
             replaceFragment(it)
         })
 

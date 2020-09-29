@@ -24,7 +24,7 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.getPathData(2)
+        viewModel.getPathData(8)
 
         connectRecyclerView()
 //        setRecyclerViewData()

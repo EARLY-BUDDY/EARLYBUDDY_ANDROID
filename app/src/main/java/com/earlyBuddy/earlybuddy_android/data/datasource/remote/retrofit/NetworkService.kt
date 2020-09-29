@@ -48,6 +48,11 @@ interface NetworkService {
     fun getHomeSchedule(
     ): Observable<HomeResponse>
 
+    @GET("/test/homeTest")
+    fun getHomeTestSchedule(
+        @Query("scheduleCheck") scheduleCheck: Int
+    ): Observable<HomeResponse>
+
     @GET("/calendars")
     fun getCalendarSchedules(
         @Query("year") year: String,

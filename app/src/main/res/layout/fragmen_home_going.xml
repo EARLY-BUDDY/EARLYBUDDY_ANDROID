@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.earlyBuddy.earlybuddy_android.ui.home.going.GoingViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/frag_home_going_iv_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/img_going"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/frag_home_going_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="23dp"
+                android:letterSpacing="-0.05"
+                android:lineSpacingExtra="10dp"
+                android:text="잘 가고 있나요?\n즐거운 시간 보내요~"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/frag_home_going_tv_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16.5dp"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:letterSpacing="-0.05"
+                android:lineSpacingExtra="11dp"
+                android:text="약속시간까지"
+                android:textColor="@color/black"
+                android:textSize="23dp"
+                app:layout_constraintBottom_toTopOf="@id/frag_home_going__view_center"
+                app:layout_constraintStart_toStartOf="@+id/frag_home_going_text" />
+
+            <TextView
+                android:id="@+id/frag_home_going_tv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:letterSpacing="-0.05"
+                android:lineSpacingExtra="38dp"
+                android:textColor="@color/black"
+                android:text="1시간 30분"
+                android:textSize="40sp"
+                app:layout_constraintBottom_toBottomOf="@id/frag_home_going_tv_next"
+                app:layout_constraintEnd_toEndOf="@id/frag_home_going__view_center" />
+
+            <View
+                android:id="@+id/frag_home_going__view_center"
+                android:layout_width="0dp"
+                android:layout_height="0.2dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/gray"
+                app:layout_constraintBottom_toTopOf="@id/frag_home_going_iv_back"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.80" />
+
+            <ImageView
+                android:id="@+id/frag_home_going__iv_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36.9dp"
+                android:src="@drawable/ic_detail"
+                app:layout_constraintEnd_toEndOf="@id/frag_home_going__view_center"
+                app:layout_constraintTop_toBottomOf="@id/frag_home_going__view_center" />
+
+            <TextView
+                android:id="@+id/frag_home_going__tv_plan_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16.4dp"
+                android:ellipsize="end"
+                android:ems="10"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:letterSpacing="-0.05"
+                android:lineSpacingExtra="8dp"
+                android:maxLines="1"
+                android:text="@{vm.homeResponse.data.scheduleSummaryData.scheduleName}"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintStart_toStartOf="@id/frag_home_going__view_center"
+                app:layout_constraintTop_toBottomOf="@id/frag_home_going__view_center" />
+
+            <ImageView
+                android:id="@+id/frag_home_going__iv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_time"
+                app:layout_constraintStart_toStartOf="@id/frag_home_going__view_center"
+                app:layout_constraintTop_toBottomOf="@id/frag_home_going__tv_plan_title" />
+
+            <TextView
+                android:id="@+id/frag_home_going__tv_plan_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5.5dp"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="6dp"
+                android:text="@{vm.startTime}"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@id/frag_home_going__iv_time"
+                app:layout_constraintStart_toEndOf="@id/frag_home_going__iv_time"
+                app:layout_constraintTop_toTopOf="@id/frag_home_going__iv_time" />
+
+            <ImageView
+                android:id="@+id/frag_home_going__iv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9.3dp"
+                android:src="@drawable/ic_location"
+                app:layout_constraintStart_toStartOf="@id/frag_home_going__view_center"
+                app:layout_constraintTop_toBottomOf="@+id/frag_home_going__iv_time" />
+
+            <TextView
+                android:id="@+id/frag_home_going__tv_plan_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:ems="8"
+                android:fontFamily="@font/noto_sans_kr_regular"
+                android:letterSpacing="-0.03"
+                android:lineSpacingExtra="6dp"
+                android:maxLines="1"
+                android:text="@{vm.homeResponse.data.scheduleSummaryData.endAddress}"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                app:layout_constraintBottom_toBottomOf="@id/frag_home_going__iv_location"
+                app:layout_constraintStart_toStartOf="@id/frag_home_going__tv_plan_time"
+                app:layout_constraintTop_toTopOf="@id/frag_home_going__iv_location" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>

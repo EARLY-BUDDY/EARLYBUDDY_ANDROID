@@ -30,6 +30,7 @@ class HomePathViewModel(private val repository: ScheduleDetailRepository) :
                 // 작업 중 오류가 발생하면 이 블록은 호출되지 x
 
                 // onResponse
+                Log.e("love you ",it.toString())
                 scheduleDetailResponse.value = it
             }) {
                 // 에러 블록
