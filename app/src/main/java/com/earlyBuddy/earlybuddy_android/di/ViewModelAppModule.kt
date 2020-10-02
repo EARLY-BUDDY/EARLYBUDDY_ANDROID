@@ -6,6 +6,7 @@ import com.earlyBuddy.earlybuddy_android.ui.home.beforeBus.BeforeBusViewModel
 import com.earlyBuddy.earlybuddy_android.ui.home.beforeDay.BeforeDayViewModel
 import com.earlyBuddy.earlybuddy_android.ui.home.going.GoingViewModel
 import com.earlyBuddy.earlybuddy_android.ui.home.pathCheck.HomePathViewModel
+import com.earlyBuddy.earlybuddy_android.ui.initial.nickname.NickNameViewModel
 import com.earlyBuddy.earlybuddy_android.ui.initial.place.InitialPlaceViewModel
 import com.earlyBuddy.earlybuddy_android.ui.myPage.main.MyPageViewModel
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathViewModel
@@ -27,6 +28,7 @@ val viewModelAppModule = module {
     viewModel { GoingViewModel() }
     viewModel { CalendarViewModel(get()) }
     viewModel { InitialPlaceViewModel(get()) }
+    viewModel { NickNameViewModel(get()) }
     viewModel {
         MyPageViewModel(
             get()

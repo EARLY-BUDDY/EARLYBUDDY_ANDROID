@@ -2,11 +2,12 @@ package com.earlyBuddy.earlybuddy_android.ui.myPage.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityMyPageBinding
-import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathActivity
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MyPageActivity : BaseActivity<ActivityMyPageBinding, MyPageViewModel>() {
@@ -20,6 +21,10 @@ class MyPageActivity : BaseActivity<ActivityMyPageBinding, MyPageViewModel>() {
 
         viewDataBinding.actAccountManageTopTitle.actTopTitleTvTitle.text = "마이페이지"
 
+        viewDataBinding.actAccountManageTopTitle.actTopTitleIvBack.onlyOneClickListener {
+            finish()
+        }
+
         myPageAdapter =
             MyPageAdapter(object :
                 MyPageViewHolder.MyPageItemClickListener {
@@ -29,7 +34,12 @@ class MyPageActivity : BaseActivity<ActivityMyPageBinding, MyPageViewModel>() {
                         myPageAdapter.myPageItemData[position].title,
                         Toast.LENGTH_SHORT
                     ).show()
-                    val intent = Intent(this@MyPageActivity,myPageAdapter.myPageItemData[position].goTo!!::class.java)
+                    val intent = Intent(
+                        this@MyPageActivity,
+                        myPageAdapter.myPageItemData[position].goTo!!::class.java
+                    )
+                    Log.e("clco", myPageAdapter.myPageItemData[position].title)
+                    intent.putExtra("title", myPageAdapter.myPageItemData[position].title)
                     startActivity(intent)
                 }
             })

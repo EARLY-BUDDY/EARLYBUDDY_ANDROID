@@ -8,9 +8,12 @@ import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityHomeBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.Loading
+import com.earlyBuddy.earlybuddy_android.ui.calendar.CalendarActivity
 import com.earlyBuddy.earlybuddy_android.ui.home.pathCheck.HomePathActivity
-import kotlinx.android.synthetic.main.activity_home.*
+import com.earlyBuddy.earlybuddy_android.ui.myPage.main.MyPageActivity
+import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
@@ -23,32 +26,51 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         viewDataBinding.vm = viewModel
 
         addObservedData()
+        setClickListener()
 
         viewModel.getData(true)
 
 //        val asd = intent.getIntExtra("asd", -1)
 //        viewModel.getTestData(true, asd)
 
-        act_home_iv_detail.setOnClickListener {
+
+    }
+
+    private fun setClickListener() {
+        viewDataBinding.actHomeIvDetail.onlyOneClickListener {
             val intent = Intent(this, HomePathActivity::class.java)
             startActivity(intent)
         }
 
+        viewDataBinding.actHomeIvPlanner.onlyOneClickListener {
+            val intent = Intent(this, CalendarActivity::class.java)
+            startActivity(intent)
+        }
+
+        viewDataBinding.actHomeIvWrite.onlyOneClickListener {
+            val intent = Intent(this, ScheduleActivity::class.java)
+            startActivity(intent)
+        }
+        viewDataBinding.actHomeIvMyPage.onlyOneClickListener {
+            val intent = Intent(this, MyPageActivity::class.java)
+            startActivity(intent)
+        }
     }
 
-    fun refresh(loadingVisible:Boolean) {
+    fun refresh(loadingVisible: Boolean) {
         viewModel.getData(loadingVisible)
         Log.e("refresh", "리프레시...")
     }
 
     private fun addObservedData() {
 
-        viewModel.goNoScheduleFragment.observe(this, Observer {
-            replaceFragment(it)
+        viewModel.goNoScheduleActivity.observe(this, Observer {
+            val intent = Intent(this, it::class.java)
+            startActivity(intent)
+            finish()
         })
 
         viewModel.goBeforeDayFragment.observe(this, Observer {
