@@ -11,7 +11,6 @@ import java.util.*
 class BeforeBusViewModel() : BaseViewModel() {
 
     val homeResponse = MutableLiveData<HomeResponse>()
-    val startTime = MutableLiveData<String>()
     val arriveMinuteDifference = MutableLiveData<Int>()
     val nextArriveMinuteDifference = MutableLiveData<Int>()
     var trafficType: String = ""
@@ -65,23 +64,12 @@ class BeforeBusViewModel() : BaseViewModel() {
     }
 
     private fun getTimeDifference(tempHomeResponse: HomeResponse) {
-        val scheduleStartTime =
-            tempHomeResponse.data!!.scheduleSummaryData.scheduleStartTime
 
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
-        var arriveTime = tempHomeResponse.data.arriveTime
+        var arriveTime = tempHomeResponse.data!!.arriveTime
 
         var nextTransArriveTime = tempHomeResponse.data.nextTransArriveTime
-        val promiseStartTime = sdf.parse(scheduleStartTime)
-
-        if (promiseStartTime.hours >= 12) {
-            startTime.value =
-                "오후 ${String.format("%02d:%02d", promiseStartTime.minutes, promiseStartTime.hours)}"
-        } else {
-            startTime.value =
-                "오전 ${String.format("%02d:%02d", promiseStartTime.minutes, promiseStartTime.hours)}"
-        }
 
         val nowDate = Date()
 

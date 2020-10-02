@@ -1,6 +1,7 @@
 package com.earlyBuddy.earlybuddy_android.ui.home.pathCheck
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.lifecycle.Observer
@@ -34,6 +35,7 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
     private fun addObservedData() {
         viewModel.scheduleDetailResponse.observe(this, Observer {
             routeAdapter.setRouteItemList(it.data.path.subPath)
+            Log.e("qweqw",it.data.path.subPath.toString())
         })
 
         viewModel.lottieVisible.observe(this, Observer {

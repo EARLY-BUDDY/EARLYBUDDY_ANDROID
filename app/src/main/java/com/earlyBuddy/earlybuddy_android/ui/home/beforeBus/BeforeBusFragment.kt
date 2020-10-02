@@ -48,24 +48,19 @@ class BeforeBusFragment : BaseFragment<FragmentHomeBeforeBusBinding, BeforeBusVi
             (activity as HomeActivity).refresh(true)
         }
 
-        frag_home_before_bus__iv_detail.setOnClickListener {
-            val intent = Intent(activity, HomePathActivity::class.java)
-            startActivity(intent)
-        }
-
     }
 
     private fun addObservedData() {
-        viewModel.lastCount.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                1 -> {
-                    viewDataBinding.fragHomeBeforeBusIvBack.setImageResource(R.drawable.img_late_bg)
-                }
-                2 -> {
-                    viewDataBinding.fragHomeBeforeBusIvBack.setImageResource(R.drawable.img_twobus)
-                }
-            }
-        })
+//        viewModel.lastCount.observe(viewLifecycleOwner, Observer {
+//            when (it) {
+//                1 -> {
+//                    viewDataBinding.fragHomeBeforeBusIvBack.setImageResource(R.drawable.img_late_bg)
+//                }
+//                2 -> {
+//                    viewDataBinding.fragHomeBeforeBusIvBack.setImageResource(R.drawable.img_twobus)
+//                }
+//            }
+//        })
         viewModel.nextArriveStop.observe(viewLifecycleOwner, Observer {
             viewDataBinding.fragHomeBeforeBusTvNextTime.text = "다음 배차는 없습니다."
         })

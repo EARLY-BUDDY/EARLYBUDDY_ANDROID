@@ -20,17 +20,6 @@
             android:layout_height="match_parent"
             android:background="#FFFFFF">
 
-            <ImageView
-                android:id="@+id/frag_home_before_bus_iv_back"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintDimensionRatio="360:264"
-                android:src="@drawable/img_bg_threebus"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
             <TextView
                 android:id="@+id/frag_home_before_bus_text"
                 android:layout_width="wrap_content"
@@ -74,7 +63,7 @@
                 android:textSize="50sp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@id/frag_home_before_bus__tv_next_time"
-                app:layout_constraintEnd_toEndOf="@id/frag_home_before_bus__view_center" />
+                app:layout_constraintEnd_toEndOf="@id/frag_home_before_bus__iv_reboot" />
 
             <TextView
                 android:id="@+id/frag_home_before_bus_tv_before"
@@ -90,7 +79,7 @@
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@id/frag_home_before_bus_tv_next"
-                app:layout_constraintEnd_toEndOf="@id/frag_home_before_bus__view_center" />
+                app:layout_constraintEnd_toEndOf="@id/frag_home_before_bus__iv_reboot" />
 
             <TextView
                 changeText="@{true}"
@@ -116,8 +105,8 @@
                 android:layout_marginBottom="16.5dp"
                 changeTint="@{vm.tints}"
                 android:background="@drawable/bus_subway_number_cl"
-                app:layout_constraintBottom_toTopOf="@id/frag_home_before_bus__view_center"
-                app:layout_constraintStart_toStartOf="@id/frag_home_before_bus__view_center">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/frag_home_before_bus_text">
 
                 <TextView
                     android:id="@+id/frag_home_before_bus__tv_number"
@@ -160,10 +149,11 @@
 
             <ImageView
                 android:id="@+id/frag_home_before_bus__iv_reboot"
-                app:layout_constraintEnd_toEndOf="@id/frag_home_before_bus__view_center"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@id/frag_home_before_bus__cl_number"
                 app:layout_constraintTop_toTopOf="@id/frag_home_before_bus__cl_number"
                 android:src="@drawable/ic_reboot"
+                android:layout_marginEnd="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -182,95 +172,6 @@
                 android:layout_marginEnd="5dp"
                 android:text="@{`다음 배차까지 `+vm.nextArriveMinuteDifference+`분`}" />
 
-            <View
-                android:id="@+id/frag_home_before_bus__view_center"
-                android:layout_width="0dp"
-                android:layout_height="0.2dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@color/gray"
-                app:layout_constraintBottom_toTopOf="@+id/frag_home_before_bus_iv_back"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.80" />
-
-
-            <ImageView
-                android:id="@+id/frag_home_before_bus__iv_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36.9dp"
-                android:src="@drawable/ic_detail"
-                app:layout_constraintEnd_toEndOf="@id/frag_home_before_bus__view_center"
-                app:layout_constraintTop_toBottomOf="@id/frag_home_before_bus__view_center" />
-
-            <TextView
-                android:id="@+id/frag_home_before_bus__tv_plan_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16.4dp"
-                android:letterSpacing="-0.05"
-                android:ems="10"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:fontFamily="@font/noto_sans_kr_medium"
-                android:lineSpacingExtra="8dp"
-                android:text="@{vm.homeResponse.data.scheduleSummaryData.scheduleName}"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="@id/frag_home_before_bus__view_center"
-                app:layout_constraintTop_toBottomOf="@id/frag_home_before_bus__view_center" />
-
-            <ImageView
-                android:id="@+id/frag_home_before_bus__iv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/ic_time"
-                app:layout_constraintStart_toStartOf="@id/frag_home_before_bus__view_center"
-                app:layout_constraintTop_toBottomOf="@id/frag_home_before_bus__tv_plan_title" />
-
-            <TextView
-                android:id="@+id/frag_home_before_bus__tv_plan_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5.5dp"
-                android:letterSpacing="-0.03"
-                android:lineSpacingExtra="6dp"
-                android:text="@{vm.startTime}"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:textColor="@color/black"
-                android:textSize="14dp"
-                app:layout_constraintBottom_toBottomOf="@id/frag_home_before_bus__iv_time"
-                app:layout_constraintStart_toEndOf="@id/frag_home_before_bus__iv_time"
-                app:layout_constraintTop_toTopOf="@id/frag_home_before_bus__iv_time" />
-
-            <ImageView
-                android:id="@+id/frag_home_before_bus__iv_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9.3dp"
-                android:src="@drawable/ic_location"
-                app:layout_constraintStart_toStartOf="@id/frag_home_before_bus__view_center"
-                app:layout_constraintTop_toBottomOf="@+id/frag_home_before_bus__iv_time" />
-
-            <TextView
-                android:id="@+id/frag_home_before_bus__tv_plan_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:letterSpacing="-0.03"
-                android:lineSpacingExtra="6dp"
-                android:ems="8"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:fontFamily="@font/noto_sans_kr_regular"
-                android:text="@{vm.homeResponse.data.scheduleSummaryData.endAddress}"
-                android:textColor="@color/black"
-                android:textSize="14dp"
-                app:layout_constraintBottom_toBottomOf="@id/frag_home_before_bus__iv_location"
-                app:layout_constraintStart_toStartOf="@id/frag_home_before_bus__tv_plan_time"
-                app:layout_constraintTop_toTopOf="@id/frag_home_before_bus__iv_location" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>
