@@ -1,13 +1,13 @@
-package com.earlyBuddy.earlybuddy_android.ui.schedule.write
+package com.earlyBuddy.earlybuddy_android.ui.schedule
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.earlyBuddy.earlybuddy_android.R
 
-class ScheduleWriteActivity : AppCompatActivity() {
+class ScheduleActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_schedule_write)
+        setContentView(R.layout.activity_schedule)
     }
 }

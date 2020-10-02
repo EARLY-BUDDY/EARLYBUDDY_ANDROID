@@ -12,7 +12,7 @@ import com.earlyBuddy.earlybuddy_android.ui.initial.nickname.NickNameActivity
 import com.earlyBuddy.earlybuddy_android.ui.initial.place.InitialPlaceActivity
 import com.earlyBuddy.earlybuddy_android.ui.myPage.main.MyPageActivity
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathActivity
-import com.earlyBuddy.earlybuddy_android.ui.schedule.write.ScheduleWriteActivity
+import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleActivity
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpActivity
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(){
         }
 
         act_main_btn_schedule_write.setOnClickListener {
-            val intent = Intent(this, ScheduleWriteActivity::class.java)
+            val intent = Intent(this, ScheduleActivity::class.java)
             startActivity(intent)
         }
 

@@ -63,6 +63,7 @@ class PathItemViewHolder(
             clickListener.onClickPathItem(adapterPosition, 1)
         }
         pathMethodAdapter = PathMethodAdapter()
+        pathMethodAdapter.setHasStableIds(true)
     }
 
     interface OnClickPathItemListener {
@@ -73,12 +74,12 @@ class PathItemViewHolder(
         binding.itemPathRv.post {
             binding.itemPathRv.adapter = pathMethodAdapter
             val width = binding.itemPathRv.width
-            Log.e("width ----++++++++", width.toString())
+//            Log.e("width ----++++++++", width.toString())
 
             val minWalkLen = round((width * 0.07))
             val minTransLen = round((width * 0.12))
 
-            Log.e("round%%%%%%%", "${minWalkLen} + ${minTransLen}")
+//            Log.e("round%%%%%%%", "${minWalkLen} + ${minTransLen}")
 
             pathMethodAdapter.minWalkLen = minWalkLen.toInt()
             pathMethodAdapter.minTransLen = minTransLen.toInt()
