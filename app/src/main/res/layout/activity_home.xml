@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="vm"
+            type="com.earlyBuddy.earlybuddy_android.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,19 +49,121 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="14dp"
-                android:src="@drawable/img_mypage"
+                android:src="@drawable/btn_mypage"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/act_home_iv_write"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-            <FrameLayout
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/act_home_cl_top"
-                android:id="@+id/act_home_fl_home_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"/>
+
+        <FrameLayout
+            android:id="@+id/act_home_fl_home_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/act_home_view_center"
+            app:layout_constraintTop_toBottomOf="@id/act_home_cl_top" />
+
+        <ImageView
+            android:id="@+id/act_home_iv_back"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img_bg_threebus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="360:264"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <View
+            android:id="@+id/act_home_view_center"
+            android:layout_width="0dp"
+            android:layout_height="0.2dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/gray"
+            app:layout_constraintBottom_toTopOf="@+id/act_home_iv_back"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.80" />
+
+
+        <ImageView
+            android:id="@+id/act_home_iv_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36.9dp"
+            android:src="@drawable/ic_detail"
+            app:layout_constraintEnd_toEndOf="@id/act_home_view_center"
+            app:layout_constraintTop_toBottomOf="@id/act_home_view_center" />
+
+        <TextView
+            android:id="@+id/act_home_tv_plan_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16.4dp"
+            android:ellipsize="end"
+            android:ems="10"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="8dp"
+            android:maxLines="1"
+            android:text="@{vm.homeResponse.data.scheduleSummaryData.scheduleName}"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@id/act_home_view_center"
+            app:layout_constraintTop_toBottomOf="@id/act_home_view_center" />
+
+        <ImageView
+            android:id="@+id/act_home_iv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_time"
+            app:layout_constraintStart_toStartOf="@id/act_home_view_center"
+            app:layout_constraintTop_toBottomOf="@id/act_home_tv_plan_title" />
+
+        <TextView
+            android:id="@+id/act_home_tv_plan_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5.5dp"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="6dp"
+            android:text="@{vm.startTime}"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@id/act_home_iv_time"
+            app:layout_constraintStart_toEndOf="@id/act_home_iv_time"
+            app:layout_constraintTop_toTopOf="@id/act_home_iv_time" />
+
+        <ImageView
+            android:id="@+id/act_home_iv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9.3dp"
+            android:src="@drawable/ic_location"
+            app:layout_constraintStart_toStartOf="@id/act_home_view_center"
+            app:layout_constraintTop_toBottomOf="@+id/act_home_iv_time" />
+
+        <TextView
+            android:id="@+id/act_home_tv_plan_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:ems="8"
+            android:fontFamily="@font/noto_sans_kr_regular"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="6dp"
+            android:maxLines="1"
+            android:text="@{vm.homeResponse.data.scheduleSummaryData.endAddress}"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@id/act_home_iv_location"
+            app:layout_constraintStart_toStartOf="@id/act_home_tv_plan_time"
+            app:layout_constraintTop_toTopOf="@id/act_home_iv_location" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

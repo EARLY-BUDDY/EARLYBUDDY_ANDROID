@@ -10,41 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/act_my_cl_top"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@color/main_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/act_my_iv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/btn_back"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/act_my_tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/noto_sans_kr_medium"
-                android:gravity="center"
-                android:letterSpacing="-0.02"
-                android:lineSpacingExtra="-6sp"
-                android:text="마이페이지"
-                android:textColor="@color/white"
-                android:textSize="17sp"
-                app:layout_constraintBottom_toBottomOf="@id/act_my_iv_back"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/act_my_iv_back" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/act_account_manage_top_title"
+            layout="@layout/activity_top_title" />
 
 
         <ImageView
@@ -53,7 +21,7 @@
             android:layout_height="wrap_content"
             android:scaleType="fitXY"
             android:src="@drawable/img_mypage"
-            app:layout_constraintTop_toBottomOf="@id/act_my_cl_top"/>
+            app:layout_constraintTop_toBottomOf="@id/act_account_manage_top_title"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/act_my_rv_menu"

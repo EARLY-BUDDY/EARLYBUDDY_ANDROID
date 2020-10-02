@@ -44,11 +44,11 @@ class PathMethodViewHolder(val binding: ItemPathMethodBinding) : RecyclerView.Vi
     fun bind(totalLen : Int, totalTime : Int, minWalkLen : Int, minTransLen : Int, data : SubPath, trafficType: Int, flag : Boolean){
         var methodLen = 0
         if(data.sectionTime!=0) methodLen = round(totalLen * (data.sectionTime.toFloat() / totalTime.toFloat())).toInt()
-        Log.e("PathMethodViewHolder@@@@@@@@@ totalLen", totalLen.toString())
-        Log.e("PathMethodViewHolder@@@@@@@@@ minLen", "${minWalkLen} + ${minTransLen}")
-        Log.e("PathMethodViewHolder@@@@@@@@@ totalTime", totalTime.toString())
-        Log.e("PathMethodViewHolder@@@@@@@@@ sectionTime", data.sectionTime.toString())
-        Log.e("PathMethodViewHolder@@@@@@@@@ methodLen", methodLen.toString())
+//        Log.e("PathMethodViewHolder@@@@@@@@@ totalLen", totalLen.toString())
+//        Log.e("PathMethodViewHolder@@@@@@@@@ minLen", "${minWalkLen} + ${minTransLen}")
+//        Log.e("PathMethodViewHolder@@@@@@@@@ totalTime", totalTime.toString())
+//        Log.e("PathMethodViewHolder@@@@@@@@@ sectionTime", data.sectionTime.toString())
+//        Log.e("PathMethodViewHolder@@@@@@@@@ methodLen", methodLen.toString())
 
         binding.trafficType = data.trafficType
 

@@ -15,4 +15,5 @@ val repositoryAppModule = module {
     single { CalendarRepository(get()) }
     single { InitialPlaceRepository(get()) }
     single { MyPageRepository(get()) }
+    single { NickNameRepository(get()) }
 }

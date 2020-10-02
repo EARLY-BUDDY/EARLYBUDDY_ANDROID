@@ -1,5 +1,6 @@
 package com.earlyBuddy.earlybuddy_android.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,7 +8,12 @@ import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityHomeBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.Loading
+import com.earlyBuddy.earlybuddy_android.ui.calendar.CalendarActivity
+import com.earlyBuddy.earlybuddy_android.ui.home.pathCheck.HomePathActivity
+import com.earlyBuddy.earlybuddy_android.ui.myPage.main.MyPageActivity
+import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
@@ -20,31 +26,66 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        viewDataBinding.vm = viewModel
+
         addObservedData()
+        setClickListener()
+
         viewModel.getData(true)
+
+//        val asd = intent.getIntExtra("asd", -1)
+//        viewModel.getTestData(true, asd)
+
 
     }
 
-    fun refresh(loadingVisible:Boolean) {
+    private fun setClickListener() {
+        viewDataBinding.actHomeIvDetail.onlyOneClickListener {
+            val intent = Intent(this, HomePathActivity::class.java)
+            startActivity(intent)
+        }
+
+        viewDataBinding.actHomeIvPlanner.onlyOneClickListener {
+            val intent = Intent(this, CalendarActivity::class.java)
+            startActivity(intent)
+        }
+
+        viewDataBinding.actHomeIvWrite.onlyOneClickListener {
+            val intent = Intent(this, ScheduleActivity::class.java)
+            startActivity(intent)
+        }
+        viewDataBinding.actHomeIvMyPage.onlyOneClickListener {
+            val intent = Intent(this, MyPageActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    fun refresh(loadingVisible: Boolean) {
         viewModel.getData(loadingVisible)
         Log.e("refresh", "리프레시...")
     }
 
     private fun addObservedData() {
 
-        viewModel.goNoScheduleFragment.observe(this, Observer {
-            replaceFragment(it)
+        viewModel.goNoScheduleActivity.observe(this, Observer {
+            val intent = Intent(this, it::class.java)
+            startActivity(intent)
+            finish()
         })
 
         viewModel.goBeforeDayFragment.observe(this, Observer {
             replaceFragment(it)
         })
 
-        viewModel.goBeforBusFragment.observe(this, Observer {
+        viewModel.goBeforeBusFragment.observe(this, Observer {
             replaceFragment(it)
         })
 
-        viewModel.loadingVisiblity.observe(this, Observer {
+        viewModel.goGoingFragment.observe(this, Observer {
+            replaceFragment(it)
+        })
+
+        viewModel.loadingVisibility.observe(this, Observer {
             when (it) {
                 true -> {
                     Loading.goLoading(this)
@@ -52,6 +93,17 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
                 else -> {
                     Loading.exitLoading()
                 }
+            }
+        })
+
+        viewModel.imageChange.observe(this, Observer {
+            when (it) {
+                "NoSchedule" -> viewDataBinding.actHomeIvBack.setImageResource(R.drawable.img_bg_none)
+                "BeforeDay" -> viewDataBinding.actHomeIvBack.setImageResource(R.drawable.img_bg_relax)
+                "BeforeBusThree" -> viewDataBinding.actHomeIvBack.setImageResource(R.drawable.img_bg_threebus)
+                "BeforeBusTwo" -> viewDataBinding.actHomeIvBack.setImageResource(R.drawable.img_bg_twobus)
+                "BeforeBusOne" -> viewDataBinding.actHomeIvBack.setImageResource(R.drawable.img_bg_onebus)
+                "Going" -> viewDataBinding.actHomeIvBack.setImageResource(R.drawable.img_going)
             }
         })
     }
