@@ -3,13 +3,13 @@ package com.earlyBuddy.earlybuddy_android.ui.home.going
 import android.os.Bundle
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseFragment
-import com.earlyBuddy.earlybuddy_android.databinding.FragmenHomeGoingBinding
+import com.earlyBuddy.earlybuddy_android.databinding.FragmentHomeGoingBinding
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class GoingFragment : BaseFragment<FragmenHomeGoingBinding, GoingViewModel>() {
+class GoingFragment : BaseFragment<FragmentHomeGoingBinding, GoingViewModel>() {
     override val layoutResID: Int
-        get() = R.layout.fragment_home_before_day
+        get() = R.layout.fragment_home_going
     override val viewModel: GoingViewModel by viewModel()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -124,27 +124,30 @@ class HomeViewModel(private val repository: HomeRepository) :
                     2 -> {
                         goBeforeDayFragment.value = BeforeDayFragment()
                     }
-                    else -> {
+                    3 -> {
                         goBeforeBusFragment.value = BeforeBusFragment()
                     }
+                    else -> {
+                        goGoingFragment.value = GoingFragment()
+                    }
                 }
-             }
-             // 옵서버블을 구독
-             .subscribe({
-                 // API를 통해 액세스 토큰을 정상적으로 받았을 때 처리할 작업을 구현
-                 // 작업 중 오류가 발생하면 이 블록은 호출되지 x
+            }
+            // 옵서버블을 구독
+            .subscribe({
+                // API를 통해 액세스 토큰을 정상적으로 받았을 때 처리할 작업을 구현
+                // 작업 중 오류가 발생하면 이 블록은 호출되지 x
 
-                 // onResponse
-                 tempHomeResponse = it!!
-                 Log.e("Asdasd", tempHomeResponse.toString())
-             }) {
-                 // 에러 블록
-                 // 네트워크 오류나 데이터 처리 오류 등
-                 // 작업이 정상적으로 완료되지 않았을 때 호출
+                // onResponse
+                tempHomeResponse = it!!
+                Log.e("Asdasd", tempHomeResponse.toString())
+            }) {
+                // 에러 블록
+                // 네트워크 오류나 데이터 처리 오류 등
+                // 작업이 정상적으로 완료되지 않았을 때 호출
 
-                 // onFailure
-                 Log.e("통신 실패 error : ", it.message!!)
-             })
+                // onFailure
+                Log.e("통신 실패 error : ", it.message!!)
+            })
     }
 
 }
