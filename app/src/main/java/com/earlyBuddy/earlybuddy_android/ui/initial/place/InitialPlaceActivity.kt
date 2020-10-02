@@ -1,6 +1,7 @@
 package com.earlyBuddy.earlybuddy_android.ui.initial.place
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -14,7 +15,7 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.model.Favorite
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPlaceBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.Loading
-import com.google.gson.JsonArray
+import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_place.*
@@ -94,6 +95,9 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
         viewModel.response.observe(this, Observer {
             if (it) {
                 Toast.makeText(this, "자주 가는 장소 등록 성공!", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
+                finish()
             } else {
                 Toast.makeText(this, "자주 가는 장소 등록 실패!", Toast.LENGTH_SHORT).show()
             }

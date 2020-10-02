@@ -63,4 +63,9 @@ interface NetworkService {
     fun registerFavoritePlaces(
         @Body body: JsonObject
     ): Observable<FavoriteResponse>
+
+    @PUT("/users/setUserName")
+    fun registerUserNickName(
+        @Body body: JsonObject
+    ): Observable<NickNameResponse>
 }

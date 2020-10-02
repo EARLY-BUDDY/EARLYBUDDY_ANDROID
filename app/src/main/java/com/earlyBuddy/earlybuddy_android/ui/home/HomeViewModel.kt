@@ -1,5 +1,6 @@
 package com.earlyBuddy.earlybuddy_android.ui.home
 
+import android.app.Activity
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +10,7 @@ import com.earlyBuddy.earlybuddy_android.data.repository.HomeRepository
 import com.earlyBuddy.earlybuddy_android.ui.home.beforeBus.BeforeBusFragment
 import com.earlyBuddy.earlybuddy_android.ui.home.beforeDay.BeforeDayFragment
 import com.earlyBuddy.earlybuddy_android.ui.home.going.GoingFragment
-import com.earlyBuddy.earlybuddy_android.ui.home.noSchedule.NoScheduleFragment
+import com.earlyBuddy.earlybuddy_android.ui.home.noSchedule.NoScheduleActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import java.text.SimpleDateFormat
 
@@ -18,7 +19,7 @@ class HomeViewModel(private val repository: HomeRepository) :
 
     val goBeforeBusFragment = MutableLiveData<Fragment>()
     val goBeforeDayFragment = MutableLiveData<Fragment>()
-    val goNoScheduleFragment = MutableLiveData<Fragment>()
+    val goNoScheduleActivity = MutableLiveData<Activity>()
     val goGoingFragment = MutableLiveData<Fragment>()
     val homeResponse = MutableLiveData<HomeResponse>()
     val loadingVisibility = MutableLiveData<Boolean>()
@@ -71,7 +72,7 @@ class HomeViewModel(private val repository: HomeRepository) :
 
                 when (tempHomeResponse.data!!.scheduleCheck) {
                     1 -> {
-                        goNoScheduleFragment.value = NoScheduleFragment()
+                        goNoScheduleActivity.value = NoScheduleActivity()
                     }
                     2 -> {
                         goBeforeDayFragment.value = BeforeDayFragment()
@@ -116,23 +117,28 @@ class HomeViewModel(private val repository: HomeRepository) :
                     loadingVisibility.value = false
                 }
                 homeResponse.value = tempHomeResponse
-                getTimeDifference(tempHomeResponse)
-                getBackGroundImage(tempHomeResponse)
+
 
 //                homeResponse.value = homeResponses
 
                 when (tempHomeResponse.data!!.scheduleCheck) {
                     1 -> {
-                        goNoScheduleFragment.value = NoScheduleFragment()
+                        goNoScheduleActivity.value = NoScheduleActivity()
                     }
                     2 -> {
                         goBeforeDayFragment.value = BeforeDayFragment()
+                        getTimeDifference(tempHomeResponse)
+                        getBackGroundImage(tempHomeResponse)
                     }
                     3 -> {
                         goBeforeBusFragment.value = BeforeBusFragment()
+                        getTimeDifference(tempHomeResponse)
+                        getBackGroundImage(tempHomeResponse)
                     }
                     else -> {
                         goGoingFragment.value = GoingFragment()
+                        getTimeDifference(tempHomeResponse)
+                        getBackGroundImage(tempHomeResponse)
                     }
                 }
             }
@@ -143,14 +149,14 @@ class HomeViewModel(private val repository: HomeRepository) :
 
                 // onResponse
                 tempHomeResponse = it!!
-                Log.e("Asdasd", tempHomeResponse.toString())
+                Log.e("홈 통신 결과", tempHomeResponse.toString())
             }) {
                 // 에러 블록
                 // 네트워크 오류나 데이터 처리 오류 등
                 // 작업이 정상적으로 완료되지 않았을 때 호출
 
                 // onFailure
-                Log.e("통신 실패 error : ", it.message!!)
+                Log.e("홈에서 통신 실패 error : ", it.message!!)
             })
     }
 
