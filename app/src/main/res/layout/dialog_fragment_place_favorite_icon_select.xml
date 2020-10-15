@@ -8,8 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#66000000">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -41,13 +40,13 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="5dp"
-                        android:fontFamily="@font/noto_sans_kr_regular"
+                        android:layout_marginStart="26dp"
                         android:lineHeight="10sp"
                         android:lineSpacingExtra="12sp"
-                        android:text="아이콘을 선택해주세요."
+                        android:fontFamily="@font/noto_sans_kr_medium"
                         android:textColor="@color/black"
-                        android:textSize="17sp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="자주 가는 장소 등록"
+                        android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,11 +61,66 @@
                         app:srcCompat="@drawable/ic_cancel_dialogue" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/dialog_fragment_place_favorite_cl_place_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/dialog_fragment_place_favorite_tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="32dp"
+                        android:fontFamily="@font/noto_sans_kr_bold"
+                        android:lineSpacingExtra="-2sp"
+                        android:text="이름"
+                        android:textColor="#3092ff"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/dialog_fragment_place_favorite_et_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="26dp"
+                        android:background="@null"
+                        android:hint="장소 이름을 적어주세요"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/dialog_fragment_place_favorite_tv_name"
+                        app:layout_constraintTop_toBottomOf="@id/dialog_fragment_place_favorite_tv_name" />
+
+                    <View
+                        android:id="@+id/dialog_fragment_place_favorite_v_name_line"
+                        android:layout_width="0dp"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="26dp"
+                        android:background="#707070"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/dialog_fragment_place_favorite_et_name"
+                        app:layout_constraintTop_toBottomOf="@id/dialog_fragment_place_favorite_et_name" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="26dp"
+                    android:layout_marginTop="26dp"
+                    android:fontFamily="@font/noto_sans_kr_bold"
+                    android:lineSpacingExtra="-2sp"
+                    android:text="아이콘"
+                    android:textColor="#3092ff"
+                    android:textSize="12sp" />
+
                 <LinearLayout
                     android:id="@+id/dialog_fragment_place_favorite_ll_icon"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="28dp"
+                    android:layout_marginTop="12dp"
+                    android:paddingBottom="30dp"
                     android:orientation="horizontal">
 
 
@@ -84,14 +138,6 @@
                             android:layout_gravity="center"
                             android:src="@drawable/ic_home" />
 
-                        <TextView
-                            android:id="@+id/dialog_fragment_place_favorite_tv_home"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="9dp"
-                            android:text="집" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -108,15 +154,6 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:src="@drawable/ic_office" />
-
-                        <TextView
-                            android:id="@+id/dialog_fragment_place_favorite_tv_office"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="9dp"
-                            android:gravity="center"
-                            android:text="회사" />
 
                     </LinearLayout>
 
@@ -136,36 +173,11 @@
                             android:layout_weight="1"
                             android:src="@drawable/ic_school" />
 
-                        <TextView
-                            android:id="@+id/dialog_fragment_place_favorite_tv_school"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="9dp"
-                            android:layout_weight="1"
-                            android:text="학교" />
-
                     </LinearLayout>
 
 
                 </LinearLayout>
 
-
-                <TextView
-                    android:id="@+id/dialog_fragment_place_favorite_tv_ok"
-                    android:layout_width="266dp"
-                    android:layout_height="38dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="29dp"
-                    android:layout_marginBottom="24dp"
-                    android:background="@drawable/act_place_round_rect_blue_full"
-                    android:fontFamily="@font/noto_sans_kr_medium"
-                    android:gravity="center"
-                    android:text="확인"
-                    android:textColor="@color/white"
-                    android:textSize="13sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
 
             </LinearLayout>
 
