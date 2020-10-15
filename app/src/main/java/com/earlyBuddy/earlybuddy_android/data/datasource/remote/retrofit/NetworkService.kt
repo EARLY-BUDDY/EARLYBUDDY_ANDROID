@@ -68,4 +68,7 @@ interface NetworkService {
     fun registerUserNickName(
         @Body body: JsonObject
     ): Observable<NickNameResponse>
+
+    @GET("/users/getFavorite")
+    fun getFavoriteList(): Observable<FavoriteResponse>
 }

@@ -6,8 +6,9 @@ import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityAccountManagementBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
-import com.earlyBuddy.earlybuddy_android.ui.calendar.CalendarActivity
 import com.earlyBuddy.earlybuddy_android.ui.myPage.password.PasswordChangeActivity
+import com.earlyBuddy.earlybuddy_android.ui.myPage.quit.QuitActivity
+import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AccountManagementActivity :
@@ -20,6 +21,21 @@ class AccountManagementActivity :
         super.onCreate(savedInstanceState)
 
         viewDataBinding.actAccountManageTopTitle.actTopTitleTvTitle.text = "계정 관리"
+
+        viewDataBinding.actAccountManageTvLogout.onlyOneClickListener {
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        viewDataBinding.actAccountManageIvQuit.onlyOneClickListener {
+            val intent = Intent(this, QuitActivity::class.java)
+            startActivity(intent)
+        }
+
+        viewDataBinding.actAccountManageTopTitle.actTopTitleIvBack.onlyOneClickListener {
+            finish()
+        }
 
         viewDataBinding.actAccountManageIvPw.onlyOneClickListener {
             val intent = Intent(this, PasswordChangeActivity::class.java)

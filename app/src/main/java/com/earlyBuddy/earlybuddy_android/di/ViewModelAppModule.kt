@@ -27,7 +27,7 @@ val viewModelAppModule = module {
     viewModel { BeforeDayViewModel() }
     viewModel { GoingViewModel() }
     viewModel { CalendarViewModel(get()) }
-    viewModel { InitialPlaceViewModel(get()) }
+    viewModel { InitialPlaceViewModel(get(), get()) }
     viewModel { NickNameViewModel(get()) }
     viewModel {
         MyPageViewModel(
