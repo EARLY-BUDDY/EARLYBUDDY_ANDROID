@@ -129,7 +129,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
         })
 
         viewModel.favoriteList.observe(this, Observer {
-            val list = it.data
+            val list = it.favoriteArr
             for (i in list.indices) {
                 favoriteArr[i] = list[i]
                 selectedList[i] = true

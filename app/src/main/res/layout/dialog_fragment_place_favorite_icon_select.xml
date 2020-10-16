@@ -83,6 +83,7 @@
                     <EditText
                         android:id="@+id/dialog_fragment_place_favorite_et_name"
                         android:layout_width="0dp"
+                        android:maxLength="12"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="26dp"
