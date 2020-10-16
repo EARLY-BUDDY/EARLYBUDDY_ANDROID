@@ -69,6 +69,9 @@ class BeforeBusFragment : BaseFragment<FragmentHomeBeforeBusBinding, BeforeBusVi
         viewModel.nextInVisible.observe(viewLifecycleOwner, Observer {
             viewDataBinding.fragHomeBeforeBusTvNextTime.visibility = View.INVISIBLE
         })
+        viewModel.nextArriveStop.observe(viewLifecycleOwner, Observer {
+            viewDataBinding.fragHomeBeforeBusTvNextTime.text = "다음 배차는 없습니다."
+        })
     }
 
     override fun onPause() {

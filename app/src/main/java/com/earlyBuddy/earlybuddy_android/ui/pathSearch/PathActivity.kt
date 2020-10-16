@@ -26,7 +26,6 @@ import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_path.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-
 class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
     val bundle = Bundle()
