@@ -11,6 +11,7 @@ import android.view.View
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityScheduleBinding
+import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathActivity
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.EndPlaceSearchActivity
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.StartPlaceSearchActivity
 import java.util.*
@@ -22,8 +23,9 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
     override lateinit var viewModel: ScheduleViewModel
 
     private val calendar = Calendar.getInstance()
-    private val REQUEST_CODE_START = 7777
-    private val REQUEST_CODE_END = 8888
+    private var date : String = ""
+    private var time : String = ""
+    private val REQUEST_CODE_PATH = 7777
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,15 +37,10 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
     }
 
     fun setClick(){
-        viewDataBinding.actScheduleTvPlaceFromResult.setOnClickListener {
-            val intent = Intent(this, StartPlaceSearchActivity::class.java)
-            startActivityForResult(intent, REQUEST_CODE_START)
+        viewDataBinding.actScheduleClPlaceClick.setOnClickListener {
+            val intent = Intent(this, PathActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE_PATH)
         }
-        viewDataBinding.actScheduleTvPlaceToResult.setOnClickListener {
-            val intent = Intent(this, EndPlaceSearchActivity::class.java)
-            startActivityForResult(intent, REQUEST_CODE_END)
-        }
-
         viewDataBinding.actScheduleTvRegister.setOnClickListener {
             val registFragment = ScheduleDialogFragment(1)
 
@@ -55,9 +52,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         super.onActivityResult(requestCode, resultCode, data)
 
         if(resultCode== Activity.RESULT_OK){
-            if(requestCode==REQUEST_CODE_START){
-
-            } else if(requestCode==REQUEST_CODE_END){
+            if(requestCode==REQUEST_CODE_PATH){
 
             }
         }
@@ -73,6 +68,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
                         set(Calendar.DAY_OF_MONTH, dayOfMonth)
                     }
                     viewDataBinding.actScheduleTvDateClick.text = SimpleDateFormat("yyyy.MM.dd").format(calendar.time)
+                    date = SimpleDateFormat("yyyy:MM:dd=").format(calendar.time)
 
                 },calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
@@ -85,7 +81,9 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
                         set(Calendar.MINUTE, minute)
                     }
                     viewDataBinding.actScheduleTvTimeClick.text = SimpleDateFormat("a hh:mm").format(calendar.time)
+                    time = SimpleDateFormat("HH:mm:00").format(calendar.time)
                 },calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), false).show()
+            Log.e("date ", date+time)
         }
     }
 
