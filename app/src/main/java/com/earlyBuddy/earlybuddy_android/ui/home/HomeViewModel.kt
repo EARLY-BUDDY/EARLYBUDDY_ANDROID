@@ -169,10 +169,10 @@ class HomeViewModel(private val repository: HomeRepository) :
 
         if (promiseStartTime.hours >= 12) {
             startTime.value =
-                "오후 ${String.format("%02d:%02d", promiseStartTime.minutes, promiseStartTime.hours)}"
+                "오후 ${String.format("%02d:%02d", promiseStartTime.hours, promiseStartTime.minutes)}"
         } else {
             startTime.value =
-                "오전 ${String.format("%02d:%02d", promiseStartTime.minutes, promiseStartTime.hours)}"
+                "오전 ${String.format("%02d:%02d", promiseStartTime.hours, promiseStartTime.minutes)}"
         }
     }
 

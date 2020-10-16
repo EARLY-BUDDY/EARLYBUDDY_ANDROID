@@ -26,8 +26,11 @@ data class FirstTrans(
     val startName:String
 )
 data class ScheduleSummaryData(
-    val scheduleIdx:Int,
-    val scheduleName:String,
-    val scheduleStartTime:String,
-    val endAddress :String
+    val pathType: Int,
+    val totalTime: Int,
+    val scheduleIdx: Int,
+    val scheduleName: String,
+    val scheduleStartTime: String,
+    val endAddress: String,
+    val startAddress: String
 )

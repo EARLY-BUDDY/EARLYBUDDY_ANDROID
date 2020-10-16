@@ -23,7 +23,6 @@ interface RemoteDataSource {
     fun homeSchedule(): Observable<HomeResponse>
     fun homeTestSchedule(scheduleCheck: Int): Observable<HomeResponse>
 
-    fun getCalendarSchedules(year: String, month: String): Observable<CalendarResponse>
 
     fun getCalendarSchedules(year: String, month: String): Observable<CalendarResponse>
 
