@@ -2,6 +2,7 @@ package com.earlyBuddy.earlybuddy_android.ui.home.beforeBus
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseFragment
@@ -48,23 +49,25 @@ class BeforeBusFragment : BaseFragment<FragmentHomeBeforeBusBinding, BeforeBusVi
             (activity as HomeActivity).refresh(true)
         }
 
-        frag_home_before_bus__iv_detail.setOnClickListener {
-            val intent = Intent(activity, HomePathActivity::class.java)
-            startActivity(intent)
-        }
-
     }
 
     private fun addObservedData() {
-        viewModel.lastCount.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                1 -> {
-                    viewDataBinding.fragHomeBeforeBusIvBack.setImageResource(R.drawable.img_late_bg)
-                }
-                2 -> {
-                    viewDataBinding.fragHomeBeforeBusIvBack.setImageResource(R.drawable.img_twobus)
-                }
-            }
+//        viewModel.lastCount.observe(viewLifecycleOwner, Observer {
+//            when (it) {
+//                1 -> {
+//                    viewDataBinding.fragHomeBeforeBusIvBack.setImageResource(R.drawable.img_late_bg)
+//                }
+//                2 -> {
+//                    viewDataBinding.fragHomeBeforeBusIvBack.setImageResource(R.drawable.img_twobus)
+//                }
+//            }
+//        })
+        viewModel.nextArriveStop.observe(viewLifecycleOwner, Observer {
+            viewDataBinding.fragHomeBeforeBusTvNextTime.text = "다음 배차는 없습니다."
+        })
+
+        viewModel.nextInVisible.observe(viewLifecycleOwner, Observer {
+            viewDataBinding.fragHomeBeforeBusTvNextTime.visibility = View.INVISIBLE
         })
         viewModel.nextArriveStop.observe(viewLifecycleOwner, Observer {
             viewDataBinding.fragHomeBeforeBusTvNextTime.text = "다음 배차는 없습니다."

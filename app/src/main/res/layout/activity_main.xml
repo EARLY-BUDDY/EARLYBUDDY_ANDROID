@@ -5,7 +5,7 @@
     android:gravity="center_horizontal">
 
     <Button
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/act_main_btn_calendar"
         android:layout_width="100dp"
         android:layout_height="50dp"
@@ -64,5 +64,23 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="마이페이지" />
+
+    <Button
+        android:id="@+id/act_main_btn_home_one"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="홈 인접일정 없을때" />
+
+    <Button
+        android:id="@+id/act_main_btn_home_two"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="홈 배차알림 받아오지않는일정 " />
+
+    <Button
+        android:id="@+id/act_main_btn_home_three"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="배차알림 띄우는 경우" />
 
 </LinearLayout>

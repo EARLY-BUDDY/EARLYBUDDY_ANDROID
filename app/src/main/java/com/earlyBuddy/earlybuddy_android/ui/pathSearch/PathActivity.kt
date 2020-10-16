@@ -56,7 +56,6 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
         getLastLocation()
         setClick()
         initRv()
-//        setRv()
     }
 
     private fun initRv(){
@@ -171,28 +170,6 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 Log.e("sFlag -> ", sFlag.toString())
                 Log.e("sx좌표 -> ", sx.toString())
                 Log.e("sy좌표 -> ", sy.toString())
-
-//                if (sFlag == 1 && eFlag == 1) {
-//                    getRoute()
-//
-//                    viewModel.insert(
-//                        RecentPathEntity(
-//                            startPlaceName = viewDataBinding.actPathTvStart.text.toString(),
-//                            endPlaceName = viewDataBinding.actPathTvEnd.text.toString(),
-//                            sx = sx, sy = sy, ex = ex, ey = ey
-//                        )
-//                    )
-//
-//                    pathResultFrag = PathResultFragment()
-//                    supportFragmentManager.beginTransaction()
-//                        .replace(
-//                            R.id.act_path_fl,
-//                            pathResultFrag
-//                        ).commit()
-//                    bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
-//                    bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
-//                    pathResultFrag.arguments = bundle
-//                }
 
             } else if (requestCode == REQUEST_CODE_END) {
                 searchPathType = 0

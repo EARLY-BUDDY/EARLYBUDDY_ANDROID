@@ -1,34 +1,68 @@
 package com.earlyBuddy.earlybuddy_android.ui.initial.nickname
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityNickNameBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
+import com.earlyBuddy.earlybuddy_android.ui.initial.place.InitialPlaceActivity
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_nick_name.*
+import org.json.JSONObject
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.regex.Pattern
 
-class NickNameActivity : AppCompatActivity() {
-
+class NickNameActivity : BaseActivity<ActivityNickNameBinding, NickNameViewModel>() {
+    override val layoutResID: Int
+        get() = R.layout.activity_nick_name
+    override val viewModel: NickNameViewModel by viewModel()
     val nicknamePattern: Pattern? = Pattern.compile("^.{0,6}\$", Pattern.CASE_INSENSITIVE)
     var nicknameFlag: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var binding: ActivityNickNameBinding =
-            DataBindingUtil.setContentView(this, R.layout.activity_nick_name)
 
-        binding.actInitialNnClLayout.setOnClickListener {
+
+        setObserve()
+        setListener()
+
+
+    }
+
+
+    fun setObserve() {
+        viewModel.nickNameResponse.observe(this, Observer {
+            if (it.status == 200) {
+                val intent = Intent(this, InitialPlaceActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        })
+    }
+
+    fun setListener() {
+        viewDataBinding.actInitialNnTvNext.onlyOneClickListener {
+            val nickNameBody = JSONObject()
+
+            nickNameBody.put("userName", viewDataBinding.actInitialNnEtNickname.text)
+            val body = JsonParser.parseString(nickNameBody.toString()) as JsonObject
+            viewModel.putUserNickName(body)
+        }
+
+        viewDataBinding.actInitialNnClLayout.onlyOneClickListener {
             val imm: InputMethodManager =
                 getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(act_initial_nn_et_nickname.windowToken, 0)
-            binding.actInitialNnClLayout.requestFocus()
+            viewDataBinding.actInitialNnClLayout.requestFocus()
         }
 
         act_initial_nn_et_nickname.setOnFocusChangeListener { view, isFocused ->
@@ -80,4 +114,5 @@ class NickNameActivity : AppCompatActivity() {
 
         })
     }
+
 }

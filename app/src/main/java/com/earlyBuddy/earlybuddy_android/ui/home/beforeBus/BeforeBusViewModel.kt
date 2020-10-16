@@ -11,28 +11,60 @@ import java.util.*
 class BeforeBusViewModel() : BaseViewModel() {
 
     val homeResponse = MutableLiveData<HomeResponse>()
-    val startTime = MutableLiveData<String>()
     val arriveMinuteDifference = MutableLiveData<Int>()
     val nextArriveMinuteDifference = MutableLiveData<Int>()
     var trafficType: String = ""
     var lastTransCount: String = ""
     val lastsSentence = MutableLiveData<String>()
+    val frontSentence = MutableLiveData<String>()
     var trafficNumber = ""
     val lastCount = MutableLiveData<Int>()
     var tints: String = ""
     val remainingMinute = MutableLiveData<Int>()
     val timer = Timer()
     val nextArriveStop = MutableLiveData<Unit>()
+    val nextInVisible = MutableLiveData<Unit>()
 
     fun getData(tempHomeResponse: HomeResponse) {
         homeResponse.value = tempHomeResponse
 
         lastTransCount = tempHomeResponse.data!!.lastTransCount.toString()
         lastCount.value = tempHomeResponse.data.lastTransCount
-        if (lastTransCount == "2") {
-            lastsSentence.value = "이제 나갈 준비를 해주세요!"
-        } else {
-            lastsSentence.value = "이번에 놓치면 지각이에요!"
+        when (lastTransCount) {
+            "3" -> {
+                when (tempHomeResponse.data.firstTrans.trafficType) {
+                    1 -> {
+                        frontSentence.value = "탈 수 있는 지하철은 3대!"
+                    }
+                    2 -> {
+                        frontSentence.value = "탈 수 있는 버스는 3대!"
+                    }
+                }
+                lastsSentence.value = "아직 여유로워요!"
+            }
+            "2" -> {
+                when (tempHomeResponse.data.firstTrans.trafficType) {
+                    1 -> {
+                        frontSentence.value = "탈 수 있는 지하철은 2대!"
+                    }
+                    2 -> {
+                        frontSentence.value = "탈 수 있는 버스는 2대!"
+                    }
+                }
+                lastsSentence.value = "이제 나갈 준비를 해주세요!"
+            }
+            else -> {
+                when (tempHomeResponse.data.firstTrans.trafficType) {
+                    1 -> {
+                        frontSentence.value = "지금 오는 지하철이 마지막!"
+                    }
+                    2 -> {
+                        frontSentence.value = "지금 오는 버스가 마지막!"
+                    }
+                }
+                lastsSentence.value = "이번에 놓치면 지각이에요!"
+
+            }
         }
         divideTraffic(tempHomeResponse)
         getTimeDifference(tempHomeResponse)
@@ -41,8 +73,7 @@ class BeforeBusViewModel() : BaseViewModel() {
     private fun divideTraffic(tempHomeResponse: HomeResponse) {
         when (tempHomeResponse.data!!.firstTrans.trafficType) {
             1 -> {
-                trafficType = "지하철은"
-
+                trafficType = "지하철"
                 //("지하철일때 번호 표시")
                 trafficNumber = tempHomeResponse.data.firstTrans.subwayLane.toString() + "호선"
 
@@ -51,8 +82,7 @@ class BeforeBusViewModel() : BaseViewModel() {
                 tints = TransportMap.subwayMap[tempHomeResponse.data.firstTrans.subwayLane]!![0]
             }
             2 -> {
-                trafficType = "버스는"
-
+                trafficType = "버스"
                 //("버스 일때 번호 표시")
                 trafficNumber = tempHomeResponse.data.firstTrans.busNo.toString()
 
@@ -65,23 +95,12 @@ class BeforeBusViewModel() : BaseViewModel() {
     }
 
     private fun getTimeDifference(tempHomeResponse: HomeResponse) {
-        val scheduleStartTime =
-            tempHomeResponse.data!!.scheduleSummaryData.scheduleStartTime
 
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
-        var arriveTime = tempHomeResponse.data.arriveTime
+        var arriveTime = tempHomeResponse.data!!.arriveTime
 
         var nextTransArriveTime = tempHomeResponse.data.nextTransArriveTime
-        val promiseStartTime = sdf.parse(scheduleStartTime)
-
-        if (promiseStartTime.hours >= 12) {
-            startTime.value =
-                "오후 ${String.format("%02d:%02d", promiseStartTime.minutes, promiseStartTime.hours)}"
-        } else {
-            startTime.value =
-                "오전 ${String.format("%02d:%02d", promiseStartTime.minutes, promiseStartTime.hours)}"
-        }
 
         val nowDate = Date()
 
@@ -102,6 +121,9 @@ class BeforeBusViewModel() : BaseViewModel() {
             "곧 도착" -> {
                 nextTransArriveTime = sdf.format(Date())
                 getNextArriveTime(sdf.parse(nextTransArriveTime), nowDate)
+            }
+            "마지막" -> {
+                nextInVisible.value = Unit
             }
             "운행종료" -> {
                 nextArriveStop.value = Unit
