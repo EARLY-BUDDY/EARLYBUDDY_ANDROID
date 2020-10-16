@@ -54,7 +54,7 @@
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="38dp"
                 android:textColor="@color/black"
-                android:text="1시간 30분"
+                android:text="@{vm.remainTime}"
                 android:textSize="40sp"
                 app:layout_constraintBottom_toBottomOf="@id/frag_home_going_tv_next"
                 android:layout_marginEnd="16dp"

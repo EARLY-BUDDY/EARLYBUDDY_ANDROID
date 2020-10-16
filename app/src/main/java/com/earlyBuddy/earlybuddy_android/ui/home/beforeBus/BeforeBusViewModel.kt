@@ -53,7 +53,7 @@ class BeforeBusViewModel() : BaseViewModel() {
                 }
                 lastsSentence.value = "이제 나갈 준비를 해주세요!"
             }
-            else -> {
+            "1" -> {
                 when (tempHomeResponse.data.firstTrans.trafficType) {
                     1 -> {
                         frontSentence.value = "지금 오는 지하철이 마지막!"
@@ -63,6 +63,18 @@ class BeforeBusViewModel() : BaseViewModel() {
                     }
                 }
                 lastsSentence.value = "이번에 놓치면 지각이에요!"
+
+            }
+            else -> {
+                when (tempHomeResponse.data.firstTrans.trafficType) {
+                    1 -> {
+                        frontSentence.value = "운행중인 지하철이 없습니다!"
+                    }
+                    2 -> {
+                        frontSentence.value = "운행중인 버스가 없습니다!"
+                    }
+                }
+                lastsSentence.value = "새벽 약속은 불가합니다!"
 
             }
         }

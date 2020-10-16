@@ -59,4 +59,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
     override fun registerUserNickName(jsonObject: JsonObject): Observable<NickNameResponse> =
         api.registerUserNickName(jsonObject).map { it }
 
+    override fun getFavoriteList(): Observable<FavoriteResponse> =
+        api.getFavoriteList().map { it }
+
 }

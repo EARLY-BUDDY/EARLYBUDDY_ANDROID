@@ -42,6 +42,17 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
     private fun setClickListener() {
         viewDataBinding.actHomeIvDetail.onlyOneClickListener {
             val intent = Intent(this, HomePathActivity::class.java)
+            val data = viewModel.homeResponse.value!!.data!!
+            intent.putExtra("scheduleIdx", data.scheduleSummaryData.scheduleIdx)
+            intent.putExtra("scheduleName", data.scheduleSummaryData.scheduleName)
+            intent.putExtra("endAddress", data.scheduleSummaryData.endAddress)
+            intent.putExtra("startAddress", data.scheduleSummaryData.startAddress)
+            intent.putExtra("startTime", viewModel.startTime.value)
+            intent.putExtra("totalTime", data.scheduleSummaryData.totalTime)
+            intent.putExtra("pathType", data.scheduleSummaryData.pathType)
+            intent.putExtra("fromHome", true)
+
+
             startActivity(intent)
         }
 

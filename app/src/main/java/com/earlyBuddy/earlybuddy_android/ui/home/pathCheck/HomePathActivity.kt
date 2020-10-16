@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityHomePathBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.PathAdapter
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.RouteViewHolder
@@ -22,13 +23,47 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
     override val viewModel: HomePathViewModel by viewModel()
     private lateinit var routeAdapter: PathAdapter
 
+    lateinit var endAddress: String
+    lateinit var startAddress: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.getPathData(8)
+        val scheduleIdx = intent.getIntExtra("scheduleIdx", -1)
+        val scheduleName = intent.getStringExtra("scheduleName")
+        val startTime = intent.getStringExtra("startTime")
+        val pathType = intent.getIntExtra("pathType", -1)
+        val totalTime = intent.getIntExtra("totalTime", -1)
+        endAddress = intent.getStringExtra("endAddress")
+        startAddress = intent.getStringExtra("startAddress")
+        val fromHome = intent.getBooleanExtra("fromHome", false)
+
+        if (fromHome) {
+            viewDataBinding.actHomePathTvBtn.visibility = View.GONE
+        }
+
+        when (pathType) {
+            0 -> viewDataBinding.actHomePathTvTrafficType.text = "버스 + 지하철"
+            1 -> viewDataBinding.actHomePathTvTrafficType.text = "지하철"
+            2 -> viewDataBinding.actHomePathTvTrafficType.text = "버스"
+        }
+
+        val totalTimeHour = totalTime / 60
+        val totalTimeMinute = totalTime % 60
+        viewDataBinding.actHomePathTvHours.text =
+            "${totalTimeHour}시간 ${totalTimeMinute}분"
+
+        viewModel.getPathData(scheduleIdx)
+
+        viewDataBinding.actHomePathTvTitle.text = scheduleName
+        viewDataBinding.actHomePathTvStartTime.text = startTime + " 까지"
+        viewDataBinding.actHomePathTvEndAddress.text = endAddress
+
+        viewDataBinding.actHomePathIvBack.onlyOneClickListener {
+            finish()
+        }
 
         connectRecyclerView()
-//        setRecyclerViewData()
         addObservedData()
     }
 
@@ -52,7 +87,7 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
 
     private fun connectRecyclerView() {
         routeAdapter =
-            PathAdapter("출발지역", "도착지역", object : RouteViewHolder.DropDownUpClickListener {
+            PathAdapter(startAddress, endAddress, object : RouteViewHolder.DropDownUpClickListener {
                 override fun dropDownUpClick(
                     position: Int,
                     dropImageView: ImageView,
@@ -75,29 +110,4 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
         act_home_path_rv_path.adapter = routeAdapter
     }
 
-//    private fun setRecyclerViewData() {
-//        compositeDisposable.add(
-//            searchRouteRepository.getSearchRouteData(
-//                126.994150735779,
-//                37.5613965840169,
-//                127.077858590612,
-//                37.6248693456496,
-//                0
-//            ).observeOn(AndroidSchedulers.mainThread())
-//                // 구독할 때 수행할 작업을 구현
-//                .doOnSubscribe {}
-//                // 스트림이 종료될 때 수행할 작업을 구현
-//                .doOnTerminate {
-//                    lottie_ani.clearAnimation()
-//                    lottie_ani.visibility = View.GONE
-//                }
-//                // 옵서버블을 구독
-//                .subscribe({
-//                    Log.e("getPlaceRes 응답 성공 : ", it.toString())
-//                    routeAdapter.setRouteItemList(it.data.path[2].subPath)
-////                    routeAdapter.notifyDataSetChanged()
-//                }) {
-//                    Log.e("통신 실패 error : ", it.toString())
-//                })
-//    }
 }
