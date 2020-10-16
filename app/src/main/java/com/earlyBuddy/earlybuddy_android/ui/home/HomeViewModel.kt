@@ -107,7 +107,6 @@ class HomeViewModel(private val repository: HomeRepository) :
         if (loadingVisible) {
             loadingVisibility.value = true
         }
-
         addDisposable(repository.getHomeData().observeOn(AndroidSchedulers.mainThread())
             // 구독할 때 수행할 작업을 구현
             .doOnSubscribe {}
