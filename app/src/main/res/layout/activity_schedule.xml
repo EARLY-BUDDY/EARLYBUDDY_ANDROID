@@ -6,6 +6,10 @@
 
     <data>
 
+        <variable
+            name="activity"
+            type="com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleActivity" />
+
     </data>
 
     <ScrollView
@@ -40,7 +44,6 @@
                     android:id="@+id/act_schedule_tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/noto_sans_kr_medium"
                     android:gravity="center"
                     android:text="일정등록"
@@ -151,7 +154,7 @@
                             android:fontFamily="@font/noto_sans_kr_medium"
                             android:text="시간"
                             android:textColor="@color/main_color"
-                            android:textSize="13sp"
+                            android:textSize="13dp"
                             app:layout_constraintStart_toStartOf="@id/act_schedule_cl_time"
                             app:layout_constraintTop_toTopOf="@id/act_schedule_cl_time" />
 
@@ -300,7 +303,7 @@
                             android:fontFamily="@font/noto_sans_kr_medium"
                             android:text="경로"
                             android:textColor="@color/main_color"
-                            android:textSize="13sp"
+                            android:textSize="13dp"
                             app:layout_constraintStart_toStartOf="@id/act_schedule_cl_route"
                             app:layout_constraintTop_toTopOf="@id/act_schedule_cl_route" />
 
@@ -351,7 +354,7 @@
                             app:layout_constraintTop_toTopOf="@id/act_schedule_cl_noti" />
 
                         <Spinner
-                            android:id="@+id/act_schedule_sp_noti"
+                            android:id="@+id/act_schedule_dp_noti"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
@@ -365,8 +368,8 @@
                             android:layout_height="0.2dp"
                             android:layout_marginTop="5dp"
                             android:background="@color/gray"
-                            app:layout_constraintStart_toStartOf="@id/act_schedule_sp_noti"
-                            app:layout_constraintTop_toBottomOf="@+id/act_schedule_sp_noti" />
+                            app:layout_constraintStart_toStartOf="@id/act_schedule_dp_noti"
+                            app:layout_constraintTop_toBottomOf="@+id/act_schedule_dp_noti" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -391,7 +394,7 @@
                             app:layout_constraintTop_toTopOf="@id/act_schedule_cl_noti_range" />
 
                         <Spinner
-                            android:id="@+id/act_schedule_sp_noti_range"
+                            android:id="@+id/act_schedule_dp_noti_range"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
@@ -405,8 +408,8 @@
                             android:layout_height="0.2dp"
                             android:layout_marginTop="5dp"
                             android:background="@color/gray"
-                            app:layout_constraintStart_toStartOf="@id/act_schedule_sp_noti_range"
-                            app:layout_constraintTop_toBottomOf="@+id/act_schedule_sp_noti_range" />
+                            app:layout_constraintStart_toStartOf="@id/act_schedule_dp_noti_range"
+                            app:layout_constraintTop_toBottomOf="@+id/act_schedule_dp_noti_range" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -439,16 +442,18 @@
 
                             <ImageView
                                 android:id="@+id/act_schedule_iv_mon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="30dp"
+                                android:layout_height="28dp"
                                 android:clickable="true"
+                                android:focusable="true"
                                 android:gravity="center"
+                                android:onClick="@{(view)->activity.onWeekClick(view)}"
                                 android:src="@drawable/selector_mon"
+                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@id/act_schedule_iv_tue"
                                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"/>
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <ImageView
                                 android:id="@+id/act_schedule_iv_tue"
@@ -456,6 +461,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:src="@drawable/selector_tue"
+                                android:onClick="@{(view)->activity.onWeekClick(view)}"
                                 app:layout_constraintEnd_toStartOf="@id/act_schedule_iv_wed"
                                 app:layout_constraintStart_toEndOf="@+id/act_schedule_iv_mon"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -467,6 +473,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:src="@drawable/selector_wed"
+                                android:onClick="@{(view)->activity.onWeekClick(view)}"
                                 app:layout_constraintEnd_toStartOf="@id/act_schedule_iv_thu"
                                 app:layout_constraintStart_toEndOf="@+id/act_schedule_iv_tue"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -478,6 +485,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:src="@drawable/selector_thu"
+                                android:onClick="@{(view)->activity.onWeekClick(view)}"
                                 app:layout_constraintEnd_toStartOf="@id/act_schedule_iv_fri"
                                 app:layout_constraintStart_toEndOf="@+id/act_schedule_iv_wed"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -489,6 +497,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:src="@drawable/selector_fri"
+                                android:onClick="@{(view)->activity.onWeekClick(view)}"
                                 app:layout_constraintEnd_toStartOf="@id/act_schedule_iv_sat"
                                 app:layout_constraintHorizontal_chainStyle="spread_inside"
                                 app:layout_constraintStart_toEndOf="@+id/act_schedule_iv_thu"
@@ -500,6 +509,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:src="@drawable/selector_sat"
+                                android:onClick="@{(view)->activity.onWeekClick(view)}"
                                 app:layout_constraintEnd_toStartOf="@+id/act_schedule_iv_sun"
                                 app:layout_constraintStart_toEndOf="@+id/act_schedule_iv_fri"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -511,6 +521,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:src="@drawable/selector_sun"
+                                android:onClick="@{(view)->activity.onWeekClick(view)}"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/act_schedule_iv_sat"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -532,11 +543,10 @@
                         android:gravity="center"
                         android:text="등록하기"
                         android:textColor="#ffffff"
-                        android:textSize="15sp"
+                        android:textSize="15dp"
                         app:layout_constraintBottom_toBottomOf="@id/act_schedule_cl_round_rect"
                         app:layout_constraintStart_toStartOf="@id/act_schedule_cl_noti_day"
                         app:layout_constraintTop_toBottomOf="@+id/act_schedule_cl_noti_day" />
-
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>

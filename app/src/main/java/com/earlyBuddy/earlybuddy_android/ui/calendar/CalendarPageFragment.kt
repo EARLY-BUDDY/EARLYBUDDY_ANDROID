@@ -41,6 +41,7 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
         viewDataBinding.vm = viewModel
         position = arguments!!.getInt("position", 0)
 
+        setLoading()
         setRv()
         setCalendar()
     }
@@ -160,8 +161,6 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
 
             val scheduleList = java.util.ArrayList<Schedule>()
             val instanceScheduleList = viewModel.getScheduleByMonth(year, month)
-            Log.e("instanceSchedule", instanceScheduleList.toString())
-
             for (j in instanceScheduleList.indices) {
                 if (instanceScheduleList[j].scheduleStartTime.substring(8, 10).toInt() == i + 1) {
                     scheduleList.add(instanceScheduleList[j])
@@ -236,6 +235,14 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
             replaceAll(dataList)
             notifyDataSetChanged()
         }
+    }
+
+    private fun setLoading(){
+        viewModel.lottieVisible.observe(activity!!, androidx.lifecycle.Observer {
+            if(it) Loading.goLoading(activity!!)
+            else  Loading.exitLoading()
+        })
+
     }
 
     override fun onDestroy() {

@@ -1,6 +1,8 @@
 package com.earlyBuddy.earlybuddy_android.ui.searchRoute
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,6 +16,7 @@ import com.earlyBuddy.earlybuddy_android.data.repository.SearchRouteRepository
 import com.earlyBuddy.earlybuddy_android.ui.Loading
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.activity_home_path.*
 
 class TestPathActivity : AppCompatActivity() {
     private val compositeDisposable = CompositeDisposable()
@@ -22,14 +25,19 @@ class TestPathActivity : AppCompatActivity() {
     private lateinit var routeRecyclerView: RecyclerView
     private lateinit var routeAdapter: PathAdapter
 
+    private lateinit var pathData : Path
+    private var startAdd = ""
+    private var endAdd = ""
+
+
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test_path)
 
-        val pathData = intent.getSerializableExtra("path") as Path
-        val startAdd = intent.getStringExtra("startAdd")
-        val endAdd = intent.getStringExtra("endAdd")
+        pathData = intent.getSerializableExtra("path") as Path
+        startAdd = intent.getStringExtra("startAdd")
+        endAdd = intent.getStringExtra("endAdd")
         Log.e("pathData", pathData.toString())
 
         routeRecyclerView = findViewById(R.id.path_rv)
@@ -52,7 +60,6 @@ class TestPathActivity : AppCompatActivity() {
                             dropImageView.setImageResource(R.drawable.ic_dropbox_up)
                             detailRecyclerView.visibility = View.VISIBLE
                             routeAdapter.setClicked(position, true)
-
                         }
                     }
                 }
@@ -60,28 +67,17 @@ class TestPathActivity : AppCompatActivity() {
         routeAdapter.setRouteItemList(pathData.subPath)
         routeRecyclerView.adapter = routeAdapter
 
-//        compositeDisposable.add(
-//            searchRouteRepository.getSearchRouteData(
-//                126.994150735779,
-//                37.5613965840169,
-//                127.077858590612,
-//                37.6248693456496,
-//                0
-//            ).observeOn(AndroidSchedulers.mainThread())
-//                // 구독할 때 수행할 작업을 구현
-//                .doOnSubscribe {}
-//                // 스트림이 종료될 때 수행할 작업을 구현
-//                .doOnTerminate {
-//                    Loading.exitLoading()
-//                }
-//                // 옵서버블을 구독
-//                .subscribe({
-//                    Log.e("getPlaceRes 응답 성공 : ", it.toString())
-//                    routeAdapter.setRouteItemList(it.data.path[0].subPath)
-//
-////                    routeAdapter.notifyDataSetChanged()
-//                }) {
-//                    Log.e("통신 실패 error : ", it.toString())
-//                })
+        setClick()
+    }
+
+    fun setClick(){
+        act_home_path_tv_btn.setOnClickListener {
+            val intent = Intent()
+            intent.putExtra("path", pathData)
+            intent.putExtra("startAdd", startAdd)
+            intent.putExtra("endAdd", endAdd)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        }
     }
 }

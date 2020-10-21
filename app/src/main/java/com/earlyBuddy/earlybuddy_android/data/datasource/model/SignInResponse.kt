@@ -9,5 +9,5 @@ data class SignInResponse(
 data class PostSignInData(
     val jwt: String,
     val userIdx: Int,
-    val userName: String
+    val userName: String?
 )

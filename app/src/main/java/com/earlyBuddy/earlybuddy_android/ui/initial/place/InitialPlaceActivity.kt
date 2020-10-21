@@ -1,6 +1,7 @@
 package com.earlyBuddy.earlybuddy_android.ui.initial.place
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -14,7 +15,7 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.model.Favorite
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPlaceBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.Loading
-import com.google.gson.JsonArray
+import com.earlyBuddy.earlybuddy_android.ui.initial.finish.FinishActivity
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_place.*
@@ -34,10 +35,6 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
         var clickedNum = -1
     }
 
-    init {
-        selectedList.fill(false)
-    }
-
     override val layoutResID: Int
         get() = R.layout.activity_place
     override val viewModel: InitialPlaceViewModel by viewModel()
@@ -48,7 +45,6 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
             Favorite("", -1, 0.0, 0.0),
             Favorite("", -1, 0.0, 0.0)
         )
-    private val initialPlaceDialogFragment = InitialPlaceDialogFragment().getInstance()
     private lateinit var cancelList: Array<Cancel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +53,26 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
         setCancelList()
         setClickListener()
         setObservedData()
+
+        val getTitle = intent.getStringExtra("title")
+
+        if (getTitle != null) {
+            viewDataBinding.actInitialPlaceTvSkip.text = "뒤로가기"
+            viewModel.getFavoriteList()
+        } else {
+            selectedList.fill(false)
+        }
+
+        viewDataBinding.actInitialPlaceTvSkip.onlyOneClickListener {
+            if (viewDataBinding.actInitialPlaceTvSkip.text == "뒤로가기") {
+                finish()
+            } else {
+                // 완료 화면으로 넘기기!
+                val intent = Intent(this, FinishActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        }
 
     }
 
@@ -94,6 +110,9 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
         viewModel.response.observe(this, Observer {
             if (it) {
                 Toast.makeText(this, "자주 가는 장소 등록 성공!", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, FinishActivity::class.java)
+                startActivity(intent)
+                finish()
             } else {
                 Toast.makeText(this, "자주 가는 장소 등록 실패!", Toast.LENGTH_SHORT).show()
             }
@@ -107,6 +126,31 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                     Loading.exitLoading()
                 }
             }
+        })
+
+        viewModel.favoriteList.observe(this, Observer {
+            val list = it.favoriteArr
+            for (i in list.indices) {
+                favoriteArr[i] = list[i]
+                selectedList[i] = true
+                cancelList[i].textView.text = list[i].favoriteInfo
+                when (list[i].favoriteCategory) {
+                    0 -> {
+                        cancelList[i].icon.setImageResource(R.drawable.ic_home_selected)
+                    }
+                    1 -> {
+                        cancelList[i].icon.setImageResource(R.drawable.ic_office_selected)
+                    }
+                    2 -> {
+                        cancelList[i].icon.setImageResource(R.drawable.ic_school_selected)
+                    }
+                    else -> {
+                        cancelList[i].icon.setImageResource(R.drawable.ic_plus)
+                    }
+                }
+
+            }
+            isOneSelected()
         })
     }
 
@@ -134,14 +178,17 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
     private fun setClickListener() {
         viewDataBinding.actInitialPlaceClFirst.onlyOneClickListener {
             clickedNum = 1
+            val initialPlaceDialogFragment = InitialPlaceDialogFragment(favoriteArr[0].favoriteInfo)
             initialPlaceDialogFragment.show(supportFragmentManager, "InitialPlace")
         }
         viewDataBinding.actInitialPlaceClSecond.onlyOneClickListener {
             clickedNum = 2
+            val initialPlaceDialogFragment = InitialPlaceDialogFragment(favoriteArr[1].favoriteInfo)
             initialPlaceDialogFragment.show(supportFragmentManager, "InitialPlace")
         }
         viewDataBinding.actInitialPlaceClThird.onlyOneClickListener {
             clickedNum = 3
+            val initialPlaceDialogFragment = InitialPlaceDialogFragment(favoriteArr[2].favoriteInfo)
             initialPlaceDialogFragment.show(supportFragmentManager, "InitialPlace")
         }
         viewDataBinding.actInitialPlaceTvRegister.onlyOneClickListener {

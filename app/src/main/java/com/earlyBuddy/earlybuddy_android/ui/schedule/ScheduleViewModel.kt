@@ -11,21 +11,24 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 
 class ScheduleViewModel(
     private val repository : ScheduleRepository
-) : BaseViewModel(){
+) : BaseViewModel() {
 
     val scheduleDetail = MutableLiveData<ScheduleDetail>()
     val lottieVisible = MutableLiveData<Boolean>()
 
     fun getPathData(scheduleIdx: Int) {
 
+
         addDisposable(repository.getScheduleDetailData(scheduleIdx)
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe {}
+            .doOnSubscribe {
+                lottieVisible.value = true
+            }
             .doOnTerminate {
                 lottieVisible.value = false
             }
             .subscribe({
-                if(it.status == 200){
+                if (it.status == 200) {
                     scheduleDetail.value = it.data
                 } else {
                     Log.e("getPathData status", it.status.toString())
@@ -36,5 +39,4 @@ class ScheduleViewModel(
             })
 
     }
-
 }

@@ -7,11 +7,12 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivitySignInBinding
+import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
+import com.earlyBuddy.earlybuddy_android.ui.initial.nickname.NickNameActivity
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_sign_in.*
@@ -107,11 +108,19 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
         Log.e("body ->", body.toString())
     }
 
-    fun observe(){
-        viewModel.signInCheck.observe(this, Observer{
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-            if(it == "로그인 성공"){
+    fun observe() {
+        viewModel.signInCheck.observe(this, Observer {
+            if (it.message == "로그인 성공") {
                 // 로그인 성공했을 때 실행 됨.
+                if (it.data!!.userName == null) {
+                    val intent = Intent(this, NickNameActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             }
         })
     }

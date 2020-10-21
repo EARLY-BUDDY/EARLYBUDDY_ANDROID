@@ -24,6 +24,8 @@ import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPlaceBinding
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_start_place_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, PlaceSearchViewModel>() {
     companion object{

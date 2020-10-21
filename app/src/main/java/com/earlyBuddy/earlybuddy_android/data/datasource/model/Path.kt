@@ -40,5 +40,6 @@ data class SubPath(
 data class Lane(
     val name: String,
     val type: Int,
-    val busID: Int
+    val busID: Int,
+    val term : Int
 ) : Serializable

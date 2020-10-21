@@ -9,6 +9,7 @@ import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityScheduleDetailBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemScheduleDetailWeekdayBinding
+import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathMethodAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.round
@@ -19,15 +20,21 @@ class ScheduleDetailActivity : BaseActivity<ActivityScheduleDetailBinding,Schedu
         get() = R.layout.activity_schedule_detail
     override val viewModel: ScheduleViewModel by viewModel()
 
+    var scheduleIdx = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewDataBinding.vm = viewModel
 
-        viewModel.getPathData(1)
+        scheduleIdx = intent.getIntExtra("scheduleIdx", 1)
 
+        viewModel.getPathData(scheduleIdx)
+
+        setLoading()
         setRv()
         setRoute()
         setButton()
+
     }
 
     fun setRoute(){
@@ -129,6 +136,14 @@ class ScheduleDetailActivity : BaseActivity<ActivityScheduleDetailBinding,Schedu
         viewDataBinding.actScheduleDetailIvBack.setOnClickListener {
             finish()
         }
+    }
+
+    private fun setLoading(){
+        viewModel.lottieVisible.observe(this, Observer {
+            if(it) Loading.goLoading(this@ScheduleDetailActivity)
+            else  Loading.exitLoading()
+        })
+
     }
 }
 

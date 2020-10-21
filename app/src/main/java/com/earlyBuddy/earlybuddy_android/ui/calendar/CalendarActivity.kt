@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.earlyBuddy.earlybuddy_android.R
@@ -15,6 +17,8 @@ import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Schedule
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityCalendarBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemCalendarScheduleBinding
+import com.earlyBuddy.earlybuddy_android.ui.Loading
+import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleDetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CalendarActivity : BaseActivity<ActivityCalendarBinding, CalendarViewModel>(){
@@ -79,12 +83,20 @@ class CalendarActivity : BaseActivity<ActivityCalendarBinding, CalendarViewModel
                 override val bindingVariableId: Int
                     get() = BR.schedule
                 override val listener: OnItemClickListener?
-                    get() = null
+                    get() = scheduleClickListener
             }
 
             layoutManager = LinearLayoutManager(this@CalendarActivity)
         }
 
+    }
+
+    private val scheduleClickListener = object : BaseRecyclerViewAdapter.OnItemClickListener{
+        override fun onItemClicked(item: Any?, position: Int?) {
+            val intent = Intent(this@CalendarActivity, ScheduleDetailActivity::class.java)
+            intent.putExtra("scheduleIdx", (item as Schedule).scheduleIdx)
+            startActivity(intent)
+        }
     }
 
     fun showSchedule(schedules : ArrayList<Schedule>){

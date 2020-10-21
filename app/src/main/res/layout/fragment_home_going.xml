@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.earlyBuddy.earlybuddy_android.ui.home.going.GoingViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/frag_home_going_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="23dp"
+                android:letterSpacing="-0.05"
+                android:lineSpacingExtra="10dp"
+                android:text="잘 가고 있나요?\n즐거운 시간 보내요~"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/frag_home_going_tv_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16.5dp"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:letterSpacing="-0.05"
+                android:lineSpacingExtra="11dp"
+                android:text="약속시간까지"
+                android:textColor="@color/black"
+                android:textSize="23dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/frag_home_going_text" />
+
+            <TextView
+                android:id="@+id/frag_home_going_tv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/noto_sans_kr_medium"
+                android:letterSpacing="-0.05"
+                android:lineSpacingExtra="38dp"
+                android:textColor="@color/black"
+                android:text="@{vm.remainTime}"
+                android:textSize="40sp"
+                app:layout_constraintBottom_toBottomOf="@id/frag_home_going_tv_next"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>

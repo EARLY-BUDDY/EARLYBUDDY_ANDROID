@@ -3,7 +3,6 @@
     package="com.earlyBuddy.earlybuddy_android">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -18,7 +17,11 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.myPage.password.PasswordChangeActivity"></activity>
+        <activity android:name=".ui.myPage.quit.QuitActivity"></activity>
+        <activity android:name=".ui.initial.finish.FinishActivity" />
+        <activity android:name=".ui.myPage.license.LicenseActivity" />
+        <activity android:name=".ui.myPage.password.PasswordChangeActivity" />
+        <activity android:name=".ui.home.noSchedule.NoScheduleActivity" />
         <activity android:name=".ui.myPage.accountManagement.AccountManagementActivity" />
         <activity android:name=".ui.myPage.main.MyPageActivity" />
         <activity android:name=".ui.initial.place.InitialPlaceActivity" />
