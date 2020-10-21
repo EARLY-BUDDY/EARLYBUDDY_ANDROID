@@ -12,6 +12,7 @@ import com.earlyBuddy.earlybuddy_android.ui.initial.place.InitialPlaceActivity
 import com.earlyBuddy.earlybuddy_android.ui.myPage.main.MyPageActivity
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathActivity
 import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleActivity
+import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleDetailActivity
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpActivity
@@ -69,6 +70,11 @@ class MainActivity : AppCompatActivity(){
 
         act_main_btn_my_page.setOnClickListener {
             val intent = Intent(this, MyPageActivity::class.java)
+            startActivity(intent)
+        }
+
+        act_main_btn_schedule_detail.setOnClickListener {
+            val intent = Intent(this, ScheduleDetailActivity::class.java)
             startActivity(intent)
         }
     }

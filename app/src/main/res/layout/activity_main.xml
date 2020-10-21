@@ -12,6 +12,12 @@
         android:text="캘린더" />
 
     <Button
+        android:id="@+id/act_main_btn_schedule_detail"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="일정 상세보기" />
+
+    <Button
         android:id="@+id/act_main_btn_home"
         android:layout_width="100dp"
         android:layout_height="50dp"
@@ -64,5 +70,7 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:text="마이페이지" />
+
+
 
 </LinearLayout>
