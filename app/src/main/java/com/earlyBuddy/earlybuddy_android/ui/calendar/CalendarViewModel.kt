@@ -17,41 +17,30 @@ class CalendarViewModel(
     private val calendarRepository : CalendarRepository
     ) : BaseViewModel(){
 
-    val dummySchedule = arrayListOf(
-        Schedule(0, "제주도 가기", "2020.08.20 15:00", "김포공항"),
-        Schedule(1, "제주도 취소", "2020.08.20 15:00", "인 마이 하우스"),
-        Schedule(2, "집으로 가기", "2020.08.23 15:00", "제주공항"),
-        Schedule(3, "얼리버디 여행", "2020.09.23 15:00", "가평 빠지"),
-        Schedule(4, "캘린더 완성", "2020.08.09 11:00", "충무로 투썸")
-    )
-
     val scheduleByMonth = ArrayList<Schedule>()
+
 
     private var _schedule = MutableLiveData<ArrayList<Schedule>>()
     val schedule : LiveData<ArrayList<Schedule>> get() = _schedule
 
-
     fun getSchedule(year: String, month: String){
-
-        Log.e("month", month)
 
         addDisposable(calendarRepository.getCalendarSchedules(year, month)
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
+//                lottieVisible.value = true
+            }
+            .doOnTerminate {
+//                lottieVisible.value = false
+            }
             .doOnError {
                 Log.e("get Schedule error", it.message)
+//                lottieVisible.value = false
             }
             .subscribe({
                 it.run{
                     if(this.status == 200){
                         _schedule.value = this.data.schedules
-//                        Log.e("schedules", this.data.schedules.toString())
-//                        this.data.schedules.let{
-//                            for(i in it.indices){
-//                                scheduleByMonth.add(it[i])
-//                            }
-////                        }
-//
-//                        Log.e("scheduleByMonth", scheduleByMonth.toString())
                     }
                 }
 

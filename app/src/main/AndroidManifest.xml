@@ -45,6 +45,7 @@
         <activity android:name=".ui.home.HomeActivity" />
         <activity android:name=".ui.placeSearch.StartPlaceSearchActivity" />
         <activity android:name=".ui.calendar.CalendarActivity" />
+        <activity android:name=".ui.schedule.ScheduleDetailActivity"/>
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

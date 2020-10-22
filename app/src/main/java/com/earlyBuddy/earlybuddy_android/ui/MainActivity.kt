@@ -13,13 +13,14 @@ import com.earlyBuddy.earlybuddy_android.ui.initial.place.InitialPlaceActivity
 import com.earlyBuddy.earlybuddy_android.ui.myPage.main.MyPageActivity
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathActivity
 import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleActivity
+import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleDetailActivity
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpActivity
 import com.google.android.gms.tasks.Task
-import com.google.firebase.FirebaseApp
-import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.iid.InstanceIdResult
+//import com.google.firebase.FirebaseApp
+//import com.google.firebase.iid.FirebaseInstanceId
+//import com.google.firebase.iid.InstanceIdResult
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -77,6 +78,11 @@ class MainActivity : AppCompatActivity(){
             val intent = Intent(this, MyPageActivity::class.java)
             startActivity(intent)
         }
+
+        act_main_btn_schedule_detail.setOnClickListener {
+            val intent = Intent(this, ScheduleDetailActivity::class.java)
+            startActivity(intent)
+        }
         act_main_btn_home_one.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             intent.putExtra("asd", 1)
@@ -92,19 +98,19 @@ class MainActivity : AppCompatActivity(){
             intent.putExtra("asd", 3)
             startActivity(intent)
         }
-        FirebaseApp.initializeApp(this)
-
-
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener { task: Task<InstanceIdResult> ->
-                if (!task.isSuccessful) {
-                    Log.w("FirebaseSettingEx", "getInstanceId failed", task.exception)
-                    return@addOnCompleteListener
-                }
-
-                // 토큰을 읽고, 텍스트 뷰에 보여주기
-                val token = task.result!!.token
-                Log.e("Tttt", token)
-            }
+//        FirebaseApp.initializeApp(this)
+//
+//
+//        FirebaseInstanceId.getInstance().instanceId
+//            .addOnCompleteListener { task: Task<InstanceIdResult> ->
+//                if (!task.isSuccessful) {
+//                    Log.w("FirebaseSettingEx", "getInstanceId failed", task.exception)
+//                    return@addOnCompleteListener
+//                }
+//
+//                // 토큰을 읽고, 텍스트 뷰에 보여주기
+//                val token = task.result!!.token
+//                Log.e("Tttt", token)
+//            }
     }
 }
