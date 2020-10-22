@@ -57,7 +57,7 @@
                     android:id="@+id/act_schedule_detail_iv_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/btn_delete"
+                    android:src="@drawable/btn_trash"
                     android:layout_marginRight="16dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"

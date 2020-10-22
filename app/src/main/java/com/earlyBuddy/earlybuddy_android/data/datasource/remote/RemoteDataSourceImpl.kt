@@ -42,6 +42,12 @@ class RemoteDataSourceImpl : RemoteDataSource {
                 it
             }
 
+    override fun postSchedule(jsonObject: JsonObject): Observable<DefaultResponse> =
+        api.postSchedule(jsonObject)
+            .map {
+                it
+            }
+
     override fun homeSchedule(): Observable<HomeResponse> = api.getHomeSchedule()
 
     override fun getCalendarSchedules(year: String, month: String): Observable<CalendarResponse>

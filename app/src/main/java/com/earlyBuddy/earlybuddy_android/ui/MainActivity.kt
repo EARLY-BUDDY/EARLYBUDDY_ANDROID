@@ -2,7 +2,6 @@ package com.earlyBuddy.earlybuddy_android.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.TransportMap
@@ -14,10 +13,9 @@ import com.earlyBuddy.earlybuddy_android.ui.myPage.main.MyPageActivity
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathActivity
 import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleActivity
 import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleDetailActivity
-import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
+import com.earlyBuddy.earlybuddy_android.ui.searchRoute.VerticalPathActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpActivity
-import com.google.android.gms.tasks.Task
 //import com.google.firebase.FirebaseApp
 //import com.google.firebase.iid.FirebaseInstanceId
 //import com.google.firebase.iid.InstanceIdResult
@@ -62,7 +60,7 @@ class MainActivity : AppCompatActivity(){
             startActivity(intent)
         }
         act_main_btn_test.setOnClickListener {
-            val intent = Intent(this, TestPathActivity::class.java)
+            val intent = Intent(this, VerticalPathActivity::class.java)
             startActivity(intent)
         }
         act_main_btn_initial.setOnClickListener {

@@ -43,6 +43,8 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
     var sortPathType: Int = 0
     var sFlag: Int = 0
     var eFlag: Int = 0
+    var scheDate : String? = ""
+    var scheTime : String? = ""
 
     override val layoutResID: Int
         get() = R.layout.activity_path
@@ -52,6 +54,10 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
         super.onCreate(savedInstanceState)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        scheDate = intent.getStringExtra("scheDate")
+        scheTime = intent.getStringExtra("scheTime")
+        Log.e("PathAct", scheTime + " " + scheDate)
 
         getLastLocation()
         setClick()
@@ -85,6 +91,8 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
                     bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
                     bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
+                    bundle.putString("scheDate", scheDate)
+                    bundle.putString("scheTime", scheTime)
                     pathResultFrag.arguments = bundle
                 }
 
@@ -204,6 +212,8 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                     ).commit()
                 bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
                 bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
+                bundle.putString("scheDate", scheDate)
+                bundle.putString("scheTime", scheTime)
                 pathResultFrag.arguments = bundle
             }
 

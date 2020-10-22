@@ -13,7 +13,7 @@ import com.earlyBuddy.earlybuddy_android.base.BaseFragment
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Path
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentPathResultBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
-import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
+import com.earlyBuddy.earlybuddy_android.ui.searchRoute.VerticalPathActivity
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
@@ -31,6 +31,10 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        Log.e("scheDate", arguments!!.getString("scheDate") + " " + arguments!!.getString("scheTime"))
+        viewDataBinding.fragPathReultTvDate.text = arguments!!.getString("scheDate")
+        viewDataBinding.fragPathResultTvTime.text = arguments!!.getString("scheTime")
+
         setRv()
         setClick()
     }
@@ -39,10 +43,11 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
         val pathItemAdapter = PathItemAdapter(
             object : PathItemViewHolder.OnClickPathItemListener {
                 override fun onClickPathItem(position: Int, pathIdx: Int) {
-                    val intent = Intent(requireContext(), TestPathActivity::class.java)
+                    val intent = Intent(requireContext(), VerticalPathActivity::class.java)
                     intent.putExtra("path", viewModel.routeList.value!![position])
                     intent.putExtra("startAdd", arguments!!.getString("startAdd"))
                     intent.putExtra("endAdd", arguments!!.getString("endAdd"))
+                    intent.putExtra("scheTime", arguments!!.getString("scheTime"))
                     startActivityForResult(intent, OPEN_VERTIVAL_PATH)
                 }
             }
@@ -86,7 +91,7 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val bundle = data!!.extras
+        val bundle = data?.extras
 
         if(resultCode == PREFER_LIST_DIALOG) {
             if (resultCode == Activity.RESULT_OK) {
@@ -136,7 +141,7 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
             }
         } else if (requestCode == OPEN_VERTIVAL_PATH) {
             if (resultCode == Activity.RESULT_OK) {
-                val pathData = data.getSerializableExtra("path") as Path
+                val pathData = data!!.getSerializableExtra("path") as Path
                 val startAdd = data.getStringExtra("startAdd")
                 val endAdd = data.getStringExtra("endAdd")
                 val intent = Intent()
