@@ -125,6 +125,7 @@
                             android:fontFamily="@font/noto_sans_kr_regular"
                             android:hint="일정 제목 입력"
                             android:maxLines="1"
+                            android:inputType="text"
                             android:textColorHint="@color/light_gray"
                             android:textSize="16dp"
                             app:layout_constraintStart_toStartOf="@+id/act_schedule_tv_name"

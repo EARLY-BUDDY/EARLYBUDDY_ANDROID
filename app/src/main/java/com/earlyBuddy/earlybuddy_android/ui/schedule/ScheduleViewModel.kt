@@ -50,7 +50,7 @@ class ScheduleViewModel(
                 postSchedule.value = it
                 Log.e("getPathData status", it.status.toString())
             }) {
-                Log.e("통신 실패 error : ", it.message!!)
+                Log.e("통신 실패 error : ", it.toString())
             })
     }
 }

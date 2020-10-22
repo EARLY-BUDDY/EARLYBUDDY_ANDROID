@@ -7,6 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object NetworkServiceImpl {
     private const val BASE_URL = "http://13.209.182.154:3456/"
@@ -17,7 +18,11 @@ object NetworkServiceImpl {
     private val okHttpClient: OkHttpClient =
         OkHttpClient.Builder().addInterceptor(CookiesInterceptor())
             .addInterceptor(loggingInterceptor)
-            .addNetworkInterceptor(CookiesInterceptor()).build()
+            .addNetworkInterceptor(CookiesInterceptor())
+            .connectTimeout(1, TimeUnit.MINUTES)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .build()
 
     private val retrofit: Retrofit =
         Retrofit.Builder().baseUrl(BASE_URL).client(

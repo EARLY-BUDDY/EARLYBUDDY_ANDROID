@@ -22,6 +22,7 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.model.Path
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityScheduleBinding
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathActivity
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathMethodAdapter
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_schedule.*
@@ -261,6 +262,9 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         val jsonObject = JSONObject()
         var weekArray = JSONArray()
 
+        val jsonString = Gson().toJson(pathData)
+        val pathJson = JsonParser.parseString(jsonString) as JsonObject
+
         jsonObject.put("scheduleName", viewDataBinding.actScheduleEtName.text)
         jsonObject.put("scheduleStartTime", scheTime)
         jsonObject.put("scheduleStartDay", date)
@@ -272,7 +276,6 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         jsonObject.put("endLatitude", 0)
         jsonObject.put("noticeMin", noticeMin)
         jsonObject.put("noticeCount", noticeCount)
-        jsonObject.put("path", pathData)
 
         if (viewDataBinding.actScheduleIvMon.isSelected) weekdays.add(0)
         if (viewDataBinding.actScheduleIvTue.isSelected) weekdays.add(1)
@@ -281,12 +284,12 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         if (viewDataBinding.actScheduleIvFri.isSelected) weekdays.add(4)
         if (viewDataBinding.actScheduleIvSat.isSelected) weekdays.add(5)
         if (viewDataBinding.actScheduleIvSun.isSelected) weekdays.add(6)
-
         for(i in 0 until weekdays.size) weekArray.put(weekdays[i])
         jsonObject.put("weekdays", weekArray)
 
-        Log.e("body", jsonObject.toString())
         val body = JsonParser.parseString(jsonObject.toString()) as JsonObject
+        body.add("path", pathJson)
+        Log.e("body", body.toString())
         viewModel.postScheData(body)
     }
 }
