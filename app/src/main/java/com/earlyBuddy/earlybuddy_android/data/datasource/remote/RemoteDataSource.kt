@@ -19,6 +19,7 @@ interface RemoteDataSource {
     fun scheduleDetail(
         scheduleIdx: Int
     ): Observable<ScheduleDetailResponse>
+    fun postSchedule(jsonObject: JsonObject): Observable<DefaultResponse>
 
     fun homeSchedule(): Observable<HomeResponse>
     fun homeTestSchedule(scheduleCheck: Int): Observable<HomeResponse>

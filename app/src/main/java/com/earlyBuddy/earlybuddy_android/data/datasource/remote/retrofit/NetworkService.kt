@@ -44,6 +44,11 @@ interface NetworkService {
         @Query("scheduleIdx") scheduleIdx: Int
     ): Observable<ScheduleDetailResponse>
 
+    @POST("/schedules")
+    fun postSchedule(
+        @Body body: JsonObject
+    ): Observable<DefaultResponse>
+
     @GET("/home")
     fun getHomeSchedule(
     ): Observable<HomeResponse>

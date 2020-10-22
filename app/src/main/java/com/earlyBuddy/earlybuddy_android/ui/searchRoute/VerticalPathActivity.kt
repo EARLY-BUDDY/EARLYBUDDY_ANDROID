@@ -7,40 +7,37 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Path
 import com.earlyBuddy.earlybuddy_android.data.datasource.remote.RemoteDataSourceImpl
 import com.earlyBuddy.earlybuddy_android.data.repository.SearchRouteRepository
-import com.earlyBuddy.earlybuddy_android.ui.Loading
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.activity_home_path.*
+import kotlinx.android.synthetic.main.activity_vertical_path.*
 
-class TestPathActivity : AppCompatActivity() {
-    private val compositeDisposable = CompositeDisposable()
-    private val searchRouteRepository: SearchRouteRepository =
-        SearchRouteRepository(remoteDataSource = RemoteDataSourceImpl())
+class VerticalPathActivity : AppCompatActivity() {
     private lateinit var routeRecyclerView: RecyclerView
     private lateinit var routeAdapter: PathAdapter
 
     private lateinit var pathData : Path
     private var startAdd = ""
     private var endAdd = ""
-
+    private var scheTime = ""
 
     @SuppressLint("CheckResult")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test_path)
+        setContentView(R.layout.activity_vertical_path)
 
         pathData = intent.getSerializableExtra("path") as Path
-        startAdd = intent.getStringExtra("startAdd")
-        endAdd = intent.getStringExtra("endAdd")
-        Log.e("pathData", pathData.toString())
+        startAdd = intent.getStringExtra("startAdd")!!
+        endAdd = intent.getStringExtra("endAdd")!!
+        scheTime = intent.getStringExtra("scheTime")!!
+//        Log.e("pathData", pathData.toString())
 
-        routeRecyclerView = findViewById(R.id.path_rv)
+        routeRecyclerView = findViewById(R.id.act_vertical_path_rv_path)
         routeAdapter =
             PathAdapter(startAdd!!, endAdd!!, object : RouteViewHolder.DropDownUpClickListener {
                 override fun dropDownUpClick(
@@ -68,10 +65,11 @@ class TestPathActivity : AppCompatActivity() {
         routeRecyclerView.adapter = routeAdapter
 
         setClick()
+        setText()
     }
 
-    fun setClick(){
-        act_home_path_tv_btn.setOnClickListener {
+    private fun setClick(){
+        act_vertical_path_tv_btn.setOnClickListener {
             val intent = Intent()
             intent.putExtra("path", pathData)
             intent.putExtra("startAdd", startAdd)
@@ -79,5 +77,26 @@ class TestPathActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
+    }
+
+    private fun setText(){
+        var totalTime = ""
+        totalTime =
+            if (pathData.totalTime < 60) {
+                "${pathData.totalTime}분"
+            } else {
+                "${pathData.totalTime / 60}시간 ${pathData.totalTime % 60}분"
+            }
+        act_vertical_path_tv_hours.text = totalTime
+
+        var pathType = ""
+        when (pathData.pathType) {
+            1 -> pathType = "지하철"
+            2 -> pathType = "버스"
+            3 -> pathType = "지하철 + 버스"
+        }
+        act_vertical_path_tv_trafficType.text = pathType
+        act_vertical_path_tv_end_address.text = endAdd
+        act_vertical_path_tv_arrive_time.text = "${scheTime} 까지"
     }
 }

@@ -36,7 +36,7 @@
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="gftow610wm" />
 
-        <activity android:name=".ui.searchRoute.TestPathActivity" />
+        <activity android:name=".ui.searchRoute.VerticalPathActivity" />
         <activity android:name=".ui.pathSearch.PathActivity" />
         <activity android:name=".ui.placeSearch.EndPlaceSearchActivity" />
         <activity android:name=".ui.signUp.SignInActivity" />

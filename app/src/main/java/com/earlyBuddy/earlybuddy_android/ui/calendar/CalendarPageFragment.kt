@@ -41,7 +41,7 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
         viewDataBinding.vm = viewModel
         position = arguments!!.getInt("position", 0)
 
-        setLoading()
+//        setLoading()
         setRv()
         setCalendar()
     }
@@ -237,13 +237,13 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
         }
     }
 
-    private fun setLoading(){
-        viewModel.lottieVisible.observe(activity!!, androidx.lifecycle.Observer {
-            if(it) Loading.goLoading(activity!!)
-            else  Loading.exitLoading()
-        })
-
-    }
+//    private fun setLoading(){
+//        viewModel.lottieVisible.observe(activity!!, androidx.lifecycle.Observer {
+//            if(it) Loading.goLoading(activity!!)
+//            else  Loading.exitLoading()
+//        })
+//
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

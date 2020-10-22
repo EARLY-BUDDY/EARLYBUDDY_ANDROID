@@ -10,11 +10,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.home.pathCheck.HomePathActivity">
+        tools:context=".ui.searchRoute.VerticalPathActivity">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/act_home_path_cl_title"
+            android:id="@+id/act_vertical_path_cl_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/main_color"
@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/act_home_path_iv_back"
+                android:id="@+id/act_vertical_path_iv_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="1dp"
@@ -35,14 +35,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/act_home_path_tv_title"
+                android:id="@+id/act_vertical_path_tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:gravity="center_horizontal"
                 android:letterSpacing="-0.02"
                 android:lineSpacingExtra="-6dp"
-                android:text="스케쥴 이름"
+                android:text="경로 상세보기"
                 android:textColor="#ffffff"
                 android:textSize="17dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -53,16 +53,16 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/act_home_path_cl_schedule_info"
+            android:id="@+id/act_vertical_path_cl_schedule_info"
             android:layout_width="match_parent"
             android:layout_height="58dp"
             android:background="@drawable/bg_30_3092ff_left_under"
-            app:layout_constraintEnd_toEndOf="@id/act_home_path_cl_title"
-            app:layout_constraintStart_toStartOf="@id/act_home_path_cl_title"
-            app:layout_constraintTop_toBottomOf="@id/act_home_path_cl_title">
+            app:layout_constraintEnd_toEndOf="@id/act_vertical_path_cl_title"
+            app:layout_constraintStart_toStartOf="@id/act_vertical_path_cl_title"
+            app:layout_constraintTop_toBottomOf="@id/act_vertical_path_cl_title">
 
             <ImageView
-                android:id="@+id/act_home_path_iv_time"
+                android:id="@+id/act_vertical_path_iv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -72,47 +72,47 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/act_home_path_tv_start_time"
+                android:id="@+id/act_vertical_path_tv_arrive_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="6sp"
+                android:text="오후 12:20"
                 android:textColor="#ffffff"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/act_home_path_iv_time"
-                app:layout_constraintStart_toEndOf="@id/act_home_path_iv_time"
-                app:layout_constraintTop_toTopOf="@id/act_home_path_iv_time"
-                android:text="오후 12:20" />
+                app:layout_constraintBottom_toBottomOf="@id/act_vertical_path_iv_time"
+                app:layout_constraintStart_toEndOf="@id/act_vertical_path_iv_time"
+                app:layout_constraintTop_toTopOf="@id/act_vertical_path_iv_time" />
 
             <ImageView
-                android:id="@+id/act_home_path_iv_location"
+                android:id="@+id/act_vertical_path_iv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:src="@drawable/ic_location_white"
-                app:layout_constraintEnd_toEndOf="@id/act_home_path_iv_time"
-                app:layout_constraintStart_toStartOf="@id/act_home_path_iv_time"
-                app:layout_constraintTop_toBottomOf="@id/act_home_path_iv_time" />
+                app:layout_constraintEnd_toEndOf="@id/act_vertical_path_iv_time"
+                app:layout_constraintStart_toStartOf="@id/act_vertical_path_iv_time"
+                app:layout_constraintTop_toBottomOf="@id/act_vertical_path_iv_time" />
 
             <TextView
-                android:id="@+id/act_home_path_tv_end_address"
+                android:id="@+id/act_vertical_path_tv_end_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="6sp"
+                android:text="오렌지팜 서초센터"
                 android:textColor="#ffffff"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/act_home_path_iv_location"
-                app:layout_constraintStart_toEndOf="@id/act_home_path_iv_location"
-                app:layout_constraintTop_toTopOf="@id/act_home_path_iv_location"
-                android:text="오렌지팜 서초센터" />
+                app:layout_constraintBottom_toBottomOf="@id/act_vertical_path_iv_location"
+                app:layout_constraintStart_toEndOf="@id/act_vertical_path_iv_location"
+                app:layout_constraintTop_toTopOf="@id/act_vertical_path_iv_location" />
 
             <TextView
-                android:id="@+id/act_home_path_tv_trafficType"
+                android:id="@+id/act_vertical_path_tv_trafficType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -120,54 +120,69 @@
                 android:gravity="end"
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="13sp"
+                android:text="버스 + 지하철"
                 android:textColor="#ffffff"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@id/act_home_path_iv_time"
+                app:layout_constraintBottom_toBottomOf="@id/act_vertical_path_iv_time"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/act_home_path_iv_time"
-                android:text="버스 + 지하철" />
+                app:layout_constraintTop_toTopOf="@id/act_vertical_path_iv_time" />
 
             <TextView
-                android:id="@+id/act_home_path_tv_hours"
+                android:id="@+id/act_vertical_path_tv_hours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:gravity="end"
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="5sp"
+                android:text="1시간 30분"
                 android:textColor="#ffffff"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="@id/act_home_path_iv_location"
-                app:layout_constraintEnd_toEndOf="@id/act_home_path_tv_trafficType"
-                app:layout_constraintTop_toTopOf="@id/act_home_path_iv_location"
-                android:text="1시간 30분" />
+                app:layout_constraintBottom_toBottomOf="@id/act_vertical_path_iv_location"
+                app:layout_constraintEnd_toEndOf="@id/act_vertical_path_tv_trafficType"
+                app:layout_constraintTop_toTopOf="@id/act_vertical_path_iv_location" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/act_home_path_rv_path"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/act_home_path_cl_schedule_info" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/act_vertical_path_cl_schedule_info">
 
-        <TextView
-            android:id="@+id/act_home_path_tv_btn"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:text="장소 / 경로 등록"
-            android:gravity="center"
-            android:textSize="15dp"
-            android:fontFamily="@font/noto_sans_kr_medium"
-            android:textColor="@color/white"
-            android:background="@drawable/bg_25_3092ff"
-            app:layout_constraintTop_toBottomOf="@id/act_home_path_rv_path"
-            android:layout_marginHorizontal="32dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/act_vertical_path_rv_path"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/act_vertical_path_tv_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginHorizontal="32dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/bg_25_3092ff"
+                    android:fontFamily="@font/noto_sans_kr_medium"
+                    android:gravity="center"
+                    android:text="장소 / 경로 등록"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/act_vertical_path_rv_path" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

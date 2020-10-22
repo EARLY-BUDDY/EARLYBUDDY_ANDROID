@@ -124,6 +124,8 @@
                             android:background="@null"
                             android:fontFamily="@font/noto_sans_kr_regular"
                             android:hint="일정 제목 입력"
+                            android:maxLines="1"
+                            android:inputType="text"
                             android:textColorHint="@color/light_gray"
                             android:textSize="16dp"
                             app:layout_constraintStart_toStartOf="@+id/act_schedule_tv_name"
@@ -318,9 +320,58 @@
                             tools:layout_editor_absoluteY="0dp" />
 
                         <TextView
+                            android:id="@+id/act_schedule_tv_start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/noto_sans_kr_regular"
+                            android:textSize="12dp"
+                            android:textColor="@color/light_gray"
+                            android:layout_marginTop="5dp"
+                            android:text="출발예정 :"
+                            app:layout_constraintTop_toBottomOf="@id/act_schedule_route_cl_route"
+                            app:layout_constraintStart_toStartOf="@id/act_schedule_route_cl_route"/>
+
+                        <TextView
+                            android:id="@+id/act_schedule_tv_start_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/noto_sans_kr_medium"
+                            android:textSize="12dp"
+                            android:textColor="@color/gray"
+                            android:layout_marginStart="3dp"
+                            app:layout_constraintStart_toEndOf="@id/act_schedule_tv_start"
+                            app:layout_constraintTop_toTopOf="@id/act_schedule_tv_start"
+                            android:text="약 10시 50분"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/noto_sans_kr_regular"
+                            android:textStyle="normal"
+                            android:textSize="12dp"
+                            android:textColor="@color/light_gray"
+                            android:text="2224 배차간격"
+                            android:layout_marginEnd="3dp"
+                            app:layout_constraintEnd_toStartOf="@id/act_schedule_tv_alloc"
+                            app:layout_constraintTop_toTopOf="@id/act_schedule_tv_alloc"/>
+
+                        <TextView
+                            android:id="@+id/act_schedule_tv_alloc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/noto_sans_kr_medium"
+                            android:textStyle="normal"
+                            android:textSize="12dp"
+                            android:textColor="@color/gray"
+                            android:gravity="end"
+                            android:text="약 15분"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/act_schedule_tv_start"/>
+
+                        <TextView
                             android:id="@+id/act_schedult_tv_route_selected"
                             android:layout_width="match_parent"
-                            android:layout_height="70dp"
+                            android:layout_height="83dp"
                             android:layout_marginTop="7dp"
                             android:background="@drawable/bg_5_f2f2f2"
                             android:fontFamily="@font/noto_sans_kr_regular"
@@ -354,7 +405,7 @@
                             app:layout_constraintTop_toTopOf="@id/act_schedule_cl_noti" />
 
                         <Spinner
-                            android:id="@+id/act_schedule_dp_noti"
+                            android:id="@+id/act_schedule_sp_noti"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
@@ -368,8 +419,8 @@
                             android:layout_height="0.2dp"
                             android:layout_marginTop="5dp"
                             android:background="@color/gray"
-                            app:layout_constraintStart_toStartOf="@id/act_schedule_dp_noti"
-                            app:layout_constraintTop_toBottomOf="@+id/act_schedule_dp_noti" />
+                            app:layout_constraintStart_toStartOf="@id/act_schedule_sp_noti"
+                            app:layout_constraintTop_toBottomOf="@+id/act_schedule_sp_noti" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -394,7 +445,7 @@
                             app:layout_constraintTop_toTopOf="@id/act_schedule_cl_noti_range" />
 
                         <Spinner
-                            android:id="@+id/act_schedule_dp_noti_range"
+                            android:id="@+id/act_schedule_sp_noti_range"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
@@ -408,8 +459,8 @@
                             android:layout_height="0.2dp"
                             android:layout_marginTop="5dp"
                             android:background="@color/gray"
-                            app:layout_constraintStart_toStartOf="@id/act_schedule_dp_noti_range"
-                            app:layout_constraintTop_toBottomOf="@+id/act_schedule_dp_noti_range" />
+                            app:layout_constraintStart_toStartOf="@id/act_schedule_sp_noti_range"
+                            app:layout_constraintTop_toBottomOf="@+id/act_schedule_sp_noti_range" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

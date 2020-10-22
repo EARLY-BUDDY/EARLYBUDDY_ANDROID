@@ -26,8 +26,6 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
 
     override val layoutResID: Int
         get() = R.layout.activity_sign_up
-
-//    override val viewModel: SignUpViewModel = SignUpViewModel(application = EarlyBuddyApplication.globalApplication)
     override val viewModel: SignUpViewModel by viewModel()
 
     val pwPattern: Pattern? = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}", Pattern.CASE_INSENSITIVE)
@@ -36,14 +34,11 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
     lateinit var id: String
     lateinit var pw: String
     lateinit var pwCheck: String
-//    lateinit var signUpDialog : SignUpDialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         viewDataBinding.vm = viewModel
-//        signUpDialog = SignUpDialogFragment()
-//        signUpDialog.setOnDialogDismissedListener(signUpDialogFragmentDismissListener)
 
         pwCheck()
         pwSameCheck()
