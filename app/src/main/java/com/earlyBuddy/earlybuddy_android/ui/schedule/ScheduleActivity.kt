@@ -80,6 +80,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
                 val intent = Intent(this, PathActivity::class.java)
                 intent.putExtra("scheDate", scheDate)
                 intent.putExtra("scheTime", scheTime)
+                intent.putExtra("scheStart", "$date $time")
                 startActivityForResult(intent, REQUEST_CODE_PATH)
             }
         }
@@ -90,7 +91,8 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
                 postSche()
                 viewModel.postSchedule.observe(this, androidx.lifecycle.Observer {
                     if(it.status==200){
-                        val registFragment = ScheduleDialogFragment(1)
+                        val registFragment = ScheduleDialogFragment(it.data)
+                        registFragment.setOnDialogDismissedListener(onScheduleDialogFragmentDismissListener)
                         registFragment.show(supportFragmentManager, "dialog")
                     }else{
                         Toast.makeText(this, "일정 등록에 실패했습니다", Toast.LENGTH_SHORT).show()
@@ -291,5 +293,12 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         body.add("path", pathJson)
         Log.e("body", body.toString())
         viewModel.postScheData(body)
+    }
+
+    val onScheduleDialogFragmentDismissListener
+            = object : ScheduleDialogFragment.OnDialogDismissedListener{
+        override fun onDialogDismissed() {
+            finish()
+        }
     }
 }

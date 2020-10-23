@@ -36,7 +36,8 @@ interface NetworkService {
         @Query("SY") SY: Double,
         @Query("EX") EX: Double,
         @Query("EY") EY: Double,
-        @Query("SearchPathType") SearchPathType: Int
+        @Query("SearchPathType") SearchPathType: Int,
+        @Query("scheduleStartTime") scheduleStartTime: String
     ): Observable<SearchRouteResponse>
 
     @GET("/schedules")

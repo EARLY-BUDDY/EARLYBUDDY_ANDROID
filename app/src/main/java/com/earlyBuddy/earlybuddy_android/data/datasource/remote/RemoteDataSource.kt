@@ -13,7 +13,8 @@ interface RemoteDataSource {
         SY: Double,
         EX: Double,
         EY: Double,
-        SearchPathType: Int
+        SearchPathType: Int,
+        scheduleStartTime: String
     ): Observable<SearchRouteResponse>
 
     fun scheduleDetail(

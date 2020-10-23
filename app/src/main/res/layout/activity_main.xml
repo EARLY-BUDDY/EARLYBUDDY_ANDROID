@@ -1,91 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/act_main_btn_calendar"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:text="캘린더" />
+
+        <Button
+            android:id="@+id/act_main_btn_schedule_detail"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="일정 상세보기" />
+
+        <Button
+            android:id="@+id/act_main_btn_home"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="홈" />
+
+        <Button
+            android:id="@+id/act_main_btn_schedule_write"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="일정 등록" />
+
+        <Button
+            android:id="@+id/act_main_btn_placeSearch"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="장소 검색" />
+
+        <Button
+            android:id="@+id/act_main_btn_signIn"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="로그인" />
+
+        <Button
+            android:id="@+id/act_main_btn_signUp"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="회원가입" />
+
+        <Button
+            android:id="@+id/act_main_btn_test"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="경로테스트" />
+
+        <Button
+            android:id="@+id/act_main_btn_initial"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="최초가입" />
+
+        <Button
+            android:id="@+id/act_main_btn_initial_place"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="최초장소선택" />
+
+        <Button
+            android:id="@+id/act_main_btn_my_page"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="마이페이지" />
+
+        <Button
+            android:id="@+id/act_main_btn_home_one"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="홈 인접일정 없을때" />
+
+        <Button
+            android:id="@+id/act_main_btn_home_two"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="홈 배차알림 받아오지않는일정 " />
+
+        <Button
+            android:id="@+id/act_main_btn_home_three"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="배차알림 띄우는 경우" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
     <Button
-        android:layout_marginTop="20dp"
-        android:id="@+id/act_main_btn_calendar"
+        android:id="@+id/act_main_btn_splash"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:text="캘린더" />
+        android:text="스플래시" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/act_main_btn_schedule_detail"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="일정 상세보기" />
-
-    <Button
-        android:id="@+id/act_main_btn_home"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="홈" />
-
-    <Button
-        android:id="@+id/act_main_btn_schedule_write"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="일정 등록" />
-
-    <Button
-        android:id="@+id/act_main_btn_placeSearch"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="장소 검색" />
-
-    <Button
-        android:id="@+id/act_main_btn_signIn"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="로그인" />
-
-    <Button
-        android:id="@+id/act_main_btn_signUp"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="회원가입" />
-
-    <Button
-        android:id="@+id/act_main_btn_test"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="경로테스트" />
-
-    <Button
-        android:id="@+id/act_main_btn_initial"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="최초가입" />
-
-    <Button
-        android:id="@+id/act_main_btn_initial_place"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="최초장소선택" />
-
-    <Button
-        android:id="@+id/act_main_btn_my_page"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="마이페이지" />
-
-    <Button
-        android:id="@+id/act_main_btn_home_one"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="홈 인접일정 없을때" />
-
-    <Button
-        android:id="@+id/act_main_btn_home_two"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="홈 배차알림 받아오지않는일정 " />
-
-    <Button
-        android:id="@+id/act_main_btn_home_three"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="배차알림 띄우는 경우" />
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

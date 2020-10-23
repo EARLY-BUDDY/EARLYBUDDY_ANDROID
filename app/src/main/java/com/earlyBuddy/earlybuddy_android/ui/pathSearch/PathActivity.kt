@@ -45,6 +45,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
     var eFlag: Int = 0
     var scheDate : String? = ""
     var scheTime : String? = ""
+    var scheStart : String = ""
 
     override val layoutResID: Int
         get() = R.layout.activity_path
@@ -57,6 +58,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
         scheDate = intent.getStringExtra("scheDate")
         scheTime = intent.getStringExtra("scheTime")
+        scheStart = intent.getStringExtra("scheStart")
         Log.e("PathAct", scheTime + " " + scheDate)
 
         getLastLocation()
@@ -75,7 +77,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                     eFlag = 1
                     Log.e("onClick", "${sx} ${sy} ${ex} ${ey} ")
 
-                    viewModel.getRouteData(sx, sy, ex, ey, 0)
+                    viewModel.getRouteData(sx, sy, ex, ey, 0, scheStart)
 
                     viewDataBinding.actPathTvStart.text = viewModel.routes.value!![position].startPlaceName
                     viewDataBinding.actPathTvEnd.text = viewModel.routes.value!![position].endPlaceName
@@ -222,7 +224,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
     fun getRoute() {
         Log.e("무엇이 문제인가", "${sx} + ${sy} + ${ex} + ${ey} + ${searchPathType}")
-        viewModel.getRouteData(sx, sy, ex, ey, searchPathType)
+        viewModel.getRouteData(sx, sy, ex, ey, searchPathType, scheStart)
     }
 
     fun sortRoute() {

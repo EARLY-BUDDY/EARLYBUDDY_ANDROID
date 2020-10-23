@@ -27,8 +27,8 @@ class PathViewModel(private val repository : SearchRouteRepository) : BaseViewMo
     var _routeList = MutableLiveData<ArrayList<Path>>()
     val routeList : LiveData<ArrayList<Path>> get() = _routeList
 
-    fun getRouteData(SX : Double, SY : Double, EX : Double, EY : Double, SearchPathType : Int){
-        addDisposable(repository.getSearchRouteData(SX, SY, EX, EY, SearchPathType)
+    fun getRouteData(SX : Double, SY : Double, EX : Double, EY : Double, SearchPathType : Int, scheduleStartTime: String){
+        addDisposable(repository.getSearchRouteData(SX, SY, EX, EY, SearchPathType, scheduleStartTime)
             .observeOn(AndroidSchedulers.mainThread())
             // 구독할 때 수행할 작업을 구현
             .doOnSubscribe {

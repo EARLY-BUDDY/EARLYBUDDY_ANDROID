@@ -3,6 +3,7 @@ package com.earlyBuddy.earlybuddy_android.ui.placeSearch
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
 import com.earlyBuddy.earlybuddy_android.R

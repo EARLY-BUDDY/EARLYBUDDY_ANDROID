@@ -16,6 +16,7 @@ import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleDetailActivity
 import com.earlyBuddy.earlybuddy_android.ui.searchRoute.VerticalPathActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpActivity
+import com.earlyBuddy.earlybuddy_android.ui.splash.SplashActivity
 //import com.google.firebase.FirebaseApp
 //import com.google.firebase.iid.FirebaseInstanceId
 //import com.google.firebase.iid.InstanceIdResult
@@ -96,6 +97,12 @@ class MainActivity : AppCompatActivity(){
             intent.putExtra("asd", 3)
             startActivity(intent)
         }
+
+        act_main_btn_splash.setOnClickListener {
+            val intent = Intent(this, SplashActivity::class.java)
+            startActivity(intent)
+        }
+
 //        FirebaseApp.initializeApp(this)
 //
 //

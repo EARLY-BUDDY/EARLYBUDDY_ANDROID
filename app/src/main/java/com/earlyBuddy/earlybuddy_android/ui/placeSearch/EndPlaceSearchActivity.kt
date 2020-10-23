@@ -144,7 +144,7 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
                         R.id.act_end_place_search_container,
                         placeResultFragment
                     ).commit()
-                bundle.putInt("flag", 1)
+                bundle.putInt("flag", 2)
                 placeResultFragment.arguments = bundle
 
                 viewDataBinding.actEndPlaceSearchEtSearch.setText(viewModel.places.value!![position!!].placeName)
