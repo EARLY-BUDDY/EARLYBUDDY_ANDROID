@@ -19,13 +19,13 @@ import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPathBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.EndPlaceSearchActivity
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.StartPlaceSearchActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.android.synthetic.main.activity_path.*
 import org.koin.android.viewmodel.ext.android.viewModel
-
 
 class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
@@ -44,6 +44,9 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
     var sortPathType: Int = 0
     var sFlag: Int = 0
     var eFlag: Int = 0
+    var scheDate : String? = ""
+    var scheTime : String? = ""
+    var scheStart : String = ""
 
     override val layoutResID: Int
         get() = R.layout.activity_path
@@ -53,6 +56,11 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
         super.onCreate(savedInstanceState)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        scheDate = intent.getStringExtra("scheDate")
+        scheTime = intent.getStringExtra("scheTime")
+        scheStart = intent.getStringExtra("scheStart")
+        Log.e("PathAct", scheTime + " " + scheDate)
 
         getLastLocation()
         setClick()
@@ -70,7 +78,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                     eFlag = 1
                     Log.e("onClick", "${sx} ${sy} ${ex} ${ey} ")
 
-                    viewModel.getRouteData(sx, sy, ex, ey, 0)
+                    viewModel.getRouteData(sx, sy, ex, ey, 0, scheStart)
 
                     viewDataBinding.actPathTvStart.text = viewModel.routes.value!![position].startPlaceName
                     viewDataBinding.actPathTvEnd.text = viewModel.routes.value!![position].endPlaceName
@@ -86,6 +94,8 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
                     bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
                     bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
+                    bundle.putString("scheDate", scheDate)
+                    bundle.putString("scheTime", scheTime)
                     pathResultFrag.arguments = bundle
                 }
 
@@ -116,15 +126,15 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
     }
 
     private fun setClick() {
-        viewDataBinding.actPathTvStart.setOnClickListener {
+        viewDataBinding.actPathTvStart.onlyOneClickListener {
             val intent = Intent(this, StartPlaceSearchActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_START)
         }
-        viewDataBinding.actPathTvEnd.setOnClickListener {
+        viewDataBinding.actPathTvEnd.onlyOneClickListener {
             val intent = Intent(this, EndPlaceSearchActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_END)
         }
-        viewDataBinding.actPathIvCancel.setOnClickListener {
+        viewDataBinding.actPathIvCancel.onlyOneClickListener {
             act_path_tv_start.text = "출발지를 입력하세요"
             act_path_tv_end.text = "도착지를 입력하세요"
             act_path_tv_start.setTextColor(resources.getColor(R.color.mid_gray))
@@ -136,7 +146,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 supportFragmentManager.beginTransaction().remove(fragment!!).commit()
             }
         }
-        viewDataBinding.actPathIvChange.setOnClickListener {
+        viewDataBinding.actPathIvChange.onlyOneClickListener {
             if (sFlag == 1 && eFlag == 1) {
                 val temp = viewDataBinding.actPathTvStart.text
                 viewDataBinding.actPathTvStart.text = viewDataBinding.actPathTvEnd.text
@@ -150,7 +160,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 getRoute()
             }
         }
-        act_path_iv_back.setOnClickListener {
+        act_path_iv_back.onlyOneClickListener {
             finish()
         }
     }
@@ -205,6 +215,8 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                     ).commit()
                 bundle.putString("startAdd", viewDataBinding.actPathTvStart.text.toString())
                 bundle.putString("endAdd", viewDataBinding.actPathTvEnd.text.toString())
+                bundle.putString("scheDate", scheDate)
+                bundle.putString("scheTime", scheTime)
                 pathResultFrag.arguments = bundle
             }
 
@@ -213,7 +225,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
 
     fun getRoute() {
         Log.e("무엇이 문제인가", "${sx} + ${sy} + ${ex} + ${ey} + ${searchPathType}")
-        viewModel.getRouteData(sx, sy, ex, ey, searchPathType)
+        viewModel.getRouteData(sx, sy, ex, ey, searchPathType, scheStart)
     }
 
     fun sortRoute() {

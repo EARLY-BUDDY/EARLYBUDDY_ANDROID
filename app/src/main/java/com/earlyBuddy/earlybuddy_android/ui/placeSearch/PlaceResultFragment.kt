@@ -3,6 +3,7 @@ package com.earlyBuddy.earlybuddy_android.ui.placeSearch
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -97,6 +98,7 @@ class PlaceResultFragment : BaseFragment<FragmentPlaceResultBinding, PlaceSearch
                 intent.putExtra("x", data.getDoubleExtra("x", 0.0))
                 intent.putExtra("y", data.getDoubleExtra("y", 0.0))
                 intent.putExtra("flag", data.getIntExtra("flag", 0))
+                Log.e("flag1", data.getIntExtra("flag", 0).toString())
                 activity!!.setResult(Activity.RESULT_OK, intent)
                 activity!!.finish()
             }

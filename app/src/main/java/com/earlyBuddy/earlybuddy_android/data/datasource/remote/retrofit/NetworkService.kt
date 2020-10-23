@@ -36,13 +36,19 @@ interface NetworkService {
         @Query("SY") SY: Double,
         @Query("EX") EX: Double,
         @Query("EY") EY: Double,
-        @Query("SearchPathType") SearchPathType: Int
+        @Query("SearchPathType") SearchPathType: Int,
+        @Query("scheduleStartTime") scheduleStartTime: String
     ): Observable<SearchRouteResponse>
 
     @GET("/schedules")
     fun getScheduleDetail(
         @Query("scheduleIdx") scheduleIdx: Int
     ): Observable<ScheduleDetailResponse>
+
+    @POST("/schedules")
+    fun postSchedule(
+        @Body body: JsonObject
+    ): Observable<DefaultResponse>
 
     @GET("/home")
     fun getHomeSchedule(
@@ -68,4 +74,7 @@ interface NetworkService {
     fun registerUserNickName(
         @Body body: JsonObject
     ): Observable<NickNameResponse>
+
+    @GET("/users/getFavorite")
+    fun getFavoriteList(): Observable<FavoriteResponse>
 }

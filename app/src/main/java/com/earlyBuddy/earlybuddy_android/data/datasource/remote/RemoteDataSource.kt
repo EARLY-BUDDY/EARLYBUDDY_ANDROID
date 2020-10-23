@@ -13,19 +13,24 @@ interface RemoteDataSource {
         SY: Double,
         EX: Double,
         EY: Double,
-        SearchPathType: Int
+        SearchPathType: Int,
+        scheduleStartTime: String
     ): Observable<SearchRouteResponse>
 
     fun scheduleDetail(
         scheduleIdx: Int
     ): Observable<ScheduleDetailResponse>
+    fun postSchedule(jsonObject: JsonObject): Observable<DefaultResponse>
 
     fun homeSchedule(): Observable<HomeResponse>
-    fun homeTestSchedule(scheduleCheck:Int): Observable<HomeResponse>
+    fun homeTestSchedule(scheduleCheck: Int): Observable<HomeResponse>
+
 
     fun getCalendarSchedules(year: String, month: String): Observable<CalendarResponse>
 
     fun registerFavoritePlaces(jsonObject: JsonObject): Observable<FavoriteResponse>
 
-    fun registerUserNickName(jsonObject: JsonObject):Observable<NickNameResponse>
+    fun registerUserNickName(jsonObject: JsonObject): Observable<NickNameResponse>
+
+    fun getFavoriteList(): Observable<FavoriteResponse>
 }

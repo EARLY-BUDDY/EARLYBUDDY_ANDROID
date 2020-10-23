@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.myPage.quit.QuitActivity">
+
+        <include
+            android:id="@+id/act_quit_top_title"
+            layout="@layout/activity_top_title" />
+
+        <TextView
+            android:id="@+id/act_quit_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="-12sp"
+            android:text="정말 얼리버디를 떠날 거예요?"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/act_quit_top_title" />
+
+        <ImageView
+            android:id="@+id/act_quit_iv_leave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="54dp"
+            android:src="@drawable/img_leave"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/act_quit_tv_title" />
+
+        <TextView
+            android:id="@+id/act_quit_tv_bottom_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="9sp"
+            app:layout_constraintTop_toBottomOf="@id/act_quit_iv_leave"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="54dp"
+            android:text="이비와 함께 한 회원님의 활동 내역이 \n모두 삭제될 거에요. \n삭제된 정보는 다시 돌아오지 않아요! "
+            android:textColor="@color/gray"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/act_quit_tv_register"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/bg_25_3092ff"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:gravity="center"
+            android:lineSpacingExtra="-3sp"
+            android:text="그래도 떠날 거에요!"
+            android:textColor="#ffffff"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

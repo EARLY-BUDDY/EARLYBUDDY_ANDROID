@@ -24,7 +24,6 @@ class MyPageActivity : BaseActivity<ActivityMyPageBinding, MyPageViewModel>() {
         viewDataBinding.actAccountManageTopTitle.actTopTitleIvBack.onlyOneClickListener {
             finish()
         }
-
         myPageAdapter =
             MyPageAdapter(object :
                 MyPageViewHolder.MyPageItemClickListener {

@@ -2,13 +2,12 @@ package com.earlyBuddy.earlybuddy_android.ui.home.pathCheck
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.ScheduleDetailResponse
-import com.earlyBuddy.earlybuddy_android.data.repository.ScheduleDetailRepository
+import com.earlyBuddy.earlybuddy_android.data.repository.ScheduleRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class HomePathViewModel(private val repository: ScheduleDetailRepository) :
+class HomePathViewModel(private val repository: ScheduleRepository) :
     BaseViewModel() {
     val scheduleDetailResponse = MutableLiveData<ScheduleDetailResponse>()
     val lottieVisible = MutableLiveData<Boolean>()

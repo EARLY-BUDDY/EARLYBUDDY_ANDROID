@@ -17,7 +17,7 @@ fun walkEndText(textView: TextView, nextTrafficType: Int, endName: String?, fast
     }
     when (nextTrafficType) {
         1 -> {
-            if (fastInExitNo == "0") {
+            if (fastInExitNo == "0" || fastInExitNo == null) {
                 textView.text = String.format("%s역까지 걷기", endName)
             } else {
                 textView.text =
@@ -40,8 +40,15 @@ fun walkStartText(
         return
     }
     when (previousTrafficType) {
-        1 -> textView.text =
-            String.format("%s역 %s번 출구로 나오기", startName, fastOutExitNo)
+        1 -> {
+            if(fastOutExitNo=="0" || fastOutExitNo==null){
+                textView.text =
+                    String.format("%s역으로 나오기", startName, fastOutExitNo)
+            }else{
+            textView.text =
+                String.format("%s역 %s번 출구로 나오기", startName, fastOutExitNo)
+            }
+        }
         2 -> textView.text =
             String.format("%s 정류장 하차", startName)
     }

@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivitySignInBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
 import com.earlyBuddy.earlybuddy_android.ui.initial.nickname.NickNameActivity
 import com.google.gson.JsonObject
@@ -46,11 +47,11 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
             }
             false
         })
-        act_sign_in_iv_auto_login.setOnClickListener {
+        act_sign_in_iv_auto_login.onlyOneClickListener {
             if(it.isSelected) it.isSelected = false
             else if(!it.isSelected) it.isSelected = true
         }
-        act_sign_in_tv_sign_up.setOnClickListener{
+        act_sign_in_tv_sign_up.onlyOneClickListener{
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
             finish()
@@ -87,7 +88,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
             Log.e("id", id)
             Log.e("pw", pw)
             act_sign_in_tv_login.isClickable = true
-            act_sign_in_tv_login.setOnClickListener {
+            act_sign_in_tv_login.onlyOneClickListener {
                 postSignIn()
             }
         } else if (act_sign_in_et_id.text.isEmpty() || act_sign_in_et_pw.text.isEmpty()){

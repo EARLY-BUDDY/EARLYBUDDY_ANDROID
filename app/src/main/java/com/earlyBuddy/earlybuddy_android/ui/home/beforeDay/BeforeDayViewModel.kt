@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
 import java.text.SimpleDateFormat
+import java.util.*
 
 @Suppress("DEPRECATION")
 class BeforeDayViewModel() : BaseViewModel() {
@@ -26,8 +27,8 @@ class BeforeDayViewModel() : BaseViewModel() {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
 
-//        val date = Date()
-        val date = sdf.parse("2020-07-23 01:15:00")
+        val date = Date()
+//        val date = sdf.parse("2020-07-23 01:15:00")
 
         val promise = sdf.parse(scheduleStartTime)
 

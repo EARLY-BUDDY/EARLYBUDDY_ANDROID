@@ -29,15 +29,22 @@ class RemoteDataSourceImpl : RemoteDataSource {
         SY: Double,
         EX: Double,
         EY: Double,
-        SearchPathType: Int
+        SearchPathType: Int,
+        scheduleStartTime: String
     ): Observable<SearchRouteResponse> =
-        api2.getSearchRouteData(SX, SY, EX, EY, SearchPathType)
+        api2.getSearchRouteData(SX, SY, EX, EY, SearchPathType,scheduleStartTime)
             .map {
                 it
             }
 
     override fun scheduleDetail(scheduleIdx: Int): Observable<ScheduleDetailResponse> =
         api.getScheduleDetail(scheduleIdx)
+            .map {
+                it
+            }
+
+    override fun postSchedule(jsonObject: JsonObject): Observable<DefaultResponse> =
+        api.postSchedule(jsonObject)
             .map {
                 it
             }
@@ -58,5 +65,8 @@ class RemoteDataSourceImpl : RemoteDataSource {
 
     override fun registerUserNickName(jsonObject: JsonObject): Observable<NickNameResponse> =
         api.registerUserNickName(jsonObject).map { it }
+
+    override fun getFavoriteList(): Observable<FavoriteResponse> =
+        api.getFavoriteList().map { it }
 
 }

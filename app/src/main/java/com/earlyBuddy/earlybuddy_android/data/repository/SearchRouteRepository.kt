@@ -14,8 +14,9 @@ class SearchRouteRepository(private val remoteDataSource: RemoteDataSource) {
         SY: Double,
         EX: Double,
         EY: Double,
-        SearchPathType: Int
-    ) = remoteDataSource.searchRoute(SX, SY, EX, EY, SearchPathType)
+        SearchPathType: Int,
+        scheduleStartTime : String
+    ) = remoteDataSource.searchRoute(SX, SY, EX, EY, SearchPathType, scheduleStartTime)
 
     private val database = RecentPlaceDB.getInstance(EarlyBuddyApplication.getGlobalApplicationContext())!!
     private val recentPathDao = database.recentPathDao()

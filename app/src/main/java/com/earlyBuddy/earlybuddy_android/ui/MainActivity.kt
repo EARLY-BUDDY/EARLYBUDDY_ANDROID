@@ -2,7 +2,6 @@ package com.earlyBuddy.earlybuddy_android.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.TransportMap
@@ -13,13 +12,14 @@ import com.earlyBuddy.earlybuddy_android.ui.initial.place.InitialPlaceActivity
 import com.earlyBuddy.earlybuddy_android.ui.myPage.main.MyPageActivity
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathActivity
 import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleActivity
-import com.earlyBuddy.earlybuddy_android.ui.searchRoute.TestPathActivity
+import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleDetailActivity
+import com.earlyBuddy.earlybuddy_android.ui.searchRoute.VerticalPathActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpActivity
-import com.google.android.gms.tasks.Task
-import com.google.firebase.FirebaseApp
-import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.iid.InstanceIdResult
+import com.earlyBuddy.earlybuddy_android.ui.splash.SplashActivity
+//import com.google.firebase.FirebaseApp
+//import com.google.firebase.iid.FirebaseInstanceId
+//import com.google.firebase.iid.InstanceIdResult
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(){
 
         setContentView(R.layout.activity_main)
         TransportMap.jwt =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjEsImlhdCI6MTYwMTEzODU5MiwiZXhwIjoxNjA4OTE0NTkyfQ.lL_w_Q4DMt6JY0FgbhyPhQUPuTYMZvFCKjb0lcqo5fA"
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjEsImlhdCI6MTYwMTg5NjQ3NiwiZXhwIjoxNjA5NjcyNDc2fQ.FH4NeCaGEQE1YRuxaiYQdLgZnKWdjwdypwbOqwUI3Vo"
         act_main_btn_calendar.setOnClickListener {
             val intent = Intent(this, CalendarActivity::class.java)
             startActivity(intent)
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity(){
             startActivity(intent)
         }
         act_main_btn_test.setOnClickListener {
-            val intent = Intent(this, TestPathActivity::class.java)
+            val intent = Intent(this, VerticalPathActivity::class.java)
             startActivity(intent)
         }
         act_main_btn_initial.setOnClickListener {
@@ -75,6 +75,11 @@ class MainActivity : AppCompatActivity(){
 
         act_main_btn_my_page.setOnClickListener {
             val intent = Intent(this, MyPageActivity::class.java)
+            startActivity(intent)
+        }
+
+        act_main_btn_schedule_detail.setOnClickListener {
+            val intent = Intent(this, ScheduleDetailActivity::class.java)
             startActivity(intent)
         }
         act_main_btn_home_one.setOnClickListener {
@@ -92,19 +97,25 @@ class MainActivity : AppCompatActivity(){
             intent.putExtra("asd", 3)
             startActivity(intent)
         }
-        FirebaseApp.initializeApp(this)
 
+        act_main_btn_splash.setOnClickListener {
+            val intent = Intent(this, SplashActivity::class.java)
+            startActivity(intent)
+        }
 
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnCompleteListener { task: Task<InstanceIdResult> ->
-                if (!task.isSuccessful) {
-                    Log.w("FirebaseSettingEx", "getInstanceId failed", task.exception)
-                    return@addOnCompleteListener
-                }
-
-                // 토큰을 읽고, 텍스트 뷰에 보여주기
-                val token = task.result!!.token
-                Log.e("Tttt", token)
-            }
+//        FirebaseApp.initializeApp(this)
+//
+//
+//        FirebaseInstanceId.getInstance().instanceId
+//            .addOnCompleteListener { task: Task<InstanceIdResult> ->
+//                if (!task.isSuccessful) {
+//                    Log.w("FirebaseSettingEx", "getInstanceId failed", task.exception)
+//                    return@addOnCompleteListener
+//                }
+//
+//                // 토큰을 읽고, 텍스트 뷰에 보여주기
+//                val token = task.result!!.token
+//                Log.e("Tttt", token)
+//            }
     }
 }

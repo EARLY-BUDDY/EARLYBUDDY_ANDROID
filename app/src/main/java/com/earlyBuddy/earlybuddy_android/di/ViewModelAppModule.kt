@@ -11,6 +11,7 @@ import com.earlyBuddy.earlybuddy_android.ui.initial.place.InitialPlaceViewModel
 import com.earlyBuddy.earlybuddy_android.ui.myPage.main.MyPageViewModel
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathViewModel
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.PlaceSearchViewModel
+import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleViewModel
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInViewModel
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpViewModel
 import org.koin.android.viewmodel.dsl.viewModel
@@ -27,7 +28,8 @@ val viewModelAppModule = module {
     viewModel { BeforeDayViewModel() }
     viewModel { GoingViewModel() }
     viewModel { CalendarViewModel(get()) }
-    viewModel { InitialPlaceViewModel(get()) }
+    viewModel { InitialPlaceViewModel(get(), get()) }
+    viewModel { ScheduleViewModel(get()) }
     viewModel { NickNameViewModel(get()) }
     viewModel {
         MyPageViewModel(

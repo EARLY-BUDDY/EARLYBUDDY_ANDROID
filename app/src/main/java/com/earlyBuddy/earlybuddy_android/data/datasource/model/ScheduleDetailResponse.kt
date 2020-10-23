@@ -17,6 +17,7 @@ data class ScheduleInfo(
     val scheduleIdx: Int,
     val scheduleName: String,
     val scheduleStartTime: String,
+    val departTime : String,
     val startAddress: String,
     val startLatitude: Double,
     val startLongitude: Double,
@@ -24,6 +25,7 @@ data class ScheduleInfo(
     val endLongitude: Double,
     val endLatitude: Double,
     val noticeMin: Int,
+    val noticeRange : Int,
     val arriveCount: Int,
     val scheduleStartDay: String
 )
