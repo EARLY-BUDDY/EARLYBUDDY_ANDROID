@@ -253,9 +253,9 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
                 Log.e("notiRange", parent!!.selectedItemPosition.toString())
                 noticeCount =
                     when (parent!!.selectedItemPosition) {
-                        0 -> 1
-                        1 -> 2
-                        2 -> 3
+                        0 -> 30
+                        1 -> 60
+                        2 -> 120
                         else -> 0
                     }
             }
