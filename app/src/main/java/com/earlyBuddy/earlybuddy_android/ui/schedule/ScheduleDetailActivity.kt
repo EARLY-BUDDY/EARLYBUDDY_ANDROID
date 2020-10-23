@@ -9,6 +9,7 @@ import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityScheduleDetailBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemScheduleDetailWeekdayBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathMethodAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -133,7 +134,7 @@ class ScheduleDetailActivity : BaseActivity<ActivityScheduleDetailBinding,Schedu
     }
 
     private fun setButton(){
-        viewDataBinding.actScheduleDetailIvBack.setOnClickListener {
+        viewDataBinding.actScheduleDetailIvBack.onlyOneClickListener {
             finish()
         }
     }

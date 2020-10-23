@@ -14,6 +14,7 @@ import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseDialogFragment
 import com.earlyBuddy.earlybuddy_android.databinding.DialogFragmentSignUpCompleteBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import kotlinx.android.synthetic.main.dialog_fragment_sign_up_complete.*
 
 class SignUpDialogFragment : DialogFragment() {
@@ -26,7 +27,7 @@ class SignUpDialogFragment : DialogFragment() {
     ): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.dialog_fragment_sign_up_complete, container, false)
-        dialog_fragment_sign_up_tv_login.setOnClickListener {
+        dialog_fragment_sign_up_tv_login.onlyOneClickListener {
             dismiss()
         }
         return view

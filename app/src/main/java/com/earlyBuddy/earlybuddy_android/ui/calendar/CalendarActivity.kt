@@ -17,6 +17,7 @@ import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Schedule
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityCalendarBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemCalendarScheduleBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleDetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -113,15 +114,15 @@ class CalendarActivity : BaseActivity<ActivityCalendarBinding, CalendarViewModel
     }
 
     private fun setButton(){
-        viewDataBinding.actCalendarIvBack.setOnClickListener {
+        viewDataBinding.actCalendarIvBack.onlyOneClickListener {
             finish()
         }
 
-        viewDataBinding.actCalendarIvLeft.setOnClickListener {
+        viewDataBinding.actCalendarIvLeft.onlyOneClickListener {
             viewDataBinding.actCalendarVp.setCurrentItem(position - 1, true)
         }
 
-        viewDataBinding.actCalendarIvRight.setOnClickListener {
+        viewDataBinding.actCalendarIvRight.onlyOneClickListener {
             viewDataBinding.actCalendarVp.setCurrentItem(position + 1, true)
         }
     }

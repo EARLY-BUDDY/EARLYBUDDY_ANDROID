@@ -17,6 +17,7 @@ import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityEndPlaceSearchBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPlaceBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_end_place_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -97,7 +98,7 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
     }
 
     private fun setClick(){
-        act_end_place_search_iv_cancel.setOnClickListener{
+        act_end_place_search_iv_cancel.onlyOneClickListener{
             act_end_place_search_et_search.text.clear()
             val nowFrag = supportFragmentManager.findFragmentById(R.id.act_end_place_search_container)
             if(nowFrag!=null) {
@@ -107,7 +108,7 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
             act_end_place_search_et_search.findFocus()
         }
 
-        act_end_place_search_iv_back.setOnClickListener {
+        act_end_place_search_iv_back.onlyOneClickListener {
             finish()
         }
 

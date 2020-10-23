@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
 import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
@@ -55,14 +56,14 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         setText()
 
-        act_map_iv_cancel.setOnClickListener{
+        act_map_iv_cancel.onlyOneClickListener{
             finish()
         }
-        act_map_iv_back.setOnClickListener {
+        act_map_iv_back.onlyOneClickListener {
             finish()
         }
 
-        act_map_ll_choice.setOnClickListener{
+        act_map_ll_choice.onlyOneClickListener{
             val intent = Intent()
             intent.putExtra("placeName", placeName)
             intent.putExtra("x", fx)

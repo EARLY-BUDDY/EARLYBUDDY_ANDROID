@@ -20,6 +20,7 @@ import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Path
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityScheduleBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathActivity
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathMethodAdapter
 import com.google.gson.Gson
@@ -74,7 +75,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
             false
         })
 
-        viewDataBinding.actScheduleClPlaceClick.setOnClickListener {
+        viewDataBinding.actScheduleClPlaceClick.onlyOneClickListener {
             if(scheDate.isNullOrEmpty() || scheTime.isNullOrEmpty()) Toast.makeText(this, "날짜와 도착시간을 먼저 설정해주세요!", Toast.LENGTH_SHORT).show()
             else {
                 val intent = Intent(this, PathActivity::class.java)
@@ -84,7 +85,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
                 startActivityForResult(intent, REQUEST_CODE_PATH)
             }
         }
-        viewDataBinding.actScheduleTvRegister.setOnClickListener {
+        viewDataBinding.actScheduleTvRegister.onlyOneClickListener {
             if(viewDataBinding.actScheduleEtName.text.isNullOrEmpty() || startAdd.isNullOrEmpty() || endAdd.isNullOrEmpty())
                 Toast.makeText(this, "정보를 모두 입력해주세요", Toast.LENGTH_SHORT).show()
             else{
@@ -179,7 +180,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
 
     @SuppressLint("SimpleDateFormat")
     private fun setPickerClick() {
-        viewDataBinding.actScheduleTvDateClick.setOnClickListener {
+        viewDataBinding.actScheduleTvDateClick.onlyOneClickListener {
             DatePickerDialog(this@ScheduleActivity,
                 R.style.MyDatePickerDialogTheme,
                 DatePickerDialog.OnDateSetListener { datePicker, year, monthOfYear, dayOfMonth ->
@@ -198,7 +199,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
             ).show()
         }
 
-        viewDataBinding.actScheduleTvTimeClick.setOnClickListener {
+        viewDataBinding.actScheduleTvTimeClick.onlyOneClickListener {
             TimePickerDialog(this@ScheduleActivity, R.style.MyTimePickerDialogTheme,
                 TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
                     calendar.run {
@@ -226,11 +227,12 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
             }
         viewDataBinding.actScheduleSpNoti.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                noticeCount =
+                Log.e("noti", parent!!.selectedItemPosition.toString())
+                noticeMin =
                     when (parent!!.selectedItemPosition) {
-                    0 -> 1
-                    1 -> 2
-                    2 -> 3
+                    0 -> 5
+                    1 -> 10
+                    2 -> 20
                     else -> 0
                 }
             }
@@ -247,11 +249,12 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
             }
         viewDataBinding.actScheduleSpNotiRange.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                noticeMin =
+                Log.e("notiRange", parent!!.selectedItemPosition.toString())
+                noticeCount =
                     when (parent!!.selectedItemPosition) {
-                        0 -> 5
-                        1 -> 10
-                        2 -> 20
+                        0 -> 1
+                        1 -> 2
+                        2 -> 3
                         else -> 0
                     }
             }
@@ -268,7 +271,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         val pathJson = JsonParser.parseString(jsonString) as JsonObject
 
         jsonObject.put("scheduleName", viewDataBinding.actScheduleEtName.text)
-        jsonObject.put("scheduleStartTime", scheTime)
+        jsonObject.put("scheduleStartTime", time)
         jsonObject.put("scheduleStartDay", date)
         jsonObject.put("startAddress", startAdd)
         jsonObject.put("startLongitude", 0)

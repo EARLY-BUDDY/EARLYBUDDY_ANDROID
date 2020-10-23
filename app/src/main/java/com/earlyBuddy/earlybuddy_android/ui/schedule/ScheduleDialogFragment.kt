@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.databinding.DialogFragmentScheduleRegistBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 
 class ScheduleDialogFragment(
     val scheduleIdx : Int
@@ -51,13 +52,13 @@ class ScheduleDialogFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        databinding.dialogFragmentSchePopUpTvCheck.setOnClickListener {
+        databinding.dialogFragmentSchePopUpTvCheck.onlyOneClickListener {
             var intent = Intent(this@ScheduleDialogFragment.context, ScheduleDetailActivity::class.java)
             intent.putExtra("scheduleIdx", scheduleIdx)
             dismiss()
             startActivity(intent)
         }
-        databinding.dialogFragmentSchePopUpTvHome.setOnClickListener {
+        databinding.dialogFragmentSchePopUpTvHome.onlyOneClickListener {
             dismiss()
         }
     }

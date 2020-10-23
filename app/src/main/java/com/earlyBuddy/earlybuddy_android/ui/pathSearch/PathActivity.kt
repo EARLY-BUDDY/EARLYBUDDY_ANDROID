@@ -19,6 +19,7 @@ import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPathBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.EndPlaceSearchActivity
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.StartPlaceSearchActivity
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -125,15 +126,15 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
     }
 
     private fun setClick() {
-        viewDataBinding.actPathTvStart.setOnClickListener {
+        viewDataBinding.actPathTvStart.onlyOneClickListener {
             val intent = Intent(this, StartPlaceSearchActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_START)
         }
-        viewDataBinding.actPathTvEnd.setOnClickListener {
+        viewDataBinding.actPathTvEnd.onlyOneClickListener {
             val intent = Intent(this, EndPlaceSearchActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_END)
         }
-        viewDataBinding.actPathIvCancel.setOnClickListener {
+        viewDataBinding.actPathIvCancel.onlyOneClickListener {
             act_path_tv_start.text = "출발지를 입력하세요"
             act_path_tv_end.text = "도착지를 입력하세요"
             act_path_tv_start.setTextColor(resources.getColor(R.color.mid_gray))
@@ -145,7 +146,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 supportFragmentManager.beginTransaction().remove(fragment!!).commit()
             }
         }
-        viewDataBinding.actPathIvChange.setOnClickListener {
+        viewDataBinding.actPathIvChange.onlyOneClickListener {
             if (sFlag == 1 && eFlag == 1) {
                 val temp = viewDataBinding.actPathTvStart.text
                 viewDataBinding.actPathTvStart.text = viewDataBinding.actPathTvEnd.text
@@ -159,7 +160,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 getRoute()
             }
         }
-        act_path_iv_back.setOnClickListener {
+        act_path_iv_back.onlyOneClickListener {
             finish()
         }
     }
