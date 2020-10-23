@@ -1,6 +1,7 @@
 package com.earlyBuddy.earlybuddy_android.ui.schedule
 
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -11,12 +12,28 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.databinding.DialogFragmentScheduleRegistBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 
 class ScheduleDialogFragment(
     val scheduleIdx : Int
 ) : DialogFragment() {
 
     lateinit var databinding : DialogFragmentScheduleRegistBinding
+
+    lateinit var listener : OnDialogDismissedListener
+
+    fun setOnDialogDismissedListener(listener: OnDialogDismissedListener) {
+        this.listener = listener
+    }
+
+    interface OnDialogDismissedListener {
+        fun onDialogDismissed()
+    }
+
+    override fun dismiss() {
+        listener.onDialogDismissed()
+        super.dismiss()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,13 +52,13 @@ class ScheduleDialogFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        databinding.dialogFragmentSchePopUpTvCheck.setOnClickListener {
-//            var goToCheck = Intent(this@ScheduleDialogFragment.context, ScheduleCompleteActivity::class.java)
-//            goToCheck.putExtra("scheduleIdx", scheduleIdx)
-//            dismiss()
-//            startActivity(goToCheck)
+        databinding.dialogFragmentSchePopUpTvCheck.onlyOneClickListener {
+            var intent = Intent(this@ScheduleDialogFragment.context, ScheduleDetailActivity::class.java)
+            intent.putExtra("scheduleIdx", scheduleIdx)
+            dismiss()
+            startActivity(intent)
         }
-        databinding.dialogFragmentSchePopUpTvHome.setOnClickListener {
+        databinding.dialogFragmentSchePopUpTvHome.onlyOneClickListener {
             dismiss()
         }
     }

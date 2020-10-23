@@ -29,9 +29,10 @@ class RemoteDataSourceImpl : RemoteDataSource {
         SY: Double,
         EX: Double,
         EY: Double,
-        SearchPathType: Int
+        SearchPathType: Int,
+        scheduleStartTime: String
     ): Observable<SearchRouteResponse> =
-        api2.getSearchRouteData(SX, SY, EX, EY, SearchPathType)
+        api2.getSearchRouteData(SX, SY, EX, EY, SearchPathType,scheduleStartTime)
             .map {
                 it
             }

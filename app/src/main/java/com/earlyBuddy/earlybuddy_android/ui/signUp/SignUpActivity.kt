@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivitySignUpBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -162,7 +163,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
             viewDataBinding.actSignUpTvRegist.setBackgroundResource(R.drawable.bg_25_3092ff)
             id = act_sign_up_et_id.text.toString()
             viewDataBinding.actSignUpTvRegist.isClickable = true
-            viewDataBinding.actSignUpTvRegist.setOnClickListener {
+            viewDataBinding.actSignUpTvRegist.onlyOneClickListener {
                 postSignUp()
             }
         } else if(viewDataBinding.actSignUpEtId.text.isEmpty() || viewDataBinding.actSignUpEtPw.text.isEmpty() || viewDataBinding.actSignUpEtPwCheck.text.isEmpty()

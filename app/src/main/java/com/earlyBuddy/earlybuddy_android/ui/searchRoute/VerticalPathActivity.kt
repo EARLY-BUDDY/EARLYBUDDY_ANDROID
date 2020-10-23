@@ -14,6 +14,7 @@ import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Path
 import com.earlyBuddy.earlybuddy_android.data.datasource.remote.RemoteDataSourceImpl
 import com.earlyBuddy.earlybuddy_android.data.repository.SearchRouteRepository
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_vertical_path.*
 
@@ -69,7 +70,7 @@ class VerticalPathActivity : AppCompatActivity() {
     }
 
     private fun setClick(){
-        act_vertical_path_tv_btn.setOnClickListener {
+        act_vertical_path_tv_btn.onlyOneClickListener {
             val intent = Intent()
             intent.putExtra("path", pathData)
             intent.putExtra("startAdd", startAdd)
