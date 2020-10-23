@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
+import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 
@@ -36,12 +38,22 @@ class SplashActivity : AppCompatActivity() {
 //                goToSigninActivity()
 //                finish()
 //            }
-            goToSigninActivity()
+            autoLogin()
 
         }, SPLASH_TIME_OUT)
         act_splash_av.setAnimation("splash.json")
         act_splash_av.loop(true)
         act_splash_av.playAnimation()
+    }
+
+    private fun autoLogin(){
+        if(SharedPreferenceController.getAutoLogin(this)){
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            goToSigninActivity()
+        }
     }
 
     private fun goToSigninActivity() {

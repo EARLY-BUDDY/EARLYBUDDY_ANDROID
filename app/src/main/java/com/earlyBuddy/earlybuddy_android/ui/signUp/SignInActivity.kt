@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
+import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
 import com.earlyBuddy.earlybuddy_android.databinding.ActivitySignInBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
@@ -48,8 +49,13 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
             false
         })
         act_sign_in_iv_auto_login.onlyOneClickListener {
-            if(it.isSelected) it.isSelected = false
-            else if(!it.isSelected) it.isSelected = true
+            if(it.isSelected) {
+                it.isSelected = false
+                SharedPreferenceController.setAutoLogin(this, false)
+            } else {
+                it.isSelected = true
+                SharedPreferenceController.setAutoLogin(this, true)
+            }
         }
         act_sign_in_tv_sign_up.onlyOneClickListener{
             val intent = Intent(this, SignUpActivity::class.java)

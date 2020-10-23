@@ -3,9 +3,11 @@ package com.earlyBuddy.earlybuddy_android.ui.signUp
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.SignInResponse
+import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
 import com.earlyBuddy.earlybuddy_android.data.repository.SignInRepository
 import com.google.gson.JsonObject
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -36,7 +38,8 @@ class SignInViewModel(private val repository : SignInRepository) : BaseViewModel
                     Log.e("it.status", it.status.toString())
                     // onResponse
                     _signInCheck.postValue(it)
-                    TransportMap.jwt = it.data!!.jwt
+//                    TransportMap.jwt = it.data!!.jwt
+                    SharedPreferenceController.setAuthorization(EarlyBuddyApplication.getGlobalApplicationContext(), it.data!!.jwt)
 
                 }) {
                     // 에러 블록

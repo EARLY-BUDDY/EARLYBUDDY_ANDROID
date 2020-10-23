@@ -5,10 +5,13 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
+import org.w3c.dom.Text
 
 @BindingAdapter("trafficType", "endName", "fastInExitNo")
 fun walkEndText(textView: TextView, nextTrafficType: Int, endName: String?, fastInExitNo: String?) {
@@ -188,4 +191,12 @@ fun TextView.setPay(pay: String?) {
     text = if(pay.length>=4) "${pay.substring(0, size - 3)},${pay.substring(size - 3)}원"
     else if(pay=="0") "가격미상"
     else "${pay}원"
+}
+
+@BindingAdapter("tvVisibilityByInt")
+fun TextView.setVisibilityByInt(num : Int?){
+    num?.let {
+        if(it == 0) visibility = VISIBLE
+        else visibility = GONE
+    }
 }
