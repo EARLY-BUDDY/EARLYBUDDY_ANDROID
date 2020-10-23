@@ -38,14 +38,15 @@ class BeforeDayFragment : BaseFragment<FragmentHomeBeforeDayBinding, BeforeDayVi
 //            }
 //        })
 
-        viewModel.timeDifference.observe(viewLifecycleOwner, Observer {
-            if (it == -1) {
-                // 24시간이 넘는데 약속 1일전이다!
-                viewDataBinding.fragHomeBeforeDayTvDay.text = "1"
-            } else {
-                viewDataBinding.fragHomeBeforeDayTvDay.text = it.toString()
-            }
-        })
+//        viewModel.timeDifference.observe(viewLifecycleOwner, Observer {
+//            if (it == -1) {
+//                // 24시간이 넘는데 약속 1일전이다!
+//                viewDataBinding.fragHomeBeforeDayTvDay.text = "1"
+//            } else {
+//                viewDataBinding.fragHomeBeforeDayTvDay.text = it.toString()
+//                viewDataBinding.fragHomeBeforeDayTvBefore.text = "시간 전"
+//            }
+//        })
     }
 
 }
