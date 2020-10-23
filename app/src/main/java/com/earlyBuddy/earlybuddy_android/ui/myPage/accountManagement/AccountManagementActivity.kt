@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
+import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityAccountManagementBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.myPage.password.PasswordChangeActivity
@@ -25,6 +26,10 @@ class AccountManagementActivity :
         viewDataBinding.actAccountManageTvLogout.onlyOneClickListener {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
+
+            SharedPreferenceController.deleteAuthorization(this)
+            SharedPreferenceController.setAutoLogin(this, false)
+
             finish()
         }
 

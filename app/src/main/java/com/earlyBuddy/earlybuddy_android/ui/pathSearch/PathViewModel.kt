@@ -1,6 +1,7 @@
 package com.earlyBuddy.earlybuddy_android.ui.pathSearch
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
@@ -27,14 +28,20 @@ class PathViewModel(private val repository : SearchRouteRepository) : BaseViewMo
     var _routeList = MutableLiveData<ArrayList<Path>>()
     val routeList : LiveData<ArrayList<Path>> get() = _routeList
 
+    private val _isProgress = MutableLiveData<Int>()
+    val isProgress: LiveData<Int> get() = _isProgress
+
+
     fun getRouteData(SX : Double, SY : Double, EX : Double, EY : Double, SearchPathType : Int, scheduleStartTime: String){
         addDisposable(repository.getSearchRouteData(SX, SY, EX, EY, SearchPathType, scheduleStartTime)
             .observeOn(AndroidSchedulers.mainThread())
             // 구독할 때 수행할 작업을 구현
             .doOnSubscribe {
+                showProgress()
             }
             // 스트림이 종료될 때 수행할 작업을 구현
             .doOnTerminate {
+                hideProgress()
             }
             // 옵서버블을 구독
             .subscribe({
@@ -52,6 +59,15 @@ class PathViewModel(private val repository : SearchRouteRepository) : BaseViewMo
 
                 // onFailure
                 Log.e("통신 실패 error : ", it.message!!)
+                hideProgress()
             })
+    }
+
+    private fun showProgress() {
+        _isProgress.value = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        _isProgress.value = View.INVISIBLE
     }
 }

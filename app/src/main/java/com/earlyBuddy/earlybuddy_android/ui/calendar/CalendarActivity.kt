@@ -19,6 +19,7 @@ import com.earlyBuddy.earlybuddy_android.databinding.ActivityCalendarBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemCalendarScheduleBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.Loading
+import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleActivity
 import com.earlyBuddy.earlybuddy_android.ui.schedule.ScheduleDetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -124,6 +125,12 @@ class CalendarActivity : BaseActivity<ActivityCalendarBinding, CalendarViewModel
 
         viewDataBinding.actCalendarIvRight.onlyOneClickListener {
             viewDataBinding.actCalendarVp.setCurrentItem(position + 1, true)
+        }
+
+        viewDataBinding.actCalendarIvAddSchedule.onlyOneClickListener {
+            val intent = Intent(this, ScheduleActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

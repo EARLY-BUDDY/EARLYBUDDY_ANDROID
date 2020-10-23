@@ -16,6 +16,7 @@ class ScheduleViewModel(
 ) : BaseViewModel() {
 
     val scheduleDetail = MutableLiveData<ScheduleDetail>()
+    val noticeRange = MutableLiveData<String>()
     val postSchedule = MutableLiveData<DefaultResponse>()
     val lottieVisible = MutableLiveData<Boolean>()
 
@@ -31,6 +32,13 @@ class ScheduleViewModel(
             .subscribe({
                 if (it.status == 200) {
                     scheduleDetail.value = it.data
+
+
+
+                    noticeRange.value = it.data.scheduleInfo.noticeRange.toString() + "분 전"
+
+
+
                 } else {
                     Log.e("getPathData status", it.status.toString())
                 }
