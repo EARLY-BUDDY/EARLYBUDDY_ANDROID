@@ -129,6 +129,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
     }
 
     private fun setRoute(pathData: Path) {
+        viewDataBinding.actSchduleTvAllocMethod.text = pathData.subPath[1].lane!!.name
         viewDataBinding.actScheduleTvAlloc.text = "약 ${pathData.subPath[1].lane!!.term.toString()}분"
 
         var totalTime = ""
