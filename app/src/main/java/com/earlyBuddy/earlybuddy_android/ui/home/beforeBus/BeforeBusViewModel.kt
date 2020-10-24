@@ -34,28 +34,6 @@ class BeforeBusViewModel() : BaseViewModel() {
             "3" -> {
                 when (tempHomeResponse.data.firstTrans.trafficType) {
                     1 -> {
-                        frontSentence.value = "탈 수 있는 지하철은 3대!"
-                    }
-                    2 -> {
-                        frontSentence.value = "탈 수 있는 버스는 3대!"
-                    }
-                }
-                lastsSentence.value = "아직 여유로워요!"
-            }
-            "2" -> {
-                when (tempHomeResponse.data.firstTrans.trafficType) {
-                    1 -> {
-                        frontSentence.value = "탈 수 있는 지하철은 2대!"
-                    }
-                    2 -> {
-                        frontSentence.value = "탈 수 있는 버스는 2대!"
-                    }
-                }
-                lastsSentence.value = "이제 나갈 준비를 해주세요!"
-            }
-            "1" -> {
-                when (tempHomeResponse.data.firstTrans.trafficType) {
-                    1 -> {
                         frontSentence.value = "지금 오는 지하철이 마지막!"
                     }
                     2 -> {
@@ -63,6 +41,28 @@ class BeforeBusViewModel() : BaseViewModel() {
                     }
                 }
                 lastsSentence.value = "이번에 놓치면 지각이에요!"
+            }
+            "2" -> {
+                when (tempHomeResponse.data.firstTrans.trafficType) {
+                    1 -> {
+                        frontSentence.value = "타야할 지하철이 오고있어요!"
+                    }
+                    2 -> {
+                        frontSentence.value = "타야할 버스가 오고있어요!"
+                    }
+                }
+                lastsSentence.value = "이젠 나갈 준비를 해주세요!"
+            }
+            "1" -> {
+                when (tempHomeResponse.data.firstTrans.trafficType) {
+                    1 -> {
+                        frontSentence.value = "타야할 지하철이 오고있어요!"
+                    }
+                    2 -> {
+                        frontSentence.value = "타야할 버스가 오고있어요!"
+                    }
+                }
+                lastsSentence.value = "오늘은 여유롭게 도착해볼까요?"
 
             }
             else -> {
