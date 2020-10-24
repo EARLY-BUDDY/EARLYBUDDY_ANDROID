@@ -29,8 +29,6 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-        TransportMap.jwt =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjEsImlhdCI6MTYwMTg5NjQ3NiwiZXhwIjoxNjA5NjcyNDc2fQ.FH4NeCaGEQE1YRuxaiYQdLgZnKWdjwdypwbOqwUI3Vo"
         act_main_btn_calendar.setOnClickListener {
             val intent = Intent(this, CalendarActivity::class.java)
             startActivity(intent)

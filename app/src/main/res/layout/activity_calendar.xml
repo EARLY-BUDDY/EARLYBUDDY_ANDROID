@@ -43,7 +43,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             />
-        <androidx.appcompat.widget.AppCompatImageView
+        <ImageView
+            android:id="@+id/act_calendar_iv_add_schedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/btn_write"

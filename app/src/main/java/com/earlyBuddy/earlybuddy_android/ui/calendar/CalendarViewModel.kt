@@ -1,6 +1,7 @@
 package com.earlyBuddy.earlybuddy_android.ui.calendar
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
@@ -17,8 +18,10 @@ class CalendarViewModel(
     private val calendarRepository : CalendarRepository
     ) : BaseViewModel(){
 
-    val scheduleByMonth = ArrayList<Schedule>()
+    private val _isProgress = MutableLiveData<Int>()
+    val isProgress: LiveData<Int> get() = _isProgress
 
+    val scheduleByMonth = ArrayList<Schedule>()
 
     private var _schedule = MutableLiveData<ArrayList<Schedule>>()
     val schedule : LiveData<ArrayList<Schedule>> get() = _schedule
@@ -28,10 +31,10 @@ class CalendarViewModel(
         addDisposable(calendarRepository.getCalendarSchedules(year, month)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
-//                lottieVisible.value = true
+                showProgress()
             }
             .doOnTerminate {
-//                lottieVisible.value = false
+                hideProgress()
             }
             .doOnError {
                 Log.e("get Schedule error", it.message)
@@ -76,5 +79,14 @@ class CalendarViewModel(
 
         return scheduleByDay
     }
+
+    private fun showProgress() {
+        _isProgress.value = View.VISIBLE
+    }
+
+    private fun hideProgress() {
+        _isProgress.value = View.INVISIBLE
+    }
+
 
 }
