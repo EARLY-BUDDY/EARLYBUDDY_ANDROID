@@ -12,9 +12,9 @@ class BeforeBusViewModel() : BaseViewModel() {
 
     val homeResponse = MutableLiveData<HomeResponse>()
     val arriveMinuteDifference = MutableLiveData<Int>()
-    val nextArriveMinuteDifference = MutableLiveData<Int>()
+    val nextArriveMinuteDifference = MutableLiveData<String>()
     var trafficType: String = ""
-    var lastTransCount: String = ""
+    var untilDepartCode: String = ""
     val lastsSentence = MutableLiveData<String>()
     val frontSentence = MutableLiveData<String>()
     var trafficNumber = ""
@@ -28,9 +28,9 @@ class BeforeBusViewModel() : BaseViewModel() {
     fun getData(tempHomeResponse: HomeResponse) {
         homeResponse.value = tempHomeResponse
 
-        lastTransCount = tempHomeResponse.data!!.lastTransCount.toString()
-        lastCount.value = tempHomeResponse.data.lastTransCount
-        when (lastTransCount) {
+        untilDepartCode = tempHomeResponse.data!!.untilDepartCode.toString()
+        lastCount.value = tempHomeResponse.data.untilDepartCode
+        when (untilDepartCode) {
             "3" -> {
                 when (tempHomeResponse.data.firstTrans.trafficType) {
                     1 -> {
@@ -130,10 +130,10 @@ class BeforeBusViewModel() : BaseViewModel() {
         }
 
         when (nextTransArriveTime) {
-            "곧 도착" -> {
-                nextTransArriveTime = sdf.format(Date())
-                getNextArriveTime(sdf.parse(nextTransArriveTime), nowDate)
-            }
+//            "곧 도착" -> {
+//                nextTransArriveTime = sdf.format(Date())
+//                getNextArriveTime(sdf.parse(nextTransArriveTime), nowDate)
+//            }
             "마지막" -> {
                 nextInVisible.value = Unit
             }
@@ -154,8 +154,14 @@ class BeforeBusViewModel() : BaseViewModel() {
     }
 
     private fun getNextArriveTime(nextArriveTime: Date, nowDate: Date) {
+        val timeDifference = getGapTime(nextArriveTime,nowDate)
+        if(timeDifference==0){
+            nextArriveMinuteDifference.value = "잠시 후"
+        }else{
         nextArriveMinuteDifference.value =
-            getGapTime(nextArriveTime, nowDate)
+            "다음 배차까지 $timeDifference 분"
+
+        }
     }
 
     private fun getGapTime(arriveTime: Date, nowDate: Date): Int {
