@@ -285,7 +285,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                             grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     showAlertLocation()
                 } else {
-                    Toast.makeText(this, "위치 싀팔", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "권한을 허용해주세요!", Toast.LENGTH_SHORT).show()
                 }
                 return
             }

@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
@@ -49,17 +50,19 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
         pwCheck()
         pwSameCheck()
         focusController()
-        confirmJoin()
+//        confirmJoin()
+        setEditTextChange()
+        setButton()
         observe()
-        viewDataBinding.actSignUpTvPwCheck.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                v.clearFocus()
-                val keyboard: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                keyboard.hideSoftInputFromWindow(act_sign_up_et_pw_check.windowToken, 0)
-                return@OnKeyListener true
-            }
-            false
-        })
+//        viewDataBinding.actSignUpTvPwCheck.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+//            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+//                v.clearFocus()
+//                val keyboard: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                keyboard.hideSoftInputFromWindow(act_sign_up_et_pw_check.windowToken, 0)
+//                return@OnKeyListener true
+//            }
+//            false
+//        })
     }
 
 //    var signUpDialogFragmentDismissListener = object : SignUpDialogFragment.OnDialogDismissedListener {
@@ -124,41 +127,42 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
             }
         }
 
+
         viewDataBinding.actSignUpEtPw.setOnFocusChangeListener { view, isFocused ->
             if (!isFocused && !pwFlag){ //포커스 잃고 비밀번호 유효하지 않은 경우
                 Log.e("포커스 잃고 유효하지 않은", pwFlag.toString())
                 viewDataBinding.actSignUpEtPw.setBackgroundResource(R.drawable.border_25_ff6e6e)
-                confirmJoin()
+//                confirmJoin()
             } else if (!isFocused && pwFlag){ //포커스 잃고 비밀번호 유효한 경우
                 Log.e("포커스 잃고 유효", pwFlag.toString())
                 viewDataBinding.actSignUpEtPw.setBackgroundResource(R.drawable.border_25_c3c3c3)
-                confirmJoin()
+//                confirmJoin()
             } else if (isFocused && !pwFlag) { //포커스 얻은 상태에서 비밀번호 유효하지 않은 경우
                 Log.e("포커스 얻고 유효하지 않은", pwFlag.toString())
                 viewDataBinding.actSignUpEtPw.setBackgroundResource(R.drawable.border_25_ff6e6e)
                 viewDataBinding.actSignUpTvPwWarning.visibility = View.VISIBLE
-                confirmJoin()
+//                confirmJoin()
             } else if (isFocused && pwFlag){ //포커스 얻은 상태에서 비밀번호 유효한 경우
                 Log.e("포커스 얻고 유효", pwFlag.toString())
                 viewDataBinding.actSignUpEtPw.setBackgroundResource(R.drawable.border_25_3092ff)
-                confirmJoin()
+//                confirmJoin()
             }
         }
 
         viewDataBinding.actSignUpEtPwCheck.setOnFocusChangeListener { view, isFocused ->
             if (!isFocused && !pwCheckFlag){ //포커스 잃고 비밀번호 유효하지 않은 경우
                 viewDataBinding.actSignUpEtPwCheck.setBackgroundResource(R.drawable.border_25_ff6e6e)
-                confirmJoin()
+//                confirmJoin()
             } else if (!isFocused && pwCheckFlag){ //포커스 잃고 비밀번호 유효한 경우
                 viewDataBinding.actSignUpEtPwCheck.setBackgroundResource(R.drawable.border_25_c3c3c3)
-                confirmJoin()
+//                confirmJoin()
             } else if (isFocused && !pwCheckFlag) { //포커스 얻은 상태에서 비밀번호 유효하지 않은 경우
                 viewDataBinding.actSignUpEtPwCheck.setBackgroundResource(R.drawable.border_25_ff6e6e)
                 viewDataBinding.actSignUpTvPwCheckWarning.visibility = View.VISIBLE
-                confirmJoin()
+//                confirmJoin()
             } else if (isFocused && pwCheckFlag){ //포커스 얻은 상태에서 비밀번호 유효한 경우
                 viewDataBinding.actSignUpEtPwCheck.setBackgroundResource(R.drawable.border_25_3092ff)
-                confirmJoin()
+//                confirmJoin()
             }
         }
     }
@@ -185,7 +189,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
         jsonObject.put("userId", id)
         jsonObject.put("userPw", pw)
         jsonObject.put("deviceToken", TransportMap.deviceToken)
-        Log.e("ㅇㅏ이디 비번", "$id $pw $pwCheck")
+        Log.e("아이디 비번", "$id $pw $pwCheck")
 
         val body = JsonParser.parseString(jsonObject.toString()) as JsonObject
         viewModel.postSignUp(body)
@@ -210,6 +214,63 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
 //        viewModel.netWork.observe(this, Observer {
 //            Toast.makeText(this, "네트워크 상태를 확인해주세요", Toast.LENGTH_SHORT).show()
 //        })
+    }
+
+    private fun getEditText() {
+        id = viewDataBinding.actSignUpEtId.text.toString()
+        pw = viewDataBinding.actSignUpEtPw.text.toString()
+        pwCheck = viewDataBinding.actSignUpEtPwCheck.text.toString()
+    }
+
+    private fun onDataCheck() {
+        getEditText()
+
+        if (viewDataBinding.actSignUpEtId.text.isNotEmpty() && pwFlag && pwCheckFlag
+            && pw == pwCheck) {
+
+            viewDataBinding.actSignUpTvRegist.setBackgroundResource(R.drawable.bg_25_3092ff)
+            viewDataBinding.actSignUpTvRegist.isClickable = true
+            viewDataBinding.actSignUpTvRegist.onlyOneClickListener {
+                postSignUp()
+            }
+        } else {
+
+            viewDataBinding.actSignUpTvRegist.setBackgroundResource(R.drawable.bg_25_c3c3c3)
+            viewDataBinding.actSignUpTvRegist.setOnClickListener(null)
+            viewDataBinding.actSignUpTvRegist.isClickable = false
+        }
+
+    }
+
+    private fun setEditTextChange() {
+        viewDataBinding.actSignUpEtId.onChange { onDataCheck() }
+        viewDataBinding.actSignUpEtPw.onChange { onDataCheck() }
+        viewDataBinding.actSignUpEtPwCheck.onChange { onDataCheck() }
+    }
+
+    private fun EditText.onChange(cb: (String) -> Unit) {
+        this.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                cb(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+    }
+
+
+    fun setButton(){
+        viewDataBinding.actSignUpClBg.setOnClickListener {
+            hideKeyboard(viewDataBinding.actSignUpEtId)
+        }
+    }
+
+    fun hideKeyboard(et: EditText){
+
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(et.windowToken, 0)
+
     }
 
 }

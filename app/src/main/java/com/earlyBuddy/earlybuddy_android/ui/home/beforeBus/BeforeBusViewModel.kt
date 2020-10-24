@@ -116,39 +116,42 @@ class BeforeBusViewModel() : BaseViewModel() {
 
         val nowDate = Date()
 
-        when (arriveTime) {
-            "곧 도착" -> {
-                remainingMinute.value = 0
+        if(arriveTime != null && nextTransArriveTime != null) {
+            when (arriveTime) {
+                "곧 도착" -> {
+                    remainingMinute.value = 0
+                }
+                "운행종료" -> {
+                    remainingMinute.value = -3
+                }
+                "출발대기" -> {
+                    remainingMinute.value = -5
+                }
+                else -> {
+                    val firstArriveTime = sdf.parse(arriveTime)
+                    getFirstArriveTime(firstArriveTime, nowDate)
+                }
             }
-            "운행종료" -> {
-                remainingMinute.value = -3
-            }
-            "출발대기" -> {
-                remainingMinute.value = -5
-            }
-            else -> {
-                val firstArriveTime = sdf.parse(arriveTime)
-                getFirstArriveTime(firstArriveTime, nowDate)
-            }
-        }
 
-        when (nextTransArriveTime) {
+
+            when (nextTransArriveTime) {
 //            "곧 도착" -> {
 //                nextTransArriveTime = sdf.format(Date())
 //                getNextArriveTime(sdf.parse(nextTransArriveTime), nowDate)
 //            }
-            "마지막" -> {
-                nextInVisible.value = Unit
-            }
-            "운행종료" -> {
-                nextArriveStop.value = Unit
-            }
-            "출발대기" -> {
-                nextInVisible.value = Unit
-            }
-            else -> {
-                val nextArriveTime = sdf.parse(nextTransArriveTime)
-                getNextArriveTime(nextArriveTime, nowDate)
+                "마지막" -> {
+                    nextInVisible.value = Unit
+                }
+                "운행종료" -> {
+                    nextArriveStop.value = Unit
+                }
+                "출발대기" -> {
+                    nextInVisible.value = Unit
+                }
+                else -> {
+                    val nextArriveTime = sdf.parse(nextTransArriveTime)
+                    getNextArriveTime(nextArriveTime, nowDate)
+                }
             }
         }
     }

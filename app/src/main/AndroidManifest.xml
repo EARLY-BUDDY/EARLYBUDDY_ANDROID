@@ -46,8 +46,9 @@
         <activity android:name=".ui.searchRoute.VerticalPathActivity" />
         <activity android:name=".ui.pathSearch.PathActivity" />
         <activity android:name=".ui.placeSearch.EndPlaceSearchActivity" />
-        <activity android:name=".ui.signUp.SignInActivity" />
-        <activity android:name=".ui.signUp.SignUpActivity" />
+        <activity android:name=".ui.signUp.SignInActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.signUp.SignUpActivity"/>
         <activity android:name=".ui.schedule.ScheduleActivity" />
         <activity android:name=".ui.home.HomeActivity" />
         <activity android:name=".ui.placeSearch.StartPlaceSearchActivity" />

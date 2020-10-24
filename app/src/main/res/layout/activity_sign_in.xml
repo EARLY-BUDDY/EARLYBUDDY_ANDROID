@@ -11,10 +11,19 @@
             type="com.earlyBuddy.earlybuddy_android.ui.signUp.SignInViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.signUp.SignInActivity">
+        android:overScrollMode="never"
+        android:fillViewport="true">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/act_sign_in_cl_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.signUp.SignInActivity"
+        android:background="@color/white">
 
         <ImageView
             android:id="@+id/act_sign_in_iv_img"
@@ -138,4 +147,6 @@
             app:layout_constraintTop_toBottomOf="@id/act_sign_in_tv_login" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 </layout>

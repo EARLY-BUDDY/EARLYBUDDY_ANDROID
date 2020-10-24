@@ -65,7 +65,8 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun autoLogin(){
-        if(SharedPreferenceController.getAutoLogin(this)){
+
+        if(SharedPreferenceController.getAutoLogin(this) && SharedPreferenceController.getAuthorization(this) != ""){
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
