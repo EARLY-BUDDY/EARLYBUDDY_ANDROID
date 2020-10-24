@@ -50,8 +50,13 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
 
         val totalTimeHour = totalTime / 60
         val totalTimeMinute = totalTime % 60
-        viewDataBinding.actHomePathTvHours.text =
-            "${totalTimeHour}시간 ${totalTimeMinute}분"
+        if (totalTimeHour == 0) {
+            viewDataBinding.actHomePathTvHours.text =
+                "${totalTimeMinute}분"
+        } else {
+            viewDataBinding.actHomePathTvHours.text =
+                "${totalTimeHour}시간 ${totalTimeMinute}분"
+        }
 
         viewModel.getPathData(scheduleIdx)
 
