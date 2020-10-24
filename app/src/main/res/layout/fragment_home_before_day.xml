@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="10dp"
-                android:text="얼리버디!\n잘 지내고 있나요?"
+                android:text="@{vm.beforeDayText}"
                 android:textColor="@color/black"
                 android:textSize="30dp" />
 
