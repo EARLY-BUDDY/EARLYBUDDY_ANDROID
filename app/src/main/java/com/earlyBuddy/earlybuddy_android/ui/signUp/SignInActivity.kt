@@ -7,7 +7,9 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
@@ -38,6 +40,8 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
         focusController()
         observe()
         confirmSignIn()
+
+        SharedPreferenceController.setAutoLogin(this, false)
 
         act_sign_in_et_pw.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
@@ -91,8 +95,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
             act_sign_in_tv_login.setBackgroundResource(R.drawable.bg_25_3092ff)
             id = act_sign_in_et_id.text.toString()
             pw = act_sign_in_et_pw.text.toString()
-            Log.e("id", id)
-            Log.e("pw", pw)
+
             act_sign_in_tv_login.isClickable = true
             act_sign_in_tv_login.onlyOneClickListener {
                 postSignIn()
@@ -116,9 +119,8 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
     }
 
     fun observe() {
-        viewModel.signInCheck.observe(this, Observer {
-            if (it.message == "로그인 성공") {
-                // 로그인 성공했을 때 실행 됨.
+        viewModel.signInResponse.observe(this, Observer {
+            if(it.status == 200 ){
                 if (it.data!!.userName == null) {
                     val intent = Intent(this, NickNameActivity::class.java)
                     startActivity(intent)
@@ -128,6 +130,18 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
                     startActivity(intent)
                     finish()
                 }
+            } else if (it.status == 400) {
+                Toast.makeText(this, "아이디와 비밀번호를 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+
+                act_sign_in_et_id.setText("")
+                act_sign_in_et_pw.setText("")
+
+                id = ""
+                pw = ""
+
+
+            } else if (it.status == 500) {
+                Toast.makeText(this, "서버 점검중입니다.", Toast.LENGTH_SHORT).show()
             }
         })
     }
