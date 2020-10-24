@@ -147,31 +147,6 @@
             app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info"
             app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            tvVisibilityByInt="@{vm.routeList.size()}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:letterSpacing="-0.05"
-            android:text="검색 결과가 없습니다."
-            android:fontFamily="@font/noto_sans_kr_medium"
-            android:textColor="@color/gray"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <ProgressBar
-            android:visibility="@{vm.isProgress()}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
