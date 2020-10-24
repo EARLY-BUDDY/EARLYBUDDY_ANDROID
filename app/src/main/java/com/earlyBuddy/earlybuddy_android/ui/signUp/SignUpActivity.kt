@@ -183,7 +183,6 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
         jsonObject.put("userId", id)
         jsonObject.put("userPw", pw)
         jsonObject.put("deviceToken", 1)
-        Log.e("ㅇㅏ이디 비번", "$id $pw $pwCheck")
 
         val body = JsonParser().parse(jsonObject.toString()) as JsonObject
         viewModel.postSignUp(body)
@@ -193,7 +192,6 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
         viewModel.signUpCheck.observe(this, Observer {
             if(it){
                 Toast.makeText(this, "얼리버디의 회원이 되셨습니다", Toast.LENGTH_SHORT).show()
-//                signUpDialog.show(supportFragmentManager,"signUp_fagment")
                 val intent = Intent(this, SignInActivity::class.java)
                 startActivity(intent)
                 finish()
