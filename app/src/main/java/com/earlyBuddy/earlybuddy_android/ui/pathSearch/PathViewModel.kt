@@ -37,11 +37,11 @@ class PathViewModel(private val repository : SearchRouteRepository) : BaseViewMo
             .observeOn(AndroidSchedulers.mainThread())
             // 구독할 때 수행할 작업을 구현
             .doOnSubscribe {
-                showProgress()
+//                showProgress()
             }
             // 스트림이 종료될 때 수행할 작업을 구현
             .doOnTerminate {
-                hideProgress()
+//                hideProgress()
             }
             // 옵서버블을 구독
             .subscribe({
