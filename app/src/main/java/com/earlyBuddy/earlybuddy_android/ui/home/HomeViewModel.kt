@@ -185,7 +185,7 @@ class HomeViewModel(private val repository: HomeRepository) :
                 imageChange.value = "BeforeDay"
             }
             3 -> {
-                when (tempHomeResponse.data.lastTransCount) {
+                when (tempHomeResponse.data.untilDepartCode) {
                     3 -> {
                         imageChange.value = "BeforeBusThree"
                     }

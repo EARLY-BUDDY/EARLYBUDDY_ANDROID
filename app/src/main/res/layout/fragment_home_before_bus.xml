@@ -170,7 +170,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/frag_home_before_bus__cl_number"
                 app:layout_constraintEnd_toStartOf="@id/frag_home_before_bus__iv_reboot"
                 android:layout_marginEnd="5dp"
-                android:text="@{`다음 배차까지 `+vm.nextArriveMinuteDifference+`분`}" />
+                android:text="@{vm.nextArriveMinuteDifference}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
