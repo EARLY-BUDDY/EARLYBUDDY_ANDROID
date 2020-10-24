@@ -9,6 +9,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
 import com.earlyBuddy.earlybuddy_android.databinding.ActivitySignInBinding
@@ -108,7 +109,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
         val jsonObject = JSONObject()
         jsonObject.put("userId", id)
         jsonObject.put("userPw", pw)
-        jsonObject.put("deviceToken", "1")
+        jsonObject.put("deviceToken", TransportMap.deviceToken)
         Log.e("qwe", jsonObject.toString())
         val body = JsonParser.parseString(jsonObject.toString()) as JsonObject
         viewModel.postSignIn(body)

@@ -109,7 +109,10 @@ fun visibleText(view: TextView, remainingMinuteSetVisible: Int) {
     if (remainingMinuteSetVisible <= 3) {
         if(remainingMinuteSetVisible==-3){
             view.text="운행종료"
+        }else if(remainingMinuteSetVisible==-5){
+            view.text="출발대기"
         }
+
         view.visibility = View.VISIBLE
     } else {
         view.visibility = View.INVISIBLE
