@@ -237,7 +237,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
                     0 -> 5
                     1 -> 10
                     2 -> 20
-                    else -> 0
+                    else -> 5
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -259,7 +259,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
                         0 -> 30
                         1 -> 60
                         2 -> 120
-                        else -> 0
+                        else -> 30
                     }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
