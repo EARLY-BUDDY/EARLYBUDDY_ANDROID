@@ -43,7 +43,7 @@
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="11dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="@{vm.trafficType +` 도착까지`}"
+                android:text="@{vm.trafficType}"
                 android:textColor="@color/black"
                 android:textSize="23dp"
                 app:layout_constraintBottom_toTopOf="@+id/frag_home_before_bus__cl_number"
