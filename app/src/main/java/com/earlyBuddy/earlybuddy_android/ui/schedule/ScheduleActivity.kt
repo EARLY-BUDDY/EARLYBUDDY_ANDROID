@@ -101,6 +101,10 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
                 })
             }
         }
+
+        viewDataBinding.actScheduleIvBack.onlyOneClickListener {
+            finish()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
