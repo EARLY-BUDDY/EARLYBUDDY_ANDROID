@@ -12,9 +12,14 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivitySignUpBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseApp
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -175,10 +180,11 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
     }
 
     fun postSignUp(){
+
         val jsonObject = JSONObject()
         jsonObject.put("userId", id)
         jsonObject.put("userPw", pw)
-        jsonObject.put("deviceToken", 1)
+        jsonObject.put("deviceToken", TransportMap.deviceToken)
         Log.e("ㅇㅏ이디 비번", "$id $pw $pwCheck")
 
         val body = JsonParser.parseString(jsonObject.toString()) as JsonObject
