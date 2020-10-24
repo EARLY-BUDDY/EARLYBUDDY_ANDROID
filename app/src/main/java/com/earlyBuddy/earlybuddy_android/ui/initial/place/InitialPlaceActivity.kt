@@ -68,9 +68,13 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                 finish()
             } else {
                 // 완료 화면으로 넘기기!
-                val intent = Intent(this, FinishActivity::class.java)
-                startActivity(intent)
-                finish()
+                if (getTitle == null) {
+                    val intent = Intent(this, FinishActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    finish()
+                }
             }
         }
 
@@ -130,6 +134,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
 
         viewModel.favoriteList.observe(this, Observer {
             val list = it.favoriteArr
+            Log.e("sda", list.toString())
             for (i in list.indices) {
                 favoriteArr[i] = list[i]
                 selectedList[i] = true
