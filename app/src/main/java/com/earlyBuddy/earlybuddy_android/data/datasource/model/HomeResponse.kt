@@ -10,6 +10,7 @@ data class HomeResponse (
 
 data class HomeSchedule(
     val scheduleCheck:Int,
+    val userName:String,
     val untilDepartCode:Int,
     val arriveTime:String,
     val firstTrans:FirstTrans,

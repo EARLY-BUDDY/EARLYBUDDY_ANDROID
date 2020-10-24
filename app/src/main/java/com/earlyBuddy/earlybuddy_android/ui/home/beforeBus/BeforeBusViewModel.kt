@@ -85,7 +85,7 @@ class BeforeBusViewModel() : BaseViewModel() {
     private fun divideTraffic(tempHomeResponse: HomeResponse) {
         when (tempHomeResponse.data!!.firstTrans.trafficType) {
             1 -> {
-                trafficType = "지하철"
+                trafficType = "지하철 도착까지"
                 //("지하철일때 번호 표시")
                 trafficNumber = tempHomeResponse.data.firstTrans.subwayLane.toString() + "호선"
 
@@ -94,7 +94,7 @@ class BeforeBusViewModel() : BaseViewModel() {
                 tints = TransportMap.subwayMap[tempHomeResponse.data.firstTrans.subwayLane]!![0]
             }
             2 -> {
-                trafficType = "버스"
+                trafficType = "버스 도착까지"
                 //("버스 일때 번호 표시")
                 trafficNumber = tempHomeResponse.data.firstTrans.busNo.toString()
 
@@ -123,6 +123,9 @@ class BeforeBusViewModel() : BaseViewModel() {
             "운행종료" -> {
                 remainingMinute.value = -3
             }
+            "출발대기" -> {
+                remainingMinute.value = -5
+            }
             else -> {
                 val firstArriveTime = sdf.parse(arriveTime)
                 getFirstArriveTime(firstArriveTime, nowDate)
@@ -139,6 +142,9 @@ class BeforeBusViewModel() : BaseViewModel() {
             }
             "운행종료" -> {
                 nextArriveStop.value = Unit
+            }
+            "출발대기" -> {
+                nextInVisible.value = Unit
             }
             else -> {
                 val nextArriveTime = sdf.parse(nextTransArriveTime)

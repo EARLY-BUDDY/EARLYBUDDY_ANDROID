@@ -14,10 +14,12 @@ class BeforeDayViewModel() : BaseViewModel() {
     val timeDifference = MutableLiveData<Int>()
     val timeDivision = MutableLiveData<String>()
     val moreThanDay = MutableLiveData<Boolean>()
+    val beforeDayText = MutableLiveData<String>()
 
     fun getData(tempHomeResponse: HomeResponse) {
         homeResponse.value = tempHomeResponse
 
+        beforeDayText.value = tempHomeResponse.data!!.userName+"님!\n잘 지내고 있나요?"
         getTimeDifference(tempHomeResponse)
     }
 
