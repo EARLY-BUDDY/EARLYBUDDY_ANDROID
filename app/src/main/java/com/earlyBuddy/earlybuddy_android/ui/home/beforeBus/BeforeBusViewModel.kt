@@ -123,6 +123,9 @@ class BeforeBusViewModel() : BaseViewModel() {
             "운행종료" -> {
                 remainingMinute.value = -3
             }
+            "출발대기" -> {
+                remainingMinute.value = -5
+            }
             else -> {
                 val firstArriveTime = sdf.parse(arriveTime)
                 getFirstArriveTime(firstArriveTime, nowDate)
@@ -139,6 +142,9 @@ class BeforeBusViewModel() : BaseViewModel() {
             }
             "운행종료" -> {
                 nextArriveStop.value = Unit
+            }
+            "출발대기" -> {
+                nextInVisible.value = Unit
             }
             else -> {
                 val nextArriveTime = sdf.parse(nextTransArriveTime)
