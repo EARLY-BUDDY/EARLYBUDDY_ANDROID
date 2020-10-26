@@ -37,17 +37,18 @@ class RemoteDataSourceImpl : RemoteDataSource {
                 it
             }
 
-    override fun scheduleDetail(scheduleIdx: Int): Observable<ScheduleDetailResponse> =
-        api.getScheduleDetail(scheduleIdx)
-            .map {
-                it
-            }
+    override fun scheduleDetail(scheduleIdx: Int): Observable<ScheduleDetailResponse> = api
+        .getScheduleDetail(scheduleIdx)
+        .map { it }
 
-    override fun postSchedule(jsonObject: JsonObject): Observable<DefaultResponse> =
-        api.postSchedule(jsonObject)
-            .map {
-                it
-            }
+    override fun postSchedule(jsonObject: JsonObject): Observable<DefaultResponse> = api
+        .postSchedule(jsonObject)
+        .map { it }
+
+    override fun deleteSchedule(scheduleIdx: Int): Observable<NoneDataResponse> = api
+        .deleteSchedule(scheduleIdx)
+        .map { it }
+
 
     override fun homeSchedule(): Observable<HomeResponse> = api.getHomeSchedule()
 
