@@ -88,6 +88,7 @@ class BeforeBusViewModel() : BaseViewModel() {
                 trafficType = "지하철 도착까지"
                 //("지하철일때 번호 표시")
                 trafficNumber = tempHomeResponse.data.firstTrans.subwayLane.toString() + "호선"
+                trafficNumber = TransportMap.subwayMap[tempHomeResponse.data.firstTrans.subwayLane]!![1]
 
                 // ("지하철 노선에 따른 박스 색깔 변화")
 

@@ -111,9 +111,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
             when (it) {
                 "NoSchedule" -> viewDataBinding.actHomeIvBack.setImageResource(R.drawable.img_bg_none)
                 "BeforeDay" -> viewDataBinding.actHomeIvBack.setImageResource(R.drawable.img_bg_relax)
-                "BeforeBusThree" -> viewDataBinding.actHomeIvBack.setImageResource(R.drawable.img_bg_threebus)
+                "BeforeBusThree" -> viewDataBinding.actHomeIvBack.setImageResource(R.drawable.img_late_bg)
                 "BeforeBusTwo" -> viewDataBinding.actHomeIvBack.setImageResource(R.drawable.img_twobus)
-                "BeforeBusOne" -> viewDataBinding.actHomeIvBack.setImageResource(R.drawable.img_bg_onebus)
+                "BeforeBusOne" -> viewDataBinding.actHomeIvBack.setImageResource(R.drawable.img_bg_threebus)
                 "Going" -> viewDataBinding.actHomeIvBack.setImageResource(R.drawable.img_going)
             }
         })

@@ -3,7 +3,8 @@ package com.earlyBuddy.earlybuddy_android.ui.initial.place
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
-import com.earlyBuddy.earlybuddy_android.data.datasource.model.FavoriteResponse
+import com.earlyBuddy.earlybuddy_android.data.datasource.model.FavoriteRequest
+import com.earlyBuddy.earlybuddy_android.data.datasource.model.GetFavoriteResponse
 import com.earlyBuddy.earlybuddy_android.data.repository.InitialPlaceRepository
 import com.earlyBuddy.earlybuddy_android.data.repository.MyPageRepository
 import com.google.gson.JsonObject
@@ -16,7 +17,7 @@ class InitialPlaceViewModel(
 
     val response = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
-    val favoriteList = MutableLiveData<FavoriteResponse>()
+    val favoriteList = MutableLiveData<GetFavoriteResponse>()
 
     fun registerFavoritePlaces(jsonObject: JsonObject) {
         loading.value = true
@@ -37,13 +38,13 @@ class InitialPlaceViewModel(
 
     fun getFavoriteList() {
         addDisposable(myPageRepository.getFavoriteList().observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe{}.doOnTerminate {
+            .doOnSubscribe {}.doOnTerminate {
 
-        }
+            }
             .subscribe({
                 favoriteList.value = it
             }) {
-
+                Log.e("err", it.message)
             }
         )
     }

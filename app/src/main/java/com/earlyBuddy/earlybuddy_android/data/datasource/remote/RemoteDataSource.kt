@@ -29,9 +29,9 @@ interface RemoteDataSource {
 
     fun getCalendarSchedules(year: String, month: String): Observable<CalendarResponse>
 
-    fun registerFavoritePlaces(jsonObject: JsonObject): Observable<FavoriteResponse>
+    fun registerFavoritePlaces(jsonObject: JsonObject): Observable<RegistFavoriteResponse>
 
     fun registerUserNickName(jsonObject: JsonObject): Observable<NickNameResponse>
 
-    fun getFavoriteList(): Observable<FavoriteResponse>
+    fun getFavoriteList(): Observable<GetFavoriteResponse>
 }
