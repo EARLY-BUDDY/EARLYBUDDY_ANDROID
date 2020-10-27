@@ -137,6 +137,11 @@ class ScheduleDetailActivity : BaseActivity<ActivityScheduleDetailBinding,Schedu
         viewDataBinding.actScheduleDetailIvBack.onlyOneClickListener {
             finish()
         }
+
+        viewDataBinding.actScheduleDetailIvDelete.onlyOneClickListener {
+            viewModel.deleteSchedule(scheduleIdx)
+            finish()
+        }
     }
 
     private fun setLoading(){

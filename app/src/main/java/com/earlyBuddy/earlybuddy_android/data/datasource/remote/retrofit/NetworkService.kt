@@ -50,6 +50,11 @@ interface NetworkService {
         @Body body: JsonObject
     ): Observable<DefaultResponse>
 
+    @DELETE("/schedules")
+    fun deleteSchedule(
+        @Query("scheduleIdx") scheduleIdx: Int
+    ): Observable<NoneDataResponse>
+
     @GET("/home")
     fun getHomeSchedule(
     ): Observable<HomeResponse>
