@@ -40,12 +40,7 @@ object TransportMap {
         113 to arrayListOf("#d2a715", "우이신설"),
         114 to arrayListOf("#8ac832", "서해선"),
         115 to arrayListOf("#977300", "김포골드라인"),
-<<<<<<< HEAD
-        116 to arrayListOf("#977300", "수인,분당선")
-
-=======
         116 to arrayListOf("#F5A200", "수인분당선")
->>>>>>> ccdeac165cbdf44d531984a2414a52eb6ef09e59
     )
 
     val busMap: Map<Int, String> = mapOf(
