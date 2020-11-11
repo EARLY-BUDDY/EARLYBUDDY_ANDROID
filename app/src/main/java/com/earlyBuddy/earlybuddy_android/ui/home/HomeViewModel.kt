@@ -109,9 +109,12 @@ class HomeViewModel(private val repository: HomeRepository) :
         if (loadingVisible) {
             loadingVisibility.value = true
         }
-        addDisposable(repository.getHomeData().observeOn(AndroidSchedulers.mainThread())
+        addDisposable(repository.getHomeData()
+            .observeOn(AndroidSchedulers.mainThread())
             // 구독할 때 수행할 작업을 구현
-            .doOnSubscribe {}
+            .doOnSubscribe {
+                Log.e("apppp","ASd")
+            }
             // 스트림이 종료될 때 수행할 작업을 구현
             .doOnTerminate {
                 if (loadingVisible) {
@@ -128,20 +131,22 @@ class HomeViewModel(private val repository: HomeRepository) :
                     }
                     2 -> {
                         goBeforeDayFragment.value = BeforeDayFragment()
-                        getTimeDifference(tempHomeResponse)
                         getBackGroundImage(tempHomeResponse)
                     }
                     3 -> {
                         goBeforeBusFragment.value = BeforeBusFragment()
-                        getTimeDifference(tempHomeResponse)
                         getBackGroundImage(tempHomeResponse)
                     }
                     else -> {
                         goGoingFragment.value = GoingFragment()
-                        getTimeDifference(tempHomeResponse)
                         getBackGroundImage(tempHomeResponse)
                     }
                 }
+            }
+            .doOnError {
+                Log.e("do on error", it.stackTrace.toString())
+                Log.e("do on error me", it.localizedMessage)
+                Log.e("do on error me", it.cause.toString())
             }
             // 옵서버블을 구독
             .subscribe({
@@ -159,24 +164,8 @@ class HomeViewModel(private val repository: HomeRepository) :
                 // onFailure
                 Toast.makeText(EarlyBuddyApplication.getGlobalApplicationContext(), "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
                 Log.e("홈에서 통신 실패 error : ", it.message!!)
+                Log.e("이유", it.cause.toString())
             })
-    }
-
-    private fun getTimeDifference(tempHomeResponse: HomeResponse) {
-        val scheduleStartTime =
-            tempHomeResponse.data!!.scheduleSummaryData.scheduleStartTime
-
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-
-        val promiseStartTime = sdf.parse(scheduleStartTime)
-
-        if (promiseStartTime.hours >= 12) {
-            startTime.value =
-                "오후 ${String.format("%02d:%02d", promiseStartTime.hours, promiseStartTime.minutes)}"
-        } else {
-            startTime.value =
-                "오전 ${String.format("%02d:%02d", promiseStartTime.hours, promiseStartTime.minutes)}"
-        }
     }
 
     private fun getBackGroundImage(tempHomeResponse: HomeResponse) {

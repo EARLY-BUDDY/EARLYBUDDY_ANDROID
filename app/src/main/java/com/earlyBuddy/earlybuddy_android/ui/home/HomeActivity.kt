@@ -33,10 +33,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
 
         viewModel.getData(true)
 
-//        val asd = intent.getIntExtra("asd", -1)
-//        viewModel.getTestData(true, asd)
-
-
     }
 
     private fun setClickListener() {
@@ -44,12 +40,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
             val intent = Intent(this, HomePathActivity::class.java)
             val data = viewModel.homeResponse.value!!.data!!
             intent.putExtra("scheduleIdx", data.scheduleSummaryData.scheduleIdx)
-            intent.putExtra("scheduleName", data.scheduleSummaryData.scheduleName)
-            intent.putExtra("endAddress", data.scheduleSummaryData.endAddress)
-            intent.putExtra("startAddress", data.scheduleSummaryData.startAddress)
-            intent.putExtra("startTime", viewModel.startTime.value)
-            intent.putExtra("totalTime", data.scheduleSummaryData.totalTime)
-            intent.putExtra("pathType", data.scheduleSummaryData.pathType)
             intent.putExtra("fromHome", true)
 
 
@@ -78,8 +68,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeViewModel>() {
 
     private fun addObservedData() {
 
+
         viewModel.goNoScheduleActivity.observe(this, Observer {
             val intent = Intent(this, it::class.java)
+            intent.putExtra("nickName", viewModel.homeResponse.value!!.data!!.userName)
             startActivity(intent)
             finish()
         })

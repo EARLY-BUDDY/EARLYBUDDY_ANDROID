@@ -28,41 +28,16 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//
+        viewDataBinding.vm = viewModel
 
         val scheduleIdx = intent.getIntExtra("scheduleIdx", -1)
-        val scheduleName = intent.getStringExtra("scheduleName")
-        val startTime = intent.getStringExtra("startTime")
-        val pathType = intent.getIntExtra("pathType", -1)
-        val totalTime = intent.getIntExtra("totalTime", -1)
-        endAddress = intent.getStringExtra("endAddress")
-        startAddress = intent.getStringExtra("startAddress")
         val fromHome = intent.getBooleanExtra("fromHome", false)
 
         if (fromHome) {
             viewDataBinding.actHomePathTvBtn.visibility = View.GONE
         }
-
-        when (pathType) {
-            0 -> viewDataBinding.actHomePathTvTrafficType.text = "버스 + 지하철"
-            1 -> viewDataBinding.actHomePathTvTrafficType.text = "지하철"
-            2 -> viewDataBinding.actHomePathTvTrafficType.text = "버스"
-        }
-
-        val totalTimeHour = totalTime / 60
-        val totalTimeMinute = totalTime % 60
-        if (totalTimeHour == 0) {
-            viewDataBinding.actHomePathTvHours.text =
-                "${totalTimeMinute}분"
-        } else {
-            viewDataBinding.actHomePathTvHours.text =
-                "${totalTimeHour}시간 ${totalTimeMinute}분"
-        }
-
         viewModel.getPathData(scheduleIdx)
-
-        viewDataBinding.actHomePathTvTitle.text = scheduleName
-        viewDataBinding.actHomePathTvStartTime.text = startTime + " 까지"
-        viewDataBinding.actHomePathTvEndAddress.text = endAddress
 
         viewDataBinding.actHomePathIvBack.onlyOneClickListener {
             finish()
@@ -75,7 +50,11 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
     private fun addObservedData() {
         viewModel.scheduleDetailResponse.observe(this, Observer {
             routeAdapter.setRouteItemList(it.data.path.subPath)
-            Log.e("qweqw",it.data.path.subPath.toString())
+            routeAdapter.setStartEndAddress(
+                it.data.scheduleInfo.startAddress,
+                it.data.scheduleInfo.endAddress
+            )
+            Log.e("qweqw", it.data.path.subPath.toString())
         })
 
         viewModel.lottieVisible.observe(this, Observer {
@@ -92,7 +71,7 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
 
     private fun connectRecyclerView() {
         routeAdapter =
-            PathAdapter(startAddress, endAddress, object : RouteViewHolder.DropDownUpClickListener {
+            PathAdapter("", "", object : RouteViewHolder.DropDownUpClickListener {
                 override fun dropDownUpClick(
                     position: Int,
                     dropImageView: ImageView,

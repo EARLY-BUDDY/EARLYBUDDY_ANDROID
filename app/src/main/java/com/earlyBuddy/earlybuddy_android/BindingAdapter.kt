@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
-import org.w3c.dom.Text
+import java.text.SimpleDateFormat
 
 @BindingAdapter("trafficType", "endName", "fastInExitNo")
 fun walkEndText(textView: TextView, nextTrafficType: Int, endName: String?, fastInExitNo: String?) {
@@ -197,9 +197,28 @@ fun TextView.setPay(pay: String?) {
 }
 
 @BindingAdapter("tvVisibilityByInt")
-fun TextView.setVisibilityByInt(num : Int?){
+fun TextView.setVisibilityByInt(num: Int?) {
     num?.let {
-        if(it == 0) visibility = VISIBLE
+        if (it == 0) visibility = VISIBLE
         else visibility = GONE
+    }
+}
+
+
+@BindingAdapter("startTimeFormat")
+fun TextView.setStartTimeFormat(startTime: String?) {
+
+    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+    startTime?.let {
+        val promiseStartTime = sdf.parse(startTime)
+
+        if (promiseStartTime.hours >= 12) {
+            text =
+                "오후 ${String.format("%02d:%02d", promiseStartTime.hours, promiseStartTime.minutes)}"
+        } else {
+            text =
+                "오전 ${String.format("%02d:%02d", promiseStartTime.hours, promiseStartTime.minutes)}"
+        }
     }
 }

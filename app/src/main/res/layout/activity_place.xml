@@ -232,7 +232,7 @@
             android:fontFamily="@font/noto_sans_kr_medium"
             android:gravity="center"
             android:lineSpacingExtra="-3sp"
-            android:text="등록하기"
+            android:text="저장하기"
             android:textColor="#ffffff"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -229,14 +229,14 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                 isAllUnSelected = false
             }
         }
-        if (isAllUnSelected) {
-            viewDataBinding.actInitialPlaceTvRegister.setBackgroundDrawable(
-                resources.getDrawable(
-                    R.drawable.bg_25_c3c3c3
-                )
-            )
-            viewDataBinding.actInitialPlaceTvRegister.isClickable = false
-        }
+//        if (isAllUnSelected) {
+//            viewDataBinding.actInitialPlaceTvRegister.setBackgroundDrawable(
+//                resources.getDrawable(
+//                    R.drawable.bg_25_c3c3c3
+//                )
+//            )
+//            viewDataBinding.actInitialPlaceTvRegister.isClickable = false
+//        }
 
     }
 
