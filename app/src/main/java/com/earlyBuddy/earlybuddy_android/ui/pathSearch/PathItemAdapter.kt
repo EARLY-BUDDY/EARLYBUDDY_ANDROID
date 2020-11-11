@@ -1,5 +1,6 @@
 package com.earlyBuddy.earlybuddy_android.ui.pathSearch
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -105,4 +106,5 @@ class PathItemViewHolder(
         pathMethodAdapter.totalTime = totalTime
         pathMethodAdapter.notifyDataSetChanged()
     }
+
 }

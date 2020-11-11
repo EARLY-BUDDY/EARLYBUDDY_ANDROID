@@ -60,6 +60,7 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
         viewDataBinding.fragPathResultRv.apply {
             adapter = pathItemAdapter
             layoutManager = LinearLayoutManager(requireActivity())
+            setHasFixedSize(true)
         }
 
         viewModel.routeFlag.observe(viewLifecycleOwner, Observer {
@@ -69,6 +70,7 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
                     pathItemAdapter.run{
                         replaceAll(it)
                         notifyDataSetChanged()
+                        viewDataBinding.fragPathResultRv.smoothScrollToPosition(0)
                     }
                 })
             }else if(!it){
@@ -156,68 +158,5 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
         } else{
             Log.e("onActResult", "fail")
         }
-
-//        if(requestCode == PREFER_LIST_DIALOG) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                preferIdx = bundle!!.getInt("preferIdx")
-//                (activity as PathActivity).searchPathType = preferIdx
-//                (activity as PathActivity).getRoute()
-//
-//                if (preferIdx == 0) {
-//                    viewDataBinding.fragPathResultTvPrefer.text = "선호수단"
-//                } else if (preferIdx == 1) {
-//                    viewDataBinding.fragPathResultTvPrefer.text = "지하철"
-//                } else {
-//                    viewDataBinding.fragPathResultTvPrefer.text = "버스"
-//                }
-//            } else{
-//                Log.e("onActResult", "fail")
-//            }
-//        }else if(requestCode == SORT_LIST_DIALOG) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                sortIdx = bundle!!.getInt("sortIdx")
-//
-//                when (sortIdx) {
-//                    0 -> {
-//                        viewDataBinding.fragPathResultTvSort.text = "최적경로순"
-//                        (activity as PathActivity).sortPathType = 0
-//                        (activity as PathActivity).getRoute()
-//                    }
-//                    1 -> {
-//                        viewDataBinding.fragPathResultTvSort.text = "최단시간순"
-//                        (activity as PathActivity).sortPathType = 1
-//                        (activity as PathActivity).sortRoute()
-//                    }
-//                    2 -> {
-//                        viewDataBinding.fragPathResultTvSort.text = "최소환승순"
-//                        (activity as PathActivity).sortPathType = 2
-//                        (activity as PathActivity).sortRoute()
-//                    }
-//                    3 -> {
-//                        viewDataBinding.fragPathResultTvSort.text = "최소도보순"
-//                        (activity as PathActivity).sortPathType = 3
-//                        (activity as PathActivity).sortRoute()
-//                    }
-//                }
-//            }else{
-//                Log.e("onActResult", "fail")
-//            }
-//        } else if (requestCode == OPEN_VERTIVAL_PATH) {
-//            if (resultCode == Activity.RESULT_OK) {
-//                val pathData = data!!.getSerializableExtra("path") as Path
-//                val startAdd = data.getStringExtra("startAdd")
-//                val endAdd = data.getStringExtra("endAdd")
-//                val intent = Intent()
-//                intent.putExtra("path", pathData)
-//                intent.putExtra("startAdd", startAdd)
-//                intent.putExtra("endAdd", endAdd)
-//                requireActivity().setResult(Activity.RESULT_OK, intent)
-//                requireActivity().finish()
-//            }else{
-//                Log.e("onActResult", "fail")
-//            }
-//        } else{
-//            Log.e("onActResult", "fail")
-//        }
     }
 }

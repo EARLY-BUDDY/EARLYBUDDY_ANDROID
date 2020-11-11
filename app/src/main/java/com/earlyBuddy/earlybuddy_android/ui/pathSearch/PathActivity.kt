@@ -68,17 +68,6 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
         initRv()
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewDataBinding.actPathRv.isClickable = true
-    }
-
-    override fun onPause() {
-        super.onPause()
-        viewDataBinding.actPathRv.isClickable = false
-        Log.e("onPause Clickable", viewDataBinding.actPathRv.isClickable.toString())
-    }
-
     private fun initRv(){
         val recentPathAdapter = RecentPathAdpater(object : RecentPathViewHolder.onClickItemListener{
                 override fun onClickItem(position: Int, item: RecentPathEntity) {
