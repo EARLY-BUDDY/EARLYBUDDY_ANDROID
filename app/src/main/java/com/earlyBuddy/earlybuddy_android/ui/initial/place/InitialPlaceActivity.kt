@@ -38,6 +38,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
     override val layoutResID: Int
         get() = R.layout.activity_place
     override val viewModel: InitialPlaceViewModel by viewModel()
+    var fromMyPage = false
 
     private val favoriteArr =
         arrayOf(
@@ -57,6 +58,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
         val getTitle = intent.getStringExtra("title")
 
         if (getTitle != null) {
+            fromMyPage = true
             viewDataBinding.actInitialPlaceTvSkip.text = "뒤로가기"
             viewModel.getFavoriteList()
         } else {
@@ -68,13 +70,9 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                 finish()
             } else {
                 // 완료 화면으로 넘기기!
-                if (getTitle == null) {
                     val intent = Intent(this, FinishActivity::class.java)
                     startActivity(intent)
                     finish()
-                } else {
-                    finish()
-                }
             }
         }
 
@@ -114,9 +112,13 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
         viewModel.response.observe(this, Observer {
             if (it) {
                 Toast.makeText(this, "자주 가는 장소 등록 성공!", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, FinishActivity::class.java)
-                startActivity(intent)
-                finish()
+                if (fromMyPage) {
+                    finish()
+                } else {
+                    val intent = Intent(this, FinishActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             } else {
                 Toast.makeText(this, "자주 가는 장소 등록 실패!", Toast.LENGTH_SHORT).show()
             }
@@ -133,7 +135,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
         })
 
         viewModel.favoriteList.observe(this, Observer {
-            val list = it.favoriteArr
+            val list = it.data
             Log.e("sda", list.toString())
             for (i in list.indices) {
                 favoriteArr[i] = list[i]
@@ -215,6 +217,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
 
     private fun isOneSelected() {
         var isAllUnSelected = true
+        Log.e("qweqwewqe", selectedList.toString())
         for (isSelected in selectedList) {
             if (isSelected) {
                 viewDataBinding.actInitialPlaceTvRegister.setBackgroundDrawable(

@@ -46,6 +46,12 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
         setCalendar()
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.e("hiroo", "hello")
+        setCalendar()
+    }
+
     private fun setRv(){
 
         calendarRecyclerViewAdapter = CalendarRecyclerViewAdapter()
@@ -236,14 +242,6 @@ class CalendarPageFragment : BaseFragment<FragmentCalendarPageBinding, CalendarV
             notifyDataSetChanged()
         }
     }
-
-//    private fun setLoading(){
-//        viewModel.lottieVisible.observe(activity!!, androidx.lifecycle.Observer {
-//            if(it) Loading.goLoading(activity!!)
-//            else  Loading.exitLoading()
-//        })
-//
-//    }
 
     override fun onDestroy() {
         super.onDestroy()

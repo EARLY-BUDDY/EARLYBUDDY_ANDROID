@@ -94,7 +94,7 @@ fun namingFastDoor(view: TextView, trafficType: Int, fastDoor: String?) {
 
 @BindingAdapter("remainingMinuteSetHide", "changeText")
 fun hideText(view: TextView, remainingMinuteSetHide: Int, changeText: Boolean) {
-    if (remainingMinuteSetHide <= 3) {
+    if (remainingMinuteSetHide <= 1) {
         view.visibility = View.INVISIBLE
     } else {
         view.visibility = View.VISIBLE
@@ -106,7 +106,7 @@ fun hideText(view: TextView, remainingMinuteSetHide: Int, changeText: Boolean) {
 
 @BindingAdapter("remainingMinuteSetVisible")
 fun visibleText(view: TextView, remainingMinuteSetVisible: Int) {
-    if (remainingMinuteSetVisible <= 3) {
+    if (remainingMinuteSetVisible <= 1) {
         if(remainingMinuteSetVisible==-3){
             view.text="운행종료"
         }else if(remainingMinuteSetVisible==-5){
