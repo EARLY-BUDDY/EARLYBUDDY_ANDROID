@@ -46,7 +46,7 @@ class PathViewModel(private val repository : SearchRouteRepository) : BaseViewMo
                     routeFlag.value = true
                     routeArrayList = it.data.path
                     _routeList.value = it.data.path
-                    Log.e("getRoute 응답 성공 : ", routeList.value.toString())
+//                    Log.e("getRoute 응답 성공 : ", routeList.value.toString())
                 }else if(it.status==404){
                     routeFlag.value = false
                 }

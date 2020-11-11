@@ -13,7 +13,9 @@
         android:id="@+id/frag_path_result_cl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.pathSearch.PathResultFragment">
+        tools:context=".ui.pathSearch.PathResultFragment"
+        android:clickable="true"
+        android:focusable="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/frag_path_result_cl_info"
@@ -135,16 +137,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/frag_path_result_iv_empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/img_result_empty"
-            android:visibility="gone"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/frag_path_result_rv"
@@ -157,6 +149,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info"
             app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/frag_path_result_iv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/img_result_empty"
+            android:visibility="gone"/>
 
 <!--        <TextView-->
 <!--            tvVisibilityByInt="@{vm.routeList.size()}"-->

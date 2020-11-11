@@ -71,7 +71,7 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
                         notifyDataSetChanged()
                     }
                 })
-            }else{
+            }else if(!it){
                 viewDataBinding.fragPathResultIvEmpty.visibility = View.VISIBLE
                 pathItemAdapter.clearAll()
             }
@@ -90,6 +90,7 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
         }
 
         viewDataBinding.fragPathResultRlSort.onlyOneClickListener {
+            Log.e("fragPathResultRlSort", "click")
             val sortListDialog = SortListDialogFragment()
             val args = Bundle()
             args.putInt("sortIdx", sortIdx)
