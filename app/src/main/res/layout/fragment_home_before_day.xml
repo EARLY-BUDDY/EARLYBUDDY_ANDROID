@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="10dp"
-                android:text="얼리버디!\n잘 지내고 있나요?"
+                android:text="@{vm.beforeDayText}"
                 android:textColor="@color/black"
                 android:textSize="30dp" />
 
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="11dp"
-                android:text="일 전"
+                android:text="@{vm.timeDivision}"
                 android:layout_marginEnd="16dp"
                 android:textColor="@color/black"
                 android:textSize="25dp"
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="38dp"
-                android:text="2"
+                android:text="@{vm.timeDifference.toString()}"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:textColor="@color/black"
                 android:textSize="85dp"

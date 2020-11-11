@@ -37,13 +37,13 @@ class InitialPlaceViewModel(
 
     fun getFavoriteList() {
         addDisposable(myPageRepository.getFavoriteList().observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe{}.doOnTerminate {
+            .doOnSubscribe {}.doOnTerminate {
 
-        }
+            }
             .subscribe({
                 favoriteList.value = it
             }) {
-
+                Log.e("err", it.message)
             }
         )
     }

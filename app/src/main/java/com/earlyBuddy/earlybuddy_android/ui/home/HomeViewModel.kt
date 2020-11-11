@@ -2,8 +2,10 @@ package com.earlyBuddy.earlybuddy_android.ui.home
 
 import android.app.Activity
 import android.util.Log
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.HomeResponse
 import com.earlyBuddy.earlybuddy_android.data.repository.HomeRepository
@@ -155,6 +157,7 @@ class HomeViewModel(private val repository: HomeRepository) :
                 // 작업이 정상적으로 완료되지 않았을 때 호출
 
                 // onFailure
+                Toast.makeText(EarlyBuddyApplication.getGlobalApplicationContext(), "서버 점검 중입니다.", Toast.LENGTH_SHORT).show()
                 Log.e("홈에서 통신 실패 error : ", it.message!!)
             })
     }
@@ -185,7 +188,7 @@ class HomeViewModel(private val repository: HomeRepository) :
                 imageChange.value = "BeforeDay"
             }
             3 -> {
-                when (tempHomeResponse.data.lastTransCount) {
+                when (tempHomeResponse.data.untilDepartCode) {
                     3 -> {
                         imageChange.value = "BeforeBusThree"
                     }

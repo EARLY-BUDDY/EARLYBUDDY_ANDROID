@@ -12,11 +12,14 @@ class BeforeDayViewModel() : BaseViewModel() {
 
     val homeResponse = MutableLiveData<HomeResponse>()
     val timeDifference = MutableLiveData<Int>()
+    val timeDivision = MutableLiveData<String>()
     val moreThanDay = MutableLiveData<Boolean>()
+    val beforeDayText = MutableLiveData<String>()
 
     fun getData(tempHomeResponse: HomeResponse) {
         homeResponse.value = tempHomeResponse
 
+        beforeDayText.value = tempHomeResponse.data!!.userName+"님!\n잘 지내고 있나요?"
         getTimeDifference(tempHomeResponse)
     }
 
@@ -60,17 +63,22 @@ class BeforeDayViewModel() : BaseViewModel() {
                 val tempDiffDay = (tempGap / 1000 / 60 / 60 / 24).toInt()
                 if(tempDiffDay==1){
                     // 내일이라고 표시를 해줘야한다.
-                    timeDifference.value = -1
+                    timeDifference.value = diffHour
+                    timeDivision.value = "시간 전"
                 }else{
                     timeDifference.value = tempDiffDay
+                    timeDivision.value = "일 전"
+
                 }
 
 
             } else {
                 timeDifference.value = diffDay
+                timeDivision.value = "일 전"
             }
         } else {
             timeDifference.value = diffHour
+            timeDivision.value = "시간 전"
         }
 
         Log.e("일 차이 : ", diffDay.toString())

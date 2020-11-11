@@ -30,6 +30,10 @@ class PathMethodAdapter : RecyclerView.Adapter<PathMethodViewHolder>() {
         return PathMethodViewHolder(binding)
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
     override fun getItemCount(): Int {
         return data.size
     }

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity
+import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
 import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPathBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 
@@ -20,6 +21,10 @@ class RecentPathAdpater(private val clickListener : RecentPathViewHolder.onClick
                 addAll(it)
             }
         }
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentPathViewHolder {

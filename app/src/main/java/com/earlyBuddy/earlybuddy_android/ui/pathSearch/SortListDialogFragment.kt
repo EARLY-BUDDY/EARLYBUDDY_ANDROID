@@ -1,10 +1,12 @@
 package com.earlyBuddy.earlybuddy_android.ui.pathSearch
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +36,8 @@ class SortListDialogFragment : DialogFragment(){
         super.onViewCreated(view, savedInstanceState)
 
         val tag = arguments!!.getInt("sortIdx")
+        Log.e("sortIdx", tag.toString())
+
         if(tag==0){
             dial_frag_sort_list_tv_best.setTextColor(resources.getColor(R.color.main_color))
             dial_frag_sort_iv_best.visibility = View.VISIBLE
@@ -53,7 +57,7 @@ class SortListDialogFragment : DialogFragment(){
             bundle.putInt("sortIdx", 0)
             val intent = Intent()
             intent.putExtras(bundle)
-            targetFragment!!.onActivityResult(targetRequestCode, 2, intent)
+            targetFragment!!.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
             dismiss()
         }
         dial_frag_sort_list_ll_time.onlyOneClickListener {
@@ -61,7 +65,7 @@ class SortListDialogFragment : DialogFragment(){
             bundle.putInt("sortIdx", 1)
             val intent = Intent()
             intent.putExtras(bundle)
-            targetFragment!!.onActivityResult(targetRequestCode, 2, intent)
+            targetFragment!!.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
             dismiss()
 
         }
@@ -70,7 +74,7 @@ class SortListDialogFragment : DialogFragment(){
             bundle.putInt("sortIdx", 2)
             val intent = Intent()
             intent.putExtras(bundle)
-            targetFragment!!.onActivityResult(targetRequestCode, 2, intent)
+            targetFragment!!.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
             dismiss()
         }
         dial_frag_sort_list_ll_walk.onlyOneClickListener {
@@ -78,7 +82,7 @@ class SortListDialogFragment : DialogFragment(){
             bundle.putInt("sortIdx", 3)
             val intent = Intent()
             intent.putExtras(bundle)
-            targetFragment!!.onActivityResult(targetRequestCode, 2, intent)
+            targetFragment!!.onActivityResult(targetRequestCode, Activity.RESULT_OK, intent)
             dismiss()
         }
     }

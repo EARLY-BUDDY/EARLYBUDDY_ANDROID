@@ -43,7 +43,7 @@
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="11dp"
                 android:fontFamily="@font/noto_sans_kr_medium"
-                android:text="@{vm.trafficType +` 도착까지`}"
+                android:text="@{vm.trafficType}"
                 android:textColor="@color/black"
                 android:textSize="23dp"
                 app:layout_constraintBottom_toTopOf="@+id/frag_home_before_bus__cl_number"
@@ -170,7 +170,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/frag_home_before_bus__cl_number"
                 app:layout_constraintEnd_toStartOf="@id/frag_home_before_bus__iv_reboot"
                 android:layout_marginEnd="5dp"
-                android:text="@{`다음 배차까지 `+vm.nextArriveMinuteDifference+`분`}" />
+                android:text="@{vm.nextArriveMinuteDifference}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

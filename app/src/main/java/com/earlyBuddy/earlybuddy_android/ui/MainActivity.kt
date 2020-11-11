@@ -2,6 +2,7 @@ package com.earlyBuddy.earlybuddy_android.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.TransportMap
@@ -17,6 +18,10 @@ import com.earlyBuddy.earlybuddy_android.ui.searchRoute.VerticalPathActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignUpActivity
 import com.earlyBuddy.earlybuddy_android.ui.splash.SplashActivity
+import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseApp
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
 //import com.google.firebase.FirebaseApp
 //import com.google.firebase.iid.FirebaseInstanceId
 //import com.google.firebase.iid.InstanceIdResult
@@ -29,8 +34,6 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
-        TransportMap.jwt =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZHgiOjEsImlhdCI6MTYwMTg5NjQ3NiwiZXhwIjoxNjA5NjcyNDc2fQ.FH4NeCaGEQE1YRuxaiYQdLgZnKWdjwdypwbOqwUI3Vo"
         act_main_btn_calendar.setOnClickListener {
             val intent = Intent(this, CalendarActivity::class.java)
             startActivity(intent)
@@ -103,19 +106,6 @@ class MainActivity : AppCompatActivity(){
             startActivity(intent)
         }
 
-//        FirebaseApp.initializeApp(this)
-//
-//
-//        FirebaseInstanceId.getInstance().instanceId
-//            .addOnCompleteListener { task: Task<InstanceIdResult> ->
-//                if (!task.isSuccessful) {
-//                    Log.w("FirebaseSettingEx", "getInstanceId failed", task.exception)
-//                    return@addOnCompleteListener
-//                }
-//
-//                // 토큰을 읽고, 텍스트 뷰에 보여주기
-//                val token = task.result!!.token
-//                Log.e("Tttt", token)
-//            }
+
     }
 }

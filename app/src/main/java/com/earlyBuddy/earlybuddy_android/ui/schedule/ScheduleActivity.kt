@@ -27,12 +27,12 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_schedule.*
-import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.json.JSONArray
 import org.json.JSONObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.math.round
+import kotlin.system.exitProcess
 
 class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel>() {
 
@@ -48,7 +48,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
     private var startAdd : String? = ""
     private var endAdd : String? = ""
     lateinit var pathData : Path
-    private var noticeCount = 1
+    private var noticeRange = 1
     private var noticeMin = 5
     private var weekdays = arrayListOf<Int>()
     private val REQUEST_CODE_PATH = 7777
@@ -78,16 +78,22 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         viewDataBinding.actScheduleClPlaceClick.onlyOneClickListener {
             if(scheDate.isNullOrEmpty() || scheTime.isNullOrEmpty()) Toast.makeText(this, "날짜와 도착시간을 먼저 설정해주세요!", Toast.LENGTH_SHORT).show()
             else {
-                val intent = Intent(this, PathActivity::class.java)
-                intent.putExtra("scheDate", scheDate)
-                intent.putExtra("scheTime", scheTime)
-                intent.putExtra("scheStart", "$date $time")
-                startActivityForResult(intent, REQUEST_CODE_PATH)
+                val startTime = time.substring(0,2).toInt()
+                if(startTime in 0..4) Toast.makeText(this, "이 시간은 대중교통이 잠드는 시간이에요.", Toast.LENGTH_SHORT).show()
+                else {
+                    val intent = Intent(this, PathActivity::class.java)
+                    intent.putExtra("scheDate", scheDate)
+                    intent.putExtra("scheTime", scheTime)
+                    intent.putExtra("scheStart", "$date $time")
+                    startActivityForResult(intent, REQUEST_CODE_PATH)
+                }
             }
+
         }
+
         viewDataBinding.actScheduleTvRegister.onlyOneClickListener {
             if(viewDataBinding.actScheduleEtName.text.isNullOrEmpty() || startAdd.isNullOrEmpty() || endAdd.isNullOrEmpty())
-                Toast.makeText(this, "정보를 모두 입력해주세요", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "빠진 정보가 있나 확인해주세요!", Toast.LENGTH_SHORT).show()
             else{
                 postSche()
                 viewModel.postSchedule.observe(this, androidx.lifecycle.Observer {
@@ -95,11 +101,17 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
                         val registFragment = ScheduleDialogFragment(it.data)
                         registFragment.setOnDialogDismissedListener(onScheduleDialogFragmentDismissListener)
                         registFragment.show(supportFragmentManager, "dialog")
+                    }else if(it.status==400){
+                        Toast.makeText(this, "탈 수 있는 차가 이미 지나갔어요ㅠㅠ", Toast.LENGTH_SHORT).show()
                     }else{
                         Toast.makeText(this, "일정 등록에 실패했습니다", Toast.LENGTH_SHORT).show()
                     }
                 })
             }
+        }
+
+        viewDataBinding.actScheduleIvBack.onlyOneClickListener {
+            finish()
         }
     }
 
@@ -234,7 +246,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
                     0 -> 5
                     1 -> 10
                     2 -> 20
-                    else -> 0
+                    else -> 5
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -251,12 +263,12 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         viewDataBinding.actScheduleSpNotiRange.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 Log.e("notiRange", parent!!.selectedItemPosition.toString())
-                noticeCount =
+                noticeRange =
                     when (parent!!.selectedItemPosition) {
-                        0 -> 1
-                        1 -> 2
-                        2 -> 3
-                        else -> 0
+                        0 -> 30
+                        1 -> 60
+                        2 -> 120
+                        else -> 30
                     }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -281,7 +293,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         jsonObject.put("endLongitude", 0)
         jsonObject.put("endLatitude", 0)
         jsonObject.put("noticeMin", noticeMin)
-        jsonObject.put("noticeCount", noticeCount)
+        jsonObject.put("noticeRange", noticeRange)
 
         if (viewDataBinding.actScheduleIvMon.isSelected) weekdays.add(0)
         if (viewDataBinding.actScheduleIvTue.isSelected) weekdays.add(1)

@@ -5,9 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.earlyBuddy.earlybuddy_android.BR
 import com.earlyBuddy.earlybuddy_android.R
@@ -15,7 +13,6 @@ import com.earlyBuddy.earlybuddy_android.base.BaseFragment
 import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.PlaceSearch
 import com.earlyBuddy.earlybuddy_android.databinding.FragmentPlaceResultBinding
-import com.earlyBuddy.earlybuddy_android.databinding.ItemPlaceListBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPlaceResultBinding
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 

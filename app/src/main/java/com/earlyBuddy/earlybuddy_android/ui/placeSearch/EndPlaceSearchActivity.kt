@@ -119,6 +119,10 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
                 keyboard.hideSoftInputFromWindow(act_end_place_search_et_search.windowToken, 0)
 
                 getPlaceData()
+
+                if(viewDataBinding.actEndPlaceSearchEtSearch.text.isNotEmpty()){
+                    viewModel.insert(RecentPlaceEntity(placeName = viewDataBinding.actEndPlaceSearchEtSearch.text.toString()))
+                }
                 supportFragmentManager.beginTransaction()
                     .replace(
                         R.id.act_end_place_search_container,
