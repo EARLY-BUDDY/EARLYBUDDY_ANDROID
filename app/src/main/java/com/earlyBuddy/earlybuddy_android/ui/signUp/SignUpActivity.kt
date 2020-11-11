@@ -38,9 +38,9 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
     val pwPattern: Pattern? = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}", Pattern.CASE_INSENSITIVE)
     var pwFlag: Boolean = false
     var pwCheckFlag: Boolean = false
-    lateinit var id: String
-    lateinit var pw: String
-    lateinit var pwCheck: String
+    var id: String = ""
+    var pw: String = ""
+    var pwCheck: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,15 +54,6 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
         setEditTextChange()
         setButton()
         observe()
-//        viewDataBinding.actSignUpTvPwCheck.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-//            if (keyCode == KeyEvent.KEYCODE_ENTER) {
-//                v.clearFocus()
-//                val keyboard: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//                keyboard.hideSoftInputFromWindow(act_sign_up_et_pw_check.windowToken, 0)
-//                return@OnKeyListener true
-//            }
-//            false
-//        })
     }
 
 //    var signUpDialogFragmentDismissListener = object : SignUpDialogFragment.OnDialogDismissedListener {
@@ -264,13 +255,22 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
         viewDataBinding.actSignUpClBg.setOnClickListener {
             hideKeyboard(viewDataBinding.actSignUpEtId)
         }
+
+        viewDataBinding.actSignUpEtPwCheck.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                v.clearFocus()
+                val keyboard: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                keyboard.hideSoftInputFromWindow(v.windowToken, 0)
+                return@OnKeyListener true
+            }
+            false
+        })
     }
 
     fun hideKeyboard(et: EditText){
 
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(et.windowToken, 0)
-
     }
 
 }

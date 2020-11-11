@@ -36,7 +36,6 @@ class VerticalPathActivity : AppCompatActivity() {
         startAdd = intent.getStringExtra("startAdd")!!
         endAdd = intent.getStringExtra("endAdd")!!
         scheTime = intent.getStringExtra("scheTime")!!
-//        Log.e("pathData", pathData.toString())
 
         routeRecyclerView = findViewById(R.id.act_vertical_path_rv_path)
         routeAdapter =
@@ -76,6 +75,10 @@ class VerticalPathActivity : AppCompatActivity() {
             intent.putExtra("startAdd", startAdd)
             intent.putExtra("endAdd", endAdd)
             setResult(Activity.RESULT_OK, intent)
+            finish()
+        }
+
+        act_vertical_path_iv_back.onlyOneClickListener {
             finish()
         }
     }

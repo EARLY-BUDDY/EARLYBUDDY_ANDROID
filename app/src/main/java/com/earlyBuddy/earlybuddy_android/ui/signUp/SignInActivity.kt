@@ -24,6 +24,7 @@ import com.earlyBuddy.earlybuddy_android.ui.initial.nickname.NickNameActivity
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_sign_in.*
+import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.json.JSONObject
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -45,20 +46,10 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
         setButton()
         setEditTextChange()
         observe()
+        hideKeyboard(viewDataBinding.actSignInEtPw)
 //        confirmSignIn()
 
         SharedPreferenceController.setAutoLogin(this, false)
-
-//        act_sign_in_et_pw.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-//            if (keyCode == KeyEvent.KEYCODE_ENTER) {
-//                v.clearFocus()
-//                val keyboard: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-//                keyboard.hideSoftInputFromWindow(act_sign_in_et_pw.windowToken, 0)
-//                return@OnKeyListener true
-//            }
-//            false
-//        })
-
 
     }
 
@@ -120,6 +111,20 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
             startActivity(intent)
             finish()
         }
+
+        viewDataBinding.actSignInClBg.onlyOneClickListener {
+            hideKeyboard(viewDataBinding.actSignInEtPw)
+        }
+
+        viewDataBinding.actSignInEtPw.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                v.clearFocus()
+                val keyboard: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                keyboard.hideSoftInputFromWindow(v.windowToken, 0)
+                return@OnKeyListener true
+            }
+            false
+        })
     }
 
     fun postSignIn(){
@@ -202,9 +207,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
     }
 
     fun hideKeyboard(et: EditText){
-
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(et.windowToken, 0)
-
     }
 }

@@ -22,6 +22,15 @@ class RecentPlaceAdapter (private val clickItemListener : RecentPlaceViewHolder.
         }
     }
 
+    fun removeAt(position: Int, size : Int) {
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, size)
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentPlaceViewHolder {
         binding = ItemRecentPlaceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RecentPlaceViewHolder(binding, clickItemListener, clickDeleteListener)
