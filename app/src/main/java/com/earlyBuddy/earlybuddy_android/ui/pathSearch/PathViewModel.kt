@@ -24,6 +24,7 @@ class PathViewModel(private val repository : SearchRouteRepository) : BaseViewMo
     var routeArrayList = ArrayList<Path>()
     var _routeList = MutableLiveData<ArrayList<Path>>()
     val routeList : LiveData<ArrayList<Path>> get() = _routeList
+    val routeFlag = MutableLiveData<Boolean>()
 
 
 
@@ -41,10 +42,15 @@ class PathViewModel(private val repository : SearchRouteRepository) : BaseViewMo
                 // API를 통해 액세스 토큰을 정상적으로 받았을 때 처리할 작업을 구현
                 // 작업 중 오류가 발생하면 이 블록은 호출되지 x
 
-                // onResponse
-                routeArrayList = it.data.path
-                _routeList.value = it.data.path
-//                Log.e("getRoute 응답 성공 : ", routeList.value.toString())
+                if(it.status==200){
+                    routeFlag.value = true
+                    routeArrayList = it.data.path
+                    _routeList.value = it.data.path
+                    Log.e("getRoute 응답 성공 : ", routeList.value.toString())
+                }else if(it.status==404){
+                    routeFlag.value = false
+                }
+
             }){
                 // 에러 블록
                 // 네트워크 오류나 데이터 처리 오류 등

@@ -1,6 +1,5 @@
 package com.earlyBuddy.earlybuddy_android.ui.pathSearch
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -9,7 +8,6 @@ import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Path
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.SubPath
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPathBinding
-import kotlin.math.ceil
 import kotlin.math.round
 
 class PathItemAdapter(
@@ -19,6 +17,11 @@ class PathItemAdapter(
     private val data: ArrayList<Path> = ArrayList()
     lateinit var binding: ItemPathBinding
 
+    fun clearAll(){
+        data.clear()
+        notifyDataSetChanged()
+    }
+
     fun replaceAll(array: ArrayList<Path>?) {
         array?.let {
             this.data.run {
@@ -26,6 +29,10 @@ class PathItemAdapter(
                 addAll(it)
             }
         }
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PathItemViewHolder {

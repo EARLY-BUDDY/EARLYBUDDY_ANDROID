@@ -32,6 +32,7 @@ import org.json.JSONObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.math.round
+import kotlin.system.exitProcess
 
 class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel>() {
 
@@ -75,17 +76,21 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         })
 
         viewDataBinding.actScheduleClPlaceClick.onlyOneClickListener {
-            val startTime = time.substring(0,2).toInt()
-            if(startTime in 0..4) Toast.makeText(this, "이 시간은 대중교통이 잠드는 시간이에요.", Toast.LENGTH_SHORT).show()
-            else if(scheDate.isNullOrEmpty() || scheTime.isNullOrEmpty()) Toast.makeText(this, "날짜와 도착시간을 먼저 설정해주세요!", Toast.LENGTH_SHORT).show()
+            if(scheDate.isNullOrEmpty() || scheTime.isNullOrEmpty()) Toast.makeText(this, "날짜와 도착시간을 먼저 설정해주세요!", Toast.LENGTH_SHORT).show()
             else {
-                val intent = Intent(this, PathActivity::class.java)
-                intent.putExtra("scheDate", scheDate)
-                intent.putExtra("scheTime", scheTime)
-                intent.putExtra("scheStart", "$date $time")
-                startActivityForResult(intent, REQUEST_CODE_PATH)
+                val startTime = time.substring(0,2).toInt()
+                if(startTime in 0..4) Toast.makeText(this, "이 시간은 대중교통이 잠드는 시간이에요.", Toast.LENGTH_SHORT).show()
+                else {
+                    val intent = Intent(this, PathActivity::class.java)
+                    intent.putExtra("scheDate", scheDate)
+                    intent.putExtra("scheTime", scheTime)
+                    intent.putExtra("scheStart", "$date $time")
+                    startActivityForResult(intent, REQUEST_CODE_PATH)
+                }
             }
+
         }
+
         viewDataBinding.actScheduleTvRegister.onlyOneClickListener {
             if(viewDataBinding.actScheduleEtName.text.isNullOrEmpty() || startAdd.isNullOrEmpty() || endAdd.isNullOrEmpty())
                 Toast.makeText(this, "빠진 정보가 있나 확인해주세요!", Toast.LENGTH_SHORT).show()

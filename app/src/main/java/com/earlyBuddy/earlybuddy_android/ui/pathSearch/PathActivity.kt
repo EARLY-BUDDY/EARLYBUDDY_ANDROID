@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPathEntity
+import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPathBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.EndPlaceSearchActivity
@@ -76,7 +77,6 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                     ey = item.ey
                     sFlag = 1
                     eFlag = 1
-                    Log.e("onClick", "${sx} ${sy} ${ex} ${ey} ")
 
                     viewModel.getRouteData(sx, sy, ex, ey, 0, scheStart)
 
@@ -100,10 +100,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
                 }
 
             }, object : RecentPathViewHolder.onClickDeleteListener{
-                override fun onDeleteItem(
-                    position: Int,
-                    item: RecentPathEntity
-                ) {
+                override fun onDeleteItem(position: Int, item: RecentPathEntity) {
                     viewModel.delete(item)
                 }
 
@@ -141,11 +138,14 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
             act_path_tv_end.setTextColor(resources.getColor(R.color.mid_gray))
             sFlag = 0
             eFlag = 0
+            sx = 0.0
+            sy = 0.0
 
             for (fragment in supportFragmentManager.fragments) {
                 supportFragmentManager.beginTransaction().remove(fragment!!).commit()
             }
         }
+
         viewDataBinding.actPathIvChange.onlyOneClickListener {
             if (sFlag == 1 && eFlag == 1) {
                 val temp = viewDataBinding.actPathTvStart.text
@@ -233,7 +233,7 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
             1 // 최단 시간순
             -> viewModel.routeArrayList.sortBy { it.totalTime }
             2// 최소 환승순
-            -> viewModel.routeArrayList.sortBy { it.totalTime }
+            -> viewModel.routeArrayList.sortBy { it.transitCount }
             3 // 최소 도보순
             -> viewModel.routeArrayList.sortBy { it.totalWalkTime }
         }

@@ -8,6 +8,6 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPath
 
 @Dao
 interface RecentPathDao : BaseDao<RecentPathEntity> {
-    @Query("SELECT * FROM recentPath ORDER BY id DESC")
+    @Query("SELECT * FROM recentPath GROUP BY startPlaceName, endPlaceName ORDER BY id DESC")
     fun loadRecentPath(): LiveData<List<RecentPathEntity>>
 }
