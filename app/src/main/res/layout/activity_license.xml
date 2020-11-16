@@ -21,6 +21,8 @@
 
         <TextView
             android:id="@+id/act_license_tv_text"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans_kr_regular"
