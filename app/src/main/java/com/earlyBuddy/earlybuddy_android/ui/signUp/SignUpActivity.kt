@@ -1,12 +1,13 @@
 package com.earlyBuddy.earlybuddy_android.ui.signUp
 
-import android.content.Intent
+import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
 import android.text.Html
 import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -32,13 +33,14 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
         get() = R.layout.activity_sign_up
     override val viewModel: SignUpViewModel by viewModel()
 
-    val pwPattern: Pattern? = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}", Pattern.CASE_INSENSITIVE)
+    val pwPattern: Pattern? =
+        Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}", Pattern.CASE_INSENSITIVE)
     var pwFlag: Boolean = false
     var pwCheckFlag: Boolean = false
     var termsCheckFlag: Boolean = false
-    lateinit var id: String
-    lateinit var pw: String
-    lateinit var pwCheck: String
+    var id: String = ""
+    var pw: String = ""
+    var pwCheck: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -291,6 +293,17 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
             }
             onDataCheck()
         }
+
+        viewDataBinding.actSignUpEtPwCheck.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                v.clearFocus()
+                val keyboard: InputMethodManager =
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                keyboard.hideSoftInputFromWindow(v.windowToken, 0)
+                return@OnKeyListener true
+            }
+            false
+        })
     }
 //    fun setButton(){
 //        viewDataBinding.actSignUpClBg.setOnClickListener {
@@ -298,11 +311,16 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
 //        }
 //    }
 
-//    fun hideKeyboard(et: EditText){
+    //    fun hideKeyboard(et: EditText){
 //
 //        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 //        imm.hideSoftInputFromWindow(et.windowToken, 0)
 //
 //    }
+    fun hideKeyboard(et: EditText) {
+
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(et.windowToken, 0)
+    }
 
 }

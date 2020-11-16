@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +28,7 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
     private val OPEN_VERTIVAL_PATH = 7777
     var preferIdx = 0
     var sortIdx = 0
+    lateinit var pathItemAdapter : PathItemAdapter
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -40,7 +42,7 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
     }
 
     private fun setRv(){
-        val pathItemAdapter = PathItemAdapter(
+        pathItemAdapter = PathItemAdapter(
             object : PathItemViewHolder.OnClickPathItemListener {
                 override fun onClickPathItem(position: Int, pathIdx: Int) {
                     val intent = Intent(requireContext(), VerticalPathActivity::class.java)
@@ -52,21 +54,31 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
                 }
             }
         )
+
         pathItemAdapter.setHasStableIds(true)
-        val animator: RecyclerView.ItemAnimator? = viewDataBinding.fragPathResultRv.itemAnimator
-        if (animator is SimpleItemAnimator) animator.supportsChangeAnimations = false
 
         viewDataBinding.fragPathResultRv.apply {
             adapter = pathItemAdapter
             layoutManager = LinearLayoutManager(requireActivity())
+            setHasFixedSize(true)
         }
 
-        viewModel.routeList.observe(viewLifecycleOwner, Observer {
-            pathItemAdapter.run{
-                replaceAll(it)
-                notifyDataSetChanged()
+        viewModel.routeFlag.observe(viewLifecycleOwner, Observer {
+            if(it){
+                viewDataBinding.fragPathResultIvEmpty.visibility = View.GONE
+                viewModel.routeList.observe(viewLifecycleOwner, Observer {
+                    pathItemAdapter.run{
+                        replaceAll(it)
+                        notifyDataSetChanged()
+                        viewDataBinding.fragPathResultRv.smoothScrollToPosition(0)
+                    }
+                })
+            }else if(!it){
+                viewDataBinding.fragPathResultIvEmpty.visibility = View.VISIBLE
+                pathItemAdapter.clearAll()
             }
         })
+
     }
 
     fun setClick(){
@@ -80,6 +92,7 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
         }
 
         viewDataBinding.fragPathResultRlSort.onlyOneClickListener {
+            Log.e("fragPathResultRlSort", "click")
             val sortListDialog = SortListDialogFragment()
             val args = Bundle()
             args.putInt("sortIdx", sortIdx)
@@ -93,8 +106,8 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
         super.onActivityResult(requestCode, resultCode, data)
         val bundle = data?.extras
 
-        if(resultCode == PREFER_LIST_DIALOG) {
-            if (resultCode == Activity.RESULT_OK) {
+        if(resultCode==Activity.RESULT_OK){
+            if(requestCode == PREFER_LIST_DIALOG){
                 preferIdx = bundle!!.getInt("preferIdx")
                 (activity as PathActivity).searchPathType = preferIdx
                 (activity as PathActivity).getRoute()
@@ -106,12 +119,7 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
                 } else {
                     viewDataBinding.fragPathResultTvPrefer.text = "버스"
                 }
-            }
-            else{
-                Log.e("onActResult", "fail")
-            }
-        }else if(resultCode == SORT_LIST_DIALOG) {
-            if (resultCode == Activity.RESULT_OK) {
+            }else if(requestCode == SORT_LIST_DIALOG){
                 sortIdx = bundle!!.getInt("sortIdx")
 
                 when (sortIdx) {
@@ -136,11 +144,7 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
                         (activity as PathActivity).sortRoute()
                     }
                 }
-            }else{
-                Log.e("onActResult", "fail")
-            }
-        } else if (requestCode == OPEN_VERTIVAL_PATH) {
-            if (resultCode == Activity.RESULT_OK) {
+            }else if(requestCode == OPEN_VERTIVAL_PATH){
                 val pathData = data!!.getSerializableExtra("path") as Path
                 val startAdd = data.getStringExtra("startAdd")
                 val endAdd = data.getStringExtra("endAdd")
@@ -150,8 +154,6 @@ class PathResultFragment : BaseFragment<FragmentPathResultBinding, PathViewModel
                 intent.putExtra("endAdd", endAdd)
                 requireActivity().setResult(Activity.RESULT_OK, intent)
                 requireActivity().finish()
-            }else{
-                Log.e("onActResult", "fail")
             }
         } else{
             Log.e("onActResult", "fail")

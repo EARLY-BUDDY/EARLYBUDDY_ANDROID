@@ -1,32 +1,23 @@
 package com.earlyBuddy.earlybuddy_android.ui.placeSearch
 
-import android.Manifest
 import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.earlyBuddy.earlybuddy_android.BR
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
-import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityStartPlaceSearchBinding
-import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPlaceBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_start_place_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, PlaceSearchViewModel>() {
     companion object{
@@ -144,7 +135,11 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
                 keyboard.hideSoftInputFromWindow(act_start_place_search_et_search.windowToken, 0)
 
                 getPlaceData()
-                viewModel.insert(RecentPlaceEntity(placeName =  act_start_place_search_et_search.text.toString()))
+
+                if(viewDataBinding.actStartPlaceSearchEtSearch.text.isNotEmpty()){
+                    viewModel.insert(RecentPlaceEntity(placeName = viewDataBinding.actStartPlaceSearchEtSearch.text.toString()))
+                }
+
                 supportFragmentManager.beginTransaction()
                     .replace(
                         R.id.act_start_place_search_container,
@@ -184,6 +179,7 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
         })
 
         recentPlaceAdapter.setHasStableIds(true)
+
         viewDataBinding.actStartPlaceSearchRv.apply {
             adapter = recentPlaceAdapter
             layoutManager = LinearLayoutManager(this@StartPlaceSearchActivity)
