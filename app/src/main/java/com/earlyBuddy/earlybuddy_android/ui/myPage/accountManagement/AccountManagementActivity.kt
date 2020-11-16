@@ -29,6 +29,8 @@ class AccountManagementActivity :
 
         viewDataBinding.actAccountManageTopTitle.actTopTitleTvTitle.text = "계정 관리"
 
+        viewDataBinding.actAccountManageEtNickName.text = SharedPreferenceController.getNickName(this)
+
         viewDataBinding.actAccountManageTvLogout.onlyOneClickListener {
             val intent = Intent(this, SignInActivity::class.java)
             ActivityCompat.finishAffinity(this)
