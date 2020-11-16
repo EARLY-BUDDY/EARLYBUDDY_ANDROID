@@ -35,6 +35,7 @@ class AccountManagementActivity :
             startActivity(intent)
 
             SharedPreferenceController.deleteAuthorization(this)
+            SharedPreferenceController.deleteNickName(this)
             SharedPreferenceController.setAutoLogin(this, false)
 
             finish()
