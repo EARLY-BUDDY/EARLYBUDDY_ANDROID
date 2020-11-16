@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
@@ -198,6 +199,10 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
     fun observe() {
         viewModel.signInResponse.observe(this, Observer {
             if (it.status == 200) {
+                SharedPreferenceController.setId(
+                    EarlyBuddyApplication.getGlobalApplicationContext(),
+                    id
+                )
                 if (it.data!!.userName == null) {
                     val intent = Intent(this, NickNameActivity::class.java)
                     startActivity(intent)
