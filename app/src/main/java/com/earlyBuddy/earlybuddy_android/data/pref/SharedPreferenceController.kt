@@ -8,6 +8,7 @@ object SharedPreferenceController{
     private val myAuth = "myAuth"
 
     private val autoLogin = "autoLogin"
+    private val isLookOnBoarding = "isLookOnBoarding"
 
     fun setAuthorization(context: Context, authorization : String)
     {
@@ -39,6 +40,18 @@ object SharedPreferenceController{
     fun getAutoLogin(context: Context) : Boolean {
         val pref = context.getSharedPreferences(autoLogin, Context.MODE_PRIVATE) //현재 내 기기에서만 볼수 있는 데이터
         return pref.getBoolean(autoLogin, false)
+    }
+
+    fun isLookOnBoarding(context: Context) : Boolean {
+        val pref = context.getSharedPreferences(isLookOnBoarding, Context.MODE_PRIVATE) //현재 내 기기에서만 볼수 있는 데이터
+        return pref.getBoolean(isLookOnBoarding, false)
+    }
+
+    fun setLookOnBoarding(context: Context) {
+        val pref = context.getSharedPreferences(isLookOnBoarding, Context.MODE_PRIVATE) //현재 내 기기에서만 볼수 있는 데이터
+        val editor = pref.edit()
+        editor.putBoolean(isLookOnBoarding, true)
+        editor.apply()
     }
 
 }
