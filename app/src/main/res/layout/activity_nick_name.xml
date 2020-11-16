@@ -33,7 +33,7 @@
             android:layout_marginTop="41dp"
             android:letterSpacing="-0.03"
             android:lineSpacingExtra="9sp"
-            android:text="얼리버디와 함께 할\n닉네임을 설정해주세요."
+            android:text="얼리버디가 불러드릴\n닉네임을 설정해주세요:)"
             android:textColor="@color/black"
             android:textSize="26sp"
             app:layout_constraintStart_toStartOf="parent"

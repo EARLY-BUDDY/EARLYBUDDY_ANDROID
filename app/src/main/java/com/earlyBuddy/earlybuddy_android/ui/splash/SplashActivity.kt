@@ -9,6 +9,7 @@ import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
+import com.earlyBuddy.earlybuddy_android.ui.initial.nickname.NickNameActivity
 import com.earlyBuddy.earlybuddy_android.ui.initial.onBoard.OnBoardActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
 import com.google.android.gms.tasks.Task
@@ -75,9 +76,15 @@ class SplashActivity : AppCompatActivity() {
                     this
                 ) != ""
             ) {
-                val intent = Intent(this, HomeActivity::class.java)
-                startActivity(intent)
-                finish()
+                if (SharedPreferenceController.getNickName(this) == "") {
+                    val intent = Intent(this, NickNameActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             } else {
                 goToSigninActivity()
             }
