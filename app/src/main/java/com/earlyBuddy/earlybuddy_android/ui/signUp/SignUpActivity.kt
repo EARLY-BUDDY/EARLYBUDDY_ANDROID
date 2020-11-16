@@ -1,6 +1,7 @@
 package com.earlyBuddy.earlybuddy_android.ui.signUp
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
@@ -19,6 +20,7 @@ import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivitySignUpBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
+import com.earlyBuddy.earlybuddy_android.ui.myPage.license.LicenseActivity
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -304,6 +306,18 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
             }
             false
         })
+
+        viewDataBinding.actSignUpIvTermsFirst.onlyOneClickListener {
+            val intent = Intent(this, LicenseActivity::class.java)
+            intent.putExtra("title", "이용약관")
+            startActivity(intent)
+        }
+
+        viewDataBinding.actSignUpIvTermsSecond.onlyOneClickListener {
+            val intent = Intent(this, LicenseActivity::class.java)
+            intent.putExtra("title", "개인정보처리방침")
+            startActivity(intent)
+        }
     }
 //    fun setButton(){
 //        viewDataBinding.actSignUpClBg.setOnClickListener {

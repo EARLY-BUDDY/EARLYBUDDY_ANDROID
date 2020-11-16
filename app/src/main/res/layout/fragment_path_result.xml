@@ -138,6 +138,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.core.widget.NestedScrollView
+            android:background="#FFFFFF"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:overScrollMode="never"
@@ -147,6 +148,7 @@
             app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="#FFFFFF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
