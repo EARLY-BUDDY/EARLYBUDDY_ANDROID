@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
 import android.util.Log
 import android.view.MotionEvent
@@ -34,6 +35,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
     val pwPattern: Pattern? = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}", Pattern.CASE_INSENSITIVE)
     var pwFlag: Boolean = false
     var pwCheckFlag: Boolean = false
+    var termsCheckFlag: Boolean = false
     lateinit var id: String
     lateinit var pw: String
     lateinit var pwCheck: String
@@ -43,6 +45,8 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
 
         viewDataBinding.vm = viewModel
 
+        viewDataBinding.actSignUpIvTermsSecond.text = Html.fromHtml("<u>개인정보처리방침</u>")
+        viewDataBinding.actSignUpIvTermsFirst.text = Html.fromHtml("<u>이용약관</u>")
         pwCheck()
         pwSameCheck()
         focusController()
@@ -50,6 +54,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
         setEditTextChange()
 //        setButton()
         observe()
+        onClickTerms()
 //        viewDataBinding.actSignUpTvPwCheck.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
 //            if (keyCode == KeyEvent.KEYCODE_ENTER) {
 //                v.clearFocus()
@@ -238,7 +243,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
         getEditText()
 
         if (viewDataBinding.actSignUpEtId.text.isNotEmpty() && pwFlag && pwCheckFlag
-            && pw == pwCheck) {
+            && pw == pwCheck && termsCheckFlag) {
 
             viewDataBinding.actSignUpTvRegist.setBackgroundResource(R.drawable.bg_25_3092ff)
             viewDataBinding.actSignUpTvRegist.isClickable = true
@@ -272,6 +277,21 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
     }
 
 
+    private fun onClickTerms(){
+        viewDataBinding.actSignUpIvCheck.onlyOneClickListener {
+            when(termsCheckFlag){
+                false -> {
+                    termsCheckFlag = true
+                    viewDataBinding.actSignUpIvCheck.setImageResource(R.drawable.ic_check_selected)
+                }
+                true -> {
+                    termsCheckFlag = false
+                    viewDataBinding.actSignUpIvCheck.setImageResource(R.drawable.ic_check_unselected)
+                }
+            }
+            onDataCheck()
+        }
+    }
 //    fun setButton(){
 //        viewDataBinding.actSignUpClBg.setOnClickListener {
 //            hideKeyboard(viewDataBinding.actSignUpEtId)
