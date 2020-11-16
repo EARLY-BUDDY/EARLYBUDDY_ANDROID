@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="com.earlyBuddy.earlybuddy_android.ui.home.beforeBus.BeforeBusViewModel" />
@@ -20,20 +22,65 @@
             android:layout_height="match_parent"
             android:background="#FFFFFF">
 
-            <TextView
-                android:id="@+id/frag_home_before_bus_text"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/frag_home_before_bus_cl_top_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="23dp"
-                android:letterSpacing="-0.05"
-                android:lineSpacingExtra="10dp"
-                android:text="@{vm.frontSentence+`\n`+vm.lastsSentence}"
-                android:textColor="@color/black"
-                android:textSize="30dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
+                <ImageView
+                    android:id="@+id/frag_home_before_bus_iv_front_box"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:paddingVertical="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/yellowbox_top"
+                    app:layout_constraintBottom_toBottomOf="@id/frag_home_before_bus_text_front"
+                    app:layout_constraintEnd_toEndOf="@id/frag_home_before_bus_text_front"
+                    app:layout_constraintStart_toStartOf="@id/frag_home_before_bus_text_front"
+                    app:layout_constraintTop_toTopOf="@id/frag_home_before_bus_text_front" />
+
+                <TextView
+                    android:id="@+id/frag_home_before_bus_text_front"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="-0.05"
+                    android:lineSpacingExtra="10dp"
+                    android:text="@{vm.frontSentence}"
+                    android:textColor="@color/black"
+                    android:textSize="30dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="타야할 버스가 오고 있어요!" />
+
+                <ImageView
+                    android:id="@+id/frag_home_before_bus_iv_last_box"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:paddingVertical="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/yellowbox_top"
+                    app:layout_constraintBottom_toBottomOf="@id/frag_home_before_bus_text_last"
+                    app:layout_constraintEnd_toEndOf="@id/frag_home_before_bus_text_last"
+                    app:layout_constraintStart_toStartOf="@id/frag_home_before_bus_text_last"
+                    app:layout_constraintTop_toTopOf="@id/frag_home_before_bus_text_last" />
+
+                <TextView
+                    android:id="@+id/frag_home_before_bus_text_last"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="-0.05"
+                    android:lineSpacingExtra="10dp"
+                    android:text="@{vm.lastsSentence}"
+                    android:textColor="@color/black"
+                    android:textSize="30dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/frag_home_before_bus_text_front"
+                    tools:text="이젠 나갈 준비하세요!" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/frag_home_before_bus_tv_next"
@@ -47,7 +94,7 @@
                 android:textColor="@color/black"
                 android:textSize="23dp"
                 app:layout_constraintBottom_toTopOf="@+id/frag_home_before_bus__cl_number"
-                app:layout_constraintStart_toStartOf="@+id/frag_home_before_bus_text" />
+                app:layout_constraintStart_toStartOf="@+id/frag_home_before_bus_cl_top_text" />
 
             <TextView
                 android:id="@+id/frag_home_before_bus_tv_arriveSoon"
@@ -106,7 +153,7 @@
                 changeTint="@{vm.tints}"
                 android:background="@drawable/bus_subway_number_cl"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@id/frag_home_before_bus_text">
+                app:layout_constraintStart_toStartOf="@id/frag_home_before_bus_cl_top_text">
 
                 <TextView
                     android:id="@+id/frag_home_before_bus__tv_number"

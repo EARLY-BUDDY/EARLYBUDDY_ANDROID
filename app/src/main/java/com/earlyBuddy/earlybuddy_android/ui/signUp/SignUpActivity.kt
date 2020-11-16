@@ -1,12 +1,14 @@
 package com.earlyBuddy.earlybuddy_android.ui.signUp
 
 import android.content.Context
-import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -17,10 +19,6 @@ import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivitySignUpBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.FirebaseApp
-import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.iid.InstanceIdResult
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_sign_up.*
@@ -35,9 +33,11 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
         get() = R.layout.activity_sign_up
     override val viewModel: SignUpViewModel by viewModel()
 
-    val pwPattern: Pattern? = Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}", Pattern.CASE_INSENSITIVE)
+    val pwPattern: Pattern? =
+        Pattern.compile("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}", Pattern.CASE_INSENSITIVE)
     var pwFlag: Boolean = false
     var pwCheckFlag: Boolean = false
+    var termsCheckFlag: Boolean = false
     var id: String = ""
     var pw: String = ""
     var pwCheck: String = ""
@@ -47,13 +47,41 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
 
         viewDataBinding.vm = viewModel
 
+        viewDataBinding.actSignUpIvTermsSecond.text = Html.fromHtml("<u>개인정보처리방침</u>")
+        viewDataBinding.actSignUpIvTermsFirst.text = Html.fromHtml("<u>이용약관</u>")
         pwCheck()
         pwSameCheck()
         focusController()
 //        confirmJoin()
         setEditTextChange()
-        setButton()
+//        setButton()
         observe()
+        onClickTerms()
+//        viewDataBinding.actSignUpTvPwCheck.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+//            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+//                v.clearFocus()
+//                val keyboard: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//                keyboard.hideSoftInputFromWindow(act_sign_up_et_pw_check.windowToken, 0)
+//                return@OnKeyListener true
+//            }
+//            false
+//        })
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val focusView = currentFocus
+        if (focusView != null) {
+            val rect = Rect()
+            focusView.getGlobalVisibleRect(rect)
+            val x = ev.x.toInt()
+            val y = ev.y.toInt()
+            if (!rect.contains(x, y)) {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm?.hideSoftInputFromWindow(focusView.windowToken, 0)
+                focusView.clearFocus()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
     }
 
 //    var signUpDialogFragmentDismissListener = object : SignUpDialogFragment.OnDialogDismissedListener {
@@ -64,17 +92,17 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
 //        }
 //    }
 
-    private fun pwCheck(){
-        viewDataBinding.actSignUpEtPw.addTextChangedListener(object: TextWatcher {
-            override fun afterTextChanged(p0: Editable?) { }
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+    private fun pwCheck() {
+        viewDataBinding.actSignUpEtPw.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (!(pwPattern!!.matcher(p0.toString()).matches())) {
                     viewDataBinding.actSignUpEtPw.setBackgroundResource(R.drawable.border_25_ff6e6e)
                     viewDataBinding.actSignUpTvPwWarning.visibility = View.VISIBLE
                     pwFlag = false
                     pw = p0.toString()
-                }else{
+                } else {
                     viewDataBinding.actSignUpEtPw.setBackgroundResource(R.drawable.border_25_3092ff)
                     viewDataBinding.actSignUpTvPwWarning.visibility = View.INVISIBLE
                     pwFlag = true
@@ -191,8 +219,8 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
             if (it == "회원 가입 성공") {
                 Toast.makeText(this, "얼리버디의 회원이 되셨습니다", Toast.LENGTH_SHORT).show()
 //                signUpDialog.show(supportFragmentManager,"signUp_fagment")
-                val intent = Intent(this, SignInActivity::class.java)
-                startActivity(intent)
+//                val intent = Intent(this, SignInActivity::class.java)
+//                startActivity(intent)
                 finish()
             } else if (it == "이미 사용중인 아이디입니다.") {
                 viewDataBinding.actSignUpTvIdWarning.visibility = View.VISIBLE
@@ -217,7 +245,7 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
         getEditText()
 
         if (viewDataBinding.actSignUpEtId.text.isNotEmpty() && pwFlag && pwCheckFlag
-            && pw == pwCheck) {
+            && pw == pwCheck && termsCheckFlag) {
 
             viewDataBinding.actSignUpTvRegist.setBackgroundResource(R.drawable.bg_25_3092ff)
             viewDataBinding.actSignUpTvRegist.isClickable = true
@@ -251,23 +279,45 @@ class SignUpActivity : BaseActivity<ActivitySignUpBinding, SignUpViewModel>() {
     }
 
 
-    fun setButton(){
-        viewDataBinding.actSignUpClBg.setOnClickListener {
-            hideKeyboard(viewDataBinding.actSignUpEtId)
+    private fun onClickTerms(){
+        viewDataBinding.actSignUpIvCheck.onlyOneClickListener {
+            when(termsCheckFlag){
+                false -> {
+                    termsCheckFlag = true
+                    viewDataBinding.actSignUpIvCheck.setImageResource(R.drawable.ic_check_selected)
+                }
+                true -> {
+                    termsCheckFlag = false
+                    viewDataBinding.actSignUpIvCheck.setImageResource(R.drawable.ic_check_unselected)
+                }
+            }
+            onDataCheck()
         }
 
         viewDataBinding.actSignUpEtPwCheck.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 v.clearFocus()
-                val keyboard: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val keyboard: InputMethodManager =
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 keyboard.hideSoftInputFromWindow(v.windowToken, 0)
                 return@OnKeyListener true
             }
             false
         })
     }
+//    fun setButton(){
+//        viewDataBinding.actSignUpClBg.setOnClickListener {
+//            hideKeyboard(viewDataBinding.actSignUpEtId)
+//        }
+//    }
 
-    fun hideKeyboard(et: EditText){
+    //    fun hideKeyboard(et: EditText){
+//
+//        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        imm.hideSoftInputFromWindow(et.windowToken, 0)
+//
+//    }
+    fun hideKeyboard(et: EditText) {
 
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(et.windowToken, 0)

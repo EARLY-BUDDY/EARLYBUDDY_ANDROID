@@ -1,12 +1,18 @@
 package com.earlyBuddy.earlybuddy_android.ui.myPage.accountManagement
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import androidx.core.app.ActivityCompat
 import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityAccountManagementBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
+import com.earlyBuddy.earlybuddy_android.ui.MainActivity
+import com.earlyBuddy.earlybuddy_android.ui.myPage.main.MyPageActivity
 import com.earlyBuddy.earlybuddy_android.ui.myPage.password.PasswordChangeActivity
 import com.earlyBuddy.earlybuddy_android.ui.myPage.quit.QuitActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
@@ -25,6 +31,7 @@ class AccountManagementActivity :
 
         viewDataBinding.actAccountManageTvLogout.onlyOneClickListener {
             val intent = Intent(this, SignInActivity::class.java)
+            ActivityCompat.finishAffinity(this)
             startActivity(intent)
 
             SharedPreferenceController.deleteAuthorization(this)

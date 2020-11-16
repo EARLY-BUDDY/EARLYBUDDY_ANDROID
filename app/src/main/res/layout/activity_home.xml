@@ -132,7 +132,7 @@
             android:fontFamily="@font/noto_sans_kr_regular"
             android:letterSpacing="-0.03"
             android:lineSpacingExtra="6dp"
-            android:text="@{vm.startTime}"
+            startTimeFormat="@{vm.homeResponse.data.scheduleSummaryData.scheduleStartTime}"
             android:textColor="@color/black"
             android:textSize="14dp"
             app:layout_constraintBottom_toBottomOf="@id/act_home_iv_time"

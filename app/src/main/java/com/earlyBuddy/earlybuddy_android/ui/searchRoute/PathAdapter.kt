@@ -14,8 +14,8 @@ import com.earlyBuddy.earlybuddy_android.databinding.ItemPassThroughRouteWalkBin
 import java.util.*
 
 class PathAdapter(
-    private val startAddress: String,
-    private val endAddress: String,
+    private var startAddress: String,
+    private var endAddress: String,
     private val clickListener: RouteViewHolder.DropDownUpClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -27,6 +27,12 @@ class PathAdapter(
             clear()
             addAll(newSubPathData)
         }
+        notifyDataSetChanged()
+    }
+
+    fun setStartEndAddress(tempStartAddress: String, tempEndAddress: String){
+        startAddress = tempStartAddress
+        endAddress = tempEndAddress
         notifyDataSetChanged()
     }
 
