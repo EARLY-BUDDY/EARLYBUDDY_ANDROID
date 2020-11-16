@@ -11,15 +11,16 @@ import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.SubPath
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPassThroughRouteRidingBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemPassThroughRouteWalkBinding
+import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import java.util.*
 
 class PathAdapter(
     private var startAddress: String,
     private var endAddress: String,
-    private val clickListener: RouteViewHolder.DropDownUpClickListener
+    private val clickListener: RouteViewHolder.RouteClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-   private val subPathData: ArrayList<SubPath> = ArrayList()
+    private val subPathData: ArrayList<SubPath> = ArrayList()
 //    private val subPathData: ArrayList<SubPath> = pathData.subPath
 
     fun setRouteItemList(newSubPathData: List<SubPath>) {
@@ -30,7 +31,11 @@ class PathAdapter(
         notifyDataSetChanged()
     }
 
-    fun setStartEndAddress(tempStartAddress: String, tempEndAddress: String){
+    fun getSubPath(position: Int): SubPath {
+        return subPathData[position]
+    }
+
+    fun setStartEndAddress(tempStartAddress: String, tempEndAddress: String) {
         startAddress = tempStartAddress
         endAddress = tempEndAddress
         notifyDataSetChanged()
@@ -102,28 +107,39 @@ class PathAdapter(
 
 class RouteViewHolder(
     private val routeBinding: ItemPassThroughRouteRidingBinding,
-    private val clickListener: DropDownUpClickListener
+    private val clickListener: RouteClickListener
 ) :
     RecyclerView.ViewHolder(routeBinding.root) {
 
     private val pathDetailAdapter: PathDetailAdapter = PathDetailAdapter()
 
     init {
-        routeBinding.itemPassRidingClDropDownUp.setOnClickListener {
+        routeBinding.itemPassRidingClDropDownUp.onlyOneClickListener {
             clickListener.dropDownUpClick(
                 adapterPosition,
                 routeBinding.itemPassRidingIvDropDownUpIcon,
                 routeBinding.itemPassRidingRvRidingInfoDetail
             )
         }
+
+        routeBinding.itemPassRidingTvViewMap.onlyOneClickListener {
+            clickListener.mapClick(
+                adapterPosition
+            )
+        }
     }
 
-    interface DropDownUpClickListener {
+    interface RouteClickListener {
         fun dropDownUpClick(
             position: Int,
             dropImageView: ImageView,
             detailRecyclerView: RecyclerView
         )
+
+        fun mapClick(
+            position: Int
+        )
+
     }
 
     fun bind(data: SubPath) {
