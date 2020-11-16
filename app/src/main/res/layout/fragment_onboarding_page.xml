@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="#3794fb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/page_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/noto_sans_kr_medium"
+            android:textStyle="normal"
+            android:textSize="22sp"
+            android:textColor="#ffffff"
+            android:letterSpacing="-0.05"
+            android:lineSpacingExtra="13sp"
+            android:gravity="center_horizontal"
+            android:text="이제는 약속에 늦지마세요!"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
