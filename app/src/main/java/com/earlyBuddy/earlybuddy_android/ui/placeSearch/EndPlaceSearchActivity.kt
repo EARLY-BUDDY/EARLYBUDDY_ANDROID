@@ -1,6 +1,8 @@
 package com.earlyBuddy.earlybuddy_android.ui.placeSearch
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,7 +17,9 @@ import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
+import com.earlyBuddy.earlybuddy_android.data.datasource.model.Favorite
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityEndPlaceSearchBinding
+import com.earlyBuddy.earlybuddy_android.databinding.ItemFavPlaceBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemRecentPlaceBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.google.android.gms.location.*
@@ -43,7 +47,8 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        setRv()
+        setFavPlaceRv()
+        setRecentPlaceRv()
         textWatch()
         getLocationUpdates()
         setClick()
@@ -136,7 +141,41 @@ class EndPlaceSearchActivity : BaseActivity<ActivityEndPlaceSearchBinding, Place
         })
     }
 
-    private fun setRv(){
+    private fun setFavPlaceRv(){
+        viewDataBinding.actEndPlaceSearchRvFav.run{
+            adapter = object : BaseRecyclerViewAdapter<Favorite, ItemFavPlaceBinding>(){
+                override val bindingVariableId: Int
+                    get() = BR.favPlace
+                override val layoutResID: Int
+                    get() = R.layout.item_fav_place
+                override val listener: OnItemClickListener?
+                    get() = favItemClick
+            }
+        }
+
+        viewModel.getFavoritePlaceData()
+        viewModel.favoritePlaceList.observe(this, Observer{
+            (viewDataBinding.actEndPlaceSearchRvFav.adapter as BaseRecyclerViewAdapter<Favorite, *>).apply {
+                replaceAll(it)
+                notifyDataSetChanged()
+            }
+        })
+    }
+
+    private val favItemClick = object : BaseRecyclerViewAdapter.OnItemClickListener{
+        override fun onItemClicked(item: Any?, position: Int?) {
+            val intent = Intent()
+            intent.putExtra("placeName", viewModel.favoritePlaceList.value!![position!!].favoriteInfo)
+            intent.putExtra("x", viewModel.favoritePlaceList.value!![position].favoriteLongitude)
+            intent.putExtra("y", viewModel.favoritePlaceList.value!![position].favoriteLatitude)
+            intent.putExtra("flag", 1)
+            intent.putExtra("favoriteCategory", -1)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        }
+    }
+
+    private fun setRecentPlaceRv(){
         val recentPlaceAdapter = RecentPlaceAdapter(object : RecentPlaceViewHolder.onClickItemListener{
             override fun onClickItem(position: Int, item: RecentPlaceEntity) {
                 val recentPlace = item.placeName
