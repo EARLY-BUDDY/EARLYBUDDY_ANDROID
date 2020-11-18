@@ -82,7 +82,7 @@
                     android:layout_marginHorizontal="20dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/img_schedule_background"
+                    android:src="@drawable/img_schedule_background_cut"
                     app:layout_constraintTop_toBottomOf="@id/act_schedule_detail_cl_toolbar" />
 
                 <androidx.cardview.widget.CardView
@@ -91,9 +91,10 @@
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="55dp"
-                    android:layout_marginBottom="19dp"
+                    android:layout_marginBottom="23dp"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="@id/act_schedule_detail_iv_top">
 
                     <LinearLayout
