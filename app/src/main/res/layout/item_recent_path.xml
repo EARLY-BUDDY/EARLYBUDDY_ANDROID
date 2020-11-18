@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{recentPath.startPlaceName}"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
                 android:layout_marginTop="6dp"
                 android:text="@{recentPath.endPlaceName}"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="14dp" />
 
         </LinearLayout>
 

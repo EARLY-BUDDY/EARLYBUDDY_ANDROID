@@ -28,9 +28,9 @@
             tools:text="SOPT 데모데이"
             android:text="@{schedule.scheduleName}"
             android:lines="1"
-            android:textSize="15sp"
+            android:textSize="15dp"
             android:textColor="@color/black"
-            android:lineSpacingExtra="23sp"/>
+            android:lineSpacingExtra="23dp"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
@@ -62,9 +62,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:textSize="13dp"
                     android:textColor="@color/black"
-                    android:lineSpacingExtra="25sp"
+                    android:lineSpacingExtra="25dp"
                     tools:text="오후 12:20"
                     android:layout_marginLeft="3dp"
                     calendarScheduleTime="@{schedule.scheduleStartTime}"
@@ -87,9 +87,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:textSize="13dp"
                     android:textColor="@color/black"
-                    android:lineSpacingExtra="25sp"
+                    android:lineSpacingExtra="25dp"
                     tools:text="오렌지팜 서초센터"
                     android:text="@{schedule.endAddress}"
                     android:layout_marginLeft="3dp"

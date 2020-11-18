@@ -58,11 +58,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:letterSpacing="-0.05"
-                android:lineSpacingExtra="16sp"
+                android:lineSpacingExtra="16dp"
                 android:text="도착"
                 android:fontFamily="@font/noto_sans_kr_medium"
                 android:textColor="@color/gray"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 app:layout_constraintStart_toEndOf="@id/frag_path_result_tv_time"
                 app:layout_constraintTop_toTopOf="@id/frag_path_result_tv_time" />
 

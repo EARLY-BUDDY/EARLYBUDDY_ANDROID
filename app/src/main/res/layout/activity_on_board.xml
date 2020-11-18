@@ -44,7 +44,7 @@
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/bg_25_3092ff"
                 android:gravity="center"
-                android:lineSpacingExtra="-3sp"
+                android:lineSpacingExtra="-3dp"
                 android:text="다음으로"
                 android:textColor="#ffffff"
                 android:textSize="15dp"

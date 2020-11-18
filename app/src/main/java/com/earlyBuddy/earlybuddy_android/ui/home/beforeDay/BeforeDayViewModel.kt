@@ -49,7 +49,7 @@ class BeforeDayViewModel() : BaseViewModel() {
 
 
         if (diffDay > 0) {
-            timeDifference.value = promise.day - date.day
+            timeDifference.value = diffDay
             timeDivision.value = "일 전"
         } else {
             timeDifference.value = diffHour

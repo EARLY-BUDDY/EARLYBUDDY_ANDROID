@@ -199,7 +199,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"
+                            android:textSize="12dp"
                             android:textColor="@color/gray"
                             tools:text="약 10시 50분"
                             departTime="@{vm.scheduleDetail.scheduleInfo.departTime}"
@@ -221,9 +221,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
+                        android:textSize="16dp"
                         android:textColor="@color/black"
-                        android:lineSpacingExtra="-4sp"
+                        android:lineSpacingExtra="-4dp"
                         tools:text="배차 5분 전"
                         noticeMin="@{vm.scheduleDetail.scheduleInfo.noticeMin}"
                         android:fontFamily="@font/noto_sans_kr_regular"
@@ -242,9 +242,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
+                        android:textSize="16dp"
                         android:textColor="@color/black"
-                        android:lineSpacingExtra="-4sp"
+                        android:lineSpacingExtra="-4dp"
                         tools:text="1시간 전부터"
                         noticeRange="@{vm.scheduleDetail.scheduleInfo.noticeRange}"
                         android:fontFamily="@font/noto_sans_kr_regular"

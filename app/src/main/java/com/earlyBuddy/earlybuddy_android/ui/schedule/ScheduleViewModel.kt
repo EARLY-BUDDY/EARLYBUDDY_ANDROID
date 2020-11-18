@@ -21,6 +21,7 @@ class ScheduleViewModel(
     val noticeRange = MutableLiveData<String>()
     val postSchedule = MutableLiveData<DefaultResponse>()
     val lottieVisible = MutableLiveData<Boolean>()
+    val loading=MutableLiveData<Boolean>()
 
     fun getPathData(scheduleIdx: Int) {
         addDisposable(repository.getScheduleDetailData(scheduleIdx)
@@ -52,10 +53,12 @@ class ScheduleViewModel(
     }
 
     fun postScheData(body: JsonObject){
+        loading.value = true
         addDisposable(repository.postSchedule(body)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
             }.doOnTerminate {
+                loading.value =false
             }.subscribe({
                 postSchedule.value = it
                 Log.e("getPathData status", it.status.toString())

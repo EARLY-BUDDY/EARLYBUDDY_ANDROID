@@ -34,11 +34,11 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
         viewDataBinding.vm = viewModel
 
         val scheduleIdx = intent.getIntExtra("scheduleIdx", -1)
-        val fromHome = intent.getBooleanExtra("fromHome", false)
+//        val fromHome = intent.getBooleanExtra("fromHome", false)
 
-        if (fromHome) {
-            viewDataBinding.actHomePathTvBtn.visibility = View.GONE
-        }
+//        if (fromHome) {
+//            viewDataBinding.actHomePathTvBtn.visibility = View.GONE
+//        }
         viewModel.getPathData(scheduleIdx)
 
         viewDataBinding.actHomePathIvBack.onlyOneClickListener {

@@ -41,12 +41,12 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="5dp"
                         android:layout_marginStart="26dp"
-                        android:lineHeight="10sp"
-                        android:lineSpacingExtra="12sp"
+                        android:lineHeight="10dp"
+                        android:lineSpacingExtra="12dp"
                         android:fontFamily="@font/noto_sans_kr_medium"
                         android:textColor="@color/black"
                         android:text="자주 가는 장소 등록"
-                        android:textSize="20sp"
+                        android:textSize="20dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,10 +73,10 @@
                         android:layout_marginStart="26dp"
                         android:layout_marginTop="32dp"
                         android:fontFamily="@font/noto_sans_kr_bold"
-                        android:lineSpacingExtra="-2sp"
+                        android:lineSpacingExtra="-2dp"
                         android:text="이름"
                         android:textColor="#3092ff"
-                        android:textSize="12sp"
+                        android:textSize="12dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -111,10 +111,10 @@
                     android:layout_marginStart="26dp"
                     android:layout_marginTop="26dp"
                     android:fontFamily="@font/noto_sans_kr_bold"
-                    android:lineSpacingExtra="-2sp"
+                    android:lineSpacingExtra="-2dp"
                     android:text="아이콘"
                     android:textColor="#3092ff"
-                    android:textSize="12sp" />
+                    android:textSize="12dp" />
 
                 <LinearLayout
                     android:id="@+id/dialog_fragment_place_favorite_ll_icon"

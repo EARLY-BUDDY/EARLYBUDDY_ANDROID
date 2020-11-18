@@ -12,6 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 class PathViewModel(private val repository : SearchRouteRepository) : BaseViewModel() {
 
     val routes: LiveData<List<RecentPathEntity>> = repository.loadRecentPath()
+    val loading = MutableLiveData<Boolean>()
 
     fun insert(recentPath : RecentPathEntity) {
         repository.insert(recentPath)
@@ -29,10 +30,12 @@ class PathViewModel(private val repository : SearchRouteRepository) : BaseViewMo
 
 
     fun getRouteData(SX : Double, SY : Double, EX : Double, EY : Double, SearchPathType : Int, scheduleStartTime: String){
+        loading.value = true
         addDisposable(repository.getSearchRouteData(SX, SY, EX, EY, SearchPathType, scheduleStartTime)
             .observeOn(AndroidSchedulers.mainThread())
             // 구독할 때 수행할 작업을 구현
             .doOnSubscribe {
+                loading.value = false
             }
             // 스트림이 종료될 때 수행할 작업을 구현
             .doOnTerminate {
