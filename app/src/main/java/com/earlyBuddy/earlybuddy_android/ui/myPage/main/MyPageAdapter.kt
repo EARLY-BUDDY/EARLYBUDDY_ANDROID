@@ -7,6 +7,7 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.model.MyPageItem
 import com.earlyBuddy.earlybuddy_android.databinding.ItemMyPageMenuBinding
 import com.earlyBuddy.earlybuddy_android.databinding.ItemMyPageMenuTopBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
+import com.earlyBuddy.earlybuddy_android.ui.initial.onBoard.OnBoardActivity
 import com.earlyBuddy.earlybuddy_android.ui.initial.place.InitialPlaceActivity
 import com.earlyBuddy.earlybuddy_android.ui.myPage.accountManagement.AccountManagementActivity
 import com.earlyBuddy.earlybuddy_android.ui.myPage.license.LicenseActivity
@@ -18,9 +19,10 @@ class MyPageAdapter(private val myPageItemClickListener: MyPageViewHolder.MyPage
 //        MyPageItem("전체 알림", null),
         MyPageItem("계정 관리", AccountManagementActivity()),
         MyPageItem("자주 가는 장소", InitialPlaceActivity()),
-        MyPageItem("오픈소스 라이선스", LicenseActivity()),
         MyPageItem("이용약관", LicenseActivity()),
-        MyPageItem("개인정보처리방침", LicenseActivity())
+        MyPageItem("개인정보처리방침", LicenseActivity()),
+        MyPageItem("법적 공지 및 정보제공처", LicenseActivity()),
+        MyPageItem("도움말", OnBoardActivity())
     )
 
     override fun getItemViewType(position: Int): Int {
