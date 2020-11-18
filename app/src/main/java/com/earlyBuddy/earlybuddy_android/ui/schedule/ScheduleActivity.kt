@@ -91,7 +91,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
     }
 
     private fun setClick() {
-        viewDataBinding.actScheduleIvGoBack.onlyOneClickListener {
+        viewDataBinding.actScheduleIvBackIcon.onlyOneClickListener {
             finish()
         }
         viewDataBinding.actScheduleEtName.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
