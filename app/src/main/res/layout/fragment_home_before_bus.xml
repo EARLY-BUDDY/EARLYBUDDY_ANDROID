@@ -107,7 +107,7 @@
                 android:lineSpacingExtra="24sp"
                 android:text="곧 도착"
                 android:textColor="#ff6e6e"
-                android:textSize="50sp"
+                android:textSize="50dp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toTopOf="@id/frag_home_before_bus__tv_next_time"
                 app:layout_constraintEnd_toEndOf="@id/frag_home_before_bus__iv_reboot" />
