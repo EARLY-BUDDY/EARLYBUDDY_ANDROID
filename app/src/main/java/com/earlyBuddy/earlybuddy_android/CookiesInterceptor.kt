@@ -11,7 +11,7 @@ class CookiesInterceptor : Interceptor {
 //                .build()
 
         val request =
-            chain.request().newBuilder().header("Content-Type", "application/json").header("jwt",SharedPreferenceController.getAuthorization(EarlyBuddyApplication.getGlobalApplicationContext()))
+            chain.request().newBuilder().header("Content-Type", "application/json").header("Authorization","Bearer "+SharedPreferenceController.getAuthorization(EarlyBuddyApplication.getGlobalApplicationContext()))
                 .build()
         return chain.proceed(request)
     }

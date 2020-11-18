@@ -7,5 +7,7 @@ data class NickNameResponse(
 )
 
 data class UserIdx(
-    val userIdx: Int
+    val userIdx: Int,
+    val beforeUserName: String?,
+    val afterUserName: String
 )

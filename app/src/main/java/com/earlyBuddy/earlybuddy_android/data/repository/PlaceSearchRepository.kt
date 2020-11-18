@@ -12,6 +12,8 @@ class PlaceSearchRepository(private val remoteDataSource: RemoteDataSource) {
 
     fun searchPlace(keyword : String, x:Double, y:Double) = remoteDataSource.searchPlace(keyword, x, y)
 
+    fun getFavoritePlace() = remoteDataSource.getFavoriteList()
+
     private val database = RecentPlaceDB.getInstance(EarlyBuddyApplication.getGlobalApplicationContext())!!
     private val recentPlaceDao = database.recentPlaceDao()
 

@@ -1,11 +1,9 @@
 package com.earlyBuddy.earlybuddy_android.ui.signUp
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
-import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.SignInResponse
 import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
@@ -36,8 +34,17 @@ class SignInViewModel(private val repository : SignInRepository) : BaseViewModel
                     Log.e("token is ", it.toString())
                     Log.e("signin status", it.status.toString())
                     signInResponse.postValue(it)
-                    if(it.status == 200){
-                        SharedPreferenceController.setAuthorization(EarlyBuddyApplication.getGlobalApplicationContext(), it.data!!.jwt)
+                    if (it.status == 200) {
+                        SharedPreferenceController.setAuthorization(
+                            EarlyBuddyApplication.getGlobalApplicationContext(),
+                            it.data!!.jwt
+                        )
+                        if (it.data!!.userName != null) {
+                            SharedPreferenceController.setNickName(
+                                EarlyBuddyApplication.getGlobalApplicationContext(),
+                                it.data!!.userName
+                            )
+                        }
                     }
 
                 }) {

@@ -50,6 +50,11 @@ interface NetworkService {
         @Body body: JsonObject
     ): Observable<DefaultResponse>
 
+    @DELETE("/schedules")
+    fun deleteSchedule(
+        @Query("scheduleIdx") scheduleIdx: Int
+    ): Observable<NoneDataResponse>
+
     @GET("/home")
     fun getHomeSchedule(
     ): Observable<HomeResponse>
@@ -68,7 +73,7 @@ interface NetworkService {
     @PUT("/users/setFavorite")
     fun registerFavoritePlaces(
         @Body body: JsonObject
-    ): Observable<FavoriteResponse>
+    ): Observable<RegistFavoriteResponse>
 
     @PUT("/users/setUserName")
     fun registerUserNickName(
@@ -76,5 +81,5 @@ interface NetworkService {
     ): Observable<NickNameResponse>
 
     @GET("/users/getFavorite")
-    fun getFavoriteList(): Observable<FavoriteResponse>
+    fun getFavoriteList(): Observable<GetFavoriteResponse>
 }

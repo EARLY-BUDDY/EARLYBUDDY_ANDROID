@@ -7,15 +7,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Path
-import com.earlyBuddy.earlybuddy_android.data.datasource.remote.RemoteDataSourceImpl
-import com.earlyBuddy.earlybuddy_android.data.repository.SearchRouteRepository
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
-import io.reactivex.disposables.CompositeDisposable
+import com.earlyBuddy.earlybuddy_android.ui.home.pathCheck.DetailMapActivity
 import kotlinx.android.synthetic.main.activity_vertical_path.*
 
 class VerticalPathActivity : AppCompatActivity() {
@@ -39,7 +37,7 @@ class VerticalPathActivity : AppCompatActivity() {
 
         routeRecyclerView = findViewById(R.id.act_vertical_path_rv_path)
         routeAdapter =
-            PathAdapter(startAdd!!, endAdd!!, object : RouteViewHolder.DropDownUpClickListener {
+            PathAdapter(startAdd!!, endAdd!!, object : RouteViewHolder.RouteClickListener {
                 override fun dropDownUpClick(
                     position: Int,
                     dropImageView: ImageView,
@@ -59,6 +57,34 @@ class VerticalPathActivity : AppCompatActivity() {
                             routeAdapter.setClicked(position, true)
                         }
                     }
+                }
+
+                override fun mapClick(position: Int) {
+                    val subPath = routeAdapter.getSubPath(position)
+                    val x = subPath.startX
+                    val y = subPath.startY
+                    val startName = subPath.startName
+                    var tints = ""
+                    var transNumber = ""
+
+                    val intent = Intent(this@VerticalPathActivity, DetailMapActivity::class.java)
+                    intent.putExtra("x", x)
+                    intent.putExtra("y", y)
+                    intent.putExtra("address", startName)
+                    when (subPath.trafficType) {
+                        1 -> {
+                            tints = TransportMap.subwayMap[subPath.lane!!.type]!![0]
+                            transNumber = TransportMap.subwayMap[subPath.lane!!.type]!![1]
+                        }
+                        2 -> {
+                            tints = TransportMap.busMap[subPath.lane!!.type]!!
+                            transNumber = subPath.lane!!.name!!
+                        }
+                    }
+                    intent.putExtra("tints", tints)
+                    intent.putExtra("transNumber", transNumber)
+                    intent.putExtra("direction", subPath.passStopList[1])
+                    startActivity(intent)
                 }
             })
         routeAdapter.setRouteItemList(pathData.subPath)

@@ -13,9 +13,9 @@
         android:id="@+id/frag_path_result_cl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.pathSearch.PathResultFragment"
         android:clickable="true"
-        android:focusable="true">
+        android:focusable="true"
+        tools:context=".ui.pathSearch.PathResultFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/frag_path_result_cl_info"
@@ -129,7 +129,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_alignParentEnd="true"
                         android:layout_marginEnd="6dp"
-                        android:layout_marginTop="2dp"/>
+                        android:layout_marginTop="2dp" />
 
                 </RelativeLayout>
 
@@ -137,54 +137,104 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/frag_path_result_rv"
+        <androidx.core.widget.NestedScrollView
+            android:background="#FFFFFF"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/white"
+            android:overScrollMode="never"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="#FFFFFF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/frag_path_result_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/frag_path_iv_odsay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/o_dsay_bi_mark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/frag_path_result_rv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <!--        <TextView-->
+        <!--            tvVisibilityByInt="@{vm.routeList.size()}"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginBottom="10dp"-->
+        <!--            android:letterSpacing="-0.05"-->
+        <!--            android:text="검색 결과가 없습니다."-->
+        <!--            android:fontFamily="@font/noto_sans_kr_medium"-->
+        <!--            android:textColor="@color/gray"-->
+        <!--            android:textSize="16dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"/>-->
+
+        <!--        <ProgressBar-->
+        <!--            android:visibility="@{vm.isProgress()}"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        =======
+        app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info"
+        app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/frag_path_result_iv_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/img_result_empty"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info" />
 
-<!--        <TextView-->
-<!--            tvVisibilityByInt="@{vm.routeList.size()}"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="10dp"-->
-<!--            android:letterSpacing="-0.05"-->
-<!--            android:text="검색 결과가 없습니다."-->
-<!--            android:fontFamily="@font/noto_sans_kr_medium"-->
-<!--            android:textColor="@color/gray"-->
-<!--            android:textSize="16dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"/>-->
+        <!--        <TextView-->
+        <!--            tvVisibilityByInt="@{vm.routeList.size()}"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginBottom="10dp"-->
+        <!--            android:letterSpacing="-0.05"-->
+        <!--            android:text="검색 결과가 없습니다."-->
+        <!--            android:fontFamily="@font/noto_sans_kr_medium"-->
+        <!--            android:textColor="@color/gray"-->
+        <!--            android:textSize="16dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"/>-->
 
-<!--        <ProgressBar-->
-<!--            android:visibility="@{vm.isProgress()}"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            />-->
+        <!--        <ProgressBar-->
+        <!--            android:visibility="@{vm.isProgress()}"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        >>>>>>> 0115c70b44fc6c74cc9234d87e27c82dba26f8bb
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/frag_path_result_cl_info"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            />-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

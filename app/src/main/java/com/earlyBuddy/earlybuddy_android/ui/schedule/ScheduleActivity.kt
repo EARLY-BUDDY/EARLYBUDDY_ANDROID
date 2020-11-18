@@ -32,7 +32,6 @@ import org.json.JSONObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.math.round
-import kotlin.system.exitProcess
 
 class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel>() {
 
@@ -78,9 +77,17 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         viewDataBinding.actScheduleClPlaceClick.onlyOneClickListener {
             if(scheDate.isNullOrEmpty() || scheTime.isNullOrEmpty()) Toast.makeText(this, "날짜와 도착시간을 먼저 설정해주세요!", Toast.LENGTH_SHORT).show()
             else {
+                val today = Calendar.getInstance()
+                val startDay = calendar
+                Log.e("nowArr", today.toString())
+                Log.e("startArr", startDay.toString())
+                Log.e("compare", today.compareTo(startDay).toString())
                 val startTime = time.substring(0,2).toInt()
-                if(startTime in 0..4) Toast.makeText(this, "이 시간은 대중교통이 잠드는 시간이에요.", Toast.LENGTH_SHORT).show()
-                else {
+                if(today.compareTo(startDay)>0){
+                    Toast.makeText(this, "지난 날짜의 일정은 등록할 수 없어요", Toast.LENGTH_SHORT).show()
+                }else if(startTime in 0..4){
+                    Toast.makeText(this, "이 시간은 대중교통이 잠드는 시간이에요.", Toast.LENGTH_SHORT).show()
+                }else {
                     val intent = Intent(this, PathActivity::class.java)
                     intent.putExtra("scheDate", scheDate)
                     intent.putExtra("scheTime", scheTime)

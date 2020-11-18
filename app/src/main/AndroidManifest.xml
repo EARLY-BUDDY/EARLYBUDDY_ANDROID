@@ -17,6 +17,8 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.home.pathCheck.DetailMapActivity"></activity>
+        <activity android:name=".ui.initial.onBoard.OnBoardActivity" />
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,17 +48,16 @@
         <activity android:name=".ui.searchRoute.VerticalPathActivity" />
         <activity android:name=".ui.pathSearch.PathActivity" />
         <activity android:name=".ui.placeSearch.EndPlaceSearchActivity" />
-        <activity android:name=".ui.signUp.SignInActivity"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.signUp.SignUpActivity"/>
+        <activity
+            android:name=".ui.signUp.SignInActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ui.signUp.SignUpActivity" />
         <activity android:name=".ui.schedule.ScheduleActivity" />
         <activity android:name=".ui.home.HomeActivity" />
         <activity android:name=".ui.placeSearch.StartPlaceSearchActivity" />
         <activity android:name=".ui.calendar.CalendarActivity" />
         <activity android:name=".ui.schedule.ScheduleDetailActivity" />
-        <activity android:name=".ui.MainActivity">
-
-        </activity>
+        <activity android:name=".ui.MainActivity" />
 
         <uses-library
             android:name="com.test"

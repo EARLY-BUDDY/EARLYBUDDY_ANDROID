@@ -7,4 +7,5 @@ class ScheduleRepository(private val remoteDataSource: RemoteDataSource) {
 
     fun getScheduleDetailData(scheduleIdx: Int) = remoteDataSource.scheduleDetail(scheduleIdx)
     fun postSchedule(jsonObject: JsonObject) = remoteDataSource.postSchedule(jsonObject)
+    fun deleteSchedule(scheduleIdx : Int) = remoteDataSource.deleteSchedule(scheduleIdx)
 }

@@ -130,7 +130,6 @@ class CalendarActivity : BaseActivity<ActivityCalendarBinding, CalendarViewModel
         viewDataBinding.actCalendarIvAddSchedule.onlyOneClickListener {
             val intent = Intent(this, ScheduleActivity::class.java)
             startActivity(intent)
-            finish()
         }
     }
 
