@@ -35,13 +35,34 @@ class OnBoardActivity : AppCompatActivity() {
                 act_on_board_circle.selectDot(position)
                 when (position) {
                     2 -> {
-
-                        act_on_board_tv_next.text = "시작하기"
-                        act_on_board_tv_next.onlyOneClickListener {
-                            val intent = Intent(this@OnBoardActivity, SignInActivity::class.java)
-                            startActivity(intent)
-                            finish()
+                        if (intent.getStringExtra("title") == "도움말") {
+                            act_on_board_tv_next.text = "확인"
+                            act_on_board_tv_next.onlyOneClickListener {
+                                finish()
+                            }
+                        } else {
+                            act_on_board_tv_next.text = "시작하기"
+                            act_on_board_tv_next.onlyOneClickListener {
+                                val intent =
+                                    Intent(this@OnBoardActivity, SignInActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
                         }
+
+//                        act_on_board_tv_next.onlyOneClickListener {
+//                            if (intent.getStringExtra("title") == "도움말") {
+//                                act_on_board_tv_next.text = "나가기"
+//                                finish()
+//                            } else {
+//                                act_on_board_tv_next.text = "시작하기"
+//
+//                                val intent =
+//                                    Intent(this@OnBoardActivity, SignInActivity::class.java)
+//                                startActivity(intent)
+//                                finish()
+//                            }
+//                        }
                     }
                     else -> {
                         act_on_board_tv_next.text = "다음으로"
