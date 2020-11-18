@@ -221,3 +221,18 @@ fun TextView.setStartTimeFormat(startTime: String?) {
         }
     }
 }
+
+@BindingAdapter("favPlaceImg")
+fun ImageView.setFavPlaceImg(idx : Int){
+    when (idx) {
+        0 -> {
+            setImageResource(R.drawable.ic_minihome_selected)
+        }
+        1 -> {
+            setImageResource(R.drawable.ic_minischool_selected)
+        }
+        2 -> {
+            setImageResource(R.drawable.ic_minioffice_selected)
+        }
+    }
+}
