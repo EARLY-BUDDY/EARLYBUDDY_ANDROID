@@ -15,7 +15,7 @@ class MyPageAdapter(private val myPageItemClickListener: MyPageViewHolder.MyPage
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val myPageItemData = listOf<MyPageItem>(
-        MyPageItem("전체 알림", null),
+//        MyPageItem("전체 알림", null),
         MyPageItem("계정 관리", AccountManagementActivity()),
         MyPageItem("자주 가는 장소", InitialPlaceActivity()),
         MyPageItem("오픈소스 라이선스", LicenseActivity()),
@@ -36,17 +36,17 @@ class MyPageAdapter(private val myPageItemClickListener: MyPageViewHolder.MyPage
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
-            1 -> {  // 첫번째 토글 알림 설정 창
-                val topItemBinding =
-                    ItemMyPageMenuTopBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
-                return MyPageTopViewHolder(
-                    topItemBinding
-                )
-            }
+//            1 -> {  // 첫번째 토글 알림 설정 창
+//                val topItemBinding =
+//                    ItemMyPageMenuTopBinding.inflate(
+//                        LayoutInflater.from(parent.context),
+//                        parent,
+//                        false
+//                    )
+//                return MyPageTopViewHolder(
+//                    topItemBinding
+//                )
+//            }
             else -> {
                 val generalItemBinding =
                     ItemMyPageMenuBinding.inflate(

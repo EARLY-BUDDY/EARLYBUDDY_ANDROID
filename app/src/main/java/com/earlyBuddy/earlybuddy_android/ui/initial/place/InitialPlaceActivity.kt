@@ -2,6 +2,7 @@ package com.earlyBuddy.earlybuddy_android.ui.initial.place
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -33,13 +34,13 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
         var favoriteLongitude: Double = 0.0
         var favoriteLatitude: Double = 0.0
         var clickedNum = -1
+
     }
 
     override val layoutResID: Int
         get() = R.layout.activity_place
     override val viewModel: InitialPlaceViewModel by viewModel()
     var fromMyPage = false
-
     private val favoriteArr =
         arrayOf(
             Favorite("", -1, 0.0, 0.0, null, null),
@@ -111,7 +112,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
     private fun setObservedData() {
         viewModel.response.observe(this, Observer {
             if (it) {
-                Toast.makeText(this, "자주 가는 장소 등록 성공!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "자주 가는 장소를 저장했어요!", Toast.LENGTH_SHORT).show()
                 if (fromMyPage) {
                     finish()
                 } else {
@@ -120,7 +121,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                     finish()
                 }
             } else {
-                Toast.makeText(this, "자주 가는 장소 등록 실패!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "자주 가는 장소를 저장에 실패했어요!", Toast.LENGTH_SHORT).show()
             }
         })
         viewModel.loading.observe(this, Observer {
@@ -137,10 +138,12 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
         viewModel.favoriteList.observe(this, Observer {
             val list = it.data
             Log.e("sda", list.toString())
+
             for (i in list.indices) {
                 favoriteArr[i] = list[i]
                 selectedList[i] = true
                 cancelList[i].textView.text = list[i].favoriteInfo
+                cancelList[i].textView.setTextColor(Color.BLACK)
                 when (list[i].favoriteCategory) {
                     0 -> {
                         cancelList[i].icon.setImageResource(R.drawable.ic_home_selected)
@@ -206,6 +209,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
         for (i in cancelList.indices) {
             cancelList[i].cancelBtn.onlyOneClickListener {
                 cancelList[i].textView.text = "장소를 등록해 주세요."
+                cancelList[i].textView.setTextColor(Color.parseColor("#aaaaaa"))
                 cancelList[i].icon.setImageResource(R.drawable.ic_plus)
                 favoriteArr[i] = Favorite("", -1, 0.0, 0.0, null, null)
                 selectedList[i] = false
@@ -247,6 +251,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                 1 -> {
                     act_initial_place_iv_first.setImageResource(InitialObject.imageList[favoriteCategory])
                     act_initial_place_tv_first.text = favoritePlaceName
+                    act_initial_place_tv_first.setTextColor(Color.BLACK)
                     favoriteArr[0] = Favorite(
                         favoritePlaceName, favoriteCategory, favoriteLongitude,
                         favoriteLatitude, null, null
@@ -255,6 +260,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                 2 -> {
                     act_initial_place_iv_second.setImageResource(InitialObject.imageList[favoriteCategory])
                     act_initial_place_tv_second.text = favoritePlaceName
+                    act_initial_place_tv_second.setTextColor(Color.BLACK)
                     favoriteArr[1] = Favorite(
                         favoritePlaceName, favoriteCategory, favoriteLongitude,
                         favoriteLatitude, null, null
@@ -263,6 +269,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                 3 -> {
                     act_initial_place_iv_third.setImageResource(InitialObject.imageList[favoriteCategory])
                     act_initial_place_tv_third.text = favoritePlaceName
+                    act_initial_place_tv_third.setTextColor(Color.BLACK)
                     favoriteArr[2] = Favorite(
                         favoritePlaceName, favoriteCategory, favoriteLongitude,
                         favoriteLatitude, null, null
