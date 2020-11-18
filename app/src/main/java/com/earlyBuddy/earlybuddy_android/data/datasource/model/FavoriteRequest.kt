@@ -8,5 +8,7 @@ data class Favorite(
     val favoriteInfo: String,
     val favoriteCategory: Int,
     val favoriteLongitude: Double,
-    val favoriteLatitude: Double
+    val favoriteLatitude: Double,
+    val favoriteIdx: Int?,
+    val fk_userIdx: Int?
 )

@@ -1,6 +1,8 @@
 package com.earlyBuddy.earlybuddy_android.ui.placeSearch
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,10 +12,14 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.earlyBuddy.earlybuddy_android.BR
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
+import com.earlyBuddy.earlybuddy_android.base.BaseRecyclerViewAdapter
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
+import com.earlyBuddy.earlybuddy_android.data.datasource.model.Favorite
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityStartPlaceSearchBinding
+import com.earlyBuddy.earlybuddy_android.databinding.ItemFavPlaceBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_start_place_search.*
@@ -49,7 +55,8 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
         textWatch()
         getLocationUpdates()
         setClick()
-        setRv()
+        setFavPlaceRv()
+        setRecentPlaceRv()
     }
 
     private fun isLoadedByInitial() {
@@ -59,7 +66,7 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
         if (getByInitial == 1) {
             // 1이면 최초가입에서 불러진 뷰
             viewDataBinding.actStartPlaceSearchViewLine.visibility = View.GONE
-            viewDataBinding.actStartPlaceSearchHsv.visibility = View.GONE
+            viewDataBinding.actStartPlaceSearchRvFav.visibility = View.GONE
             viewDataBinding.actStartPlaceSearchTvTitle.text = "자주 가는 장소"
             viewDataBinding.actStartPlaceSearchEtSearch.hint = "장소를 입력해주세요"
         }
@@ -153,7 +160,41 @@ class StartPlaceSearchActivity : BaseActivity<ActivityStartPlaceSearchBinding, P
         })
     }
 
-    private fun setRv(){
+    private fun setFavPlaceRv(){
+        viewDataBinding.actStartPlaceSearchRvFav.run{
+            adapter = object : BaseRecyclerViewAdapter<Favorite, ItemFavPlaceBinding>(){
+                override val bindingVariableId: Int
+                    get() = BR.favPlace
+                override val layoutResID: Int
+                    get() = R.layout.item_fav_place
+                override val listener: OnItemClickListener?
+                    get() = favItemClick
+            }
+        }
+
+        viewModel.getFavoritePlaceData()
+        viewModel.favoritePlaceList.observe(this, Observer{
+            (viewDataBinding.actStartPlaceSearchRvFav.adapter as BaseRecyclerViewAdapter<Favorite, *>).apply {
+                replaceAll(it)
+                notifyDataSetChanged()
+            }
+        })
+    }
+
+    private val favItemClick = object : BaseRecyclerViewAdapter.OnItemClickListener{
+        override fun onItemClicked(item: Any?, position: Int?) {
+            val intent = Intent()
+            intent.putExtra("placeName", viewModel.favoritePlaceList.value!![position!!].favoriteInfo)
+            intent.putExtra("x", viewModel.favoritePlaceList.value!![position].favoriteLongitude)
+            intent.putExtra("y", viewModel.favoritePlaceList.value!![position].favoriteLatitude)
+            intent.putExtra("flag", 1)
+            intent.putExtra("favoriteCategory", -1)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        }
+    }
+
+    private fun setRecentPlaceRv(){
 
         val recentPlaceAdapter = RecentPlaceAdapter(object : RecentPlaceViewHolder.onClickItemListener{
             override fun onClickItem(position: Int, item: RecentPlaceEntity) {
