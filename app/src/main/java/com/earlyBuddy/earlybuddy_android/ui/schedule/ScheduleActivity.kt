@@ -138,7 +138,7 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
             }
         }
 
-        viewDataBinding.actScheduleIvBack.onlyOneClickListener {
+        viewDataBinding.actScheduleIvBackIcon.onlyOneClickListener {
             finish()
         }
     }
