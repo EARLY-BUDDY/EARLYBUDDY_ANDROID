@@ -50,6 +50,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/btn_edit"
                     android:layout_marginRight="14dp"
+                    android:visibility="gone"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/act_schedule_detail_iv_delete"/>
