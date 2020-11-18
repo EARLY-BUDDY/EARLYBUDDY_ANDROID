@@ -246,12 +246,13 @@
                             noticeMin="@{vm.scheduleDetail.scheduleInfo.noticeMin}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="7dp"
-                            android:fontFamily="@font/noto_sans_kr_regular"
-                            android:lineSpacingExtra="-4sp"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            tools:text="배차 5분 전" />
+                            android:textSize="12dp"
+                            android:textColor="@color/gray"
+                            tools:text="약 10시 50분"
+                            departTime="@{vm.scheduleDetail.scheduleInfo.departTime}"
+                            android:fontFamily="@font/noto_sans_kr_medium"
+                            android:layout_marginLeft="3dp"/>
+                    </LinearLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -262,16 +263,17 @@
                             android:textColor="#2f90fc"
                             android:textSize="13dp" />
 
-                        <TextView
-                            noticeRange="@{vm.scheduleDetail.scheduleInfo.noticeRange}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="7dp"
-                            android:fontFamily="@font/noto_sans_kr_regular"
-                            android:lineSpacingExtra="-4sp"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            tools:text="1시간 전부터" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:lineSpacingExtra="-4dp"
+                        tools:text="배차 5분 전"
+                        noticeMin="@{vm.scheduleDetail.scheduleInfo.noticeMin}"
+                        android:fontFamily="@font/noto_sans_kr_regular"
+                        android:layout_marginTop="7dp"/>
+
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -281,18 +283,18 @@
                             android:text="알람반복"
                             android:textColor="#2f90fc"
                             android:textSize="13dp" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/act_schedule_detail_rv_day"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity=""
-                            android:layout_marginTop="15dp"
-                            android:layout_marginBottom="32dp"
-                            android:clipToPadding="false"
-                            android:orientation="horizontal"
-                            tools:listitem="@layout/item_schedule_detail_weekday" />
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textColor="@color/black"
+                        android:lineSpacingExtra="-4dp"
+                        tools:text="1시간 전부터"
+                        noticeRange="@{vm.scheduleDetail.scheduleInfo.noticeRange}"
+                        android:fontFamily="@font/noto_sans_kr_regular"
+                        android:layout_marginTop="7dp"
+                        />
+                  
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 

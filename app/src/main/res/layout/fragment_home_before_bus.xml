@@ -104,7 +104,7 @@
                 android:fontFamily="@font/noto_sans_kr_bold"
                 android:gravity="end"
                 android:letterSpacing="-0.05"
-                android:lineSpacingExtra="24sp"
+                android:lineSpacingExtra="24dp"
                 android:text="곧 도착"
                 android:textColor="#ff6e6e"
                 android:textSize="50dp"

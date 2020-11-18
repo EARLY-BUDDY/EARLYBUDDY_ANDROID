@@ -141,7 +141,7 @@
             android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
             android:lineSpacingExtra="-3sp"
-            android:text="회원가입하러 가기"
+            android:text="회원가입"
             android:textColor="@color/gray"
             android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
