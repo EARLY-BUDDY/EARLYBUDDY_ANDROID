@@ -42,9 +42,9 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
 
     private val favoriteArr =
         arrayOf(
-            Favorite("", -1, 0.0, 0.0),
-            Favorite("", -1, 0.0, 0.0),
-            Favorite("", -1, 0.0, 0.0)
+            Favorite("", -1, 0.0, 0.0, null, null),
+            Favorite("", -1, 0.0, 0.0, null, null),
+            Favorite("", -1, 0.0, 0.0, null, null)
         )
     private lateinit var cancelList: Array<Cancel>
 
@@ -207,7 +207,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
             cancelList[i].cancelBtn.onlyOneClickListener {
                 cancelList[i].textView.text = "장소를 등록해 주세요."
                 cancelList[i].icon.setImageResource(R.drawable.ic_plus)
-                favoriteArr[i] = Favorite("", -1, 0.0, 0.0)
+                favoriteArr[i] = Favorite("", -1, 0.0, 0.0, null, null)
                 selectedList[i] = false
                 isOneSelected()
             }
@@ -249,7 +249,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                     act_initial_place_tv_first.text = favoritePlaceName
                     favoriteArr[0] = Favorite(
                         favoritePlaceName, favoriteCategory, favoriteLongitude,
-                        favoriteLatitude
+                        favoriteLatitude, null, null
                     )
                 }
                 2 -> {
@@ -257,7 +257,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                     act_initial_place_tv_second.text = favoritePlaceName
                     favoriteArr[1] = Favorite(
                         favoritePlaceName, favoriteCategory, favoriteLongitude,
-                        favoriteLatitude
+                        favoriteLatitude, null, null
                     )
                 }
                 3 -> {
@@ -265,7 +265,7 @@ class InitialPlaceActivity : BaseActivity<ActivityPlaceBinding, InitialPlaceView
                     act_initial_place_tv_third.text = favoritePlaceName
                     favoriteArr[2] = Favorite(
                         favoritePlaceName, favoriteCategory, favoriteLongitude,
-                        favoriteLatitude
+                        favoriteLatitude, null, null
                     )
                 }
                 else -> {
