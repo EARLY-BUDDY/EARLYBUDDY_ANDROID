@@ -143,7 +143,7 @@
             android:lineSpacingExtra="-3sp"
             android:text="회원가입"
             android:textColor="@color/gray"
-            android:textSize="15sp"
+            android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/act_sign_in_tv_login" />
