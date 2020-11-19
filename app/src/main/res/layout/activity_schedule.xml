@@ -33,6 +33,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:id="@+id/act_schedule_iv_back_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/btn_back"
@@ -65,24 +66,24 @@
                 android:layout_marginEnd="20dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:src="@drawable/img_schedule_background"
+                android:src="@drawable/img_schedule_background_cut"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/act_schedule_cl_header" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/act_schedule_cv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="55dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="23dp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/act_schedule_iv_back">
+                app:layout_constraintTop_toBottomOf="@id/act_schedule_iv_back"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/act_schedule_cl_round_rect"

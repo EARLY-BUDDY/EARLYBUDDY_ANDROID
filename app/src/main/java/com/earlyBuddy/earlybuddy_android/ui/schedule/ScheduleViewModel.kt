@@ -1,7 +1,9 @@
 package com.earlyBuddy.earlybuddy_android.ui.schedule
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import com.earlyBuddy.earlybuddy_android.EarlyBuddyApplication
 import com.earlyBuddy.earlybuddy_android.base.BaseViewModel
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.DefaultResponse
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.ScheduleDetail
@@ -19,6 +21,7 @@ class ScheduleViewModel(
     val noticeRange = MutableLiveData<String>()
     val postSchedule = MutableLiveData<DefaultResponse>()
     val lottieVisible = MutableLiveData<Boolean>()
+    val loading=MutableLiveData<Boolean>()
 
     fun getPathData(scheduleIdx: Int) {
         addDisposable(repository.getScheduleDetailData(scheduleIdx)
@@ -50,15 +53,35 @@ class ScheduleViewModel(
     }
 
     fun postScheData(body: JsonObject){
+        loading.value = true
         addDisposable(repository.postSchedule(body)
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
             }.doOnTerminate {
+                loading.value =false
             }.subscribe({
                 postSchedule.value = it
                 Log.e("getPathData status", it.status.toString())
             }) {
                 Log.e("통신 실패 error : ", it.toString())
+            })
+    }
+
+    fun deleteSchedule(scheduleIdx : Int){
+
+        Log.e("scheduleIdx", scheduleIdx.toString())
+
+        addDisposable(repository.deleteSchedule(scheduleIdx)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe ({
+                if(it.status == 200){
+                    Toast.makeText(EarlyBuddyApplication.globalApplication, "일정이 삭제되었습니다."
+                        , Toast.LENGTH_SHORT).show()
+                } else {
+                    Log.e("deleteSchedule status", it.status.toString())
+                }
+            }) {
+              Log.e("delete Schedule error", it.message)
             })
     }
 }

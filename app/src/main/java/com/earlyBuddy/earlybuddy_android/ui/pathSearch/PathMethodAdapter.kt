@@ -48,11 +48,6 @@ class PathMethodViewHolder(val binding: ItemPathMethodBinding) : RecyclerView.Vi
     fun bind(totalLen : Int, totalTime : Int, minWalkLen : Int, minTransLen : Int, data : SubPath, trafficType: Int, flag : Boolean){
         var methodLen = 0
         if(data.sectionTime!=0) methodLen = round(totalLen * (data.sectionTime.toFloat() / totalTime.toFloat())).toInt()
-//        Log.e("PathMethodViewHolder@@@@@@@@@ totalLen", totalLen.toString())
-//        Log.e("PathMethodViewHolder@@@@@@@@@ minLen", "${minWalkLen} + ${minTransLen}")
-//        Log.e("PathMethodViewHolder@@@@@@@@@ totalTime", totalTime.toString())
-//        Log.e("PathMethodViewHolder@@@@@@@@@ sectionTime", data.sectionTime.toString())
-//        Log.e("PathMethodViewHolder@@@@@@@@@ methodLen", methodLen.toString())
 
         binding.trafficType = data.trafficType
 
@@ -74,12 +69,20 @@ class PathMethodViewHolder(val binding: ItemPathMethodBinding) : RecyclerView.Vi
                 }
             }else{
                 binding.itemPathMethodRl.layoutParams.width = methodLen + minTransLen
+
+                data.lane?.run{
+                    Log.e("data.lane.type", type.toString())
+                    Log.e("data.lane.name", name.toString())
+
+                }
+
                 if(trafficType == 1){
                     binding.methodColor = TransportMap.subwayMap[data.lane!!.type]!![0]
                     binding.methodName = TransportMap.subwayMap[data.lane.type]!![1]
                 } else {
                     binding.methodColor = TransportMap.busMap[data.lane!!.type]
-                    binding.methodName = data.lane.name
+                    binding.methodName = data.lane.name ?:  ""
+
                 }
             }
         }

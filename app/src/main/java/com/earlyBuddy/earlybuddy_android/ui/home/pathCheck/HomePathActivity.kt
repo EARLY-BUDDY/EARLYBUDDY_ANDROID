@@ -1,5 +1,6 @@
 package com.earlyBuddy.earlybuddy_android.ui.home.pathCheck
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -7,6 +8,7 @@ import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.earlyBuddy.earlybuddy_android.R
+import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityHomePathBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
@@ -28,41 +30,16 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//
+        viewDataBinding.vm = viewModel
 
         val scheduleIdx = intent.getIntExtra("scheduleIdx", -1)
-        val scheduleName = intent.getStringExtra("scheduleName")
-        val startTime = intent.getStringExtra("startTime")
-        val pathType = intent.getIntExtra("pathType", -1)
-        val totalTime = intent.getIntExtra("totalTime", -1)
-        endAddress = intent.getStringExtra("endAddress")
-        startAddress = intent.getStringExtra("startAddress")
-        val fromHome = intent.getBooleanExtra("fromHome", false)
+//        val fromHome = intent.getBooleanExtra("fromHome", false)
 
-        if (fromHome) {
-            viewDataBinding.actHomePathTvBtn.visibility = View.GONE
-        }
-
-        when (pathType) {
-            0 -> viewDataBinding.actHomePathTvTrafficType.text = "버스 + 지하철"
-            1 -> viewDataBinding.actHomePathTvTrafficType.text = "지하철"
-            2 -> viewDataBinding.actHomePathTvTrafficType.text = "버스"
-        }
-
-        val totalTimeHour = totalTime / 60
-        val totalTimeMinute = totalTime % 60
-        if (totalTimeHour == 0) {
-            viewDataBinding.actHomePathTvHours.text =
-                "${totalTimeMinute}분"
-        } else {
-            viewDataBinding.actHomePathTvHours.text =
-                "${totalTimeHour}시간 ${totalTimeMinute}분"
-        }
-
+//        if (fromHome) {
+//            viewDataBinding.actHomePathTvBtn.visibility = View.GONE
+//        }
         viewModel.getPathData(scheduleIdx)
-
-        viewDataBinding.actHomePathTvTitle.text = scheduleName
-        viewDataBinding.actHomePathTvStartTime.text = startTime + " 까지"
-        viewDataBinding.actHomePathTvEndAddress.text = endAddress
 
         viewDataBinding.actHomePathIvBack.onlyOneClickListener {
             finish()
@@ -75,7 +52,11 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
     private fun addObservedData() {
         viewModel.scheduleDetailResponse.observe(this, Observer {
             routeAdapter.setRouteItemList(it.data.path.subPath)
-            Log.e("qweqw",it.data.path.subPath.toString())
+            routeAdapter.setStartEndAddress(
+                it.data.scheduleInfo.startAddress,
+                it.data.scheduleInfo.endAddress
+            )
+            Log.e("qweqw", it.data.path.subPath.toString())
         })
 
         viewModel.lottieVisible.observe(this, Observer {
@@ -92,7 +73,7 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
 
     private fun connectRecyclerView() {
         routeAdapter =
-            PathAdapter(startAddress, endAddress, object : RouteViewHolder.DropDownUpClickListener {
+            PathAdapter("", "", object : RouteViewHolder.RouteClickListener {
                 override fun dropDownUpClick(
                     position: Int,
                     dropImageView: ImageView,
@@ -110,6 +91,34 @@ class HomePathActivity : BaseActivity<ActivityHomePathBinding, HomePathViewModel
                             routeAdapter.setClicked(position, true)
                         }
                     }
+                }
+
+                override fun mapClick(position: Int) {
+                    val subPath = routeAdapter.getSubPath(position)
+                    val x = subPath.startX
+                    val y = subPath.startY
+                    val startName = subPath.startName
+                    var tints = ""
+                    var transNumber = ""
+
+                    val intent = Intent(this@HomePathActivity, DetailMapActivity::class.java)
+                    intent.putExtra("x", x)
+                    intent.putExtra("y", y)
+                    intent.putExtra("address", startName)
+                    when (subPath.trafficType) {
+                        1 -> {
+                            tints = TransportMap.subwayMap[subPath.lane!!.type]!![0]
+                            transNumber = TransportMap.subwayMap[subPath.lane!!.type]!![1]
+                        }
+                        2 -> {
+                            tints = TransportMap.busMap[subPath.lane!!.type]!!
+                            transNumber = subPath.lane!!.name!!
+                        }
+                    }
+                    intent.putExtra("tints", tints)
+                    intent.putExtra("transNumber", transNumber)
+                    intent.putExtra("direction", subPath.passStopList[1])
+                    startActivity(intent)
                 }
             })
         act_home_path_rv_path.adapter = routeAdapter

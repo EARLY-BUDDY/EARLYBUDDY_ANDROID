@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
-import org.w3c.dom.Text
+import java.text.SimpleDateFormat
 
 @BindingAdapter("trafficType", "endName", "fastInExitNo")
 fun walkEndText(textView: TextView, nextTrafficType: Int, endName: String?, fastInExitNo: String?) {
@@ -94,7 +94,7 @@ fun namingFastDoor(view: TextView, trafficType: Int, fastDoor: String?) {
 
 @BindingAdapter("remainingMinuteSetHide", "changeText")
 fun hideText(view: TextView, remainingMinuteSetHide: Int, changeText: Boolean) {
-    if (remainingMinuteSetHide <= 3) {
+    if (remainingMinuteSetHide <= 1) {
         view.visibility = View.INVISIBLE
     } else {
         view.visibility = View.VISIBLE
@@ -106,7 +106,7 @@ fun hideText(view: TextView, remainingMinuteSetHide: Int, changeText: Boolean) {
 
 @BindingAdapter("remainingMinuteSetVisible")
 fun visibleText(view: TextView, remainingMinuteSetVisible: Int) {
-    if (remainingMinuteSetVisible <= 3) {
+    if (remainingMinuteSetVisible <= 1) {
         if(remainingMinuteSetVisible==-3){
             view.text="운행종료"
         }else if(remainingMinuteSetVisible==-5){
@@ -196,9 +196,43 @@ fun TextView.setPay(pay: String?) {
 }
 
 @BindingAdapter("tvVisibilityByInt")
-fun TextView.setVisibilityByInt(num : Int?){
+fun TextView.setVisibilityByInt(num: Int?) {
     num?.let {
-        if(it == 0) visibility = VISIBLE
+        if (it == 0) visibility = VISIBLE
         else visibility = GONE
+    }
+}
+
+
+@BindingAdapter("startTimeFormat")
+fun TextView.setStartTimeFormat(startTime: String?) {
+
+    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+    startTime?.let {
+        val promiseStartTime = sdf.parse(startTime)
+
+        if (promiseStartTime.hours >= 12) {
+            text =
+                "오후 ${String.format("%02d:%02d", promiseStartTime.hours, promiseStartTime.minutes)}"
+        } else {
+            text =
+                "오전 ${String.format("%02d:%02d", promiseStartTime.hours, promiseStartTime.minutes)}"
+        }
+    }
+}
+
+@BindingAdapter("favPlaceImg")
+fun ImageView.setFavPlaceImg(idx : Int){
+    when (idx) {
+        0 -> {
+            setImageResource(R.drawable.ic_minihome_selected)
+        }
+        1 -> {
+            setImageResource(R.drawable.ic_minischool_selected)
+        }
+        2 -> {
+            setImageResource(R.drawable.ic_minioffice_selected)
+        }
     }
 }

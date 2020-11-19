@@ -2,11 +2,13 @@ package com.earlyBuddy.earlybuddy_android.ui.signUp
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -24,9 +26,9 @@ import com.earlyBuddy.earlybuddy_android.ui.initial.nickname.NickNameActivity
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.activity_sign_in.*
-import kotlinx.android.synthetic.main.activity_sign_up.*
 import org.json.JSONObject
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
 
@@ -53,14 +55,29 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
 
     }
 
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val focusView = currentFocus
+        if (focusView != null) {
+            val rect = Rect()
+            focusView.getGlobalVisibleRect(rect)
+            val x = ev.x.toInt()
+            val y = ev.y.toInt()
+            if (!rect.contains(x, y)) {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm?.hideSoftInputFromWindow(focusView.windowToken, 0)
+                focusView.clearFocus()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
+    }
 
-    private fun focusController(){
+    private fun focusController() {
 
         act_sign_in_et_id.setOnFocusChangeListener { view, isFocused ->
-            if(isFocused){
+            if (isFocused) {
                 act_sign_in_et_id.setBackgroundResource(R.drawable.border_25_3092ff)
 //                confirmSignIn()
-            }else {
+            } else {
                 act_sign_in_et_id.setBackgroundResource(R.drawable.border_25_c3c3c3)
 //                confirmSignIn()
             }
@@ -106,10 +123,10 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
             }
         }
 
-        act_sign_in_tv_sign_up.onlyOneClickListener{
+        act_sign_in_tv_sign_up.onlyOneClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
-            finish()
+//            finish()
         }
 
         viewDataBinding.actSignInClBg.onlyOneClickListener {
@@ -119,7 +136,8 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
         viewDataBinding.actSignInEtPw.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 v.clearFocus()
-                val keyboard: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val keyboard: InputMethodManager =
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 keyboard.hideSoftInputFromWindow(v.windowToken, 0)
                 return@OnKeyListener true
             }
@@ -180,7 +198,11 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
 
     fun observe() {
         viewModel.signInResponse.observe(this, Observer {
-            if(it.status == 200 ){
+            if (it.status == 200) {
+                SharedPreferenceController.setId(
+                    EarlyBuddyApplication.getGlobalApplicationContext(),
+                    id
+                )
                 if (it.data!!.userName == null) {
                     val intent = Intent(this, NickNameActivity::class.java)
                     startActivity(intent)
@@ -206,8 +228,16 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
         })
     }
 
-    fun hideKeyboard(et: EditText){
+    fun hideKeyboard(et: EditText) {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(et.windowToken, 0)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        act_sign_in_et_id.setText("")
+        act_sign_in_et_pw.setText("")
+        id = ""
+        pw = ""
     }
 }

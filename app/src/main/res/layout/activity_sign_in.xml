@@ -43,6 +43,8 @@
             android:orientation="vertical"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_marginTop="25dp">
 
             <TextView
@@ -139,9 +141,9 @@
             android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
             android:lineSpacingExtra="-3sp"
-            android:text="회원가입하러 가기"
+            android:text="회원가입"
             android:textColor="@color/gray"
-            android:textSize="15sp"
+            android:textSize="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/act_sign_in_tv_login" />

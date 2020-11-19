@@ -21,6 +21,7 @@ import com.earlyBuddy.earlybuddy_android.base.BaseActivity
 import com.earlyBuddy.earlybuddy_android.data.datasource.model.Path
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityScheduleBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
+import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathActivity
 import com.earlyBuddy.earlybuddy_android.ui.pathSearch.PathMethodAdapter
 import com.google.gson.Gson
@@ -32,7 +33,6 @@ import org.json.JSONObject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.math.round
-import kotlin.system.exitProcess
 
 class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel>() {
 
@@ -62,13 +62,43 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         setClick()
         setNotiSpinner()
         setNotiRangeSpinner()
+        setObserve()
+    }
+
+    private fun setObserve() {
+        viewModel.postSchedule.observe(this, androidx.lifecycle.Observer {
+            if (it.status == 200) {
+                val registFragment = ScheduleDialogFragment(it.data)
+                registFragment.setOnDialogDismissedListener(onScheduleDialogFragmentDismissListener)
+                registFragment.show(supportFragmentManager, "dialog")
+            } else if (it.status == 400) {
+                Toast.makeText(this, "탈 수 있는 차가 이미 지나갔어요ㅠㅠ", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "일정 등록에 실패했습니다", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        viewModel.loading.observe(this, androidx.lifecycle.Observer {
+            when (it) {
+                true -> {
+                    Loading.goLoading(this)
+                }
+                false -> {
+                    Loading.exitLoading()
+                }
+            }
+        })
     }
 
     private fun setClick() {
+        viewDataBinding.actScheduleIvBackIcon.onlyOneClickListener {
+            finish()
+        }
         viewDataBinding.actScheduleEtName.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 v.clearFocus()
-                val keyboard: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val keyboard: InputMethodManager =
+                    getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 keyboard.hideSoftInputFromWindow(act_schedule_et_name.windowToken, 0)
                 return@OnKeyListener true
             }
@@ -78,9 +108,17 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
         viewDataBinding.actScheduleClPlaceClick.onlyOneClickListener {
             if(scheDate.isNullOrEmpty() || scheTime.isNullOrEmpty()) Toast.makeText(this, "날짜와 도착시간을 먼저 설정해주세요!", Toast.LENGTH_SHORT).show()
             else {
+                val today = Calendar.getInstance()
+                val startDay = calendar
+                Log.e("nowArr", today.toString())
+                Log.e("startArr", startDay.toString())
+                Log.e("compare", today.compareTo(startDay).toString())
                 val startTime = time.substring(0,2).toInt()
-                if(startTime in 0..4) Toast.makeText(this, "이 시간은 대중교통이 잠드는 시간이에요.", Toast.LENGTH_SHORT).show()
-                else {
+                if(today.compareTo(startDay)>0){
+                    Toast.makeText(this, "지난 날짜의 일정은 등록할 수 없어요", Toast.LENGTH_SHORT).show()
+                }else if(startTime in 0..4){
+                    Toast.makeText(this, "이 시간은 대중교통이 잠드는 시간이에요.", Toast.LENGTH_SHORT).show()
+                }else {
                     val intent = Intent(this, PathActivity::class.java)
                     intent.putExtra("scheDate", scheDate)
                     intent.putExtra("scheTime", scheTime)
@@ -96,21 +134,11 @@ class ScheduleActivity : BaseActivity<ActivityScheduleBinding, ScheduleViewModel
                 Toast.makeText(this, "빠진 정보가 있나 확인해주세요!", Toast.LENGTH_SHORT).show()
             else{
                 postSche()
-                viewModel.postSchedule.observe(this, androidx.lifecycle.Observer {
-                    if(it.status==200){
-                        val registFragment = ScheduleDialogFragment(it.data)
-                        registFragment.setOnDialogDismissedListener(onScheduleDialogFragmentDismissListener)
-                        registFragment.show(supportFragmentManager, "dialog")
-                    }else if(it.status==400){
-                        Toast.makeText(this, "탈 수 있는 차가 이미 지나갔어요ㅠㅠ", Toast.LENGTH_SHORT).show()
-                    }else{
-                        Toast.makeText(this, "일정 등록에 실패했습니다", Toast.LENGTH_SHORT).show()
-                    }
-                })
+
             }
         }
 
-        viewDataBinding.actScheduleIvBack.onlyOneClickListener {
+        viewDataBinding.actScheduleIvBackIcon.onlyOneClickListener {
             finish()
         }
     }

@@ -37,17 +37,18 @@ class RemoteDataSourceImpl : RemoteDataSource {
                 it
             }
 
-    override fun scheduleDetail(scheduleIdx: Int): Observable<ScheduleDetailResponse> =
-        api.getScheduleDetail(scheduleIdx)
-            .map {
-                it
-            }
+    override fun scheduleDetail(scheduleIdx: Int): Observable<ScheduleDetailResponse> = api
+        .getScheduleDetail(scheduleIdx)
+        .map { it }
 
-    override fun postSchedule(jsonObject: JsonObject): Observable<DefaultResponse> =
-        api.postSchedule(jsonObject)
-            .map {
-                it
-            }
+    override fun postSchedule(jsonObject: JsonObject): Observable<DefaultResponse> = api
+        .postSchedule(jsonObject)
+        .map { it }
+
+    override fun deleteSchedule(scheduleIdx: Int): Observable<NoneDataResponse> = api
+        .deleteSchedule(scheduleIdx)
+        .map { it }
+
 
     override fun homeSchedule(): Observable<HomeResponse> = api.getHomeSchedule()
 
@@ -57,7 +58,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
             it
         }
 
-    override fun registerFavoritePlaces(jsonObject: JsonObject): Observable<FavoriteResponse> =
+    override fun registerFavoritePlaces(jsonObject: JsonObject): Observable<RegistFavoriteResponse> =
         api.registerFavoritePlaces(jsonObject).map { it }
 
     override fun homeTestSchedule(scheduleCheck: Int): Observable<HomeResponse> =
@@ -66,7 +67,7 @@ class RemoteDataSourceImpl : RemoteDataSource {
     override fun registerUserNickName(jsonObject: JsonObject): Observable<NickNameResponse> =
         api.registerUserNickName(jsonObject).map { it }
 
-    override fun getFavoriteList(): Observable<FavoriteResponse> =
+    override fun getFavoriteList(): Observable<GetFavoriteResponse> =
         api.getFavoriteList().map { it }
 
 }

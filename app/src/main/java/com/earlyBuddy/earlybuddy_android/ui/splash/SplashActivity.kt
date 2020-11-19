@@ -1,14 +1,16 @@
 package com.earlyBuddy.earlybuddy_android.ui.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.TransportMap
 import com.earlyBuddy.earlybuddy_android.data.pref.SharedPreferenceController
 import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
+import com.earlyBuddy.earlybuddy_android.ui.initial.nickname.NickNameActivity
+import com.earlyBuddy.earlybuddy_android.ui.initial.onBoard.OnBoardActivity
 import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseApp
@@ -64,14 +66,28 @@ class SplashActivity : AppCompatActivity() {
         act_splash_av.playAnimation()
     }
 
-    private fun autoLogin(){
-
-        if(SharedPreferenceController.getAutoLogin(this) && SharedPreferenceController.getAuthorization(this) != ""){
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+    private fun autoLogin() {
+        if (!SharedPreferenceController.isLookOnBoarding(this)) {
+            startActivity(Intent(this, OnBoardActivity::class.java))
+            SharedPreferenceController.setLookOnBoarding(this)
             finish()
         } else {
-            goToSigninActivity()
+            if (SharedPreferenceController.getAutoLogin(this) && SharedPreferenceController.getAuthorization(
+                    this
+                ) != ""
+            ) {
+                if (SharedPreferenceController.getNickName(this) == "") {
+                    val intent = Intent(this, NickNameActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            } else {
+                goToSigninActivity()
+            }
         }
     }
 

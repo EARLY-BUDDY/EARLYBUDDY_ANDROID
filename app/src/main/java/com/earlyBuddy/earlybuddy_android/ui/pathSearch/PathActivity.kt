@@ -21,6 +21,7 @@ import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPath
 import com.earlyBuddy.earlybuddy_android.data.datasource.local.entity.RecentPlaceEntity
 import com.earlyBuddy.earlybuddy_android.databinding.ActivityPathBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
+import com.earlyBuddy.earlybuddy_android.ui.Loading
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.EndPlaceSearchActivity
 import com.earlyBuddy.earlybuddy_android.ui.placeSearch.StartPlaceSearchActivity
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -117,6 +118,17 @@ class PathActivity : BaseActivity<ActivityPathBinding, PathViewModel>() {
             recentPathAdapter.run {
                 replaceAll(it)
                 notifyDataSetChanged()
+            }
+        })
+
+        viewModel.loading.observe(this, Observer {
+            when(it){
+                true -> {
+                    Loading.goLoading(this)
+                }
+                false -> {
+                    Loading.exitLoading()
+                }
             }
         })
 

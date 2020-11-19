@@ -20,6 +20,8 @@ class NoScheduleActivity : BaseActivity<ActivityHomeNoScheduleBinding, NoSchedul
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
         viewDataBinding.actHomeNoIvPlanner.onlyOneClickListener {
             val intent = Intent(this, CalendarActivity::class.java)
             startActivity(intent)
@@ -36,6 +38,8 @@ class NoScheduleActivity : BaseActivity<ActivityHomeNoScheduleBinding, NoSchedul
             val intent = Intent(this, MyPageActivity::class.java)
             startActivity(intent)
         }
+
+        viewDataBinding.actHomeNoTvText.text = intent.getStringExtra("nickName")+"님!\n일정을 추가해 볼까요?"
     }
 
     override fun onRestart() {
