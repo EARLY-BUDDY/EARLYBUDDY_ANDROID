@@ -43,6 +43,7 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         viewDataBinding.vm = viewModel
         focusController()
         setButton()
@@ -51,7 +52,9 @@ class SignInActivity : BaseActivity<ActivitySignInBinding, SignInViewModel>() {
         hideKeyboard(viewDataBinding.actSignInEtPw)
 //        confirmSignIn()
 
-        SharedPreferenceController.setAutoLogin(this, false)
+        act_sign_in_iv_auto_login.isSelected = true
+        SharedPreferenceController.setAutoLogin(this, true)
+
 
     }
 
