@@ -100,6 +100,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/act_schedule_round_white_box"
                         android:orientation="vertical"
+                        android:paddingBottom="24dp"
                         android:paddingHorizontal="21dp">
 
                         <TextView
@@ -271,25 +272,25 @@
                             android:textSize="16sp"
                             tools:text="1시간 전부터" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="24dp"
-                            android:fontFamily="@font/noto_sans_kr_bold"
-                            android:text="알람반복"
-                            android:textColor="#2f90fc"
-                            android:textSize="13dp" />
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="24dp"-->
+<!--                            android:fontFamily="@font/noto_sans_kr_bold"-->
+<!--                            android:text="알람반복"-->
+<!--                            android:textColor="#2f90fc"-->
+<!--                            android:textSize="13dp" />-->
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/act_schedule_detail_rv_day"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity=""
-                            android:layout_marginTop="15dp"
-                            android:layout_marginBottom="32dp"
-                            android:clipToPadding="false"
-                            android:orientation="horizontal"
-                            tools:listitem="@layout/item_schedule_detail_weekday" />
+<!--                        <androidx.recyclerview.widget.RecyclerView-->
+<!--                            android:id="@+id/act_schedule_detail_rv_day"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity=""-->
+<!--                            android:layout_marginTop="15dp"-->
+<!--                            android:layout_marginBottom="32dp"-->
+<!--                            android:clipToPadding="false"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            tools:listitem="@layout/item_schedule_detail_weekday" />-->
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

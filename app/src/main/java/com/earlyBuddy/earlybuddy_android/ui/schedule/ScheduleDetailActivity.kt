@@ -32,7 +32,7 @@ class ScheduleDetailActivity : BaseActivity<ActivityScheduleDetailBinding,Schedu
         viewModel.getPathData(scheduleIdx)
 
         setLoading()
-        setRv()
+//        setRv()
         setRoute()
         setButton()
 
@@ -91,47 +91,47 @@ class ScheduleDetailActivity : BaseActivity<ActivityScheduleDetailBinding,Schedu
 
     }
 
-    fun setRv(){
-
-        viewDataBinding.actScheduleDetailRvDay.run{
-            adapter = object : BaseRecyclerViewAdapter<SelectedDay, ItemScheduleDetailWeekdayBinding>(){
-                override val layoutResID: Int
-                    get() = R.layout.item_schedule_detail_weekday
-                override val bindingVariableId: Int
-                    get() = BR.weekDay
-                override val listener: OnItemClickListener?
-                    get() = null
-            }
-
-            layoutManager = GridLayoutManager(this@ScheduleDetailActivity, 7)
-        }
-
-
-        viewModel.scheduleDetail.observe(this, Observer {
-            var weekDay = arrayListOf(
-                SelectedDay("월", false),
-                SelectedDay("화", false),
-                SelectedDay("수", false),
-                SelectedDay("목", false),
-                SelectedDay("금", false),
-                SelectedDay("토", false),
-                SelectedDay("일", false)
-            )
-
-            for(i in 0 until weekDay.size){
-                if(it.weekdayInfo.contains(i)){
-                    weekDay[i].isSelected = true
-                }
-            }
-
-            (viewDataBinding.actScheduleDetailRvDay.adapter as BaseRecyclerViewAdapter<SelectedDay, *>).run{
-                replaceAll(weekDay)
-                notifyDataSetChanged()
-            }
-
-
-        })
-    }
+//    fun setRv(){
+//
+//        viewDataBinding.actScheduleDetailRvDay.run{
+//            adapter = object : BaseRecyclerViewAdapter<SelectedDay, ItemScheduleDetailWeekdayBinding>(){
+//                override val layoutResID: Int
+//                    get() = R.layout.item_schedule_detail_weekday
+//                override val bindingVariableId: Int
+//                    get() = BR.weekDay
+//                override val listener: OnItemClickListener?
+//                    get() = null
+//            }
+//
+//            layoutManager = GridLayoutManager(this@ScheduleDetailActivity, 7)
+//        }
+//
+//
+//        viewModel.scheduleDetail.observe(this, Observer {
+//            var weekDay = arrayListOf(
+//                SelectedDay("월", false),
+//                SelectedDay("화", false),
+//                SelectedDay("수", false),
+//                SelectedDay("목", false),
+//                SelectedDay("금", false),
+//                SelectedDay("토", false),
+//                SelectedDay("일", false)
+//            )
+//
+//            for(i in 0 until weekDay.size){
+//                if(it.weekdayInfo.contains(i)){
+//                    weekDay[i].isSelected = true
+//                }
+//            }
+//
+//            (viewDataBinding.actScheduleDetailRvDay.adapter as BaseRecyclerViewAdapter<SelectedDay, *>).run{
+//                replaceAll(weekDay)
+//                notifyDataSetChanged()
+//            }
+//
+//
+//        })
+//    }
 
     private fun setButton(){
         viewDataBinding.actScheduleDetailIvBack.onlyOneClickListener {

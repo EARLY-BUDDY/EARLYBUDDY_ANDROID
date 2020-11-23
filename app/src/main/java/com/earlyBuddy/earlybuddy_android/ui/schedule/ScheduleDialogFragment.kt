@@ -1,5 +1,6 @@
 package com.earlyBuddy.earlybuddy_android.ui.schedule
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -8,11 +9,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.earlyBuddy.earlybuddy_android.R
 import com.earlyBuddy.earlybuddy_android.databinding.DialogFragmentScheduleRegistBinding
 import com.earlyBuddy.earlybuddy_android.onlyOneClickListener
+import com.earlyBuddy.earlybuddy_android.ui.home.HomeActivity
+import com.earlyBuddy.earlybuddy_android.ui.signUp.SignInActivity
 
 class ScheduleDialogFragment(
     val scheduleIdx : Int
@@ -59,7 +63,10 @@ class ScheduleDialogFragment(
             startActivity(intent)
         }
         databinding.dialogFragmentSchePopUpTvHome.onlyOneClickListener {
+            val intent = Intent(this@ScheduleDialogFragment.context, HomeActivity::class.java)
+            ActivityCompat.finishAffinity(this@ScheduleDialogFragment.activity as Activity)
             dismiss()
+            startActivity(intent)
         }
     }
 }
